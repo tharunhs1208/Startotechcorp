@@ -1,39 +1,55 @@
 
 'use client'
-import { useEffect, useRef } from "react"
+import { useEffect, useRef,useState } from "react"
 import { ArrowUp, ShoppingCart,UserPlus,DollarSign ,ArrowDown,Package} from 'lucide-react'
 import {DashboardChart} from "@/components/StatCard";
 import SalesOverview from "@/components/SalesOverview";
 import Link from "next/link";
 export default function Hero() {
-  const glowRef = useRef<HTMLDivElement | null>(null)
+  const glowRef = useRef<HTMLDivElement | null>(null);
+  const heroConRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const glow = glowRef.current
-    if (!glow) return
+    const glow = glowRef.current;
+    if (!glow) return;
 
-    let x = 0, y = 0
-    let targetX = 0, targetY = 0
+    let x = 0,
+      y = 0;
+    let targetX = 0,
+      targetY = 0;
 
     const move = (e: MouseEvent) => {
-      targetX = e.clientX
-      targetY = e.clientY
-    }
+      targetX = e.clientX;
+      targetY = e.clientY;
+    };
 
     const animate = () => {
-      // smoothing (the magic)
-      x += (targetX - x) * 0.08
-      y += (targetY - y) * 0.08
+      x += (targetX - x) * 0.08;
+      y += (targetY - y) * 0.08;
 
-      glow.style.transform = `translate3d(${x - 150}px, ${y - 150}px, 0)`
-      requestAnimationFrame(animate)
-    }
+      glow.style.transform = `translate3d(${x - 150}px, ${y - 150}px, 0)`;
+      requestAnimationFrame(animate);
+    };
 
-    window.addEventListener("mousemove", move)
-    animate()
+    window.addEventListener("mousemove", move);
+    animate();
 
-    return () => window.removeEventListener("mousemove", move)
-  }, [])
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  useEffect(() => {
+  const handleScroll = () => {
+    if (!heroConRef.current) return;
+
+    const scale = Math.min(1.3, 1 + window.scrollY * 0.001);
+
+    heroConRef.current.style.transform = `scale(${scale})`;
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
   return (
     <section className="lp-hero">
       
@@ -67,7 +83,8 @@ export default function Hero() {
         </div>
 
         {/* Stats row */}
-        <div className="lp-hero__stats">
+        <div ref={heroConRef} className="lp-hero_con">
+          <div className="lp-hero__stats">
           <div 
       style={{
   width: '201.82px',
@@ -175,7 +192,7 @@ export default function Hero() {
       <div style={{
     width: '42px',
     height: '42px',
-    background: 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
+    background: 'linear-gradient(135deg, #0064f0 0%, #0051ff 100%)',
     borderRadius: '50%',
     display: 'flex',
     alignItems: 'center',
@@ -233,7 +250,7 @@ export default function Hero() {
       <div style={{
   width: '42px',
   height: '42px',
-  backgroundColor: 'black',
+  backgroundColor:' #0064f0' ,
   borderRadius: '50%',
   display: 'flex',
   alignItems: 'center',
@@ -312,6 +329,7 @@ export default function Hero() {
         <div className="lp-hero__mockup">
         <DashboardChart/>
          <SalesOverview/>
+        </div>
         </div>
       </div>
       

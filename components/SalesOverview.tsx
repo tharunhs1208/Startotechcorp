@@ -23,7 +23,7 @@ export default function SalesOverview() {
       width: "250.23px",
       height: "275.95px",
       background: "#fff",
-      borderRadius: "6.24px",
+      borderRadius: "16px",
       border: "1px solid #F1F5F9",
       boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
       padding: "18px",
@@ -43,13 +43,20 @@ export default function SalesOverview() {
         <svg width="200" height="120" viewBox="0 0 200 120">
           {segments.map((seg, i) => (
             <path
-              key={i}
-              d={seg.d}
-              fill="none"
-              stroke={seg.filled ? (seg.late ? "#60a5fa" : "#2563eb") : "#e2e8f0"}
-              strokeWidth="13"
-              strokeLinecap="round"
-            />
+  key={i}
+  d={seg.d}
+  fill="none"
+  stroke={seg.filled ? (seg.late ? "#60a5fa" : "#2563eb") : "#e2e8f0"}
+  strokeWidth="13"
+  strokeLinecap="round"
+  style={{
+    strokeDasharray: 100,
+    strokeDashoffset: seg.filled ? 0 : 100,
+    animation: seg.filled
+      ? `gaugeFill 0.8s ease forwards ${i * 0.15}s`
+      : "none",
+  }}
+/>
           ))}
         </svg>
         <div style={{ position: "absolute", bottom: 8, textAlign: "center" }}>

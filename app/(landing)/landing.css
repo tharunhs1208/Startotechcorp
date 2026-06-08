@@ -387,7 +387,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  
+
 
    
 }
@@ -691,7 +691,7 @@
   z-index: 2;
   max-width: 1180px;
   margin: 0 auto;
-  padding-top: 140px; /* navbar offset */
+  padding-top: 180px; /* navbar offset */
   gap:16px;
 }
 @keyframes lp-slideUp {
@@ -855,11 +855,42 @@
 
 /* Stats */
 .lp-hero__stats {
-  display: flex; align-items: center; justify-content: center;
-  gap:10px;
-  margin-top: 40px; flex-wrap: wrap;
-  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+
+  transform: scale(1);
+  transition: transform 0.6s ease-out;
 }
+.lp-hero_con {
+  margin: 0 auto;
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+.lp-hero__stats.zoomed {
+  transform: scale(1.08);
+}
+@keyframes gaugeFill {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+
 .lp-stat { text-align: center; padding: 0 28px; }
 .lp-stat__val { font-family: var(--lp-font-head); font-size: 1.6rem; font-weight: 800; color: var(--lp-text); }
 .lp-stat__sup { font-size: 1rem; }
@@ -884,11 +915,12 @@
 /* Mockup */
 .lp-hero__mockup {
   margin-top:17.91px;
-  margin-left:251px;
-   display: flex; align-items: center; justify-content: center;
+  margin-left:7px;
+  display: flex; align-items: center; justify-content: center;
   gap:20px;
-  overflow: visible; border: 1px solid var(--lp-border);
-  max-width: 680px; 
+  overflow: visible; 
+  min-width: 837px; 
+  max-width: 1169px;
 }
 .lp-mockup-bar {
   background: #f1f5f9; padding: 10px 14px;
@@ -1724,7 +1756,7 @@ position: relative;
   .lp-hamburger   { display: flex; }
   .lp-section     { padding: 64px 0; }
   .lp-platform__grid { grid-template-columns: 1fr; }
-  .lp-hero__stats { gap: 12px; padding: 16px 20px; }
+ 
   .lp-stat        { padding: 0 14px; }
   .lp-stat__div   { display: none; }
   .lp-impact__diagram { width: 320px; height: 320px; }

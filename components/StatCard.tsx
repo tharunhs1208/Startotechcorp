@@ -62,7 +62,7 @@ export function DashboardChart() {
         className="w-full"
        style={{
   height: "100px",
-  width: "350px",
+  width: "450px",
   minHeight: "200px",
 }}
       >
@@ -123,17 +123,7 @@ export function DashboardChart() {
   }}
           />
 
-          <ChartTooltip
-  cursor={false}
-  content={
-    <ChartTooltipContent 
-      indicator="line" // or "dot" / "line" based on your preference
-      hideLabel={false}
-      
  
-    />
-  }
-/>
 
 
           <Bar
