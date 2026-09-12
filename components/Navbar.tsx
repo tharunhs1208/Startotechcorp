@@ -45,6 +45,81 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+            {/* Products Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setProductsDropdownOpen(true)}
+              onMouseLeave={() => setProductsDropdownOpen(false)}
+            >
+              <button
+                className="flex items-center gap-1.5 hover:text-white transition-colors py-2 cursor-pointer"
+              >
+                <span>Products</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    productsDropdownOpen ? "rotate-180 text-[#e70000]" : ""
+                  }`}
+                />
+              </button>
+
+              {productsDropdownOpen && (
+                <div className="absolute top-full left-0 w-80 pt-2 z-50">
+                  <div className="bg-[#12141d]/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-2xl shadow-black/80 flex flex-col gap-1">
+                    <Link
+                      href="/portfolio"
+                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-all text-left group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform">
+                        <Mic className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-white text-sm group-hover:text-purple-300 transition-colors">
+                          Zobay
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          Autonomous Voice AI & Phone Agents
+                        </div>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/portfolio"
+                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-all text-left group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                        <LayoutGrid className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-white text-sm group-hover:text-emerald-300 transition-colors">
+                          StartOne
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          Unified Cloud Enterprise OS
+                        </div>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/portfolio"
+                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-all text-left group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
+                        <Shield className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-white text-sm group-hover:text-amber-300 transition-colors">
+                          LegalX
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          AI Contract & Compliance Intelligence
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Portfolio Link */}
             <Link
               href="/portfolio"
@@ -75,6 +150,14 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
               className="hover:text-white transition-colors cursor-pointer"
             >
               About
+            </Link>
+
+            {/* Awards Link */}
+            <Link
+              href="/awards"
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Awards
             </Link>
 
             {/* Contact Us Link */}
