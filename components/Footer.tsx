@@ -19,9 +19,35 @@ export default function Footer({ onOpenDemo }: FooterProps) {
   };
 
   return (
-    <footer className="bg-[#07080c] border-t border-white/10 pt-16 pb-12 relative z-20">
+    <footer className="bg-[#07080c] border-t border-white/10 pt-20 pb-12 relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+        
+        {/* Redstone signature 'Let's Move the World Together' CTA Banner */}
+        <div className="text-center max-w-4xl mx-auto pb-20 border-b border-white/10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e70000]/10 border border-[#e70000]/25 text-[#ff4d4d] text-xs font-bold uppercase tracking-wider mb-6">
+            FortuneTechCorp Executive Access
+          </div>
+          <h2 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[1.1] mb-8">
+            Let's Build the{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">
+              Autonomous Future
+            </span>{" "}
+            Together
+          </h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => onOpenDemo()}
+              className="redstone-btn text-base px-7 py-3.5"
+            >
+              <span>Schedule Enterprise Briefing</span>
+              <div className="btn-icon-circle w-9 h-9">
+                <ArrowUp className="w-4 h-4 text-white rotate-45" />
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-16 border-b border-white/10">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">

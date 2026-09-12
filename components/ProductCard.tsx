@@ -313,25 +313,21 @@ export default function ProductCard({ product, onOpenDemo, onExpandDetails }: Pr
         <button
           type="button"
           onClick={() => onExpandDetails(product)}
-          className="flex-1 py-3 px-4 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-gray-200 hover:text-white border border-white/10 font-medium text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+          className="flex-1 py-2.5 px-4 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-gray-200 hover:text-white border border-white/10 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
-          <span>Deep Specs</span>
+          <span>Blueprint & Specs</span>
           <ExternalLink className="w-3.5 h-3.5 opacity-70" />
         </button>
 
         <button
           type="button"
           onClick={() => onOpenDemo(product.name)}
-          className={`flex-1 py-3 px-4 rounded-xl font-semibold text-xs sm:text-sm text-white shadow-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            product.id === "product-zobay"
-              ? "bg-purple-600 hover:bg-purple-500 shadow-purple-600/30"
-              : product.id === "product-startone"
-              ? "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-600/30"
-              : "bg-amber-600 hover:bg-amber-500 shadow-amber-600/30"
-          }`}
+          className="flex-1 py-2 px-3 pl-4 rounded-full bg-[#e70000] hover:bg-[#ff1a1a] text-white font-bold text-xs sm:text-sm shadow-lg shadow-[#e70000]/30 transition-all flex items-center justify-between gap-1.5 cursor-pointer group"
         >
           <span>Deploy {product.name}</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <div className="w-7 h-7 rounded-full bg-black/25 flex items-center justify-center group-hover:rotate-[-45deg] transition-transform">
+            <ArrowRight className="w-3.5 h-3.5 text-white" />
+          </div>
         </button>
       </div>
     </div>

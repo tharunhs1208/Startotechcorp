@@ -165,17 +165,19 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={() => onOpenDemo("Fortune Suite")}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
+              className="px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
             >
-              Contact Team
+              Contact Us
             </button>
 
             <button
               onClick={() => onOpenDemo()}
-              className="relative group overflow-hidden px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-size-200 hover:bg-right transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] cursor-pointer flex items-center gap-2"
+              className="redstone-btn"
             >
-              <Sparkles className="w-4 h-4 text-indigo-200" />
-              <span>Request Private Access</span>
+              <span>Let's talk</span>
+              <div className="btn-icon-circle">
+                <ArrowRight className="w-4 h-4 text-white" />
+              </div>
             </button>
           </div>
 
