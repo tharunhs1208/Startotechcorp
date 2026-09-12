@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Mic, LayoutGrid, Shield, ArrowUp, Globe, Mail } from "lucide-react";
 
 interface FooterProps {
@@ -9,13 +10,6 @@ interface FooterProps {
 export default function Footer({ onOpenDemo }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
   };
 
   return (
@@ -50,16 +44,16 @@ export default function Footer({ onOpenDemo }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-16 border-b border-white/10">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-amber-500 p-[2px]">
                 <div className="w-full h-full bg-[#090a0f] rounded-[10px] flex items-center justify-center font-black text-white text-lg">
                   F
                 </div>
               </div>
               <span className="font-bold text-lg text-white tracking-tight">
-                Fortune<span className="text-indigo-400">Tech</span>CORP
+                Fortune<span className="text-[#e70000]">Tech</span>CORP
               </span>
-            </div>
+            </Link>
             <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
               Architecting the next century of autonomous enterprise infrastructure. Unified voice AI, modern business operating systems, and automated legal intelligence.
             </p>
@@ -79,39 +73,39 @@ export default function Footer({ onOpenDemo }: FooterProps) {
             </h4>
             <ul className="space-y-2.5 text-sm text-gray-400">
               <li>
-                <button
-                  onClick={() => scrollToSection("product-zobay")}
+                <Link
+                  href="/portfolio"
                   className="hover:text-purple-400 transition-colors flex items-center gap-2"
                 >
                   <Mic className="w-3.5 h-3.5" />
                   <span>Zobay Voice AI</span>
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("product-startone")}
+                <Link
+                  href="/portfolio"
                   className="hover:text-emerald-400 transition-colors flex items-center gap-2"
                 >
                   <LayoutGrid className="w-3.5 h-3.5" />
                   <span>StartOne Enterprise OS</span>
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("product-legalx")}
+                <Link
+                  href="/portfolio"
                   className="hover:text-amber-400 transition-colors flex items-center gap-2"
                 >
                   <Shield className="w-3.5 h-3.5" />
                   <span>LegalX AI Counsel</span>
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("ecosystem-section")}
+                <Link
+                  href="/services"
                   className="hover:text-indigo-400 transition-colors"
                 >
                   Autonomous Synergy
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -119,28 +113,28 @@ export default function Footer({ onOpenDemo }: FooterProps) {
           {/* Solutions / Infrastructure */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Infrastructure
+              Pages
             </h4>
             <ul className="space-y-2.5 text-sm text-gray-400">
               <li>
-                <button onClick={() => scrollToSection("bento-features")} className="hover:text-white transition-colors">
-                  Zero-Trust Architecture
-                </button>
+                <Link href="/portfolio" className="hover:text-white transition-colors">
+                  Portfolio
+                </Link>
               </li>
               <li>
-                <button onClick={() => scrollToSection("bento-features")} className="hover:text-white transition-colors">
-                  Edge POP Topology
-                </button>
+                <Link href="/services" className="hover:text-white transition-colors">
+                  Services
+                </Link>
               </li>
               <li>
-                <button onClick={() => scrollToSection("bento-features")} className="hover:text-white transition-colors">
-                  Air-Gapped VPC Clusters
-                </button>
+                <Link href="/technologies" className="hover:text-white transition-colors">
+                  Technologies
+                </Link>
               </li>
               <li>
-                <button onClick={() => onOpenDemo()} className="hover:text-white transition-colors">
-                  Fortune Core SDK
-                </button>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About Us
+                </Link>
               </li>
             </ul>
           </div>
@@ -152,12 +146,12 @@ export default function Footer({ onOpenDemo }: FooterProps) {
             </h4>
             <ul className="space-y-2.5 text-sm text-gray-400">
               <li>
-                <button onClick={() => onOpenDemo()} className="hover:text-white transition-colors">
-                  Request Sandbox Key
-                </button>
+                <Link href="/contacts" className="hover:text-white transition-colors">
+                  Contact Form
+                </Link>
               </li>
               <li>
-                <button onClick={() => onOpenDemo()} className="hover:text-white transition-colors">
+                <button onClick={() => onOpenDemo()} className="hover:text-white transition-colors cursor-pointer">
                   Schedule Executive Briefing
                 </button>
               </li>

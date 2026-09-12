@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { Sparkles, Menu, X, ArrowRight, Shield, Mic, LayoutGrid, ChevronDown } from "lucide-react";
 
+import Link from "next/link";
+
 interface NavbarProps {
   onOpenDemo: (product?: string) => void;
 }
@@ -20,15 +22,6 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    setMobileMenuOpen(false);
-    setProductsDropdownOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -40,138 +33,67 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Redstone-style Brand Logo */}
-          <div
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          <Link
+            href="/"
             className="flex items-center gap-2 cursor-pointer group select-none"
           >
             <span className="font-black text-2xl tracking-tighter text-white uppercase flex items-center">
               FORTUNE<span className="text-[#e70000]">TECH</span>
               <span className="w-2 h-2 rounded-full bg-[#e70000] ml-1 inline-block animate-pulse"></span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-            {/* Products Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setProductsDropdownOpen(true)}
-              onMouseLeave={() => setProductsDropdownOpen(false)}
-            >
-              <button
-                onClick={() => scrollToSection("products-showcase")}
-                className="flex items-center gap-1.5 hover:text-white transition-colors py-2 cursor-pointer"
-              >
-                <span>Products</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    productsDropdownOpen ? "rotate-180 text-indigo-400" : ""
-                  }`}
-                />
-              </button>
-
-              {productsDropdownOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-80 pt-2 z-50">
-                  <div className="bg-[#12141d]/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-2xl shadow-black/80 flex flex-col gap-1 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <button
-                      onClick={() => scrollToSection("product-zobay")}
-                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-all text-left group"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform">
-                        <Mic className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-white text-sm group-hover:text-purple-300 transition-colors">
-                          Zobay
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          Autonomous Voice AI & Inbound Agents
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => scrollToSection("product-startone")}
-                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-all text-left group"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
-                        <LayoutGrid className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-white text-sm group-hover:text-emerald-300 transition-colors">
-                          StartOne
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          Unified Cloud Enterprise Operating System
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => scrollToSection("product-legalx")}
-                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-all text-left group"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
-                        <Shield className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-white text-sm group-hover:text-amber-300 transition-colors">
-                          LegalX
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          AI Contract Audit & Legal Intelligence
-                        </div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={() => scrollToSection("products-showcase")}
+            {/* Portfolio Link */}
+            <Link
+              href="/portfolio"
               className="hover:text-white transition-colors cursor-pointer"
             >
               Portfolio
-            </button>
+            </Link>
 
-            <button
-              onClick={() => scrollToSection("ecosystem-section")}
+            {/* Services Link */}
+            <Link
+              href="/services"
               className="hover:text-white transition-colors cursor-pointer"
             >
               Services
-            </button>
+            </Link>
 
-            <button
-              onClick={() => scrollToSection("tech-stack-section")}
+            {/* Technologies Link */}
+            <Link
+              href="/technologies"
               className="hover:text-white transition-colors cursor-pointer"
             >
               Technologies
-            </button>
+            </Link>
 
-            <button
-              onClick={() => scrollToSection("testimonials-section")}
+            {/* About Link */}
+            <Link
+              href="/about"
               className="hover:text-white transition-colors cursor-pointer"
             >
-              Clients
-            </button>
+              About
+            </Link>
 
-            <button
-              onClick={() => scrollToSection("faq-section")}
+            {/* Contact Us Link */}
+            <Link
+              href="/contacts"
               className="hover:text-white transition-colors cursor-pointer"
             >
-              FAQ
-            </button>
+              Contacts
+            </Link>
           </nav>
 
           {/* Action CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={() => onOpenDemo("Fortune Suite")}
+            <Link
+              href="/contacts"
               className="px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
             >
               Contact Us
-            </button>
+            </Link>
 
             <button
               onClick={() => onOpenDemo()}
@@ -201,44 +123,48 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
         <div className="md:hidden bg-[#0e1017] border-b border-white/10 px-6 py-6 space-y-4 shadow-2xl">
           <div className="space-y-2">
             <div className="text-xs uppercase font-bold text-gray-500 tracking-wider">
-              Products
+              Navigation
             </div>
-            <button
-              onClick={() => scrollToSection("product-zobay")}
+            <Link
+              href="/portfolio"
+              onClick={() => setMobileMenuOpen(false)}
               className="w-full text-left py-2 text-white flex items-center justify-between"
             >
-              <span>Zobay (Voice AI)</span>
-              <span className="text-purple-400 text-xs flex items-center gap-1">Explore <ArrowRight className="w-3 h-3" /></span>
-            </button>
-            <button
-              onClick={() => scrollToSection("product-startone")}
+              <span>Portfolio</span>
+              <ArrowRight className="w-3 h-3 text-gray-400" />
+            </Link>
+            <Link
+              href="/services"
+              onClick={() => setMobileMenuOpen(false)}
               className="w-full text-left py-2 text-white flex items-center justify-between"
             >
-              <span>StartOne (Enterprise OS)</span>
-              <span className="text-emerald-400 text-xs flex items-center gap-1">Explore <ArrowRight className="w-3 h-3" /></span>
-            </button>
-            <button
-              onClick={() => scrollToSection("product-legalx")}
+              <span>Services</span>
+              <ArrowRight className="w-3 h-3 text-gray-400" />
+            </Link>
+            <Link
+              href="/technologies"
+              onClick={() => setMobileMenuOpen(false)}
               className="w-full text-left py-2 text-white flex items-center justify-between"
             >
-              <span>LegalX (Contract Intelligence)</span>
-              <span className="text-amber-400 text-xs flex items-center gap-1">Explore <ArrowRight className="w-3 h-3" /></span>
-            </button>
-          </div>
-
-          <div className="pt-2 border-t border-white/5 space-y-2">
-            <button
-              onClick={() => scrollToSection("ecosystem-section")}
-              className="w-full text-left py-2 text-gray-300"
+              <span>Technologies</span>
+              <ArrowRight className="w-3 h-3 text-gray-400" />
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-left py-2 text-white flex items-center justify-between"
             >
-              Ecosystem Integration
-            </button>
-            <button
-              onClick={() => scrollToSection("bento-features")}
-              className="w-full text-left py-2 text-gray-300"
+              <span>About Us</span>
+              <ArrowRight className="w-3 h-3 text-gray-400" />
+            </Link>
+            <Link
+              href="/contacts"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-left py-2 text-white flex items-center justify-between"
             >
-              Security & Architecture
-            </button>
+              <span>Contacts</span>
+              <ArrowRight className="w-3 h-3 text-gray-400" />
+            </Link>
           </div>
 
           <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
@@ -247,7 +173,7 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
                 setMobileMenuOpen(false);
                 onOpenDemo();
               }}
-              className="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold text-center text-sm shadow-lg shadow-indigo-600/30"
+              className="w-full py-3 rounded-xl bg-[#e70000] text-white font-semibold text-center text-sm shadow-lg shadow-[#e70000]/30"
             >
               Request Private Access
             </button>
