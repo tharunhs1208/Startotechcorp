@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Star, Mic, LayoutGrid, Shield, Sparkles, Play, Pause, Award } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -87,17 +88,18 @@ export default function Hero({ onOpenDemo, onSelectProduct }: HeroProps) {
               whileTap={{ scale: 0.98 }}
               className="headline-capsule inline-flex items-center justify-center group cursor-pointer align-middle select-none mx-2 sm:mx-3 border-2 border-white/20 hover:border-[#e70000] transition-colors shadow-lg shadow-[#e70000]/20 relative overflow-hidden"
             >
-              {/* Background Video Simulation with dynamic canvas rendering */}
+              {/* Background Video Simulation with Redstone stream */}
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
+                preload="auto"
                 className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                 poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
               >
                 <source
-                  src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-charts-and-data-31913-large.mp4"
+                  src="https://redstone.software/video/video-banner4.mp4"
                   type="video/mp4"
                 />
               </video>
@@ -194,29 +196,31 @@ export default function Hero({ onOpenDemo, onSelectProduct }: HeroProps) {
 
           {/* Right: Redstone Signature CTA Pills */}
           <div className="flex items-center gap-4 flex-wrap justify-center">
-            <motion.button
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={scrollToProducts}
-              className="redstone-btn-secondary"
-            >
-              <span>Explore 3 Products</span>
-              <div className="btn-icon-circle">
-                <ArrowRight className="w-4 h-4 text-white" />
-              </div>
-            </motion.button>
+            <Link href="/portfolio">
+              <motion.div
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="redstone-btn-secondary cursor-pointer"
+              >
+                <span>Explore 3 Products</span>
+                <div className="btn-icon-circle">
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </div>
+              </motion.div>
+            </Link>
 
-            <motion.button
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => onOpenDemo()}
-              className="redstone-btn"
-            >
-              <span>Let's talk</span>
-              <div className="btn-icon-circle">
-                <ArrowRight className="w-4 h-4 text-white" />
-              </div>
-            </motion.button>
+            <Link href="/contacts">
+              <motion.div
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="redstone-btn cursor-pointer"
+              >
+                <span>Let's talk</span>
+                <div className="btn-icon-circle">
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </div>
+              </motion.div>
+            </Link>
           </div>
         </motion.div>
 
@@ -229,67 +233,61 @@ export default function Hero({ onOpenDemo, onSelectProduct }: HeroProps) {
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {/* Zobay Switch */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.99 }}
-              onClick={() => onSelectProduct("product-zobay")}
-              className="p-3.5 rounded-xl bg-white/[0.03] hover:bg-purple-500/10 border border-transparent hover:border-purple-500/30 transition-all duration-200 text-left cursor-pointer group"
-            >
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <div className="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center">
-                  <Mic className="w-4 h-4" />
+            <Link href="/portfolio">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                className="p-4 rounded-xl bg-white/[0.03] hover:bg-purple-500/10 border border-transparent hover:border-purple-500/30 transition-all duration-200 text-left cursor-pointer group h-full"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-bold text-white text-base group-hover:text-purple-300">Zobay</span>
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300">
+                    Voice AI
+                  </span>
                 </div>
-                <span className="font-bold text-white text-sm group-hover:text-purple-300">Zobay</span>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 ml-auto">
-                  Voice AI
-                </span>
-              </div>
-              <p className="text-xs text-gray-400 group-hover:text-gray-300">
-                Autonomous conversational phone agents & CRM syncing.
-              </p>
-            </motion.div>
+                <p className="text-xs text-gray-400 group-hover:text-gray-300 leading-relaxed">
+                  Autonomous conversational phone agents & CRM syncing.
+                </p>
+              </motion.div>
+            </Link>
 
             {/* StartOne Switch */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.99 }}
-              onClick={() => onSelectProduct("product-startone")}
-              className="p-3.5 rounded-xl bg-white/[0.03] hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all duration-200 text-left cursor-pointer group"
-            >
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                  <LayoutGrid className="w-4 h-4" />
+            <Link href="/portfolio">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                className="p-4 rounded-xl bg-white/[0.03] hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all duration-200 text-left cursor-pointer group h-full"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-bold text-white text-base group-hover:text-emerald-300">StartOne</span>
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
+                    Enterprise OS
+                  </span>
                 </div>
-                <span className="font-bold text-white text-sm group-hover:text-emerald-300">StartOne</span>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 ml-auto">
-                  Enterprise OS
-                </span>
-              </div>
-              <p className="text-xs text-gray-400 group-hover:text-gray-300">
-                Unified business ops, multi-org accounting & team spaces.
-              </p>
-            </motion.div>
+                <p className="text-xs text-gray-400 group-hover:text-gray-300 leading-relaxed">
+                  Unified business ops, multi-org accounting & team spaces.
+                </p>
+              </motion.div>
+            </Link>
 
             {/* LegalX Switch */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.99 }}
-              onClick={() => onSelectProduct("product-legalx")}
-              className="p-3.5 rounded-xl bg-white/[0.03] hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all duration-200 text-left cursor-pointer group"
-            >
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
-                  <Shield className="w-4 h-4" />
+            <Link href="/portfolio">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                className="p-4 rounded-xl bg-white/[0.03] hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all duration-200 text-left cursor-pointer group h-full"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-bold text-white text-base group-hover:text-amber-300">LegalX</span>
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">
+                    Legal Tech
+                  </span>
                 </div>
-                <span className="font-bold text-white text-sm group-hover:text-amber-300">LegalX</span>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 ml-auto">
-                  Legal Intel
-                </span>
-              </div>
-              <p className="text-xs text-gray-400 group-hover:text-gray-300">
-                Contract risk clause audits & machine-speed redlines.
-              </p>
-            </motion.div>
+                <p className="text-xs text-gray-400 group-hover:text-gray-300 leading-relaxed">
+                  AI risk audits, contract redlining & governance analysis.
+                </p>
+              </motion.div>
+            </Link>
           </div>
         </motion.div>
 
