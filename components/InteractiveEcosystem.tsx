@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Mic, LayoutGrid, Shield, ArrowRight, Zap, RefreshCw, Layers, CheckCircle2, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function InteractiveEcosystem() {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -102,66 +103,76 @@ export default function InteractiveEcosystem() {
             </div>
           </div>
 
-          {/* Dynamic Content Based on Active Step */}
-          {activeStep === 0 && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
-                  <Mic className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-sm font-bold text-white">Zobay Telephony Gateway Node</div>
-                  <div className="text-xs text-gray-400">Incoming call connected via WebRTC SIP trunking</div>
-                </div>
-              </div>
+          {/* Dynamic Content Based on Active Step with motion animation */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {activeStep === 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+                      <Mic className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-white">Zobay Telephony Gateway Node</div>
+                      <div className="text-xs text-gray-400">Incoming call connected via WebRTC SIP trunking</div>
+                    </div>
+                  </div>
 
-              <div className="p-4 rounded-xl bg-purple-950/20 border border-purple-500/20 font-mono text-xs text-purple-300 space-y-1.5">
-                <div>&gt; [AUDIO_STREAM] Real-time audio input received (16kHz PCM)</div>
-                <div>&gt; [NLP_ENTITY] Detected: Intent = "Enterprise License Inquiry" (Confidence: 0.994)</div>
-                <div>&gt; [AUTOMATION] Generated StartOne Task Token: #TK-84920</div>
-              </div>
-            </div>
-          )}
-
-          {activeStep === 1 && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
-                  <LayoutGrid className="w-5 h-5" />
+                  <div className="p-4 rounded-xl bg-purple-950/20 border border-purple-500/20 font-mono text-xs text-purple-300 space-y-1.5">
+                    <div>&gt; [AUDIO_STREAM] Real-time audio input received (16kHz PCM)</div>
+                    <div>&gt; [NLP_ENTITY] Detected: Intent = "Enterprise License Inquiry" (Confidence: 0.994)</div>
+                    <div>&gt; [AUTOMATION] Generated StartOne Task Token: #TK-84920</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-sm font-bold text-white">StartOne Enterprise Core Orchestrator</div>
-                  <div className="text-xs text-gray-400">Workflow trigger confirmed from Zobay voice intake</div>
-                </div>
-              </div>
+              )}
 
-              <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/20 font-mono text-xs text-emerald-300 space-y-1.5">
-                <div>&gt; [WORKFLOW] Provisioned Tenant Org: "Starlight Corp Ltd"</div>
-                <div>&gt; [LEDGER] Created Pending Invoice: $48,000 / yr (Automated Reconciliation)</div>
-                <div>&gt; [DISPATCH] Handed Off MSA Draft to LegalX AI Auditor Engine</div>
-              </div>
-            </div>
-          )}
+              {activeStep === 1 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                      <LayoutGrid className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-white">StartOne Enterprise Core Orchestrator</div>
+                      <div className="text-xs text-gray-400">Workflow trigger confirmed from Zobay voice intake</div>
+                    </div>
+                  </div>
 
-          {activeStep === 2 && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
-                  <Shield className="w-5 h-5" />
+                  <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/20 font-mono text-xs text-emerald-300 space-y-1.5">
+                    <div>&gt; [WORKFLOW] Provisioned Tenant Org: "Starlight Corp Ltd"</div>
+                    <div>&gt; [LEDGER] Created Pending Invoice: $48,000 / yr (Automated Reconciliation)</div>
+                    <div>&gt; [DISPATCH] Handed Off MSA Draft to LegalX AI Auditor Engine</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-sm font-bold text-white">LegalX Autonomous Compliance Sentinel</div>
-                  <div className="text-xs text-gray-400">Deep semantic audit against enterprise risk playbooks</div>
-                </div>
-              </div>
+              )}
 
-              <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-500/20 font-mono text-xs text-amber-300 space-y-1.5">
-                <div>&gt; [DOCUMENT] 24-page Master Services Agreement parsed in 1.4s</div>
-                <div>&gt; [RISK_CHECK] 14 Standard clauses approved; 1 non-standard indemnity redlined</div>
-                <div>&gt; [STATUS] Final Approved Signature Packet generated & dispatched to DocuSign</div>
-              </div>
-            </div>
-          )}
+              {activeStep === 2 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                      <Shield className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-white">LegalX Autonomous Compliance Sentinel</div>
+                      <div className="text-xs text-gray-400">Deep semantic audit against enterprise risk playbooks</div>
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-500/20 font-mono text-xs text-amber-300 space-y-1.5">
+                    <div>&gt; [DOCUMENT] 24-page Master Services Agreement parsed in 1.4s</div>
+                    <div>&gt; [RISK_CHECK] 14 Standard clauses approved; 1 non-standard indemnity redlined</div>
+                    <div>&gt; [STATUS] Final Approved Signature Packet generated & dispatched to DocuSign</div>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Step Progression Buttons */}
           <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/5">

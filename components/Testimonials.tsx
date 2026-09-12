@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Star, Quote, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -46,7 +47,13 @@ export default function Testimonials() {
     <section id="testimonials-section" className="py-20 md:py-32 relative z-20 bg-[#0a0c13] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-4">
             <Quote className="w-3.5 h-3.5" /> Enterprise Verification
           </div>
@@ -56,14 +63,19 @@ export default function Testimonials() {
           <p className="text-base sm:text-lg text-gray-400">
             Discover how leading organizations drive quantifiable business growth with FortuneTechCorp's suite.
           </p>
-        </div>
+        </motion.div>
 
         {/* Testimonial Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {testimonials.map((t, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="p-8 rounded-3xl bg-[#12141d]/90 border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between shadow-2xl relative group"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              whileHover={{ y: -6 }}
+              className="p-8 rounded-3xl bg-[#12141d]/90 border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between shadow-2xl relative group cursor-pointer"
             >
               <div>
                 {/* 5 Stars */}
@@ -98,7 +110,7 @@ export default function Testimonials() {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

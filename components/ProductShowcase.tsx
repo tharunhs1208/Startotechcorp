@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import ProductCard, { ProductData } from "./ProductCard";
 import { Sparkles, Layers, Check, X, Shield, Cpu, Zap, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProductShowcaseProps {
   onOpenDemo: (productName?: string) => void;
@@ -31,6 +32,8 @@ export const PRODUCTS: ProductData[] = [
       { label: "Cost Per Minute Saved", value: "85%" },
     ],
     tags: ["Speech-to-Speech", "Voice Cloning", "Telephony Gateway", "CRM Mesh"],
+    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&auto=format&fit=crop",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-charts-and-data-31913-large.mp4",
   },
   {
     id: "product-startone",
@@ -54,6 +57,8 @@ export const PRODUCTS: ProductData[] = [
       { label: "SaaS Redundancy Cut", value: "-64%" },
     ],
     tags: ["Operations", "Workspaces", "Financial Ledger", "Pipeline Automation"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-41551-large.mp4",
   },
   {
     id: "product-legalx",
@@ -77,6 +82,8 @@ export const PRODUCTS: ProductData[] = [
       { label: "Risk Mitigation", value: "99.8%" },
     ],
     tags: ["Contract Analysis", "Regulatory AI", "Playbook Redlining", "Risk Audits"],
+    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=800&auto=format&fit=crop",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-keyboard-42542-large.mp4",
   },
 ];
 
@@ -150,22 +157,33 @@ export default function ProductShowcase({ onOpenDemo }: ProductShowcaseProps) {
         </div>
 
         {/* Dynamic Card Grid with Animated Card Transitions */}
-        <div
+        <motion.div
+          layout
           className={`grid gap-8 transition-all duration-300 ${
             filteredProducts.length === 1
               ? "grid-cols-1 max-w-2xl mx-auto"
               : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           }`}
         >
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onOpenDemo={onOpenDemo}
-              onExpandDetails={(p) => setActiveModalProduct(p)}
-            />
-          ))}
-        </div>
+          <AnimatePresence mode="popLayout">
+            {filteredProducts.map((product) => (
+              <motion.div
+                layout
+                key={product.id}
+                initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: -20 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <ProductCard
+                  product={product}
+                  onOpenDemo={onOpenDemo}
+                  onExpandDetails={(p) => setActiveModalProduct(p)}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Product Deep Specs Modal */}

@@ -208,21 +208,21 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
               className="w-full text-left py-2 text-white flex items-center justify-between"
             >
               <span>Zobay (Voice AI)</span>
-              <span className="text-purple-400 text-xs">Explore →</span>
+              <span className="text-purple-400 text-xs flex items-center gap-1">Explore <ArrowRight className="w-3 h-3" /></span>
             </button>
             <button
               onClick={() => scrollToSection("product-startone")}
               className="w-full text-left py-2 text-white flex items-center justify-between"
             >
               <span>StartOne (Enterprise OS)</span>
-              <span className="text-emerald-400 text-xs">Explore →</span>
+              <span className="text-emerald-400 text-xs flex items-center gap-1">Explore <ArrowRight className="w-3 h-3" /></span>
             </button>
             <button
               onClick={() => scrollToSection("product-legalx")}
               className="w-full text-left py-2 text-white flex items-center justify-between"
             >
               <span>LegalX (Contract Intelligence)</span>
-              <span className="text-amber-400 text-xs">Explore →</span>
+              <span className="text-amber-400 text-xs flex items-center gap-1">Explore <ArrowRight className="w-3 h-3" /></span>
             </button>
           </div>
 

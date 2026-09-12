@@ -35,6 +35,8 @@ export interface ProductData {
   features: string[];
   metrics: { label: string; value: string }[];
   tags: string[];
+  image?: string;
+  video?: string;
 }
 
 interface ProductCardProps {
@@ -117,23 +119,46 @@ export default function ProductCard({ product, onOpenDemo, onExpandDetails }: Pr
       {/* Top Banner Accent Line */}
       <div className={`h-1.5 w-full bg-gradient-to-r ${product.accentGradient}`} />
 
+      {/* Redstone-style Video / Photo Media Header */}
+      {product.image && (
+        <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-black/40 border-b border-white/5 group-hover:shadow-lg">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-90"
+          />
+          {product.video && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-90 transition-opacity duration-300 pointer-events-none"
+            >
+              <source src={product.video} type="video/mp4" />
+            </video>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#10121a] via-[#10121a]/30 to-transparent pointer-events-none" />
+          
+          <div className="absolute top-3 left-3 z-10">
+            <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-md ${product.badgeColor}`}>
+              {product.category}
+            </span>
+          </div>
+
+          <div className="absolute bottom-3 right-3 z-10 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-md">
+            <Play className="w-3.5 h-3.5 fill-white ml-0.5" />
+          </div>
+        </div>
+      )}
+
       {/* Card Content Area */}
       <div className="p-6 sm:p-8 relative z-10 flex-1 flex flex-col">
-        {/* Header: Icon, Category Badge & Product Name */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center p-2.5 bg-white/[0.04] border border-white/10 group-hover:scale-105 transition-transform duration-300`}>
-              {getProductIcon()}
-            </div>
-            <div>
-              <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${product.badgeColor}`}>
-                {product.category}
-              </span>
-              <h3 className="text-2xl font-bold text-white tracking-tight mt-1 flex items-center gap-2">
-                {product.name}
-              </h3>
-            </div>
-          </div>
+        {/* Header: Product Name */}
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-2xl font-bold text-white tracking-tight">
+            {product.name}
+          </h3>
         </div>
 
         {/* Tagline & Description */}

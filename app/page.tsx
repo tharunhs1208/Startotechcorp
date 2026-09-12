@@ -10,8 +10,10 @@ import Testimonials from "@/components/Testimonials";
 import DemoModal from "@/components/DemoModal";
 import Footer from "@/components/Footer";
 
+import ServicesList from "@/components/ServicesList";
 import TechStack from "@/components/TechStack";
 import FAQ from "@/components/FAQ";
+import AnimatedSection from "@/components/AnimatedSection";
 
 export default function Home() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
@@ -42,22 +44,39 @@ export default function Home() {
         />
 
         {/* 2. Redstone-style Project Portfolio Showcase (Zobay, StartOne, LegalX) */}
-        <ProductShowcase onOpenDemo={handleOpenDemo} />
+        <AnimatedSection delay={0.1}>
+          <ProductShowcase onOpenDemo={handleOpenDemo} />
+        </AnimatedSection>
 
-        {/* 3. Redstone Services & Interactive Ecosystem Synergy */}
-        <InteractiveEcosystem />
+        {/* 3. Redstone Numbered Core Services (01 - 05) */}
+        <AnimatedSection delay={0.1}>
+          <ServicesList onOpenDemo={handleOpenDemo} />
+        </AnimatedSection>
+
+        {/* 4. Redstone Services & Interactive Ecosystem Synergy */}
+        <AnimatedSection delay={0.1}>
+          <InteractiveEcosystem />
+        </AnimatedSection>
 
         {/* 4. Redstone 'Join the Best' Continuous Marquee & 'Our Technologies' 3-Tier Grid */}
-        <TechStack onOpenDemo={() => handleOpenDemo()} />
+        <AnimatedSection delay={0.1}>
+          <TechStack onOpenDemo={() => handleOpenDemo()} />
+        </AnimatedSection>
 
         {/* 5. Enterprise Architecture Bento Grid */}
-        <BentoGrid />
+        <AnimatedSection delay={0.1}>
+          <BentoGrid />
+        </AnimatedSection>
 
         {/* 6. Verified Enterprise Testimonials & Client Reviews */}
-        <Testimonials />
+        <AnimatedSection delay={0.1}>
+          <Testimonials />
+        </AnimatedSection>
 
         {/* 7. Redstone FAQ & 'Let's talk' Executive Card */}
-        <FAQ onOpenDemo={() => handleOpenDemo()} />
+        <AnimatedSection delay={0.1}>
+          <FAQ onOpenDemo={() => handleOpenDemo()} />
+        </AnimatedSection>
       </main>
 
       {/* Footer */}

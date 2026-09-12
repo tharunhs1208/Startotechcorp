@@ -169,7 +169,7 @@ export default function Footer({ onOpenDemo }: FooterProps) {
         </div>
 
         {/* Bottom copyright & back to top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+        <div className="pt-8 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
           <div>
             © {new Date().getFullYear()} FortuneTechCorp, Inc. All rights reserved. Zobay, StartOne, and LegalX are registered trademarks.
           </div>
@@ -182,6 +182,13 @@ export default function Footer({ onOpenDemo }: FooterProps) {
               <span>Back to top</span>
               <ArrowUp className="w-3.5 h-3.5" />
             </button>
+          </div>
+        </div>
+
+        {/* Redstone Iconic Giant Marquee Wordmark in Footer */}
+        <div className="pt-6 border-t border-white/5 overflow-hidden select-none opacity-20 hover:opacity-40 transition-opacity">
+          <div className="text-[12vw] font-black tracking-tighter uppercase whitespace-nowrap text-white leading-none">
+            FORTUNETECH • ZOBAY • STARTONE • LEGALX •
           </div>
         </div>
       </div>

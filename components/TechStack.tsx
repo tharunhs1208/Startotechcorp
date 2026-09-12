@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ArrowRight, Code2, Cpu, Database, Cloud, Globe, Smartphone, Server, Layers } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TechStackProps {
   onOpenDemo?: () => void;
@@ -125,32 +126,45 @@ export default function TechStack({ onOpenDemo }: TechStackProps) {
           </div>
         </div>
 
-        {/* Tech Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {technologies[activeTier].map((item, idx) => (
-            <div
-              key={idx}
-              className="p-6 rounded-2xl bg-[#12141e]/80 border border-white/10 hover:border-[#e70000]/40 transition-all duration-300 group flex items-start justify-between"
-            >
-              <div>
-                <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
-                  {item.category}
+        {/* Tech Grid with smooth motion transitions */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTier}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          >
+            {technologies[activeTier].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: idx * 0.05 }}
+                whileHover={{ y: -4, scale: 1.01 }}
+                className="p-6 rounded-2xl bg-[#12141e]/80 border border-white/10 hover:border-[#e70000]/40 transition-all duration-300 group flex items-start justify-between cursor-pointer"
+              >
+                <div>
+                  <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
+                    {item.category}
+                  </div>
+                  <div className="text-lg font-bold text-white group-hover:text-gray-100 transition-colors">
+                    {item.name}
+                  </div>
+                  <div className="text-xs text-gray-400 mt-2 font-mono flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    {item.level}
+                  </div>
                 </div>
-                <div className="text-lg font-bold text-white group-hover:text-gray-100 transition-colors">
-                  {item.name}
-                </div>
-                <div className="text-xs text-gray-400 mt-2 font-mono flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  {item.level}
-                </div>
-              </div>
 
-              <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-center text-gray-400 group-hover:text-white group-hover:bg-[#e70000] transition-colors">
-                <Code2 className="w-4 h-4" />
-              </div>
-            </div>
-          ))}
-        </div>
+                <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-center text-gray-400 group-hover:text-white group-hover:bg-[#e70000] transition-colors">
+                  <Code2 className="w-4 h-4" />
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Bottom Redstone Summary bar */}
         <div className="mt-12 p-8 rounded-3xl bg-[#10121a]/90 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">

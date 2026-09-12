@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Plus, Minus, ArrowRight, MessageSquareQuote } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface FAQProps {
   onOpenDemo?: () => void;
@@ -39,7 +40,13 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left: Redstone 'Let's talk' Card */}
-          <div className="lg:col-span-4 p-8 rounded-3xl bg-[#12141e]/90 border border-white/10 relative overflow-hidden shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-4 p-8 rounded-3xl bg-[#12141e]/90 border border-white/10 relative overflow-hidden shadow-2xl"
+          >
             <div className="w-14 h-14 rounded-2xl bg-[#e70000]/15 border border-[#e70000]/30 text-[#e70000] flex items-center justify-center mb-6 font-black text-2xl">
               F
             </div>
@@ -51,7 +58,9 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
               Have unique security requirements or multi-entity infrastructure needs? Speak directly with our executive engineering team.
             </p>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={onOpenDemo}
               className="redstone-btn w-full justify-between"
             >
@@ -59,11 +68,17 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
               <div className="btn-icon-circle">
                 <ArrowRight className="w-4 h-4 text-white" />
               </div>
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
 
           {/* Right: Redstone Accordion List */}
-          <div className="lg:col-span-8">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-8"
+          >
             <span className="text-xs font-bold uppercase tracking-widest text-[#e70000] mb-2 block">
               Direct Answers
             </span>
@@ -87,21 +102,36 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
                       <span className="font-bold text-base sm:text-lg text-white">
                         {faq.q}
                       </span>
-                      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-white">
+                      <motion.div
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-white"
+                      >
                         {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-                      </div>
+                      </motion.div>
                     </button>
 
-                    {isOpen && (
-                      <div className="px-6 pb-6 text-sm text-gray-300 leading-relaxed pt-0 border-t border-white/5">
-                        {faq.a}
-                      </div>
-                    )}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-6 pb-6 text-sm text-gray-300 leading-relaxed pt-0 border-t border-white/5">
+                            {faq.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

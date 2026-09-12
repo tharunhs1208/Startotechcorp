@@ -2,13 +2,20 @@
 
 import React from "react";
 import { Shield, Lock, Server, Globe2, Cpu, Database, Award, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function BentoGrid() {
   return (
     <section id="bento-features" className="py-20 md:py-32 relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-4">
             <Server className="w-3.5 h-3.5" /> Enterprise Grade Reliability
           </div>
@@ -18,12 +25,19 @@ export default function BentoGrid() {
           <p className="text-base sm:text-lg text-gray-400">
             Uncompromising compliance, edge performance, and air-gapped security infrastructure across all FortuneTechCorp platforms.
           </p>
-        </div>
+        </motion.div>
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {/* Card 1: Multi-Region Low Latency Edge (2 cols) */}
-          <div className="md:col-span-2 rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-indigo-500/30 transition-all duration-300 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ y: -5 }}
+            className="md:col-span-2 rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-indigo-500/30 transition-all duration-300 shadow-xl"
+          >
             <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
               <Globe2 className="w-6 h-6" />
             </div>
@@ -38,10 +52,17 @@ export default function BentoGrid() {
               <span className="text-gray-400">Average P99 Packet Latency:</span>
               <span className="text-indigo-400 font-bold">14.2ms Global</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2: Security & SOC-2 Certification */}
-          <div className="rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ y: -5 }}
+            className="rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300 shadow-xl"
+          >
             <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
               <Shield className="w-6 h-6" />
             </div>
@@ -54,10 +75,17 @@ export default function BentoGrid() {
             <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
               <CheckCircle2 className="w-4 h-4" /> End-to-End Encrypted
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3: Air-Gapped Dedicated Deployments */}
-          <div className="rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-amber-500/30 transition-all duration-300 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            whileHover={{ y: -5 }}
+            className="rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-amber-500/30 transition-all duration-300 shadow-xl"
+          >
             <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
               <Lock className="w-6 h-6" />
             </div>
@@ -70,10 +98,17 @@ export default function BentoGrid() {
             <div className="flex items-center gap-1.5 text-xs text-amber-400 font-semibold">
               <CheckCircle2 className="w-4 h-4" /> Custom Data Isolation
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 4: Unified FortuneTechCorp API Mesh (Full Width on 2 cols) */}
-          <div className="md:col-span-2 rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-purple-500/30 transition-all duration-300 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ y: -5 }}
+            className="md:col-span-2 rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-purple-500/30 transition-all duration-300 shadow-xl"
+          >
             <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
               <Cpu className="w-6 h-6" />
             </div>
@@ -91,10 +126,17 @@ export default function BentoGrid() {
               <br />
               <span className="text-indigo-400">const</span> client = <span className="text-indigo-400">new</span> FortuneCorp(&#123; apiKey: process.env.FORTUNE_KEY &#125;);
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 5: 99.99% High Availability Cluster (2 cols) */}
-          <div className="md:col-span-2 rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-cyan-500/30 transition-all duration-300 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            whileHover={{ y: -5 }}
+            className="md:col-span-2 rounded-3xl bg-[#10121a]/90 border border-white/10 p-8 relative overflow-hidden group hover:border-cyan-500/30 transition-all duration-300 shadow-xl"
+          >
             <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
               <Database className="w-6 h-6" />
             </div>
@@ -112,7 +154,7 @@ export default function BentoGrid() {
                 <span className="text-gray-400">Replication:</span> <span className="text-cyan-400 font-bold">Triple Region</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

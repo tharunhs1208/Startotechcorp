@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   keywords: ["FortuneTechCorp", "Zobay", "StartOne", "LegalX", "Voice AI", "Enterprise OS", "Legal Tech", "Autonomous Enterprise"],
 };
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,8 +30,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} dark scroll-smooth`}
     >
-      <body className="min-h-screen bg-[#090a0f] text-gray-100 antialiased font-sans">
-        {children}
+      <body className="min-h-screen bg-[#090a0f] text-gray-100 antialiased font-sans selection:bg-red-500/30 selection:text-white">
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );
