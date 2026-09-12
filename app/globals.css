@@ -161,6 +161,22 @@ body {
   animation: pulseGlow 4s ease-in-out infinite;
 }
 
+/* Infinite Marquee Animation for Redstone Partners / Tech strip */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

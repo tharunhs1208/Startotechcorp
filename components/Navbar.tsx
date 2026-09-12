@@ -39,26 +39,15 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Redstone-style Brand Logo */}
           <div
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex items-center gap-2 cursor-pointer group select-none"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-amber-500 p-[2px] shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full bg-[#090a0f] rounded-[10px] flex items-center justify-center">
-                <span className="text-transparent bg-clip-text bg-gradient-to-tr from-indigo-400 to-amber-400 font-black text-xl tracking-wider">
-                  F
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-lg tracking-tight text-white flex items-center gap-1">
-                Fortune<span className="text-indigo-400">Tech</span>
-                <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                  CORP
-                </span>
-              </span>
-            </div>
+            <span className="font-black text-2xl tracking-tighter text-white uppercase flex items-center">
+              FORTUNE<span className="text-[#e70000]">TECH</span>
+              <span className="w-2 h-2 rounded-full bg-[#e70000] ml-1 inline-block animate-pulse"></span>
+            </span>
           </div>
 
           {/* Desktop Nav Links */}
@@ -140,17 +129,24 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
             </div>
 
             <button
-              onClick={() => scrollToSection("ecosystem-section")}
+              onClick={() => scrollToSection("products-showcase")}
               className="hover:text-white transition-colors cursor-pointer"
             >
-              Ecosystem
+              Portfolio
             </button>
 
             <button
-              onClick={() => scrollToSection("bento-features")}
+              onClick={() => scrollToSection("ecosystem-section")}
               className="hover:text-white transition-colors cursor-pointer"
             >
-              Architecture
+              Services
+            </button>
+
+            <button
+              onClick={() => scrollToSection("tech-stack-section")}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Technologies
             </button>
 
             <button
@@ -158,6 +154,13 @@ export default function Navbar({ onOpenDemo }: NavbarProps) {
               className="hover:text-white transition-colors cursor-pointer"
             >
               Clients
+            </button>
+
+            <button
+              onClick={() => scrollToSection("faq-section")}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              FAQ
             </button>
           </nav>
 

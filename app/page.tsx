@@ -10,6 +10,9 @@ import Testimonials from "@/components/Testimonials";
 import DemoModal from "@/components/DemoModal";
 import Footer from "@/components/Footer";
 
+import TechStack from "@/components/TechStack";
+import FAQ from "@/components/FAQ";
+
 export default function Home() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [selectedDemoProduct, setSelectedDemoProduct] = useState<string>("Fortune Suite");
@@ -27,28 +30,34 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090a0f] text-white selection:bg-indigo-600 selection:text-white relative">
+    <div className="min-h-screen bg-[#090a0f] text-white selection:bg-[#e70000] selection:text-white relative">
       {/* Navigation */}
       <Navbar onOpenDemo={handleOpenDemo} />
 
       <main className="relative">
-        {/* Hero Section */}
+        {/* 1. Redstone-inspired Hero Section with Kinetic Headline & Video Capsule */}
         <Hero
           onOpenDemo={handleOpenDemo}
           onSelectProduct={handleSelectProduct}
         />
 
-        {/* The 3 Flagship Products Showcase with 3D Tilt & Animated Simulations */}
+        {/* 2. Redstone-style Project Portfolio Showcase (Zobay, StartOne, LegalX) */}
         <ProductShowcase onOpenDemo={handleOpenDemo} />
 
-        {/* Interactive Ecosystem: Zobay + StartOne + LegalX Synergy Loop */}
+        {/* 3. Redstone Services & Interactive Ecosystem Synergy */}
         <InteractiveEcosystem />
 
-        {/* Enterprise Architecture Bento Grid */}
+        {/* 4. Redstone 'Join the Best' Continuous Marquee & 'Our Technologies' 3-Tier Grid */}
+        <TechStack onOpenDemo={() => handleOpenDemo()} />
+
+        {/* 5. Enterprise Architecture Bento Grid */}
         <BentoGrid />
 
-        {/* Verified Enterprise Testimonials */}
+        {/* 6. Verified Enterprise Testimonials & Client Reviews */}
         <Testimonials />
+
+        {/* 7. Redstone FAQ & 'Let's talk' Executive Card */}
+        <FAQ onOpenDemo={() => handleOpenDemo()} />
       </main>
 
       {/* Footer */}
