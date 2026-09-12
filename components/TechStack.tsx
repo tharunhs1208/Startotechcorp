@@ -24,24 +24,23 @@ export default function TechStack({ onOpenDemo }: TechStackProps) {
 
   const technologies = {
     single: [
-      { name: "HTML5 / CSS3", category: "Core UI", level: "Production Standard" },
-      { name: "TypeScript", category: "Language", level: "Strict Mode" },
-      { name: "Tailwind CSS v4", category: "Styling Engine", level: "High Performance" },
-      { name: "WebRTC / SIP", category: "Voice Gateway", level: "Real-Time Audio" },
+      { name: "HTML", category: "Markup Standard", level: "Semantic HTML5" },
+      { name: "CSS", category: "Style & Layout", level: "Responsive & Modern" },
+      { name: "WordPress", category: "CMS Platform", level: "Custom Themes & Core" },
+      { name: "Shopify", category: "E-Commerce", level: "Liquid & Storefront" },
     ],
     middle: [
-      { name: "Next.js 15 App Router", category: "Frontend Framework", level: "Server Components" },
-      { name: "Node.js & Bun", category: "Runtime", level: "Low Latency" },
-      { name: "PostgreSQL & Prisma", category: "Database Mesh", level: "ACID Compliant" },
-      { name: "Redis & Valkey", category: "Memory Cache", level: "Sub-millisecond" },
+      { name: "Laravel", category: "PHP Framework", level: "Robust Architecture" },
+      { name: "mySQL", category: "Relational Database", level: "High-Performance Queries" },
+      { name: "vue", category: "Reactive Frontend", level: "Vue 3 & Nuxt" },
+      { name: "PHP", category: "Backend Engine", level: "Modern PHP 8.x" },
     ],
     enterprise: [
-      { name: "DeepSeek & OpenAI LLMs", category: "Neural Cognition", level: "Self-Hosted / API" },
-      { name: "TensorFlow & PyTorch", category: "Voice Synthesis", level: "Custom Fine-Tuning" },
-      { name: "AWS & Kubernetes (EKS)", category: "Cloud Infrastructure", level: "Auto-Scale Clusters" },
-      { name: "Kafka & Event Streams", category: "Data Pipeline", level: "Zero-Loss Sync" },
-      { name: "Vector Embeddings (pgvector)", category: "Semantic Legal Search", level: "Hybrid RAG" },
-      { name: "Air-Gapped VPC", category: "Enterprise Security", level: "SOC-2 Type II" },
+      { name: "React.js", category: "Frontend Ecosystem", level: "Next.js & Fiber" },
+      { name: "Azure", category: "Cloud & DevOps", level: "Enterprise Scalability" },
+      { name: "Python", category: "AI & Backend", level: "Data & Neural Engines" },
+      { name: "Angular", category: "Enterprise Frontend", level: "TypeScript Framework" },
+      { name: "Node.js", category: "High-Concurrency Runtime", level: "Microservices & APIs" },
     ],
   };
 

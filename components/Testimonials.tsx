@@ -13,6 +13,7 @@ export default function Testimonials() {
       role: "Chief Technology Officer",
       company: "Nexus Financial Holdings",
       productUsed: "Zobay + StartOne",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop",
       quote:
         "FortuneTechCorp replaced five disconnected legacy vendors with Zobay and StartOne. Our voice contact center resolved 88% of calls without human intervention while StartOne automated ledger reconciliations in real-time.",
       metric: "88% autonomous call resolution",
@@ -24,6 +25,7 @@ export default function Testimonials() {
       role: "General Counsel & Partner",
       company: "Apex Global Law Group",
       productUsed: "LegalX Enterprise",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop",
       quote:
         "LegalX has completely transformed our contract review cycles. Auditing a 40-page cross-border procurement contract used to take junior associates 8 hours. LegalX highlights risky indemnity clauses and generates accurate redlines in under 10 seconds.",
       metric: "12x faster contract execution",
@@ -35,6 +37,7 @@ export default function Testimonials() {
       role: "Head of Global Operations",
       company: "Starlight Logistics Network",
       productUsed: "Full Fortune Suite",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop",
       quote:
         "Connecting Zobay voice intake to StartOne automated pipelines and LegalX compliance is the closest thing to running an autonomous enterprise. We scaled from 12 to 40 entities without doubling administrative overhead.",
       metric: "$2.4M saved in operational overhead",
@@ -94,9 +97,17 @@ export default function Testimonials() {
               {/* Author & Product */}
               <div className="pt-6 border-t border-white/10">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className={`w-10 h-10 rounded-full ${t.avatarBg} text-white font-bold flex items-center justify-center text-sm shadow-md`}>
-                    {t.avatar}
-                  </div>
+                  {t.image ? (
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-11 h-11 rounded-full object-cover border-2 border-white/20 shadow-md"
+                    />
+                  ) : (
+                    <div className={`w-11 h-11 rounded-full ${t.avatarBg} text-white font-bold flex items-center justify-center text-sm shadow-md`}>
+                      {t.avatar}
+                    </div>
+                  )}
                   <div>
                     <div className="text-sm font-bold text-white">{t.name}</div>
                     <div className="text-xs text-gray-400">{t.role}, {t.company}</div>

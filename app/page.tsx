@@ -14,6 +14,7 @@ import ServicesList from "@/components/ServicesList";
 import TechStack from "@/components/TechStack";
 import FAQ from "@/components/FAQ";
 import AnimatedSection from "@/components/AnimatedSection";
+import ScrollVideoShowcase from "@/components/ScrollVideoShowcase";
 
 export default function Home() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
@@ -42,6 +43,9 @@ export default function Home() {
           onOpenDemo={handleOpenDemo}
           onSelectProduct={handleSelectProduct}
         />
+
+        {/* 1.5. Redstone Iconic Scroll-Driven Expanding Fullscreen Video Section */}
+        <ScrollVideoShowcase onOpenDemo={() => handleOpenDemo()} />
 
         {/* 2. Redstone-style Project Portfolio Showcase (Zobay, StartOne, LegalX) */}
         <AnimatedSection delay={0.1}>
