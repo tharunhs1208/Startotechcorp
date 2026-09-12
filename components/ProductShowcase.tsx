@@ -32,8 +32,7 @@ export const PRODUCTS: ProductData[] = [
       { label: "Cost Per Minute Saved", value: "85%" },
     ],
     tags: ["Speech-to-Speech", "Voice Cloning", "Telephony Gateway", "CRM Mesh"],
-    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&auto=format&fit=crop",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-charts-and-data-31913-large.mp4",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-sound-waves-of-an-audio-track-40243-large.mp4",
   },
   {
     id: "product-startone",
@@ -57,7 +56,6 @@ export const PRODUCTS: ProductData[] = [
       { label: "SaaS Redundancy Cut", value: "-64%" },
     ],
     tags: ["Operations", "Workspaces", "Financial Ledger", "Pipeline Automation"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
     video: "https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-41551-large.mp4",
   },
   {
@@ -82,108 +80,119 @@ export const PRODUCTS: ProductData[] = [
       { label: "Risk Mitigation", value: "99.8%" },
     ],
     tags: ["Contract Analysis", "Regulatory AI", "Playbook Redlining", "Risk Audits"],
-    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=800&auto=format&fit=crop",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-keyboard-42542-large.mp4",
+  },
+  {
+    id: "product-baseone",
+    name: "BaseOne",
+    category: "Autonomous Fintech Mesh",
+    tagline: "High-frequency treasury orchestration, multi-currency liquidity, and automated clearing.",
+    description:
+      "BaseOne bridges global fiat banking with smart distributed ledgers. Powers automated vendor payouts, liquidity rebalancing, and zero-latency transaction verification for international trade.",
+    badgeColor: "bg-blue-500/15 text-blue-300 border border-blue-500/30",
+    accentGradient: "from-blue-500 via-cyan-400 to-emerald-400",
+    glowClass: "glow-startone",
+    icon: "grid",
+    features: [
+      "Sub-second multi-currency settlement",
+      "Automated tax and AML compliance grading",
+      "Programmatic corporate card issuance",
+      "Real-time institutional liquidity graph",
+    ],
+    metrics: [
+      { label: "Settlement Speed", value: "<1.2s" },
+      { label: "Treasury Yield", value: "+14.8%" },
+    ],
+    tags: ["FinTech", "Treasury", "Liquidity API", "Smart Ledgers"],
+    video: "https://redstone.software/video/video-banner4.mp4",
+  },
+  {
+    id: "product-validsoft",
+    name: "ValidSoft",
+    category: "Biometric Identity Mesh",
+    tagline: "Acoustic voice biometric authentication and deepfake intrusion defense.",
+    description:
+      "ValidSoft delivers voice authentication and generative synthetic voice spoof prevention for banking, high-security phone lines, and mission-critical government defense access.",
+    badgeColor: "bg-rose-500/15 text-rose-300 border border-rose-500/30",
+    accentGradient: "from-rose-500 via-pink-500 to-amber-500",
+    glowClass: "glow-zobay",
+    icon: "shield",
+    features: [
+      "99.998% biometric voice match precision",
+      "Real-time synthetic deepfake spoof detection",
+      "Zero audio recording retention for full privacy",
+      "Continuous behavioral authentication scoring",
+    ],
+    metrics: [
+      { label: "Spoof Block Rate", value: "99.99%" },
+      { label: "Auth Latency", value: "<140ms" },
+    ],
+    tags: ["Voice Biometrics", "Anti-Deepfake", "Zero-Trust", "FIDO2 Mesh"],
+    video: "https://assets.mixkit.co/videos/preview/mixkit-cyber-security-code-in-a-matrix-style-animation-43849-large.mp4",
+  },
+  {
+    id: "product-socan",
+    name: "SOCAN AI",
+    category: "Digital Rights & Media Cloud",
+    tagline: "Automated media licensing, acoustic fingerprinting, and global royalty distribution.",
+    description:
+      "SOCAN AI fingerprints millions of live broadcasts and streams globally, matches complex licensing rights, and distributes micro-royalties instantaneously to artists and copyright holders.",
+    badgeColor: "bg-indigo-500/15 text-indigo-300 border border-indigo-500/30",
+    accentGradient: "from-indigo-500 via-purple-500 to-pink-500",
+    glowClass: "glow-legalx",
+    icon: "mic",
+    features: [
+      "Millisecond acoustic audio fingerprinting",
+      "Global territorial copyright compliance",
+      "Automated digital rights ledger & payouts",
+      "Real-time broadcast tracking across 120+ countries",
+    ],
+    metrics: [
+      { label: "Daily Streams Scanned", value: "450M+" },
+      { label: "Royalty Accuracy", value: "99.9%" },
+    ],
+    tags: ["Media Cloud", "Audio AI", "Rights Ledger", "Global Telemetry"],
+    video: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-charts-and-data-31913-large.mp4",
   },
 ];
 
 export default function ProductShowcase({ onOpenDemo }: ProductShowcaseProps) {
-  const [selectedFilter, setSelectedFilter] = useState<string>("all");
   const [activeModalProduct, setActiveModalProduct] = useState<ProductData | null>(null);
 
-  const filteredProducts =
-    selectedFilter === "all"
-      ? PRODUCTS
-      : PRODUCTS.filter((p) => p.id === selectedFilter);
-
   return (
-    <section id="products-showcase" className="py-20 md:py-32 relative z-20">
+    <section id="products-showcase" className="py-12 md:py-16 relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" /> Flagship Product Ecosystem
+        {/* Section Heading matching Redstone 'We Are Proud' architecture - Fully Centered */}
+        <div className="w-full flex flex-col items-center justify-center text-center max-w-5xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-bold uppercase tracking-widest text-[#e70000] mb-4">
+            <Sparkles className="w-3.5 h-3.5" /> Flagship Products & Ecosystem
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Engineered for High-Velocity Growth
+          <h2 className="text-center w-full text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-4 break-words">
+            Autonomous Solutions In Production
           </h2>
-          <p className="text-base sm:text-lg text-gray-400">
-            Explore our specialized autonomous platforms. Deploy independently or interconnect them for exponential corporate efficiency.
+          <p className="text-center text-sm sm:text-base text-gray-400 max-w-2xl mx-auto">
+            Explore the flagship platforms deployed by FortuneTechCorp across enterprise voice automation, cloud enterprise OS, and machine-speed legal intelligence.
           </p>
-
-          {/* Interactive Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
-            <button
-              onClick={() => setSelectedFilter("all")}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                selectedFilter === "all"
-                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"
-                  : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              Full Suite (3 Products)
-            </button>
-            <button
-              onClick={() => setSelectedFilter("product-zobay")}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                selectedFilter === "product-zobay"
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30"
-                  : "bg-white/5 text-gray-400 hover:text-purple-300 hover:bg-white/10"
-              }`}
-            >
-              Zobay (Voice AI)
-            </button>
-            <button
-              onClick={() => setSelectedFilter("product-startone")}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                selectedFilter === "product-startone"
-                  ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30"
-                  : "bg-white/5 text-gray-400 hover:text-emerald-300 hover:bg-white/10"
-              }`}
-            >
-              StartOne (Enterprise OS)
-            </button>
-            <button
-              onClick={() => setSelectedFilter("product-legalx")}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                selectedFilter === "product-legalx"
-                  ? "bg-amber-600 text-white shadow-lg shadow-amber-600/30"
-                  : "bg-white/5 text-gray-400 hover:text-amber-300 hover:bg-white/10"
-              }`}
-            >
-              LegalX (Legal Intel)
-            </button>
-          </div>
         </div>
 
-        {/* Dynamic Card Grid with Animated Card Transitions */}
-        <motion.div
-          layout
-          className={`grid gap-8 transition-all duration-300 ${
-            filteredProducts.length === 1
-              ? "grid-cols-1 max-w-2xl mx-auto"
-              : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          }`}
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProducts.map((product) => (
-              <motion.div
-                layout
-                key={product.id}
-                initial={{ opacity: 0, scale: 0.92, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.92, y: -20 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <ProductCard
-                  product={product}
-                  onOpenDemo={onOpenDemo}
-                  onExpandDetails={(p) => setActiveModalProduct(p)}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* 6 High-Performance Flagship Product Cards Grid with In/Out Transitions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {PRODUCTS.map((product, idx) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, scale: 0.92, y: 35 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <ProductCard
+                product={product}
+                onOpenDemo={onOpenDemo}
+                onExpandDetails={(p) => setActiveModalProduct(p)}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Product Deep Specs Modal */}
@@ -219,35 +228,39 @@ export default function ProductShowcase({ onOpenDemo }: ProductShowcaseProps) {
                 </p>
               </div>
 
-              <div>
-                <h4 className="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">
-                  Enterprise Capabilities
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {activeModalProduct.features.map((feat, idx) => (
-                    <div key={idx} className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-gray-300 flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+              {activeModalProduct.features && activeModalProduct.features.length > 0 && (
+                <div>
+                  <h4 className="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">
+                    Enterprise Capabilities
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {activeModalProduct.features.map((feat, idx) => (
+                      <div key={idx} className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-gray-300 flex items-start gap-2.5">
+                        <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div>
-                <h4 className="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">
-                  Core Technologies & Integrations
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {activeModalProduct.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-gray-300"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+              {activeModalProduct.tags && activeModalProduct.tags.length > 0 && (
+                <div>
+                  <h4 className="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">
+                    Core Technologies & Integrations
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {activeModalProduct.tags.map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-gray-300"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Modal Footer */}

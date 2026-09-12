@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Mic, LayoutGrid, Shield, ArrowUp, Globe, Mail } from "lucide-react";
 
 interface FooterProps {
@@ -43,7 +44,7 @@ export default function Footer({ onOpenDemo }: FooterProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-16 border-b border-white/10">
           {/* Brand Col */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="space-y-4">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-amber-500 p-[2px]">
                 <div className="w-full h-full bg-[#090a0f] rounded-[10px] flex items-center justify-center font-black text-white text-lg">
@@ -55,120 +56,143 @@ export default function Footer({ onOpenDemo }: FooterProps) {
               </span>
             </Link>
             <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              Architecting the next century of autonomous enterprise infrastructure. Unified voice AI, modern business operating systems, and automated legal intelligence.
+              REDSTONE doesn’t just create digital products — we transform businesses. Our goal is not just to complete a project, but to create an effective solution that fully meets the needs of the client and their customers.
             </p>
 
             <div className="flex items-center gap-2 pt-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-xs font-mono text-gray-400">
-                All Global Clusters Operational (99.99%)
+                All Global Systems Operational
               </span>
             </div>
           </div>
 
-          {/* Product Links */}
+          {/* Portfolio Links (12 items) */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Products
+              Portfolio
             </h4>
-            <ul className="space-y-2.5 text-sm text-gray-400">
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="hover:text-purple-400 transition-colors flex items-center gap-2"
-                >
-                  <Mic className="w-3.5 h-3.5" />
-                  <span>Zobay Voice AI</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="hover:text-emerald-400 transition-colors flex items-center gap-2"
-                >
-                  <LayoutGrid className="w-3.5 h-3.5" />
-                  <span>StartOne Enterprise OS</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="hover:text-amber-400 transition-colors flex items-center gap-2"
-                >
-                  <Shield className="w-3.5 h-3.5" />
-                  <span>LegalX AI Counsel</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Autonomous Synergy
-                </Link>
-              </li>
+            <ul className="space-y-2 text-xs text-gray-400">
+              {[
+                "New projects",
+                "Creative",
+                "Real estate",
+                "Marketing / Corporate",
+                "Landing page",
+                "Online store",
+                "Food delivery",
+                "Dentistry",
+                "Manufacturers",
+                "Branding",
+                "Web solution",
+                "Entertainment / Leisure",
+              ].map((item, idx) => (
+                <li key={idx}>
+                  <Link href="/portfolio" className="hover:text-white transition-colors block">
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Solutions / Infrastructure */}
+          {/* Services Links (9 items) */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Pages
+              Services
             </h4>
-            <ul className="space-y-2.5 text-sm text-gray-400">
+            <ul className="space-y-2 text-xs text-gray-400">
+              {[
+                "Website development",
+                "Branding and design",
+                "CRM system",
+                "E-commerce",
+                "Landing page",
+                "Website support",
+                "Redesign",
+                "Application development",
+                "Search engine optimisation",
+              ].map((item, idx) => (
+                <li key={idx}>
+                  <Link href="/services" className="hover:text-white transition-colors block">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* About Links */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+              About
+            </h4>
+            <ul className="space-y-2.5 text-xs text-gray-400">
               <li>
-                <Link href="/portfolio" className="hover:text-white transition-colors">
-                  Portfolio
+                <Link href="/awards" className="hover:text-white transition-colors block">
+                  Awards
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-white transition-colors">
-                  Services
+                <Link href="/about" className="hover:text-white transition-colors block">
+                  Reviews
                 </Link>
               </li>
               <li>
-                <Link href="/technologies" className="hover:text-white transition-colors">
+                <Link href="/about" className="hover:text-white transition-colors block">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/technologies" className="hover:text-white transition-colors block">
                   Technologies
                 </Link>
               </li>
-              <li>
-                <Link href="/about" className="hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Governance & Contact */}
+          {/* Contact Us */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Connect
+              Contact Us
             </h4>
-            <ul className="space-y-2.5 text-sm text-gray-400">
-              <li>
-                <Link href="/contacts" className="hover:text-white transition-colors">
-                  Contact Form
-                </Link>
-              </li>
-              <li>
-                <button onClick={() => onOpenDemo()} className="hover:text-white transition-colors cursor-pointer">
-                  Schedule Executive Briefing
+            <div className="space-y-3 text-xs text-gray-400">
+              <div className="text-gray-300 font-medium leading-snug">
+                Interested in cooperation?
+              </div>
+              <a
+                href="mailto:office@redstone.software"
+                className="text-white hover:text-[#e70000] font-mono transition-colors block"
+              >
+                office@redstone.software
+              </a>
+              <div className="pt-2">
+                <button
+                  onClick={() => onOpenDemo()}
+                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-[#e70000] text-white text-xs font-semibold border border-white/10 transition-all cursor-pointer"
+                >
+                  Get in touch
                 </button>
-              </li>
-              <li>
-                <span className="text-xs font-mono text-gray-500">contact@fortunetechcorp.com</span>
-              </li>
-            </ul>
+              </div>
+              <div className="pt-4 text-gray-500">
+                <Link href="/about" className="hover:text-gray-300 transition-colors block">
+                  Privacy Policy
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Bottom copyright & back to top */}
         <div className="pt-8 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
           <div>
-            © {new Date().getFullYear()} FortuneTechCorp, Inc. All rights reserved. Zobay, StartOne, and LegalX are registered trademarks.
+            @ 2026 All rights reserved. FORTUNETECHCORP.
           </div>
 
           <div className="flex items-center gap-6">
+            <Link href="/about" className="hover:text-gray-300 transition-colors">
+              Privacy Policy
+            </Link>
             <button
               onClick={scrollToTop}
               className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
@@ -179,10 +203,10 @@ export default function Footer({ onOpenDemo }: FooterProps) {
           </div>
         </div>
 
-        {/* Redstone Iconic Giant Marquee Wordmark in Footer */}
-        <div className="pt-6 border-t border-white/5 overflow-hidden select-none opacity-20 hover:opacity-40 transition-opacity">
-          <div className="text-[12vw] font-black tracking-tighter uppercase whitespace-nowrap text-white leading-none">
-            FORTUNETECH • ZOBAY • STARTONE • LEGALX •
+        {/* Redstone Iconic Giant Fixed Wordmark in Footer */}
+        <div className="pt-8 pb-4 border-t border-white/5 overflow-hidden select-none opacity-25 hover:opacity-50 transition-opacity text-center">
+          <div className="text-[6.5vw] sm:text-[6.8vw] md:text-[7.2vw] font-black tracking-tighter uppercase text-white leading-none whitespace-nowrap">
+            FORTUNETECHCORP
           </div>
         </div>
       </div>

@@ -33,15 +33,15 @@ export default function PortfolioPage() {
       <Navbar onOpenDemo={handleOpenDemo} />
 
       <main className="pt-36 pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        {/* Page Header - Fully Centered */}
+        <div className="w-full flex flex-col items-center justify-center text-center max-w-5xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-bold uppercase tracking-widest text-[#e70000] mb-4">
             <Sparkles className="w-3.5 h-3.5" /> Product Portfolio
           </div>
-          <h1 className="text-5xl sm:text-7xl font-black uppercase tracking-tight mb-6">
+          <h1 className="text-center w-full text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight mb-6 break-words">
             Autonomous Solutions In Production
           </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-center text-lg text-gray-400 max-w-2xl mx-auto">
             Discover the flagship platforms deployed by FortuneTechCorp across enterprise voice automation, operating systems, and machine-speed legal intelligence.
           </p>
 
