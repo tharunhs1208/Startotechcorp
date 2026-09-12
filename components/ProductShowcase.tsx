@@ -32,7 +32,7 @@ export const PRODUCTS: ProductData[] = [
       { label: "Cost Per Minute Saved", value: "85%" },
     ],
     tags: ["Speech-to-Speech", "Voice Cloning", "Telephony Gateway", "CRM Mesh"],
-    video: "https://assets.mixkit.co/videos/preview/mixkit-sound-waves-of-an-audio-track-40243-large.mp4",
+    video: "/videos/zobay.mp4",
   },
   {
     id: "product-startone",
@@ -56,7 +56,7 @@ export const PRODUCTS: ProductData[] = [
       { label: "SaaS Redundancy Cut", value: "-64%" },
     ],
     tags: ["Operations", "Workspaces", "Financial Ledger", "Pipeline Automation"],
-    video: "https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-41551-large.mp4",
+    video: "/videos/startone.mp4",
   },
   {
     id: "product-legalx",
@@ -80,7 +80,7 @@ export const PRODUCTS: ProductData[] = [
       { label: "Risk Mitigation", value: "99.8%" },
     ],
     tags: ["Contract Analysis", "Regulatory AI", "Playbook Redlining", "Risk Audits"],
-    video: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-keyboard-42542-large.mp4",
+    video: "/videos/legalx.mp4",
   },
   {
     id: "product-baseone",
@@ -104,7 +104,7 @@ export const PRODUCTS: ProductData[] = [
       { label: "Treasury Yield", value: "+14.8%" },
     ],
     tags: ["FinTech", "Treasury", "Liquidity API", "Smart Ledgers"],
-    video: "https://redstone.software/video/video-banner4.mp4",
+    video: "/videos/baseone.mp4",
   },
   {
     id: "product-validsoft",
@@ -128,7 +128,7 @@ export const PRODUCTS: ProductData[] = [
       { label: "Auth Latency", value: "<140ms" },
     ],
     tags: ["Voice Biometrics", "Anti-Deepfake", "Zero-Trust", "FIDO2 Mesh"],
-    video: "https://assets.mixkit.co/videos/preview/mixkit-cyber-security-code-in-a-matrix-style-animation-43849-large.mp4",
+    video: "/videos/validsoft.mp4",
   },
   {
     id: "product-socan",
@@ -152,7 +152,7 @@ export const PRODUCTS: ProductData[] = [
       { label: "Royalty Accuracy", value: "99.9%" },
     ],
     tags: ["Media Cloud", "Audio AI", "Rights Ledger", "Global Telemetry"],
-    video: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-charts-and-data-31913-large.mp4",
+    video: "/videos/socan.mp4",
   },
 ];
 
