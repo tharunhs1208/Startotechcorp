@@ -1,201 +1,179 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Mic, LayoutGrid, Shield, ArrowUp, Globe, Mail } from "lucide-react";
+import { ArrowUp, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { SERVICES_DATA } from "@/data/siteData";
 
 interface FooterProps {
-  onOpenDemo: (product?: string) => void;
+  onOpenDemo?: (product?: string) => void;
 }
 
-export default function Footer({ onOpenDemo }: FooterProps) {
+export default function Footer({ onOpenDemo }: FooterProps = {}) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="bg-[#07080c] border-t border-white/10 pt-20 pb-12 relative z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-slate-50 text-slate-600 pt-20 pb-12 relative z-20 border-t border-slate-200">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Redstone signature 'Let's Move the World Together' CTA Banner */}
-        <div className="text-center max-w-4xl mx-auto pb-20 border-b border-white/10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e70000]/10 border border-[#e70000]/25 text-[#ff4d4d] text-xs font-bold uppercase tracking-wider mb-6">
-            FortuneTechCorp Executive Access
+        {/* PRE-FOOTER CTA CARD */}
+        <div className="mb-16 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 text-left relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10 max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-200 block mb-2">
+              Start Your Digital Transformation
+            </span>
+            <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
+              Ready to Turn Your Ideas Into Real Products?
+            </h3>
+            <p className="text-sm text-blue-100 mt-2 leading-relaxed">
+              Partner with our team of elite engineers and designers to build scalable, high-performance software tailored to your goals.
+            </p>
           </div>
-          <h2 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[1.1] mb-8">
-            Let's Build the{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">
-              Autonomous Future
-            </span>{" "}
-            Together
-          </h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => onOpenDemo()}
-              className="redstone-btn text-base px-7 py-3.5"
+
+          <div className="relative z-10 flex flex-wrap items-center gap-4 shrink-0">
+            <Link
+              href="/contact"
+              className="px-7 py-3.5 rounded-xl bg-white text-blue-600 font-bold text-sm shadow-xl hover:bg-blue-50 transition-all cursor-pointer flex items-center gap-2"
             >
-              <span>Schedule Enterprise Briefing</span>
-              <div className="btn-icon-circle w-9 h-9">
-                <ArrowUp className="w-4 h-4 text-white rotate-45" />
-              </div>
-            </button>
+              <span>Get Started</span>
+              <ArrowRight className="w-4 h-4 text-blue-600" />
+            </Link>
+            <Link
+              href="/services"
+              className="px-7 py-3.5 rounded-xl bg-blue-800/60 hover:bg-blue-800 text-white border border-white/20 font-bold text-sm transition-all cursor-pointer"
+            >
+              Explore Services
+            </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-16 border-b border-white/10">
-          {/* Brand Col */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-amber-500 p-[2px]">
-                <div className="w-full h-full bg-[#090a0f] rounded-[10px] flex items-center justify-center font-black text-white text-lg">
-                  F
-                </div>
+        {/* 4 MAIN COLUMNS MATCHING BLUEPRINT (LIGHT THEME) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-slate-200 text-left">
+          
+          {/* LOGO & COMPANY DESCRIPTION (Cols 1-2) */}
+          <div className="lg:col-span-2 space-y-4">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-base shadow-md shadow-blue-500/20">
+                S
               </div>
-              <span className="font-bold text-lg text-white tracking-tight">
-                Fortune<span className="text-[#e70000]">Tech</span>CORP
+              <span className="font-black text-xl tracking-tight text-slate-900 uppercase">
+                STARTO<span className="text-blue-600">TECH</span>
               </span>
             </Link>
-            <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              REDSTONE doesn’t just create digital products — we transform businesses. Our goal is not just to complete a project, but to create an effective solution that fully meets the needs of the client and their customers.
+            <p className="text-sm text-slate-600 max-w-sm leading-relaxed">
+              We help businesses transform their ideas into powerful digital products, scalable cloud architectures, and intelligent autonomous experiences.
             </p>
 
             <div className="flex items-center gap-2 pt-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-xs font-mono text-gray-400">
-                All Global Systems Operational
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-mono text-slate-600 font-semibold">
+                Available for New Enterprise Projects
               </span>
             </div>
           </div>
 
-          {/* Portfolio Links (12 items) */}
+          {/* COLUMN 1: COMPANY */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Portfolio
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4">
+              Company
             </h4>
-            <ul className="space-y-2 text-xs text-gray-400">
-              {[
-                "New projects",
-                "Creative",
-                "Real estate",
-                "Marketing / Corporate",
-                "Landing page",
-                "Online store",
-                "Food delivery",
-                "Dentistry",
-                "Manufacturers",
-                "Branding",
-                "Web solution",
-                "Entertainment / Leisure",
-              ].map((item, idx) => (
-                <li key={idx}>
-                  <Link href="/portfolio" className="hover:text-white transition-colors block">
-                    {item}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2.5 text-xs text-slate-600">
+              <li>
+                <Link href="/about" className="hover:text-blue-600 transition-colors block">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/projects" className="hover:text-blue-600 transition-colors block">
+                  Projects &amp; Case Studies
+                </Link>
+              </li>
+              <li>
+                <Link href="/industries" className="hover:text-blue-600 transition-colors block">
+                  Industries We Serve
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers" className="hover:text-blue-600 transition-colors block">
+                  Careers &amp; Hiring
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Services Links (9 items) */}
+          {/* COLUMN 2: SERVICES */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4">
               Services
             </h4>
-            <ul className="space-y-2 text-xs text-gray-400">
-              {[
-                "Website development",
-                "Branding and design",
-                "CRM system",
-                "E-commerce",
-                "Landing page",
-                "Website support",
-                "Redesign",
-                "Application development",
-                "Search engine optimisation",
-              ].map((item, idx) => (
-                <li key={idx}>
-                  <Link href="/services" className="hover:text-white transition-colors block">
-                    {item}
+            <ul className="space-y-2.5 text-xs text-slate-600">
+              {SERVICES_DATA.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}`} className="hover:text-blue-600 transition-colors block">
+                    {s.title}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* About Links */}
+          {/* COLUMN 3: RESOURCES & CONTACT */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              About
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4">
+              Resources &amp; Contact
             </h4>
-            <ul className="space-y-2.5 text-xs text-gray-400">
+            <ul className="space-y-2.5 text-xs text-slate-600 mb-6">
               <li>
-                <Link href="/awards" className="hover:text-white transition-colors block">
-                  Awards
+                <Link href="/blog" className="hover:text-blue-600 transition-colors block">
+                  Tech Blog &amp; Insights
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors block">
-                  Reviews
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-white transition-colors block">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/technologies" className="hover:text-white transition-colors block">
-                  Technologies
+                <Link href="/faq" className="hover:text-blue-600 transition-colors block">
+                  Frequently Asked Questions
                 </Link>
               </li>
             </ul>
-          </div>
 
-          {/* Contact Us */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Contact Us
-            </h4>
-            <div className="space-y-3 text-xs text-gray-400">
-              <div className="text-gray-300 font-medium leading-snug">
-                Interested in cooperation?
+            <div className="space-y-2.5 text-xs text-slate-600">
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-blue-600" />
+                <a href="mailto:hello@startotech.com" className="font-semibold text-slate-800 hover:text-blue-600 transition-colors">
+                  hello@startotech.com
+                </a>
               </div>
-              <a
-                href="mailto:office@redstone.software"
-                className="text-white hover:text-[#e70000] font-mono transition-colors block"
-              >
-                office@redstone.software
-              </a>
-              <div className="pt-2">
-                <button
-                  onClick={() => onOpenDemo()}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-[#e70000] text-white text-xs font-semibold border border-white/10 transition-all cursor-pointer"
-                >
-                  Get in touch
-                </button>
+              <div className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="font-medium text-slate-700">+91 (80) 4129-8800</span>
               </div>
-              <div className="pt-4 text-gray-500">
-                <Link href="/about" className="hover:text-gray-300 transition-colors block">
-                  Privacy Policy
-                </Link>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-amber-600" />
+                <span className="font-medium text-slate-700">Bengaluru, India • Global Edge</span>
               </div>
             </div>
           </div>
+
         </div>
 
-        {/* Bottom copyright & back to top */}
-        <div className="pt-8 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+        {/* BOTTOM COPYRIGHT & LEGAL */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            @ 2026 All rights reserved. FORTUNETECHCORP.
+            © 2026 StartoTech Systems. All rights reserved.
           </div>
 
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-gray-300 transition-colors">
+            <Link href="/privacy-policy" className="hover:text-slate-800 transition-colors">
               Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-slate-800 transition-colors">
+              Terms &amp; Conditions
             </Link>
             <button
               onClick={scrollToTop}
-              className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+              className="hover:text-slate-900 transition-colors flex items-center gap-1 cursor-pointer font-medium ml-2"
             >
               <span>Back to top</span>
               <ArrowUp className="w-3.5 h-3.5" />
@@ -203,12 +181,6 @@ export default function Footer({ onOpenDemo }: FooterProps) {
           </div>
         </div>
 
-        {/* Redstone Iconic Giant Fixed Wordmark in Footer */}
-        <div className="pt-8 pb-4 border-t border-white/5 overflow-hidden select-none opacity-25 hover:opacity-50 transition-opacity text-center">
-          <div className="text-[6.5vw] sm:text-[6.8vw] md:text-[7.2vw] font-black tracking-tighter uppercase text-white leading-none whitespace-nowrap">
-            FORTUNETECHCORP
-          </div>
-        </div>
       </div>
     </footer>
   );
