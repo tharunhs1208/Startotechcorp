@@ -51,7 +51,7 @@ export default function CareerDetailPage({ params }: PageProps) {
       <Navbar />
 
       {/* ── 1. HERO ───────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[70vh] items-end overflow-hidden">
+      <section className="relative flex min-h-[60vh] sm:min-h-[70vh] items-end overflow-hidden">
         <VideoLayer
           src={
             (
@@ -65,10 +65,10 @@ export default function CareerDetailPage({ params }: PageProps) {
           }
           overlay="scrim-bottom"
         />
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-20 pb-20">
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-20 pb-16 sm:pb-20">
           {/* Breadcrumb */}
           <Reveal delay={0.05}>
-            <div className="flex items-center gap-2 text-white/40 text-xs mb-6 font-mono">
+            <div className="flex items-center gap-2 text-white/40 text-xs mb-4 sm:mb-6 font-mono flex-wrap">
               <Link
                 href="/"
                 className="hover:text-[#b7ff4a] transition-colors duration-200"
@@ -83,18 +83,18 @@ export default function CareerDetailPage({ params }: PageProps) {
                 Careers
               </Link>
               <span>/</span>
-              <span className="text-white/70">{job.title}</span>
+              <span className="text-white/70 truncate">{job.title}</span>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="eyebrow mb-4">
+            <div className="eyebrow mb-3 sm:mb-4">
               {job.department}&nbsp;·&nbsp;{job.location}&nbsp;·&nbsp;{job.type}
             </div>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <h1 className="display-xl text-[12vw] sm:text-[8vw] lg:text-[6vw] leading-none">
+            <h1 className="display-xl text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-none break-words">
               {job.title.toUpperCase()}
             </h1>
           </Reveal>
@@ -102,9 +102,9 @@ export default function CareerDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 2. JOB INFO BAR ──────────────────────────────────────────────── */}
-      <section className="border-t border-white/10 py-8">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section className="border-t border-white/10 py-6 sm:py-8">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {(
               [
                 ["Location", job.location],
@@ -114,8 +114,8 @@ export default function CareerDetailPage({ params }: PageProps) {
               ] as [string, string][]
             ).map(([label, value]) => (
               <div key={label}>
-                <div className="eyebrow mb-1">{label}</div>
-                <div className="text-white text-sm font-medium">{value}</div>
+                <div className="eyebrow mb-1 text-[10px]">{label}</div>
+                <div className="text-white text-xs sm:text-sm font-medium">{value}</div>
               </div>
             ))}
           </div>
@@ -123,23 +123,23 @@ export default function CareerDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 3. ABOUT & RESPONSIBILITIES ──────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24">
             {/* About */}
             <div>
               <Reveal delay={0.05}>
-                <div className="eyebrow mb-6">About The Role</div>
+                <div className="eyebrow mb-4 sm:mb-6">About The Role</div>
               </Reveal>
               <Reveal delay={0.1}>
-                <h2 className="display-lg text-3xl sm:text-4xl leading-tight mb-6">
-                  What you'll
+                <h2 className="display-lg text-2xl sm:text-4xl leading-tight mb-4 sm:mb-6">
+                  What you&apos;ll
                   <br />
                   be doing.
                 </h2>
               </Reveal>
               <Reveal delay={0.15}>
-                <p className="text-white/50 text-base leading-relaxed">
+                <p className="text-white/50 text-sm sm:text-base leading-relaxed">
                   {job.about}
                 </p>
               </Reveal>
@@ -170,16 +170,16 @@ export default function CareerDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 4. REQUIREMENTS & NICE TO HAVE ───────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24">
             {/* Requirements */}
             <div>
               <Reveal delay={0.05}>
-                <div className="eyebrow mb-6">Requirements</div>
+                <div className="eyebrow mb-4 sm:mb-6">Requirements</div>
               </Reveal>
               <Reveal delay={0.1}>
-                <h2 className="display-lg text-3xl sm:text-4xl leading-tight mb-8">
+                <h2 className="display-lg text-2xl sm:text-4xl leading-tight mb-6 sm:mb-8">
                   What you
                   <br />
                   need.
@@ -188,11 +188,11 @@ export default function CareerDetailPage({ params }: PageProps) {
               <ol className="space-y-4">
                 {job.requirements.map((req, i) => (
                   <Reveal key={i} delay={0.1 + i * 0.05}>
-                    <li className="flex items-start gap-4">
+                    <li className="flex items-start gap-3 sm:gap-4">
                       <span className="text-[#b7ff4a] font-mono text-xs mt-1 shrink-0 w-5">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <p className="text-white/70 text-sm leading-relaxed">
+                      <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                         {req}
                       </p>
                     </li>
@@ -204,10 +204,10 @@ export default function CareerDetailPage({ params }: PageProps) {
             {/* Nice to Have */}
             <div>
               <Reveal delay={0.1}>
-                <div className="eyebrow mb-6">Nice To Have</div>
+                <div className="eyebrow mb-4 sm:mb-6">Nice To Have</div>
               </Reveal>
               <Reveal delay={0.15}>
-                <h2 className="display-lg text-3xl sm:text-4xl leading-tight mb-8">
+                <h2 className="display-lg text-2xl sm:text-4xl leading-tight mb-6 sm:mb-8">
                   Bonus
                   <br />
                   points.
@@ -216,11 +216,11 @@ export default function CareerDetailPage({ params }: PageProps) {
               <ul className="space-y-4">
                 {job.niceToHave.map((nth, i) => (
                   <Reveal key={i} delay={0.1 + i * 0.05}>
-                    <li className="flex items-start gap-4">
+                    <li className="flex items-start gap-3 sm:gap-4">
                       <span className="text-[#b7ff4a] font-mono text-lg shrink-0 mt-0.5">
                         +
                       </span>
-                      <p className="text-white/50 text-sm leading-relaxed">
+                      <p className="text-white/50 text-xs sm:text-sm leading-relaxed">
                         {nth}
                       </p>
                     </li>
@@ -233,22 +233,22 @@ export default function CareerDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 5. BENEFITS ──────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal delay={0.05}>
-            <div className="eyebrow mb-6">Benefits & Perks</div>
+            <div className="eyebrow mb-4 sm:mb-6">Benefits & Perks</div>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="display-lg text-4xl sm:text-5xl leading-tight mb-12">
+            <h2 className="display-lg text-3xl sm:text-5xl leading-tight mb-8 sm:mb-12">
               What we offer.
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2.5 sm:gap-3">
               {job.benefits.map((b) => (
                 <span
                   key={b}
-                  className="px-5 py-2.5 rounded-full border border-[#b7ff4a]/30 text-[#b7ff4a] text-sm hover:bg-[#b7ff4a]/10 transition-colors duration-200"
+                  className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-[#b7ff4a]/30 text-[#b7ff4a] text-xs sm:text-sm hover:bg-[#b7ff4a]/10 transition-colors duration-200"
                 >
                   {b}
                 </span>
@@ -259,13 +259,13 @@ export default function CareerDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 6. HIRING PROCESS ────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal delay={0.05}>
-            <div className="eyebrow mb-6">Hiring Process</div>
+            <div className="eyebrow mb-4 sm:mb-6">Hiring Process</div>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="display-lg text-4xl sm:text-5xl leading-tight mb-16">
+            <h2 className="display-lg text-3xl sm:text-5xl leading-tight mb-10 sm:mb-16">
               How it works.
             </h2>
           </Reveal>
@@ -273,16 +273,16 @@ export default function CareerDetailPage({ params }: PageProps) {
           <div className="divide-y divide-white/10">
             {job.process.map((step, i) => (
               <Reveal key={i} delay={0.05 + i * 0.07}>
-                <div className="reveal-row py-8 group flex items-start gap-8 cursor-default">
-                  <span className="text-[#b7ff4a] font-mono text-xl shrink-0 pt-0.5">
+                <div className="reveal-row py-6 sm:py-8 group flex items-start gap-4 sm:gap-8 cursor-default">
+                  <span className="text-[#b7ff4a] font-mono text-base sm:text-xl shrink-0 pt-0.5">
                     {step.step}
                   </span>
                   <div className="flex-1">
-                    <h4 className="display-lg text-2xl text-white/70 group-hover:text-white transition-colors duration-300">
+                    <h4 className="display-lg text-lg sm:text-2xl text-white/70 group-hover:text-white transition-colors duration-300">
                       {step.title}
                     </h4>
                     {step.desc && (
-                      <p className="text-white/40 text-sm mt-2 leading-relaxed">
+                      <p className="text-white/40 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">
                         {step.desc}
                       </p>
                     )}
@@ -296,10 +296,10 @@ export default function CareerDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 7. APPLY FORM ────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
-            <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-none mb-16">
+            <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl leading-none mb-10 sm:mb-16 break-words">
               APPLY NOW.
             </h2>
           </Reveal>

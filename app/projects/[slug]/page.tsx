@@ -44,19 +44,19 @@ export default function ProjectDetailPage({ params }: PageProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
           </>
         )}
-        <div className="relative z-10 w-full max-w-[1600px] px-6 sm:px-10 lg:px-20 pb-24">
+        <div className="relative z-10 w-full max-w-[1600px] px-4 sm:px-10 lg:px-20 pb-16 sm:pb-24">
           <Reveal delay={0.1}>
             <div className="eyebrow mb-4">
               {project.industry} — {project.category}
             </div>
           </Reveal>
           <Reveal delay={0.2}>
-            <h1 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[7vw]">
+            <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl lg:text-[7vw] leading-none break-words">
               {project.title.toUpperCase()}
             </h1>
           </Reveal>
           <Reveal delay={0.35}>
-            <p className="mt-6 text-white/60 max-w-xl text-sm leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-white/60 max-w-xl text-xs sm:text-sm leading-relaxed">
               {project.tagline}
             </p>
           </Reveal>
@@ -64,12 +64,12 @@ export default function ProjectDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 2. PROJECT OVERVIEW ─────────────────────────────────────────────── */}
-      <section className="py-24">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <Reveal>
               <div className="eyebrow mb-4">The Project</div>
-              <h2 className="display-xl text-[8vw] sm:text-[5vw] lg:text-[3.5vw] mb-8">
+              <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl mb-6 sm:mb-8 leading-tight break-words">
                 A MODERN<br />
                 <span className="text-outline">DIGITAL</span>
                 <br />
@@ -77,14 +77,14 @@ export default function ProjectDetailPage({ params }: PageProps) {
               </h2>
             </Reveal>
             <Reveal delay={0.15}>
-              <p className="text-white/60 text-base leading-relaxed mb-6">
+              <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-6">
                 {project.overview}
               </p>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((t) => (
                   <span
                     key={t}
-                    className="px-3 py-1 rounded-full border border-white/15 text-[11px] text-white/50 uppercase tracking-widest"
+                    className="px-3 py-1 rounded-full border border-white/15 text-[10px] sm:text-[11px] text-white/50 uppercase tracking-widest"
                   >
                     {t}
                   </span>
@@ -96,21 +96,21 @@ export default function ProjectDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 3. PROBLEM & SOLUTION ───────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             <Reveal>
-              <div className="p-10 rounded-2xl border border-white/10 bg-white/[0.03] h-full">
+              <div className="p-6 sm:p-10 rounded-2xl border border-white/10 bg-white/[0.03] h-full">
                 <div className="eyebrow text-red-400 mb-4">The Problem</div>
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                   {project.challenge}
                 </p>
               </div>
             </Reveal>
             <Reveal delay={0.15}>
-              <div className="p-10 rounded-2xl border border-[#b7ff4a]/20 bg-[#b7ff4a]/[0.03] h-full">
+              <div className="p-6 sm:p-10 rounded-2xl border border-[#b7ff4a]/20 bg-[#b7ff4a]/[0.03] h-full">
                 <div className="eyebrow text-[#b7ff4a] mb-4">Our Solution</div>
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                   {project.solution}
                 </p>
               </div>
@@ -120,20 +120,20 @@ export default function ProjectDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 4. FEATURES ─────────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
-            <div className="eyebrow mb-12">Capabilities Built</div>
+            <div className="eyebrow mb-8 sm:mb-12">Capabilities Built</div>
           </Reveal>
           <div>
             {project.features.map((feature, i) => (
               <Reveal key={i} delay={i * 0.06}>
-                <div className="reveal-row py-8 group">
-                  <div className="flex items-center gap-6">
-                    <span className="text-[#b7ff4a] font-mono text-xl shrink-0">
+                <div className="reveal-row py-6 sm:py-8 group">
+                  <div className="flex items-center gap-4 sm:gap-6">
+                    <span className="text-[#b7ff4a] font-mono text-base sm:text-xl shrink-0">
                       0{i + 1}
                     </span>
-                    <span className="display-lg text-2xl sm:text-3xl lg:text-4xl text-white/70 group-hover:text-white transition-colors">
+                    <span className="display-lg text-xl sm:text-3xl lg:text-4xl text-white/70 group-hover:text-white transition-colors">
                       {feature}
                     </span>
                   </div>
@@ -145,20 +145,20 @@ export default function ProjectDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 5. RESULTS ──────────────────────────────────────────────────────── */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative py-20 sm:py-32 overflow-hidden">
         <VideoLayer src="/videos/baseone.mp4" overlay="scrim" />
-        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
-            <div className="eyebrow mb-12">Results</div>
+            <div className="eyebrow mb-8 sm:mb-12">Results</div>
           </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {project.results.map((r, i) => (
               <Reveal key={i} delay={i * 0.1}>
                 <div>
-                  <div className="display-xl text-[8vw] sm:text-[5vw] lg:text-[4vw] text-[#b7ff4a]">
+                  <div className="display-xl text-3xl sm:text-5xl lg:text-6xl text-[#b7ff4a]">
                     {r.metric}
                   </div>
-                  <div className="text-white/60 text-sm mt-2">{r.label}</div>
+                  <div className="text-white/60 text-xs sm:text-sm mt-2">{r.label}</div>
                 </div>
               </Reveal>
             ))}
@@ -167,14 +167,14 @@ export default function ProjectDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── 6. TESTIMONIAL ──────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <section className="py-16 sm:py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
             <blockquote>
-              <div className="display-xl text-[6vw] sm:text-[4vw] lg:text-[3vw] text-white/30 mb-2">
+              <div className="display-xl text-3xl sm:text-5xl text-white/30 mb-2">
                 &ldquo;
               </div>
-              <p className="display-lg text-2xl sm:text-3xl lg:text-4xl max-w-4xl text-[#f2f2ec] mb-8">
+              <p className="display-lg text-xl sm:text-3xl lg:text-4xl max-w-4xl text-[#f2f2ec] mb-6 sm:mb-8">
                 {project.testimonial.quote}
               </p>
               <cite className="not-italic">
@@ -194,7 +194,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
       <section className="border-t border-white/10">
         <Link
           href={`/projects/${nextProject.slug}`}
-          className="group relative block min-h-[50vh] overflow-hidden"
+          className="group relative block min-h-[40vh] sm:min-h-[50vh] overflow-hidden"
         >
           <img
             src={nextProject.image}
@@ -202,10 +202,10 @@ export default function ProjectDetailPage({ params }: PageProps) {
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2s]"
           />
           <div className="absolute inset-0 bg-[#050505]/60 group-hover:bg-[#050505]/40 transition-colors duration-700" />
-          <div className="relative z-10 flex h-full min-h-[50vh] items-end p-12">
+          <div className="relative z-10 flex h-full min-h-[40vh] sm:min-h-[50vh] items-end p-6 sm:p-12">
             <div>
-              <div className="eyebrow mb-3">Next Project</div>
-              <h3 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4.5vw]">
+              <div className="eyebrow mb-2 sm:mb-3">Next Project</div>
+              <h3 className="display-xl text-3xl sm:text-5xl lg:text-6xl break-words">
                 {nextProject.title.toUpperCase()}
               </h3>
               <div className="mt-4 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#b7ff4a]">

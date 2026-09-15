@@ -153,34 +153,33 @@ export default function BlogPage() {
       <Navbar />
 
       {/* ── HERO: FEATURED ARTICLE ─────────────────────────── */}
-      <section className="relative flex min-h-[90vh] items-end overflow-hidden">
+      <section className="relative flex min-h-[85vh] sm:min-h-[90vh] items-end overflow-hidden">
         <VideoLayer src="/videos/startone.mp4" overlay="scrim-bottom" />
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-20 pb-20">
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-20 pb-16 sm:pb-20">
           <Reveal delay={0.05}>
-            <div className="eyebrow mb-4 text-[#b7ff4a] tracking-widest text-xs">
+            <div className="eyebrow mb-3 sm:mb-4 text-[#b7ff4a] tracking-widest text-[10px] sm:text-xs">
               Featured Article
             </div>
           </Reveal>
           <Reveal delay={0.15}>
             <h1
-              className="display-xl font-black uppercase leading-none text-[#f2f2ec]"
-              style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
+              className="display-xl font-black uppercase leading-none text-[#f2f2ec] text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words"
             >
               {featured.title}
             </h1>
           </Reveal>
           <Reveal delay={0.3}>
-            <p className="mt-5 text-white/60 text-sm sm:text-base max-w-xl leading-relaxed">
+            <p className="mt-4 sm:mt-5 text-white/60 text-xs sm:text-base max-w-xl leading-relaxed">
               {featured.excerpt}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href={`/blog/${featured.slug}`}
                 className="btn-pill btn-accent-c inline-flex items-center gap-2"
               >
                 Read Article <ArrowRight className="w-4 h-4" />
               </Link>
-              <span className="eyebrow text-white/40">
+              <span className="eyebrow text-white/40 text-[10px] sm:text-xs">
                 {featured.readTime} · {featured.publishDate}
               </span>
             </div>
@@ -193,31 +192,30 @@ export default function BlogPage() {
         ref={statsRef}
         className="border-b border-white/10 bg-[#0a0a0a]"
       >
-        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-20 py-8 flex flex-wrap gap-10 sm:gap-20">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-20 py-6 sm:py-8 flex flex-wrap gap-6 sm:gap-20">
           {[
             { value: `${allPosts.length}+`, label: "Articles Published" },
             { value: "4", label: "Expert Topics" },
             { value: "10K+", label: "Monthly Readers" },
           ].map((stat) => (
             <div key={stat.label} className="stat-item opacity-0">
-              <div className="text-2xl sm:text-3xl font-black text-[#b7ff4a]">
+              <div className="text-xl sm:text-3xl font-black text-[#b7ff4a]">
                 {stat.value}
               </div>
-              <div className="eyebrow text-white/40 mt-1">{stat.label}</div>
+              <div className="eyebrow text-white/40 mt-1 text-[10px] sm:text-xs">{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── CATEGORY FILTER ────────────────────────────────── */}
-      <section className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-20 py-16">
-        <div className="flex flex-wrap items-center justify-between gap-6 mb-14">
+      <section className="max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-20 py-12 sm:py-16">
+        <div className="flex flex-wrap items-center justify-between gap-4 sm:gap-6 mb-10 sm:mb-14">
           <Reveal delay={0.05}>
             <div>
               <div className="eyebrow text-[#b7ff4a] mb-2">Browse By Topic</div>
               <h2
-                className="display-lg font-black uppercase text-[#f2f2ec]"
-                style={{ fontSize: "clamp(1.8rem, 3vw, 2.8rem)" }}
+                className="display-lg font-black uppercase text-[#f2f2ec] text-2xl sm:text-4xl lg:text-5xl"
               >
                 Latest Insights
               </h2>
@@ -230,7 +228,7 @@ export default function BlogPage() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                     activeCategory === cat
                       ? "bg-[#b7ff4a] text-[#050505]"
                       : "border border-white/20 text-white/60 hover:border-[#b7ff4a] hover:text-[#b7ff4a]"
@@ -246,7 +244,7 @@ export default function BlogPage() {
         {/* ── ARTICLES GRID ─────────────────────────────── */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 lg:gap-14"
         >
           {filteredPosts.length === 0 ? (
             <div className="col-span-3 py-24 text-center text-white/40 eyebrow">

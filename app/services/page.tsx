@@ -104,7 +104,7 @@ function ServiceProcess() {
         <span className="eyebrow text-[#b7ff4a]/70">Our Process</span>
       </div>
 
-      <div className="relative z-10 mx-auto grid h-full w-full max-w-[1600px] grid-cols-1 items-center gap-8 px-6 pt-20 pb-14 sm:px-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14 lg:px-20">
+      <div className="relative z-10 mx-auto grid h-full w-full max-w-[1600px] grid-cols-1 items-center gap-6 px-4 pt-16 pb-12 sm:px-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14 lg:px-20">
         {/* LEFT — step names + active tagline, highlighted as you scroll */}
         <div className="hidden flex-col justify-center gap-5 lg:flex xl:gap-6">
           {steps.map((step, i) => (
@@ -137,7 +137,7 @@ function ServiceProcess() {
         </div>
 
         {/* RIGHT — cards come in as you scroll */}
-        <div className="relative h-[64vh] w-full lg:h-[74vh]">
+        <div className="relative h-[60vh] w-full sm:h-[64vh] lg:h-[74vh]">
           {steps.map((step, i) => (
             <div key={step.title} className="process-card absolute inset-0 opacity-0">
               <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10">
@@ -147,7 +147,7 @@ function ServiceProcess() {
                   className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-[#050505]/60" />
-                <div className="relative z-10 flex h-full flex-col justify-between p-8 sm:p-10 xl:p-12">
+                <div className="relative z-10 flex h-full flex-col justify-between p-6 sm:p-10 xl:p-12">
                   <div className="flex items-start justify-between gap-6">
                     <span className="font-mono text-xs uppercase tracking-[0.3em] text-[#b7ff4a]/80">
                       0{i + 1} / 05
@@ -157,17 +157,17 @@ function ServiceProcess() {
                     </span>
                   </div>
                   <div>
-                    <h2 className="display-xl text-4xl font-black uppercase leading-none tracking-tight text-[#f2f2ec] sm:text-5xl xl:text-6xl">
+                    <h2 className="display-xl text-3xl font-black uppercase leading-none tracking-tight text-[#f2f2ec] sm:text-5xl xl:text-6xl break-words">
                       {step.title}
                     </h2>
-                    <p className="mt-4 max-w-md text-sm leading-relaxed text-white/65 xl:text-base">
+                    <p className="mt-3 sm:mt-4 max-w-md text-xs sm:text-sm leading-relaxed text-white/65 xl:text-base">
                       {step.desc}
                     </p>
-                    <ul className="mt-5 flex flex-wrap gap-2">
+                    <ul className="mt-4 sm:mt-5 flex flex-wrap gap-1.5 sm:gap-2">
                       {step.points.map((point) => (
                         <li
                           key={point}
-                          className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-wider text-white/70 backdrop-blur-sm"
+                          className="rounded-full border border-white/15 bg-white/5 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-[11px] font-medium uppercase tracking-wider text-white/70 backdrop-blur-sm"
                         >
                           {point}
                         </li>
@@ -182,8 +182,8 @@ function ServiceProcess() {
       </div>
 
       {/* Mobile step indicator */}
-      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 lg:hidden">
-        <span className="font-mono text-xs uppercase tracking-widest text-[#b7ff4a]/80">
+      <div className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 lg:hidden w-full px-4 text-center">
+        <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-[#b7ff4a]/80">
           {steps[active].title} — 0{active + 1}/05 · {steps[active].tagline}
         </span>
       </div>
@@ -203,37 +203,37 @@ export default function ServicesPage() {
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden">
         <VideoLayer src="/videos/zobay.mp4" overlay="scrim-center" />
-        <div className="relative z-10 w-full max-w-[1600px] px-6 sm:px-10 lg:px-20 pt-28 pb-24">
+        <div className="relative z-10 w-full max-w-[1600px] px-4 sm:px-10 lg:px-20 pt-28 pb-20 sm:pb-24">
           <Reveal delay={0.1}>
             <div className="eyebrow mb-6 text-[#b7ff4a]/80">Our Capabilities</div>
           </Reveal>
           <Reveal delay={0.25}>
-            <h1 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[7vw] font-black uppercase leading-none tracking-tight">
+            <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl lg:text-[7vw] font-black uppercase leading-none tracking-tight break-words">
               WE TURN IDEAS<br />
               <span className="text-outline">INTO DIGITAL</span><br />
               PRODUCTS.
             </h1>
           </Reveal>
           <Reveal delay={0.4}>
-            <p className="mt-10 max-w-xl text-base sm:text-lg text-[#f2f2ec]/60 leading-relaxed">
+            <p className="mt-6 sm:mt-10 max-w-xl text-sm sm:text-lg text-[#f2f2ec]/60 leading-relaxed">
               End-to-end engineering, design, and strategy — from first pixel to production and beyond.
             </p>
           </Reveal>
           <Reveal delay={0.55}>
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-8 sm:mt-10 flex flex-wrap gap-4">
               <Link href="/contact" className="btn-pill btn-accent-c">Start a Project</Link>
               <Link href="#services-list" className="btn-pill btn-ghost">Explore Services</Link>
             </div>
           </Reveal>
         </div>
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
+        <div className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
           <span className="text-[10px] font-mono uppercase tracking-widest text-[#f2f2ec]">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-[#f2f2ec] to-transparent" />
         </div>
       </section>
 
       {/* ── INTERACTIVE SERVICES LIST ──────────────────────────────── */}
-      <section id="services-list" className="relative overflow-hidden bg-[#050505] py-40">
+      <section id="services-list" className="relative overflow-hidden bg-[#050505] py-24 sm:py-32 lg:py-40">
         <div className="absolute inset-0 pointer-events-none">
           {SERVICES_DATA.map((s, i) => {
             const src = videoMap[s.slug] ?? "/videos/startone.mp4";
@@ -245,12 +245,12 @@ export default function ServicesPage() {
           })}
           <div className="absolute inset-0 bg-[#050505]/55" />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
-            <div className="flex items-end justify-between mb-20 border-b border-white/10 pb-8">
+            <div className="flex items-end justify-between mb-12 sm:mb-20 border-b border-white/10 pb-6 sm:pb-8">
               <div>
-                <div className="eyebrow mb-4 text-[#b7ff4a]/80">What We Do</div>
-                <p className="text-[#f2f2ec]/40 text-sm max-w-sm leading-relaxed">
+                <div className="eyebrow mb-3 sm:mb-4 text-[#b7ff4a]/80">What We Do</div>
+                <p className="text-[#f2f2ec]/40 text-xs sm:text-sm max-w-sm leading-relaxed">
                   Hover each service to preview the work. Click to explore in depth.
                 </p>
               </div>
@@ -262,20 +262,20 @@ export default function ServicesPage() {
 
           {SERVICES_DATA.map((service, i) => (
             <Reveal key={service.slug} delay={i * 0.05} y={24}>
-              <div className="reveal-row group cursor-pointer py-8 lg:py-10" onMouseEnter={() => setActive(i)}>
+              <div className="reveal-row group cursor-pointer py-6 sm:py-8 lg:py-10" onMouseEnter={() => setActive(i)}>
                 <Link
                   href={`/services/${service.slug}`}
-                  className="row-title flex items-center justify-between gap-6 text-5xl sm:text-7xl lg:text-8xl text-white/35 font-black uppercase leading-none tracking-tight"
+                  className="row-title flex items-center justify-between gap-4 sm:gap-6 text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-white/35 font-black uppercase leading-none tracking-tight break-words"
                 >
-                  <span className="flex items-center gap-6 sm:gap-10">
-                    <span className="text-[#b7ff4a] text-xl sm:text-2xl font-mono font-normal tabular-nums shrink-0">0{i + 1}</span>
+                  <span className="flex items-center gap-4 sm:gap-8">
+                    <span className="text-[#b7ff4a] text-base sm:text-2xl font-mono font-normal tabular-nums shrink-0">0{i + 1}</span>
                     <span>{service.title}</span>
                   </span>
                   <span className="flex items-center gap-4 shrink-0">
                     <span className="hidden lg:block text-sm font-normal font-mono text-transparent group-hover:text-[#b7ff4a]/80 transition-colors duration-500 max-w-[200px] text-right leading-snug tracking-normal normal-case">
                       {service.tagline}
                     </span>
-                    <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-100 text-[#b7ff4a] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 opacity-0 group-hover:opacity-100 text-[#b7ff4a] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </Link>
               </div>

@@ -45,20 +45,20 @@ export default function CTASection({
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden"
+      className="relative flex min-h-[60vh] sm:min-h-[80vh] lg:min-h-[100svh] items-center justify-center overflow-hidden py-16 sm:py-24"
     >
       <VideoLayer src={video} poster={poster} overlay="scrim" />
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pb-24">
-        <h2 className="cta-letters display-xl text-[15vw] sm:text-[10vw] lg:text-[7.5vw] leading-[0.95]">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 pb-12 sm:pb-20 max-w-5xl">
+        <h2 className="cta-letters display-xl text-3xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] break-words">
           {title}
         </h2>
         <Link
           href={href}
-          className="group mt-12 inline-flex items-center gap-4 text-sm sm:text-base font-semibold uppercase tracking-[0.25em] text-[#f2f2ec] transition-colors hover:text-[#b7ff4a]"
+          className="group mt-8 sm:mt-12 inline-flex items-center gap-3 sm:gap-4 text-xs sm:text-base font-semibold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#f2f2ec] transition-colors hover:text-[#b7ff4a] py-2"
         >
           {actionLabel}
-          <span className="grid h-12 w-12 place-items-center rounded-full border border-white/25 transition-all group-hover:border-[#b7ff4a] group-hover:bg-[#b7ff4a] group-hover:text-black">
-            <ArrowUpRight className="w-5 h-5" />
+          <span className="grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full border border-white/25 transition-all group-hover:border-[#b7ff4a] group-hover:bg-[#b7ff4a] group-hover:text-black shrink-0">
+            <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </span>
         </Link>
       </div>

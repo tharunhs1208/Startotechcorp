@@ -11,26 +11,26 @@ export default function TermsPage() {
       <Navbar />
 
       {/* ── HEADER ── */}
-      <div className="mx-auto max-w-4xl px-6 sm:px-10 pt-44 pb-4">
+      <div className="mx-auto max-w-4xl px-4 sm:px-10 pt-28 sm:pt-44 pb-4">
         <Reveal delay={0.1}>
-          <div className="eyebrow mb-6">Legal</div>
+          <div className="eyebrow mb-4 sm:mb-6">Legal</div>
         </Reveal>
         <Reveal delay={0.2}>
-          <h1 className="display-xl text-6xl sm:text-8xl leading-none mb-6">
+          <h1 className="display-xl text-4xl sm:text-6xl md:text-8xl leading-none mb-6 break-words">
             TERMS &amp;
             <br />
             <span className="text-outline">CONDITIONS.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
-          <div className="text-white/30 text-xs font-mono mb-16 border-t border-white/10 pt-6">
+          <div className="text-white/30 text-xs font-mono mb-10 sm:mb-16 border-t border-white/10 pt-6">
             Last updated: March 15, 2026 &nbsp;·&nbsp; Version 3.1
           </div>
         </Reveal>
       </div>
 
       {/* ── BODY ── */}
-      <div className="mx-auto max-w-4xl px-6 sm:px-10 pb-32">
+      <div className="mx-auto max-w-4xl px-4 sm:px-10 pb-24 sm:pb-32">
         <div className="space-y-14 text-white/70 text-sm sm:text-base leading-relaxed">
 
           <Reveal delay={0.1}>
