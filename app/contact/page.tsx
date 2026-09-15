@@ -59,12 +59,12 @@ export default function ContactPage() {
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden">
         <VideoLayer src="/videos/legalx.mp4" overlay="scrim-center" />
-        <div className="relative z-10 w-full max-w-[1600px] px-6 sm:px-10 lg:px-20 pt-28">
+        <div className="relative z-10 w-full max-w-[1600px] px-4 sm:px-10 lg:px-20 pt-28">
           <Reveal delay={0.1}>
-            <div className="eyebrow mb-6">Get in Touch</div>
+            <div className="eyebrow mb-4 sm:mb-6">Get in Touch</div>
           </Reveal>
           <Reveal delay={0.2}>
-            <h1 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[7vw] leading-none uppercase">
+            <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl lg:text-[7vw] leading-none uppercase break-words">
               LET&apos;S MAKE
               <br />
               <span className="text-outline">SOMETHING</span>
@@ -73,70 +73,70 @@ export default function ContactPage() {
             </h1>
           </Reveal>
           <Reveal delay={0.35}>
-            <p className="mt-10 max-w-xl text-base sm:text-lg text-white/50 leading-relaxed">
+            <p className="mt-6 sm:mt-10 max-w-xl text-sm sm:text-lg text-white/50 leading-relaxed">
               Have a vision? We build the technology that brings it to life —
               from first brief to final launch.
             </p>
           </Reveal>
         </div>
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+        <div className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
           <span className="eyebrow text-[10px]">Scroll</span>
-          <div className="w-px h-10 bg-white/40" />
+          <div className="w-px h-8 sm:h-10 bg-white/40" />
         </div>
       </section>
 
       {/* CONTACT FORM + INFO */}
-      <section className="py-24">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
 
             {/* LEFT — Contact Info */}
             <div className="lg:col-span-2">
               <Reveal delay={0.1}>
-                <div className="eyebrow mb-6">Contact</div>
-                <h2 className="display-xl text-[8vw] sm:text-[5vw] lg:text-[3.5vw] leading-tight mb-16 uppercase">
+                <div className="eyebrow mb-4 sm:mb-6">Contact</div>
+                <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl leading-tight mb-8 sm:mb-16 uppercase break-words">
                   START A<br />PROJECT.
                 </h2>
               </Reveal>
               <Reveal delay={0.2}>
-                <div className="space-y-10">
+                <div className="space-y-6 sm:space-y-10">
                   <div>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
                       <Mail className="w-3.5 h-3.5 text-[#b7ff4a]" />
                       <div className="eyebrow text-[10px]">Email</div>
                     </div>
                     <a
                       href="mailto:hello@fortunetech.com"
-                      className="text-lg text-white hover:text-[#b7ff4a] transition-colors duration-300"
+                      className="text-base sm:text-lg text-white hover:text-[#b7ff4a] transition-colors duration-300"
                     >
                       hello@fortunetech.com
                     </a>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
                       <Phone className="w-3.5 h-3.5 text-[#b7ff4a]" />
                       <div className="eyebrow text-[10px]">Phone</div>
                     </div>
                     <a
                       href="tel:+910000000000"
-                      className="text-lg text-white hover:text-[#b7ff4a] transition-colors duration-300"
+                      className="text-base sm:text-lg text-white hover:text-[#b7ff4a] transition-colors duration-300"
                     >
                       +91 00000 00000
                     </a>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
                       <MapPin className="w-3.5 h-3.5 text-[#b7ff4a]" />
                       <div className="eyebrow text-[10px]">Location</div>
                     </div>
-                    <p className="text-lg text-white/80">Bengaluru, India</p>
+                    <p className="text-base sm:text-lg text-white/80">Bengaluru, India</p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
                       <Clock className="w-3.5 h-3.5 text-[#b7ff4a]" />
                       <div className="eyebrow text-[10px]">Office Hours</div>
                     </div>
-                    <p className="text-sm text-white/50 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-white/50 leading-relaxed">
                       Monday – Friday<br />9:00 AM – 6:00 PM IST
                     </p>
                   </div>

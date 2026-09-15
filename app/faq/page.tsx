@@ -88,32 +88,32 @@ function FaqItem({
     <div className="border-b border-white/10">
       <button
         onClick={onToggle}
-        className="w-full py-8 flex items-start justify-between gap-6 text-left group"
+        className="w-full py-6 sm:py-8 flex items-start justify-between gap-4 sm:gap-6 text-left group"
         aria-expanded={isOpen}
       >
-        <div className="flex items-start gap-6">
-          <span className="text-[#b7ff4a] font-mono text-lg shrink-0 mt-1">
+        <div className="flex items-start gap-4 sm:gap-6">
+          <span className="text-[#b7ff4a] font-mono text-base sm:text-lg shrink-0 mt-1">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span className="display-lg text-2xl sm:text-3xl lg:text-4xl text-white/70 group-hover:text-white transition-colors duration-300">
+          <span className="display-lg text-lg sm:text-2xl lg:text-3xl text-white/70 group-hover:text-white transition-colors duration-300">
             {faq.question}
           </span>
         </div>
         <span
-          className={`shrink-0 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+          className={`shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
             isOpen
               ? "border-[#b7ff4a] bg-[#b7ff4a] text-[#050505] rotate-45"
               : "border-white/20 text-white/50 group-hover:border-white/50"
           }`}
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
         </span>
       </button>
 
       {/* Animated body — always rendered, height animated via GSAP */}
       <div ref={bodyRef} className="overflow-hidden" style={{ height: 0, opacity: 0 }}>
-        <div className="pb-10 pl-[3.25rem]">
-          <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-3xl">
+        <div className="pb-8 sm:pb-10 pl-0 sm:pl-[3.25rem]">
+          <p className="text-white/60 text-xs sm:text-base leading-relaxed max-w-3xl">
             {faq.answer}
           </p>
         </div>
@@ -155,14 +155,14 @@ export default function FAQPage() {
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[50vh] sm:min-h-[60vh] items-center justify-center overflow-hidden">
         <VideoLayer src="/videos/legalx.mp4" overlay="scrim-center" />
-        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
+        <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 pt-20">
           <Reveal delay={0.1}>
-            <div className="eyebrow mb-8">FAQ</div>
+            <div className="eyebrow mb-6 sm:mb-8">FAQ</div>
           </Reveal>
           <Reveal delay={0.2}>
-            <h1 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[7vw] leading-none">
+            <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl lg:text-[7vw] leading-none break-words">
               QUESTIONS?
               <br />
               <span className="text-outline">WE HAVE</span>
@@ -174,16 +174,16 @@ export default function FAQPage() {
       </section>
 
       {/* ── INTRO LINE ── */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-24 pb-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-16 pt-16 sm:pt-24 pb-6">
         <Reveal delay={0.1}>
-          <p className="text-white/40 text-sm sm:text-base max-w-lg">
+          <p className="text-white/40 text-xs sm:text-base max-w-lg">
             Everything you need to know about working with us — from kicking off a project to shipping and beyond.
           </p>
         </Reveal>
       </section>
 
       {/* ── ACCORDION LIST ── */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-16 py-8 sm:py-12">
         <div ref={listRef} className="border-t border-white/10">
           {FAQS.map((faq, i) => (
             <div key={i} className="faq-row">

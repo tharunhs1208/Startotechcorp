@@ -186,12 +186,12 @@ export default function BlogDetailPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/50 to-transparent" />
 
         {/* Content */}
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-20 pb-20">
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-20 pb-16 sm:pb-20">
           {/* Breadcrumb */}
           <Reveal delay={0.0}>
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-white/40 hover:text-[#b7ff4a] transition-colors text-xs font-bold uppercase tracking-wider mb-8"
+              className="inline-flex items-center gap-2 text-white/40 hover:text-[#b7ff4a] transition-colors text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-6 sm:mb-8"
             >
               <ArrowLeft className="w-4 h-4" /> Back to Blog
             </Link>
@@ -199,7 +199,7 @@ export default function BlogDetailPage() {
 
           {/* Category */}
           <Reveal delay={0.1}>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#b7ff4a] text-[#050505] text-[10px] font-black uppercase tracking-widest mb-5">
+            <span className="inline-block px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#b7ff4a] text-[#050505] text-[10px] font-black uppercase tracking-widest mb-4 sm:mb-5">
               {post.category}
             </span>
           </Reveal>
@@ -207,8 +207,7 @@ export default function BlogDetailPage() {
           {/* Title */}
           <Reveal delay={0.2}>
             <h1
-              className="font-black uppercase text-[#f2f2ec] leading-none max-w-4xl"
-              style={{ fontSize: "clamp(2rem, 6vw, 5rem)" }}
+              className="font-black uppercase text-[#f2f2ec] leading-none max-w-4xl text-3xl sm:text-5xl md:text-6xl lg:text-7xl break-words"
             >
               {post.title}
             </h1>
@@ -216,13 +215,13 @@ export default function BlogDetailPage() {
 
           {/* Meta row */}
           <Reveal delay={0.32}>
-            <div className="mt-7 flex flex-wrap items-center gap-5 text-sm text-white/50">
+            <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-5 text-xs sm:text-sm text-white/50">
               {post.author && (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5 sm:gap-3">
                   <img
                     src={post.author.avatar}
                     alt={post.author.name}
-                    className="w-9 h-9 rounded-full object-cover ring-1 ring-white/20"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover ring-1 ring-white/20"
                   />
                   <div>
                     <div className="text-xs font-bold text-[#f2f2ec]">
@@ -234,7 +233,7 @@ export default function BlogDetailPage() {
                   </div>
                 </div>
               )}
-              <span className="text-white/20">|</span>
+              <span className="text-white/20 hidden sm:inline">|</span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#b7ff4a]" />
                 {post.readTime}
@@ -249,19 +248,19 @@ export default function BlogDetailPage() {
       </section>
 
       {/* ── ARTICLE CONTENT ──────────────────────────────────── */}
-      <section ref={contentRef} className="py-24">
-        <div className="mx-auto max-w-3xl px-6 sm:px-10">
+      <section ref={contentRef} className="py-16 sm:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-10">
           {/* Lead / excerpt */}
-          <p className="prose-p opacity-0 text-lg sm:text-xl text-white/80 leading-relaxed font-medium mb-10 pb-10 border-b border-white/10">
+          <p className="prose-p opacity-0 text-base sm:text-xl text-white/80 leading-relaxed font-medium mb-8 sm:mb-10 pb-8 sm:pb-10 border-b border-white/10">
             {post.excerpt}
           </p>
 
           {/* Body paragraphs */}
-          <div className="space-y-7">
+          <div className="space-y-6 sm:space-y-7">
             {content.map((paragraph, i) => (
               <p
                 key={i}
-                className="prose-p opacity-0 text-base sm:text-lg text-white/60 leading-[1.85] tracking-[0.01em]"
+                className="prose-p opacity-0 text-sm sm:text-lg text-white/60 leading-[1.85] tracking-[0.01em]"
               >
                 {paragraph}
               </p>
@@ -270,12 +269,12 @@ export default function BlogDetailPage() {
 
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
-            <div className="mt-14 pt-10 border-t border-white/10 flex flex-wrap items-center gap-2">
-              <span className="eyebrow text-white/30 mr-2">Tagged:</span>
+            <div className="mt-10 sm:mt-14 pt-8 sm:pt-10 border-t border-white/10 flex flex-wrap items-center gap-2">
+              <span className="eyebrow text-white/30 mr-2 text-[10px]">Tagged:</span>
               {post.tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="px-3.5 py-1.5 rounded-full border border-white/15 text-white/50 text-[11px] font-mono hover:border-[#b7ff4a] hover:text-[#b7ff4a] transition-colors cursor-default"
+                  className="px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-white/15 text-white/50 text-[10px] sm:text-[11px] font-mono hover:border-[#b7ff4a] hover:text-[#b7ff4a] transition-colors cursor-default"
                 >
                   #{tag}
                 </span>
@@ -285,18 +284,18 @@ export default function BlogDetailPage() {
 
           {/* Author card */}
           {post.author && (
-            <div className="mt-16 p-8 rounded-2xl border border-white/10 bg-white/[0.03] flex items-start gap-6">
+            <div className="mt-12 sm:mt-16 p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/[0.03] flex items-start gap-4 sm:gap-6">
               <img
                 src={post.author.avatar}
                 alt={post.author.name}
-                className="w-16 h-16 rounded-full object-cover ring-2 ring-[#b7ff4a]/30 flex-shrink-0"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover ring-2 ring-[#b7ff4a]/30 flex-shrink-0"
               />
               <div>
-                <div className="eyebrow text-[#b7ff4a] mb-1">Written by</div>
-                <div className="font-black text-lg text-[#f2f2ec] uppercase">
+                <div className="eyebrow text-[#b7ff4a] mb-1 text-[10px]">Written by</div>
+                <div className="font-black text-base sm:text-lg text-[#f2f2ec] uppercase">
                   {post.author.name}
                 </div>
-                <div className="text-sm text-white/50 mt-0.5">{post.author.role}</div>
+                <div className="text-xs sm:text-sm text-white/50 mt-0.5">{post.author.role}</div>
               </div>
             </div>
           )}

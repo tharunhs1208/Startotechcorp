@@ -36,12 +36,12 @@ export default function CareersPage() {
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
         <VideoLayer src="/videos/socan.mp4" overlay="scrim-center" />
-        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
+        <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 pt-20">
           <Reveal delay={0.1}>
-            <div className="eyebrow mb-8">Bengaluru · Hybrid · Remote-friendly</div>
+            <div className="eyebrow mb-6 sm:mb-8">Bengaluru · Hybrid · Remote-friendly</div>
           </Reveal>
           <Reveal delay={0.25}>
-            <h1 className="display-xl text-[12vw] sm:text-[8vw] lg:text-[6.5vw] leading-none">
+            <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl lg:text-[6.5vw] leading-none break-words">
               BUILD YOUR
               <br />
               <span className="text-outline">FUTURE</span>{" "}
@@ -49,12 +49,12 @@ export default function CareersPage() {
             </h1>
           </Reveal>
           <Reveal delay={0.5}>
-            <p className="mt-8 text-sm sm:text-base text-white/50 tracking-wide max-w-lg">
+            <p className="mt-6 sm:mt-8 text-xs sm:text-base text-white/50 tracking-wide max-w-lg">
               Engineers, designers, and problem solvers — building what&apos;s next.
             </p>
           </Reveal>
           <Reveal delay={0.65}>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <div className="mt-8 sm:mt-10 flex flex-wrap justify-center gap-4">
               <Link href="#open-positions" className="btn-pill btn-accent-c">
                 View Open Roles
                 <ArrowRight className="w-4 h-4" />
@@ -74,24 +74,24 @@ export default function CareersPage() {
       </section>
 
       {/* ── LIFE AT COMPANY (photo gallery) ──────────────────────────── */}
-      <section className="py-32 lg:py-44">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <section className="py-20 sm:py-32 lg:py-44">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
               <div>
-                <div className="eyebrow mb-4 text-[#b7ff4a]/80">Life At FortuneTech</div>
-                <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-none">
+                <div className="eyebrow mb-3 sm:mb-4 text-[#b7ff4a]/80">Life At FortuneTech</div>
+                <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl leading-none break-words">
                   MORE THAN<br />
                   <span className="text-outline">A WORKPLACE.</span>
                 </h2>
               </div>
-              <p className="text-white/40 text-sm max-w-xs leading-relaxed">
+              <p className="text-white/40 text-xs sm:text-sm max-w-xs leading-relaxed">
                 Small teams. Big ownership. Zero bureaucracy.
               </p>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {GALLERY.map((photo, i) => (
               <Reveal key={photo} delay={i * 0.08} y={24}>
                 <div
@@ -113,7 +113,7 @@ export default function CareersPage() {
       </section>
 
       {/* ── CULTURE (WORK / LEARN / CREATE / GROW) ───────────────────── */}
-      <section className="relative py-32 lg:py-44 overflow-hidden">
+      <section className="relative py-20 sm:py-32 lg:py-44 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           {CULTURE.map((c, i) => (
             <video
@@ -132,19 +132,19 @@ export default function CareersPage() {
           <div className="absolute inset-0 bg-[#050505]/50" />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
-            <div className="eyebrow mb-16 text-[#b7ff4a]/80">The Culture</div>
+            <div className="eyebrow mb-10 sm:mb-16 text-[#b7ff4a]/80">The Culture</div>
           </Reveal>
           <div className="divide-y divide-white/10 border-y border-white/10">
             {CULTURE.map((c, i) => (
               <Reveal key={c.word} delay={i * 0.05} y={24}>
                 <div
-                  className="reveal-row group cursor-default py-10 lg:py-14"
+                  className="reveal-row group cursor-default py-6 sm:py-10 lg:py-14"
                   onMouseEnter={() => setActiveCulture(i)}
                   onMouseLeave={() => setActiveCulture(null)}
                 >
-                  <span className="display-xl text-[16vw] sm:text-[10vw] lg:text-[7vw] leading-none text-white/30 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)]">
+                  <span className="display-xl text-5xl sm:text-7xl md:text-8xl lg:text-[7vw] leading-none text-white/30 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)] break-words">
                     {c.word}
                   </span>
                 </div>
@@ -155,13 +155,13 @@ export default function CareersPage() {
       </section>
 
       {/* ── OPEN POSITIONS ───────────────────────────────────────────── */}
-      <section id="open-positions" className="relative py-32 lg:py-44">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <section id="open-positions" className="relative py-20 sm:py-32 lg:py-44">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
           <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
               <div>
-                <div className="eyebrow mb-4 text-[#b7ff4a]/80">Open Positions</div>
-                <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-none">
+                <div className="eyebrow mb-3 sm:mb-4 text-[#b7ff4a]/80">Open Positions</div>
+                <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl leading-none break-words">
                   JOIN THE<br />
                   <span className="text-[#b7ff4a]">TEAM.</span>
                 </h2>
@@ -177,17 +177,17 @@ export default function CareersPage() {
               <Reveal key={job.slug} delay={i * 0.05} y={24}>
                 <Link
                   href={`/careers/${job.slug}`}
-                  className="reveal-row group flex flex-col md:flex-row md:items-center justify-between gap-4 py-8 lg:py-10"
+                  className="reveal-row group flex flex-col md:flex-row md:items-center justify-between gap-4 py-6 sm:py-8 lg:py-10"
                 >
-                  <div className="flex items-center gap-6 sm:gap-10">
-                    <span className="text-[#b7ff4a] text-xl sm:text-2xl font-mono font-normal tabular-nums shrink-0">
+                  <div className="flex items-start sm:items-center gap-4 sm:gap-10">
+                    <span className="text-[#b7ff4a] text-lg sm:text-2xl font-mono font-normal tabular-nums shrink-0 mt-1 sm:mt-0">
                       0{i + 1}
                     </span>
                     <div>
-                      <h3 className="display-lg text-3xl sm:text-5xl lg:text-6xl text-white/35 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)]">
+                      <h3 className="display-lg text-2xl sm:text-4xl lg:text-5xl text-white/35 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)] break-words">
                         {job.title}
                       </h3>
-                      <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-white/40">
+                      <div className="mt-2 sm:mt-3 flex flex-wrap items-center gap-3 sm:gap-4 text-[11px] sm:text-xs text-white/40">
                         <span className="flex items-center gap-1.5">
                           <MapPin className="w-3.5 h-3.5" />
                           {job.location.split("(")[0].trim()}
@@ -199,11 +199,11 @@ export default function CareersPage() {
                       </div>
                     </div>
                   </div>
-                  <span className="flex items-center gap-4 shrink-0">
+                  <span className="flex items-center gap-4 shrink-0 self-end md:self-auto">
                     <span className="hidden lg:block text-sm font-mono text-white/0 group-hover:text-[#b7ff4a]/80 transition-colors duration-500 uppercase tracking-wider">
                       {job.department}
                     </span>
-                    <ArrowUpRight className="w-8 h-8 text-white/20 group-hover:text-[#b7ff4a] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 text-white/20 group-hover:text-[#b7ff4a] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </Link>
               </Reveal>
@@ -213,9 +213,9 @@ export default function CareersPage() {
       </section>
 
       {/* ── PERKS STRIP ──────────────────────────────────────────────── */}
-      <section className="border-t border-white/10 py-20">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="flex flex-wrap gap-3">
+      <section className="border-t border-white/10 py-16 sm:py-20">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3">
             {[
               "Equity Options",
               "Remote / Hybrid",
@@ -225,7 +225,7 @@ export default function CareersPage() {
               "Annual Offsites",
             ].map((perk, i) => (
               <Reveal key={perk} delay={i * 0.04} y={16}>
-                <span className="px-5 py-2.5 rounded-full border border-white/15 text-white/60 text-xs uppercase tracking-widest hover:border-[#b7ff4a]/50 hover:text-[#b7ff4a] transition-colors duration-300">
+                <span className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full border border-white/15 text-white/60 text-[11px] sm:text-xs uppercase tracking-widest hover:border-[#b7ff4a]/50 hover:text-[#b7ff4a] transition-colors duration-300">
                   {perk}
                 </span>
               </Reveal>

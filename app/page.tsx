@@ -44,35 +44,35 @@ function Hero() {
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
       <VideoLayer src="/videos/hero-pinterest.mp4" overlay="scrim-center" />
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 pt-20">
         <Reveal delay={0.15}>
-          <div className="eyebrow mb-8">FortuneTech — Digital Product Studio</div>
+          <div className="eyebrow mb-6 sm:mb-8 text-[10px] sm:text-xs">FortuneTech — Digital Product Studio</div>
         </Reveal>
         <Reveal delay={0.3}>
-          <h1 className="display-xl text-[15vw] sm:text-[10vw] lg:text-[7.5vw]">
+          <h1 className="display-xl text-4xl sm:text-7xl md:text-8xl lg:text-[7.5vw] leading-[0.92] break-words">
             We Build
             <br />
             <span className="text-[#b7ff4a]">What&apos;s Next.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.55}>
-          <p className="mt-8 text-sm sm:text-base text-white/60 tracking-wide">
+          <p className="mt-6 sm:mt-8 text-xs sm:text-base text-white/60 tracking-wide max-w-md">
             Digital products. Intelligent systems. Real results.
           </p>
         </Reveal>
         <Reveal delay={0.7}>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link href="/projects" className="btn-pill btn-light">
+          <div className="mt-8 sm:mt-10 flex flex-wrap justify-center gap-3 sm:gap-4">
+            <Link href="/projects" className="btn-pill btn-light text-xs sm:text-sm px-5 py-3 sm:px-7 sm:py-3.5">
               Explore Products
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="/contact" className="btn-pill btn-ghost">
+            <Link href="/contact" className="btn-pill btn-ghost text-xs sm:text-sm px-5 py-3 sm:px-7 sm:py-3.5">
               Start a Project
             </Link>
           </div>
         </Reveal>
       </div>
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
         <svg width="18" height="30" viewBox="0 0 18 30" fill="none">
           <rect x="1" y="1" width="16" height="28" rx="8" stroke="currentColor" strokeWidth="1.5" />
           <circle cx="9" cy="9" r="2.5" fill="currentColor" />
@@ -117,25 +117,25 @@ function CompanyIntro() {
   }, []);
 
   return (
-    <section ref={ref} className="relative overflow-hidden py-32 lg:py-44">
-      <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-2 items-center gap-16 px-6 sm:px-10 lg:px-20">
-        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-[3/4]">
+    <section ref={ref} className="relative overflow-hidden py-16 sm:py-28 lg:py-44">
+      <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-2 items-center gap-10 sm:gap-16 px-4 sm:px-8 lg:px-20">
+        <div className="relative aspect-[4/3] sm:aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-[3/4]">
           <VideoLayer src="/videos/startone.mp4" overlay="scrim-bottom" />
         </div>
         <div>
-          <div className="eyebrow mb-8">Who We Are</div>
-          <p className="intro-line-1 display-lg text-[9vw] sm:text-[5.5vw] lg:text-[4vw] text-[#f2f2ec]">
+          <div className="eyebrow mb-4 sm:mb-8">Who We Are</div>
+          <p className="intro-line-1 display-lg text-2xl sm:text-5xl lg:text-6xl text-[#f2f2ec] leading-[0.95]">
             A team of builders turning
             <span className="text-outline"> ambitious ideas </span>
             into products people love.
           </p>
-          <p className="intro-line-2 mt-10 max-w-md text-sm text-white/50 leading-relaxed">
+          <p className="intro-line-2 mt-6 sm:mt-10 max-w-md text-xs sm:text-sm text-white/50 leading-relaxed">
             We design, engineer, and ship digital experiences for companies that
             refuse to settle for ordinary.
           </p>
           <Link
             href="/about"
-            className="group mt-12 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white transition-colors hover:text-[#b7ff4a]"
+            className="group mt-8 sm:mt-12 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white transition-colors hover:text-[#b7ff4a] py-2"
           >
             Our Story
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -153,7 +153,7 @@ function WhatWeDo() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative overflow-hidden bg-[#050505] py-40">
+    <section className="relative overflow-hidden bg-[#050505] py-16 sm:py-28 lg:py-40">
       <div className="absolute inset-0 pointer-events-none">
         {WHAT_WE_DO.map((item, i) => (
           <video
@@ -172,25 +172,25 @@ function WhatWeDo() {
         <div className="absolute inset-0 bg-[#050505]/55" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
         <Reveal>
-          <div className="eyebrow mb-16">What We Do</div>
+          <div className="eyebrow mb-8 sm:mb-16">What We Do</div>
         </Reveal>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20 pb-10">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20 pb-6 sm:pb-10">
         <Reveal>
-          <p className="display-lg mb-10 text-lg sm:text-2xl text-white/40">
+          <p className="display-lg mb-6 sm:mb-10 text-base sm:text-2xl text-white/40">
             Select a capability
           </p>
         </Reveal>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
         {WHAT_WE_DO.map((item, i) => (
           <Reveal key={item.title} delay={i * 0.05} y={24}>
             <div
-              className="reveal-row group cursor-pointer py-8 lg:py-10"
+              className="reveal-row group cursor-pointer py-6 sm:py-8 lg:py-10"
               onMouseEnter={() => setActive(i)}
             >
               <Link
@@ -205,12 +205,12 @@ function WhatWeDo() {
                     ? "/services/cloud-solutions"
                     : "/services"
                 }
-                className="row-title display-lg flex items-center justify-between gap-6 text-5xl sm:text-7xl lg:text-8xl text-white/35"
+                className="row-title display-lg flex items-center justify-between gap-4 text-2xl sm:text-5xl md:text-7xl lg:text-8xl text-white/35 break-words"
               >
                 <span>{item.title}</span>
-                <span className="flex items-center gap-3 text-base font-medium uppercase tracking-widest text-[#b7ff4a] opacity-0 transition-opacity duration-300 group-hover:opacity-100 shrink-0">
+                <span className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base font-medium uppercase tracking-widest text-[#b7ff4a] opacity-0 transition-opacity duration-300 group-hover:opacity-100 shrink-0">
                   See more
-                  <ArrowUpRight className="w-5 h-5" />
+                  <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </span>
               </Link>
             </div>
@@ -243,18 +243,18 @@ const FEATURED = [
 
 function FeaturedProject() {
   return (
-    <section className="relative overflow-hidden py-32">
-      <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
+      <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
         <Reveal>
-          <div className="eyebrow mb-14">Featured Projects</div>
+          <div className="eyebrow mb-8 sm:mb-14">Featured Projects</div>
         </Reveal>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {FEATURED.map((project, i) => (
             <Reveal key={project.title} y={64}>
               <Link
                 href={project.href}
-                className="group block relative min-h-[55vh] sm:min-h-[70vh] overflow-hidden rounded-2xl"
+                className="group block relative min-h-[45vh] sm:min-h-[60vh] lg:min-h-[70vh] overflow-hidden rounded-2xl"
               >
                 {/* Media fills the entire block — no black gaps */}
                 <VideoLayer
@@ -263,23 +263,23 @@ function FeaturedProject() {
                   className="transition-transform duration-[1.5s] ease-out group-hover:scale-105"
                 />
 
-                <div className="relative z-10 flex min-h-[55vh] sm:min-h-[70vh] flex-col justify-end p-8 sm:p-14">
-                  <div className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">
+                <div className="relative z-10 flex min-h-[45vh] sm:min-h-[60vh] lg:min-h-[70vh] flex-col justify-end p-6 sm:p-10 lg:p-14">
+                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-white/50 mb-2 sm:mb-4">
                     {project.label}
                   </div>
-                  <h3 className="display-xl text-5xl sm:text-7xl lg:text-8xl text-[#f2f2ec]">
+                  <h3 className="display-xl text-3xl sm:text-6xl md:text-7xl lg:text-8xl text-[#f2f2ec] leading-[0.95] break-words">
                     {project.title}
                   </h3>
-                  <p className="mt-4 max-w-md text-sm text-white/60 leading-relaxed">
+                  <p className="mt-3 sm:mt-4 max-w-md text-xs sm:text-sm text-white/60 leading-relaxed">
                     {project.tagline}
                   </p>
-                  <div className="mt-6 inline-flex items-center gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#b7ff4a]">
+                  <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#b7ff4a]">
                     View Product
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
                   </div>
                 </div>
 
-                <span className="absolute top-6 right-6 sm:top-8 sm:right-8 z-10 font-mono text-xs text-white/40">
+                <span className="absolute top-4 right-4 sm:top-8 sm:right-8 z-10 font-mono text-xs text-white/40">
                   0{i + 1} / 02
                 </span>
               </Link>
@@ -333,8 +333,8 @@ function OurProcess() {
   return (
     <section ref={ref} className="relative h-screen overflow-hidden bg-[#050505]">
       {/* Section heading — fills the black space after the last featured project */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20">
-        <span className="eyebrow text-[#b7ff4a]/70">Our Process</span>
+      <div className="absolute top-8 sm:top-12 left-1/2 -translate-x-1/2 z-20">
+        <span className="eyebrow text-[#b7ff4a]/70 text-[10px] sm:text-xs">Our Process</span>
       </div>
       {/* Step background photos */}
       <div className="absolute inset-0">
@@ -352,11 +352,11 @@ function OurProcess() {
       {PROCESS_STEPS.map((step, i) => (
         <div
           key={step.title}
-          className="process-word absolute inset-0 flex items-center justify-center"
+          className="process-word absolute inset-0 flex items-center justify-center px-4"
         >
-          <h2 className="display-xl text-[18vw] sm:text-[12vw] text-[#f2f2ec]">
+          <h2 className="display-xl text-5xl sm:text-8xl md:text-[12vw] text-[#f2f2ec] text-center">
             {step.title}
-            <span className="ml-4 align-top text-[4vw] text-[#b7ff4a]">
+            <span className="ml-2 sm:ml-4 align-top text-lg sm:text-3xl lg:text-[4vw] text-[#b7ff4a]">
               0{i + 1}
             </span>
           </h2>
@@ -373,7 +373,7 @@ function IndustriesHorizontal() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative overflow-hidden py-40">
+    <section className="relative overflow-hidden py-16 sm:py-28 lg:py-40">
       <div className="absolute inset-0 pointer-events-none">
         {INDUSTRY_ITEMS.map((item, i) => (
           <video
@@ -392,30 +392,30 @@ function IndustriesHorizontal() {
         <div className="absolute inset-0 bg-[#050505]/60" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
         <Reveal>
-          <div className="eyebrow mb-6">Industries</div>
+          <div className="eyebrow mb-4 sm:mb-6">Industries</div>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="display-lg mb-16 text-3xl sm:text-4xl text-white">
+          <p className="display-lg mb-8 sm:mb-16 text-2xl sm:text-4xl text-white">
             Technology for
             <span className="text-outline"> every industry.</span>
           </p>
         </Reveal>
 
-        <div className="space-y-2">
+        <div className="space-y-1 sm:space-y-2">
           {INDUSTRY_ITEMS.map((item, i) => (
             <Reveal key={item.name} delay={i * 0.05} y={24}>
               <div
-                className="reveal-row group cursor-pointer py-7"
+                className="reveal-row group cursor-pointer py-5 sm:py-7"
                 onMouseEnter={() => setActive(i)}
               >
                 <Link
                   href="/industries"
-                  className="row-title display-lg flex items-center justify-between text-4xl sm:text-6xl lg:text-7xl text-white/35"
+                  className="row-title display-lg flex items-center justify-between text-2xl sm:text-5xl md:text-6xl lg:text-7xl text-white/35 break-words"
                 >
                   <span>{item.name}</span>
-                  <ArrowUpRight className="w-8 h-8 sm:w-12 sm:h-12 text-white/20 group-hover:text-[#b7ff4a] transition-colors shrink-0" />
+                  <ArrowUpRight className="w-6 h-6 sm:w-10 sm:h-10 text-white/20 group-hover:text-[#b7ff4a] transition-colors shrink-0" />
                 </Link>
               </div>
             </Reveal>
@@ -425,7 +425,7 @@ function IndustriesHorizontal() {
         <Reveal>
           <Link
             href="/industries"
-            className="mt-16 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-[#b7ff4a] transition-colors"
+            className="mt-10 sm:mt-16 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-[#b7ff4a] transition-colors py-2"
           >
             Explore All Industries
             <ArrowRight className="w-4 h-4" />
@@ -441,14 +441,14 @@ function IndustriesHorizontal() {
 ============================================================================ */
 function CompanyNumbers() {
   return (
-    <section className="relative overflow-hidden py-40">
+    <section className="relative overflow-hidden py-16 sm:py-28 lg:py-40">
       <VideoLayer src="/videos/legalx.mp4" overlay="scrim" />
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
         <Reveal>
-          <div className="eyebrow mb-6">By The Numbers</div>
+          <div className="eyebrow mb-4 sm:mb-6">By The Numbers</div>
         </Reveal>
       </div>
-      <div className="relative z-10 mx-auto grid w-full max-w-[1600px] grid-cols-1 md:grid-cols-3 gap-14 px-6 sm:px-10 lg:px-20 pt-10">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1600px] grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-14 px-4 sm:px-8 lg:px-20 pt-6 sm:pt-10">
         <Reveal delay={0.1}>
           <Counter value={50} suffix="+" label="Projects Delivered" />
         </Reveal>

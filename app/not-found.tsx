@@ -12,17 +12,17 @@ export default function NotFound() {
       {/* Full-screen video background */}
       <VideoLayer src="/videos/hero-pinterest.mp4" overlay="scrim" />
 
-      <div className="relative z-10 flex flex-col items-center text-center px-6">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6">
         {/* Giant outline 404 */}
         <Reveal delay={0.1} y={60}>
-          <div className="display-xl text-[32vw] sm:text-[22vw] lg:text-[18vw] text-outline leading-none select-none">
+          <div className="display-xl text-7xl sm:text-9xl md:text-[18vw] text-outline leading-none select-none">
             404
           </div>
         </Reveal>
 
         {/* Headline */}
         <Reveal delay={0.3} y={40}>
-          <h1 className="display-xl text-[8vw] sm:text-[5vw] lg:text-[3.5vw] mt-4 leading-tight">
+          <h1 className="display-xl text-3xl sm:text-5xl lg:text-6xl mt-4 leading-tight break-words">
             YOU&apos;VE ENTERED
             <br />
             <span className="text-[#b7ff4a]">UNCHARTED</span>
@@ -33,7 +33,7 @@ export default function NotFound() {
 
         {/* Sub-copy */}
         <Reveal delay={0.45} y={20}>
-          <p className="mt-6 text-white/50 text-sm sm:text-base max-w-sm leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-white/50 text-xs sm:text-base max-w-sm leading-relaxed">
             The page you&apos;re looking for doesn&apos;t exist or has been moved. Let&apos;s get
             you back on track.
           </p>
