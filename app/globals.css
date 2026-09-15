@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #050505;
-  --fg: #f2f2ec;
-  --muted: #8f8f88;
-  --accent: #b7ff4a;
-  --accent-dim: #7ab83c;
-  --line: rgba(255, 255, 255, 0.08);
+  --bg: #fafafa;
+  --fg: #0a0a0a;
+  --muted: #64748b;
+  --accent: #0070f3;
+  --accent-light: #0284c7;
+  --accent-dim: #1d4ed8;
+  --line: rgba(0, 0, 0, 0.08);
   --display: "Space Grotesk", "Geist", system-ui, sans-serif;
 }
 
@@ -28,11 +29,42 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #050505;
+  color: #ffffff;
 }
 
 .font-display {
   font-family: var(--font-space-grotesk), var(--font-geist-sans), sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   LAYOUT: 120PX PAGE MARGINS
+--------------------------------------------------------------------------- */
+.page-container {
+  width: 100%;
+  max-width: 1680px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .page-container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.section-spacing {
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -56,7 +88,7 @@ body {
 
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(242, 242, 236, 0.35);
+  -webkit-text-stroke: 1px rgba(10, 10, 10, 0.3);
 }
 
 .text-outline-accent {
@@ -87,24 +119,6 @@ body {
   object-fit: cover;
 }
 
-.scrim {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 90% at 50% 0%, rgba(5, 5, 5, 0.25) 0%, rgba(5, 5, 5, 0.55) 45%, rgba(5, 5, 5, 0.92) 100%);
-}
-
-.scrim-center {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(75% 75% at 50% 55%, rgba(5, 5, 5, 0.3) 0%, rgba(5, 5, 5, 0.75) 100%);
-}
-
-.scrim-bottom {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, #050505 2%, rgba(5, 5, 5, 0.6) 30%, rgba(5, 5, 5, 0) 60%);
-}
-
 /* ---------------------------------------------------------------------------
    BUTTONS
 --------------------------------------------------------------------------- */
@@ -124,17 +138,19 @@ body {
 }
 
 .btn-light {
-  background: #f2f2ec;
-  color: #050505;
+  background: #0a0a0a;
+  color: #ffffff;
 }
 .btn-light:hover {
   background: var(--accent);
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
 .btn-ghost {
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #f2f2ec;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #0a0a0a;
+  background: transparent;
 }
 .btn-ghost:hover {
   border-color: var(--accent);
@@ -144,10 +160,11 @@ body {
 
 .btn-accent-c {
   background: var(--accent);
-  color: #10151a;
+  color: #ffffff;
 }
 .btn-accent-c:hover {
-  background: #d0ff7a;
+  background: #005bb5;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -166,7 +183,7 @@ body {
 
 .reveal-row:hover .row-title {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(242, 242, 236, 0.9);
+  -webkit-text-stroke: 1px rgba(10, 10, 10, 0.9);
   transform: translateX(2.5%);
 }
 
@@ -186,18 +203,6 @@ body {
 
 .marquee-track:hover {
   animation-play-state: paused;
-}
-
-/* ---------------------------------------------------------------------------
-   OPEN/EXPAND
---------------------------------------------------------------------------- */
-@keyframes expandIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.expand-in {
-  animation: expandIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ---------------------------------------------------------------------------
@@ -227,20 +232,12 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #cbd5e1;
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
-/* ---------------------------------------------------------------------------
-   REVEAL (GSAP initial state, overridden by GSAP)
---------------------------------------------------------------------------- */
-.reveal-init {
-  opacity: 0;
-  transform: translateY(48px);
+  background: #94a3b8;
 }

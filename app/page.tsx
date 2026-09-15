@@ -1,488 +1,426 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { gsap } from "@/lib/gsap";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Code2,
+  Cpu,
+  Smartphone,
+  Cloud,
+  Layout,
+  Shield,
+  Sparkles,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/cinematic/Reveal";
-import VideoLayer from "@/components/cinematic/VideoLayer";
-import Counter from "@/components/cinematic/Counter";
-import CTASection from "@/components/cinematic/CTASection";
+import ScrollReveal from "@/components/ScrollReveal";
 
 /* ============================================================================
-   SECTIONS
+   DATA CONSTANTS
 ============================================================================ */
-const WHAT_WE_DO = [
-  { title: "Digital Products", video: "/videos/startone.mp4" },
-  { title: "Web Development", video: "/videos/socan.mp4" },
-  { title: "UI/UX", video: "/videos/hero-pinterest.mp4" },
-  { title: "AI & Automation", video: "/videos/zobay.mp4" },
-  { title: "Cloud & Technology", video: "/videos/baseone.mp4" },
+const FEATURED_PROJECTS = [
+  {
+    num: "01",
+    title: "Zobay Voice AI",
+    category: "AI & Voice",
+    tagline: "Autonomous conversational phone agents with sub-280ms response latency and natural human emotion.",
+    metrics: "+45% Conversion · 280ms Latency",
+    href: "/projects/zobay-voice-ai",
+    video: "/videos/zobay.mp4",
+  },
+  {
+    num: "02",
+    title: "MeetingX Collaboration",
+    category: "Web & WebRTC",
+    tagline: "Real-time ultra-low latency conferencing platform with interactive breakout canvases.",
+    metrics: "120K+ Active Users · 99.99% Uptime",
+    href: "/projects/meetingx-collaboration",
+    video: "/videos/validsoft.mp4",
+  },
+  {
+    num: "03",
+    title: "VideoVault Streaming",
+    category: "Cloud Platform",
+    tagline: "High-throughput adaptive media streaming and encrypted video asset delivery pipeline.",
+    metrics: "4.8x Faster Delivery · 10TB+ Streamed",
+    href: "/projects/videovault-streaming",
+    video: "/videos/socan.mp4",
+  },
 ];
 
-const INDUSTRY_ITEMS = [
-  { name: "Real Estate", video: "/videos/startone.mp4" },
-  { name: "Healthcare", video: "/videos/validsoft.mp4" },
-  { name: "FinTech", video: "/videos/baseone.mp4" },
-  { name: "Education", video: "/videos/zobay.mp4" },
-  { name: "E-commerce", video: "/videos/socan.mp4" },
+const SERVICES = [
+  {
+    num: "01",
+    icon: Code2,
+    title: "Product Engineering",
+    slug: "web-development",
+    desc: "Modern web platforms, SaaS architectures, and full-stack enterprise applications built with Next.js, React, and Node.js.",
+    tech: ["Next.js", "React", "TypeScript", "Node.js"],
+  },
+  {
+    num: "02",
+    icon: Cpu,
+    title: "AI & Machine Learning",
+    slug: "ai-machine-learning",
+    desc: "Autonomous voice agents, custom LLM fine-tuning, retrieval systems, and predictive workflow automation.",
+    tech: ["Python", "PyTorch", "OpenAI", "FastAPI"],
+  },
+  {
+    num: "03",
+    icon: Smartphone,
+    title: "Mobile Development",
+    slug: "mobile-apps",
+    desc: "High-performance iOS and Android applications with native feel, fluid animations, and offline synchronization.",
+    tech: ["React Native", "Flutter", "Swift", "Kotlin"],
+  },
+  {
+    num: "04",
+    icon: Cloud,
+    title: "Cloud & DevOps",
+    slug: "cloud-solutions",
+    desc: "Scalable AWS and edge infrastructure, automated CI/CD pipelines, container orchestration, and multi-region failover.",
+    tech: ["AWS", "Docker", "Kubernetes", "PostgreSQL"],
+  },
+  {
+    num: "05",
+    icon: Layout,
+    title: "UI/UX Design Systems",
+    slug: "ui-ux-design",
+    desc: "Clean, human-centered product interfaces, modular Figma design tokens, and interactive accessible prototypes.",
+    tech: ["Figma", "Design Systems", "Prototyping", "Tailwind Tokens"],
+  },
+  {
+    num: "06",
+    icon: Shield,
+    title: "Cybersecurity & Auth",
+    slug: "cybersecurity",
+    desc: "Enterprise SSO, biometric verification, penetration testing, compliance hardening, and end-to-end encryption.",
+    tech: ["OAuth", "Vault", "Security", "Encryption"],
+  },
 ];
 
 const PROCESS_STEPS = [
-  { title: "Discover", image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop" },
-  { title: "Design", image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1600&auto=format&fit=crop" },
-  { title: "Build", image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1600&auto=format&fit=crop" },
-  { title: "Launch", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop" },
-];
-
-/* ============================================================================
-   HERO
-============================================================================ */
-function Hero() {
-  return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      <VideoLayer src="/videos/hero-pinterest.mp4" overlay="scrim-center" />
-      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 pt-20">
-        <Reveal delay={0.15}>
-          <div className="eyebrow mb-6 sm:mb-8 text-[10px] sm:text-xs">FortuneTech — Digital Product Studio</div>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <h1 className="display-xl text-4xl sm:text-7xl md:text-8xl lg:text-[7.5vw] leading-[0.92] break-words">
-            We Build
-            <br />
-            <span className="text-[#b7ff4a]">What&apos;s Next.</span>
-          </h1>
-        </Reveal>
-        <Reveal delay={0.55}>
-          <p className="mt-6 sm:mt-8 text-xs sm:text-base text-white/60 tracking-wide max-w-md">
-            Digital products. Intelligent systems. Real results.
-          </p>
-        </Reveal>
-        <Reveal delay={0.7}>
-          <div className="mt-8 sm:mt-10 flex flex-wrap justify-center gap-3 sm:gap-4">
-            <Link href="/projects" className="btn-pill btn-light text-xs sm:text-sm px-5 py-3 sm:px-7 sm:py-3.5">
-              Explore Products
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="/contact" className="btn-pill btn-ghost text-xs sm:text-sm px-5 py-3 sm:px-7 sm:py-3.5">
-              Start a Project
-            </Link>
-          </div>
-        </Reveal>
-      </div>
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
-        <svg width="18" height="30" viewBox="0 0 18 30" fill="none">
-          <rect x="1" y="1" width="16" height="28" rx="8" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="9" cy="9" r="2.5" fill="currentColor" />
-        </svg>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================================
-   COMPANY INTRO (video side-by-side + scrub text reveal)
-============================================================================ */
-function CompanyIntro() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelector(".intro-line-1"),
-        { opacity: 0, y: 80 },
-        {
-          opacity: 1,
-          y: 0,
-          ease: "none",
-          scrollTrigger: { trigger: el, start: "top 75%", end: "center 45%", scrub: 1 },
-        }
-      );
-      gsap.fromTo(
-        el.querySelector(".intro-line-2"),
-        { opacity: 0, y: 80 },
-        {
-          opacity: 1,
-          y: 0,
-          ease: "none",
-          scrollTrigger: { trigger: el, start: "top 55%", end: "bottom 45%", scrub: 1 },
-        }
-      );
-    }, el);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section ref={ref} className="relative overflow-hidden py-16 sm:py-28 lg:py-44">
-      <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-2 items-center gap-10 sm:gap-16 px-4 sm:px-8 lg:px-20">
-        <div className="relative aspect-[4/3] sm:aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-[3/4]">
-          <VideoLayer src="/videos/startone.mp4" overlay="scrim-bottom" />
-        </div>
-        <div>
-          <div className="eyebrow mb-4 sm:mb-8">Who We Are</div>
-          <p className="intro-line-1 display-lg text-2xl sm:text-5xl lg:text-6xl text-[#f2f2ec] leading-[0.95]">
-            A team of builders turning
-            <span className="text-outline"> ambitious ideas </span>
-            into products people love.
-          </p>
-          <p className="intro-line-2 mt-6 sm:mt-10 max-w-md text-xs sm:text-sm text-white/50 leading-relaxed">
-            We design, engineer, and ship digital experiences for companies that
-            refuse to settle for ordinary.
-          </p>
-          <Link
-            href="/about"
-            className="group mt-8 sm:mt-12 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white transition-colors hover:text-[#b7ff4a] py-2"
-          >
-            Our Story
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================================
-   WHAT WE DO — hover item swaps background video
-============================================================================ */
-function WhatWeDo() {
-  const [active, setActive] = useState(0);
-
-  return (
-    <section className="relative overflow-hidden bg-[#050505] py-16 sm:py-28 lg:py-40">
-      <div className="absolute inset-0 pointer-events-none">
-        {WHAT_WE_DO.map((item, i) => (
-          <video
-            key={item.video}
-            src={item.video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className={`video-layer transition-opacity duration-700 ${
-              i === active ? "opacity-40" : "opacity-0"
-            }`}
-          />
-        ))}
-        <div className="absolute inset-0 bg-[#050505]/55" />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
-        <Reveal>
-          <div className="eyebrow mb-8 sm:mb-16">What We Do</div>
-        </Reveal>
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20 pb-6 sm:pb-10">
-        <Reveal>
-          <p className="display-lg mb-6 sm:mb-10 text-base sm:text-2xl text-white/40">
-            Select a capability
-          </p>
-        </Reveal>
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
-        {WHAT_WE_DO.map((item, i) => (
-          <Reveal key={item.title} delay={i * 0.05} y={24}>
-            <div
-              className="reveal-row group cursor-pointer py-6 sm:py-8 lg:py-10"
-              onMouseEnter={() => setActive(i)}
-            >
-              <Link
-                href={
-                  item.title === "AI & Automation"
-                    ? "/services/ai-machine-learning"
-                    : item.title === "Web Development"
-                    ? "/services/web-development"
-                    : item.title === "UI/UX"
-                    ? "/services/ui-ux-design"
-                    : item.title === "Cloud & Technology"
-                    ? "/services/cloud-solutions"
-                    : "/services"
-                }
-                className="row-title display-lg flex items-center justify-between gap-4 text-2xl sm:text-5xl md:text-7xl lg:text-8xl text-white/35 break-words"
-              >
-                <span>{item.title}</span>
-                <span className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base font-medium uppercase tracking-widest text-[#b7ff4a] opacity-0 transition-opacity duration-300 group-hover:opacity-100 shrink-0">
-                  See more
-                  <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </span>
-              </Link>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================================
-   FEATURED PROJECTS — full-bleed video blocks (no dead space)
-============================================================================ */
-const FEATURED = [
   {
-    href: "/projects/startone-enterprise-os",
-    video: "/videos/startone.mp4",
-    label: "Enterprise OS",
-    title: "StartOne",
-    tagline: "The all-in-one execution layer for modern companies.",
+    step: "01",
+    title: "Discover & Scope",
+    desc: "We analyze your business objectives, target audience, and technical feasibility to establish an architectural roadmap.",
   },
   {
-    href: "/projects/zobay-voice-ai",
-    video: "/videos/zobay.mp4",
-    label: "Autonomous Voice AI",
-    title: "Zobay",
-    tagline: "Sub-280ms conversational phone agents with human emotion.",
+    step: "02",
+    title: "Design & Prototype",
+    desc: "We build intuitive user flows, high-fidelity interactive prototypes, and unified design tokens in Figma.",
+  },
+  {
+    step: "03",
+    title: "Agile Engineering",
+    desc: "Two-week sprints shipping clean, test-driven TypeScript code with automated pipelines and weekly client demos.",
+  },
+  {
+    step: "04",
+    title: "Launch & Scale",
+    desc: "Zero-downtime deployment, global edge CDN optimization, telemetry monitoring, and 24/7 ongoing SLA support.",
   },
 ];
 
-function FeaturedProject() {
-  return (
-    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
-      <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
-        <Reveal>
-          <div className="eyebrow mb-8 sm:mb-14">Featured Projects</div>
-        </Reveal>
-
-        <div className="space-y-6 sm:space-y-8">
-          {FEATURED.map((project, i) => (
-            <Reveal key={project.title} y={64}>
-              <Link
-                href={project.href}
-                className="group block relative min-h-[45vh] sm:min-h-[60vh] lg:min-h-[70vh] overflow-hidden rounded-2xl"
-              >
-                {/* Media fills the entire block — no black gaps */}
-                <VideoLayer
-                  src={project.video}
-                  overlay="scrim-bottom"
-                  className="transition-transform duration-[1.5s] ease-out group-hover:scale-105"
-                />
-
-                <div className="relative z-10 flex min-h-[45vh] sm:min-h-[60vh] lg:min-h-[70vh] flex-col justify-end p-6 sm:p-10 lg:p-14">
-                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-white/50 mb-2 sm:mb-4">
-                    {project.label}
-                  </div>
-                  <h3 className="display-xl text-3xl sm:text-6xl md:text-7xl lg:text-8xl text-[#f2f2ec] leading-[0.95] break-words">
-                    {project.title}
-                  </h3>
-                  <p className="mt-3 sm:mt-4 max-w-md text-xs sm:text-sm text-white/60 leading-relaxed">
-                    {project.tagline}
-                  </p>
-                  <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#b7ff4a]">
-                    View Product
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
-                  </div>
-                </div>
-
-                <span className="absolute top-4 right-4 sm:top-8 sm:right-8 z-10 font-mono text-xs text-white/40">
-                  0{i + 1} / 02
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+const STATS = [
+  { value: "8+", label: "Years of Engineering" },
+  { value: "150+", label: "Projects Delivered" },
+  { value: "99.8%", label: "Client Satisfaction" },
+  { value: "25+", label: "Countries Served" },
+];
 
 /* ============================================================================
-   OUR PROCESS — pinned scroll animation
-============================================================================ */
-function OurProcess() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const steps = el.querySelectorAll(".process-word");
-    const bgs = el.querySelectorAll(".process-bg");
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "top top",
-          end: "+=400%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-        },
-      });
-      steps.forEach((step, i) => {
-        const bg = bgs[i];
-        tl.fromTo(step, { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 1 });
-        if (bg) {
-          tl.fromTo(bg, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.2 }, "<");
-        }
-        if (i < steps.length - 1) {
-          tl.to(step, { opacity: 0, scale: 0.9, duration: 0.8 }, "+=0.4");
-          if (bg) {
-            tl.to(bg, { opacity: 0, duration: 0.8 }, "<");
-          }
-        }
-      });
-    }, el);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section ref={ref} className="relative h-screen overflow-hidden bg-[#050505]">
-      {/* Section heading — fills the black space after the last featured project */}
-      <div className="absolute top-8 sm:top-12 left-1/2 -translate-x-1/2 z-20">
-        <span className="eyebrow text-[#b7ff4a]/70 text-[10px] sm:text-xs">Our Process</span>
-      </div>
-      {/* Step background photos */}
-      <div className="absolute inset-0">
-        {PROCESS_STEPS.map((step) => (
-          <img
-            key={step.title}
-            src={step.image}
-            alt=""
-            className="process-bg absolute inset-0 h-full w-full object-cover opacity-0"
-          />
-        ))}
-        <div className="absolute inset-0 bg-[#050505]/65" />
-      </div>
-
-      {PROCESS_STEPS.map((step, i) => (
-        <div
-          key={step.title}
-          className="process-word absolute inset-0 flex items-center justify-center px-4"
-        >
-          <h2 className="display-xl text-5xl sm:text-8xl md:text-[12vw] text-[#f2f2ec] text-center">
-            {step.title}
-            <span className="ml-2 sm:ml-4 align-top text-lg sm:text-3xl lg:text-[4vw] text-[#b7ff4a]">
-              0{i + 1}
-            </span>
-          </h2>
-        </div>
-      ))}
-    </section>
-  );
-}
-
-/* ============================================================================
-   INDUSTRIES — hover swaps background
-============================================================================ */
-function IndustriesHorizontal() {
-  const [active, setActive] = useState(0);
-
-  return (
-    <section className="relative overflow-hidden py-16 sm:py-28 lg:py-40">
-      <div className="absolute inset-0 pointer-events-none">
-        {INDUSTRY_ITEMS.map((item, i) => (
-          <video
-            key={item.video}
-            src={item.video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className={`video-layer transition-opacity duration-700 ${
-              i === active ? "opacity-40" : "opacity-0"
-            }`}
-          />
-        ))}
-        <div className="absolute inset-0 bg-[#050505]/60" />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
-        <Reveal>
-          <div className="eyebrow mb-4 sm:mb-6">Industries</div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="display-lg mb-8 sm:mb-16 text-2xl sm:text-4xl text-white">
-            Technology for
-            <span className="text-outline"> every industry.</span>
-          </p>
-        </Reveal>
-
-        <div className="space-y-1 sm:space-y-2">
-          {INDUSTRY_ITEMS.map((item, i) => (
-            <Reveal key={item.name} delay={i * 0.05} y={24}>
-              <div
-                className="reveal-row group cursor-pointer py-5 sm:py-7"
-                onMouseEnter={() => setActive(i)}
-              >
-                <Link
-                  href="/industries"
-                  className="row-title display-lg flex items-center justify-between text-2xl sm:text-5xl md:text-6xl lg:text-7xl text-white/35 break-words"
-                >
-                  <span>{item.name}</span>
-                  <ArrowUpRight className="w-6 h-6 sm:w-10 sm:h-10 text-white/20 group-hover:text-[#b7ff4a] transition-colors shrink-0" />
-                </Link>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal>
-          <Link
-            href="/industries"
-            className="mt-10 sm:mt-16 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-[#b7ff4a] transition-colors py-2"
-          >
-            Explore All Industries
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================================
-   COMPANY NUMBERS
-============================================================================ */
-function CompanyNumbers() {
-  return (
-    <section className="relative overflow-hidden py-16 sm:py-28 lg:py-40">
-      <VideoLayer src="/videos/legalx.mp4" overlay="scrim" />
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-8 lg:px-20">
-        <Reveal>
-          <div className="eyebrow mb-4 sm:mb-6">By The Numbers</div>
-        </Reveal>
-      </div>
-      <div className="relative z-10 mx-auto grid w-full max-w-[1600px] grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-14 px-4 sm:px-8 lg:px-20 pt-6 sm:pt-10">
-        <Reveal delay={0.1}>
-          <Counter value={50} suffix="+" label="Projects Delivered" />
-        </Reveal>
-        <Reveal delay={0.2}>
-          <Counter value={20} suffix="+" label="Happy Clients" />
-        </Reveal>
-        <Reveal delay={0.3}>
-          <Counter value={10} suffix="+" label="Technologies" />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================================
-   PAGE
+   PAGE COMPONENT
 ============================================================================ */
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
       <Navbar />
-      <Hero />
-      <CompanyIntro />
-      <WhatWeDo />
-      <FeaturedProject />
-      <OurProcess />
-      <IndustriesHorizontal />
-      <CompanyNumbers />
-      <CTASection
-        title="Have an Idea?"
-        actionLabel="Let's Build It"
-        href="/contact"
-        video="/videos/baseone.mp4"
-      />
+
+      {/* ── 1. HERO SECTION ─────────────────────────────────────────── */}
+      <section className="relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#0070f3]/10 blur-[140px] rounded-full pointer-events-none" />
+
+        <div className="relative z-10 page-container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+              <ScrollReveal delay={0.05} y={20}>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/[0.08] bg-white text-xs font-semibold text-[#0070f3] mb-6 shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Digital Product & AI Engineering Studio</span>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.15} y={24}>
+                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-900 leading-[1.08]">
+                  We build digital products that move businesses forward.
+                </h1>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.25} y={20}>
+                <p className="mt-6 text-base sm:text-lg lg:text-xl text-zinc-600 max-w-xl leading-relaxed font-light">
+                  StratoTechCorp designs, engineers, and scales world-class web applications, AI agents, cloud architectures, and digital experiences.
+                </p>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.35} y={20}>
+                <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                  <Link
+                    href="/contact"
+                    className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-7 py-3.5 shadow-xs"
+                  >
+                    <span>Start a Project</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="/projects"
+                    className="btn-pill btn-ghost text-xs sm:text-sm font-semibold px-7 py-3.5 border-black/20 hover:border-black text-zinc-900"
+                  >
+                    <span>View Selected Work</span>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            {/* Right Video Column */}
+            <div className="lg:col-span-5 w-full">
+              <ScrollReveal delay={0.4} y={32}>
+                <div className="relative rounded-2xl border border-black/[0.08] bg-white p-2 sm:p-3 shadow-xl shadow-black/5">
+                  <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] rounded-xl overflow-hidden bg-zinc-950">
+                    <video
+                      src="/videos/hero-pinterest.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2. STATS BAR ────────────────────────────────────────────── */}
+      <section className="py-12 border-y border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {STATS.map((stat, i) => (
+            <ScrollReveal key={i} delay={i * 0.08} y={16}>
+              <div>
+                <div className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-zinc-500 mt-1 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 3. FEATURED WORK ────────────────────────────────────────── */}
+      <section className="py-20 sm:py-32">
+        <div className="page-container">
+          <ScrollReveal y={24}>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-black/[0.08] gap-4">
+              <div>
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-medium">
+                  Portfolio
+                </span>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
+                  Selected Work
+                </h2>
+              </div>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-600 hover:text-[#0070f3] transition-colors"
+              >
+                <span>View All Projects</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="space-y-12">
+            {FEATURED_PROJECTS.map((proj, idx) => (
+              <ScrollReveal key={proj.title} delay={idx * 0.1} y={32}>
+                <div className="group rounded-2xl border border-black/[0.08] bg-white overflow-hidden hover:border-black/20 shadow-xs hover:shadow-md transition-all">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                    <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[420px] bg-zinc-950 overflow-hidden">
+                      <video
+                        src={proj.video}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-[#0070f3] border border-black/10 font-semibold shadow-xs">
+                        {proj.category}
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between">
+                      <div>
+                        <span className="font-mono text-xs text-zinc-400 font-semibold">
+                          {proj.num}
+                        </span>
+                        <h3 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900 mt-2 group-hover:text-[#0070f3] transition-colors">
+                          {proj.title}
+                        </h3>
+                        <p className="mt-4 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
+                          {proj.tagline}
+                        </p>
+                        <div className="mt-6 pt-4 border-t border-black/[0.06] text-xs font-mono text-[#0070f3] font-semibold">
+                          {proj.metrics}
+                        </div>
+                      </div>
+
+                      <div className="mt-8 pt-6 border-t border-black/[0.08]">
+                        <Link
+                          href={proj.href}
+                          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-900 hover:text-[#0070f3] transition-colors"
+                        >
+                          <span>Explore Case Study</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. SERVICES & CAPABILITIES ──────────────────────────────── */}
+      <section className="py-20 sm:py-32 bg-[#f8fafc] border-y border-black/[0.08]">
+        <div className="page-container">
+          <ScrollReveal y={24}>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-medium">
+                Capabilities
+              </span>
+              <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
+                Services Built for Scale
+              </h2>
+              <p className="mt-4 text-xs sm:text-base text-zinc-600 font-light">
+                End-to-end product design, full-stack engineering, and AI automation tailored to modern digital enterprises.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SERVICES.map((serv, i) => {
+              const Icon = serv.icon;
+              return (
+                <ScrollReveal key={serv.slug} delay={i * 0.08} y={28}>
+                  <Link
+                    href={`/services/${serv.slug}`}
+                    className="group p-8 rounded-2xl border border-black/[0.08] bg-white hover:border-[#0070f3]/50 hover:shadow-md transition-all flex flex-col justify-between h-full"
+                  >
+                    <div>
+                      <div className="w-12 h-12 rounded-xl bg-black/[0.04] border border-black/[0.06] flex items-center justify-center text-[#0070f3] mb-6 group-hover:scale-110 transition-transform">
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-display text-xl font-bold text-zinc-900 group-hover:text-[#0070f3] transition-colors">
+                        {serv.title}
+                      </h3>
+                      <p className="mt-3 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
+                        {serv.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 pt-4 border-t border-black/[0.06] flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-zinc-500 group-hover:text-[#0070f3]">
+                      <span>Learn More</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. PROCESS / HOW WE WORK ─────────────────────────────────── */}
+      <section className="py-20 sm:py-32">
+        <div className="page-container">
+          <ScrollReveal y={24}>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-medium">
+                Methodology
+              </span>
+              <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
+                How We Build
+              </h2>
+              <p className="mt-4 text-xs sm:text-base text-zinc-600 font-light">
+                A transparent, agile workflow designed to ship high-impact digital products on time.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PROCESS_STEPS.map((step, i) => (
+              <ScrollReveal key={step.step} delay={i * 0.08} y={24}>
+                <div className="p-8 rounded-2xl border border-black/[0.08] bg-white shadow-xs flex flex-col justify-between min-h-[220px] h-full">
+                  <div>
+                    <span className="font-mono text-sm font-bold text-[#0070f3]">
+                      {step.step}
+                    </span>
+                    <h3 className="font-display text-lg font-bold text-zinc-900 mt-4 mb-2">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                    {step.desc}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. FINAL CTA BANNER ─────────────────────────────────────── */}
+      <section className="py-20 pb-32">
+        <div className="page-container">
+          <ScrollReveal y={32}>
+            <div className="relative rounded-3xl border border-black/[0.08] bg-gradient-to-b from-white to-[#f4f4f5] p-10 sm:p-16 text-center overflow-hidden shadow-lg shadow-black/5">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-[#0070f3]/10 blur-3xl rounded-full pointer-events-none" />
+
+              <div className="relative z-10 max-w-2xl mx-auto">
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-3 font-semibold">
+                  Let&apos;s Connect
+                </span>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
+                  Have a project in mind? Let&apos;s build it.
+                </h2>
+                <p className="mt-4 text-xs sm:text-base text-zinc-600 font-light leading-relaxed">
+                  Whether you need an MVP from scratch or are looking to re-engineer an enterprise platform, we&apos;re ready to help you ship.
+                </p>
+                <div className="mt-8 flex justify-center">
+                  <Link
+                    href="/contact"
+                    className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-4 shadow-xs"
+                  >
+                    <span>Start a Project</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
