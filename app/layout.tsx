@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,13 +13,30 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "FortuneTechCorp — Next-Generation Enterprise Suite (Zobay, StartOne, LegalX)",
-  description: "Architecting the intelligent enterprise with Zobay Voice AI, StartOne Enterprise OS, and LegalX Contract Intelligence.",
-  keywords: ["FortuneTechCorp", "Zobay", "StartOne", "LegalX", "Voice AI", "Enterprise OS", "Legal Tech", "Autonomous Enterprise"],
-};
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+});
 
-import SmoothScroll from "@/components/SmoothScroll";
+export const metadata: Metadata = {
+  title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
+  description: "Digital products. Intelligent systems. Real results.",
+  keywords: [
+    "Fortune Tech",
+    "Digital Products",
+    "Web Development",
+    "UI/UX Design",
+    "AI & Automation",
+    "Cloud & Technology",
+  ],
+  authors: [{ name: "Fortune Tech" }],
+  openGraph: {
+    title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
+    description: "Digital products. Intelligent systems. Real results.",
+    type: "website",
+    locale: "en_US",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -28,12 +46,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}
     >
-      <body className="min-h-screen bg-[#090a0f] text-gray-100 antialiased font-sans selection:bg-red-500/30 selection:text-white">
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+      <body className="min-h-screen bg-[#050505] text-[#f2f2ec] antialiased font-sans selection:bg-[#b7ff4a] selection:text-[#050505]">
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

@@ -1,160 +1,235 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { gsap } from "@/lib/gsap";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import DemoModal from "@/components/DemoModal";
-import BentoGrid from "@/components/BentoGrid";
-import { Sparkles, Award, Shield, CheckCircle2, ArrowRight, Target, Zap, Users, Cpu, Lock } from "lucide-react";
-import { motion } from "framer-motion";
+import Reveal from "@/components/cinematic/Reveal";
+import VideoLayer from "@/components/cinematic/VideoLayer";
+import CTASection from "@/components/cinematic/CTASection";
 
-export default function AboutPage() {
-  const [demoModalOpen, setDemoModalOpen] = useState(false);
+const TIMELINE = [
+  { year: "2021", title: "Founded", desc: "A small team with big ambitions in Bengaluru" },
+  { year: "2022", title: "First Products", desc: "Launched our first digital platforms" },
+  { year: "2023", title: "Growing Team", desc: "Expanded to 15+ talented builders" },
+  { year: "2024", title: "AI & Automation", desc: "Integrated intelligent systems" },
+  { year: "2025", title: "Global Expansion", desc: "Serving clients worldwide" },
+];
+
+const TEAM = [
+  { name: "Vikram Sethi", role: "CEO & Founder", photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" },
+  { name: "Aanya Sharma", role: "Head of Design", photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600&auto=format&fit=crop" },
+  { name: "Rahul Verma", role: "Systems Architect", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" },
+  { name: "Tharun Kumar", role: "Lead Engineer", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" },
+];
+
+/* ── PHILOSOPHY SECTION ───────────────────────────────────────────── */
+const PHILOSOPHY_LINES = [
+  { phrase: "Think bigger.", image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1600&auto=format&fit=crop" },
+  { phrase: "Build smarter.", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop" },
+  { phrase: "Move faster.", image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=1600&auto=format&fit=crop" },
+];
+
+function Philosophy() {
+  const ref = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const lines = el.querySelectorAll<HTMLElement>(".phil-line");
+    const bgs = el.querySelectorAll<HTMLElement>(".phil-bg");
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "top top",
+          end: "+=400%",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+      lines.forEach((line, i) => {
+        const bg = bgs[i];
+        tl.fromTo(line, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 1 });
+        if (bg) {
+          tl.fromTo(bg, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.2 }, "<");
+        }
+        if (i < lines.length - 1) {
+          tl.to(line, { opacity: 0, scale: 0.9, duration: 0.8 }, "+=0.5");
+          if (bg) {
+            tl.to(bg, { opacity: 0, duration: 0.8 }, "<");
+          }
+        }
+      });
+    }, el);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#090a0f] text-white selection:bg-[#e70000] selection:text-white">
-      <Navbar onOpenDemo={() => setDemoModalOpen(true)} />
+    <section ref={ref} className="relative h-screen overflow-hidden bg-[#050505]">
+      {/* Base ambient image — visible behind the heading & between line transitions */}
+      <img
+        src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
 
-      <main className="pt-36 pb-28">
-        {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-bold uppercase tracking-widest text-[#e70000] mb-4">
-            <Sparkles className="w-3.5 h-3.5" /> Company & Governance
-          </div>
-          <h1 className="text-5xl sm:text-7xl font-black uppercase tracking-tight mb-6">
-            Architecting The Autonomous Enterprise
-          </h1>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            FortuneTechCorp was founded on a singular conviction: modern companies shouldn't be held back by disconnected software silos. We engineer high-velocity autonomous infrastructure uniting <strong className="text-white">Zobay Voice AI</strong>, <strong className="text-white">StartOne Enterprise OS</strong>, and <strong className="text-white">LegalX Contract Intelligence</strong> under one unified corporate nervous system.
-          </p>
-        </div>
+      {/* Line background photos */}
+      <div className="absolute inset-0">
+        {PHILOSOPHY_LINES.map((line) => (
+          <img
+            key={line.phrase}
+            src={line.image}
+            alt=""
+            className="phil-bg absolute inset-0 h-full w-full object-cover opacity-0"
+          />
+        ))}
+        <div className="absolute inset-0 bg-[#050505]/65" />
+      </div>
 
-        {/* Story & Visual Media Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Narrative */}
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#e70000] block">
-                The FortuneTechCorp Philosophy
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight leading-tight">
-                Where Elite Design Meets Deep Machine Intelligence
-              </h2>
-              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                Today, every enterprise operates in an interconnected digital economy. Thanks to our deep specialization in telephony streaming, multi-tenant distributed ledgers, and semantic document analysis, we’ve developed an architectural standard that delivers quantifiable ROI.
-              </p>
-              <p className="text-sm sm:text-base text-gray-400 leading-relaxed">
-                The synergy of three core pillars — <strong className="text-white">Low-Latency Voice Turnaround</strong>, <strong className="text-white">Zero-Friction Enterprise Workflows</strong>, and <strong className="text-white">Autonomous Legal Governance</strong> — is what sets FortuneTechCorp platforms apart from legacy SaaS vendors.
-              </p>
-
-              <div className="pt-4 flex items-center gap-4">
-                <button
-                  onClick={() => setDemoModalOpen(true)}
-                  className="redstone-btn"
-                >
-                  <span>Request Engineering Brief</span>
-                  <div className="btn-icon-circle">
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </div>
-                </button>
-              </div>
-            </div>
-
-            {/* Right Photo & Media Showcase */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
-                <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
-                  alt="FortuneTechCorp Engineering Center"
-                  className="w-full h-[400px] object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#090a0f] via-black/40 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-mono text-gray-400">Global Engineering Operations</div>
-                      <div className="text-sm font-bold text-white">Distributed Across 38 Edge Nodes</div>
-                    </div>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Global Impact Numbers */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 p-8 rounded-3xl bg-[#12141d]/90 border border-white/10 text-center">
-            <div>
-              <div className="text-4xl font-black text-white">150+</div>
-              <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold mt-1">Enterprise Deployments</div>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-[#e70000]">99.99%</div>
-              <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold mt-1">Uptime Availability</div>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-purple-400">&lt; 280ms</div>
-              <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold mt-1">Edge Voice Turnaround</div>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-emerald-400">SOC-2 Type II</div>
-              <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold mt-1">Certified Compliant</div>
-            </div>
-          </div>
-        </div>
-
-        {/* 3 Core Pillars (Redstone-style Feature Grid) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#e70000] mb-2 block">
-              Core Principles
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
-              Our 3 Operational Standards
+      <div className="absolute inset-0 flex items-center justify-center">
+        {PHILOSOPHY_LINES.map((line) => (
+          <div key={line.phrase} className="phil-line absolute inset-0 flex items-center justify-center opacity-0">
+            <h2 className="display-xl text-[10vw] sm:text-[7vw] lg:text-[5.5vw] text-center px-6">
+              {line.phrase}
             </h2>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-8 rounded-3xl bg-[#12141d]/80 border border-white/10 hover:border-purple-500/40 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-6 font-bold text-lg">
-                01
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Cognitive Latency Reduction</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                By bypassing text conversion bottlenecks and leveraging direct streaming speech models, Zobay matches natural human conversational pacing without awkward pauses.
-              </p>
-            </div>
-
-            <div className="p-8 rounded-3xl bg-[#12141d]/80 border border-white/10 hover:border-emerald-500/40 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-6 font-bold text-lg">
-                02
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Continuous Operational Mesh</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                StartOne unifies multi-entity accounting, payroll dispatches, and team execution pipelines into a single source of truth, cutting SaaS overhead by 64%.
-              </p>
-            </div>
-
-            <div className="p-8 rounded-3xl bg-[#12141d]/80 border border-white/10 hover:border-amber-500/40 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-6 font-bold text-lg">
-                03
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Zero-Leakage Legal AI</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                LegalX provides machine-speed contract auditing across 50+ clause categories under strict air-gapped parameters with full SOC-2 and HIPAA isolation.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <BentoGrid />
-      </main>
-
-      <Footer onOpenDemo={() => setDemoModalOpen(true)} />
-      <DemoModal isOpen={demoModalOpen} onClose={() => setDemoModalOpen(false)} />
-    </div>
+        ))}
+      </div>
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20">
+        <span className="eyebrow text-white/40">Our Philosophy</span>
+      </div>
+    </section>
   );
 }
 
+export default function AboutPage() {
+  return (
+    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
+      <Navbar />
+
+      {/* ── HERO ─────────────────────────────────────────────────────── */}
+      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
+        <VideoLayer src="/videos/validsoft.mp4" overlay="scrim-center" />
+        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
+          <Reveal delay={0.1}>
+            <div className="eyebrow mb-8">Builders. Designers. Problem Solvers.</div>
+          </Reveal>
+          <Reveal delay={0.25}>
+            <h1 className="display-xl text-[12vw] sm:text-[8vw] lg:text-[6.5vw] leading-none">
+              WE ARE<br />
+              <span className="text-outline">BUILDERS,</span><br />
+              DESIGNERS &amp;<br />
+              <span className="text-[#b7ff4a]">PROBLEM SOLVERS.</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.5}>
+            <p className="mt-8 text-sm sm:text-base text-white/50 tracking-wide max-w-lg">
+              A team turning ambitious ideas into products people love.
+            </p>
+          </Reveal>
+        </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
+          <svg width="18" height="30" viewBox="0 0 18 30" fill="none">
+            <rect x="1" y="1" width="16" height="28" rx="8" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="9" cy="9" r="2.5" fill="currentColor" />
+          </svg>
+        </div>
+      </section>
+
+      {/* ── OUR STORY (Video + Timeline) ─────────────────────────────── */}
+      <section className="relative overflow-hidden py-32 lg:py-44">
+        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-2 items-center gap-16 px-6 sm:px-10 lg:px-20">
+          {/* Video */}
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl">
+            <VideoLayer src="/videos/socan.mp4" overlay="scrim-bottom" />
+          </div>
+
+          {/* Timeline */}
+          <div>
+            <Reveal>
+              <div className="eyebrow mb-4">Our Story</div>
+              <h2 className="display-xl text-[9vw] sm:text-[5.5vw] lg:text-[4vw] mb-12">
+                FROM IDEA<br />TO <span className="text-[#b7ff4a]">REALITY.</span>
+              </h2>
+            </Reveal>
+            <div className="space-y-8">
+              {TIMELINE.map((item, i) => (
+                <Reveal key={item.year} delay={i * 0.08}>
+                  <div className="flex items-start gap-6 border-t border-white/10 pt-8">
+                    <span className="text-[#b7ff4a] font-mono text-2xl font-black shrink-0 w-16">{item.year}</span>
+                    <div>
+                      <h4 className="display-lg text-xl text-[#f2f2ec] mb-1">{item.title}</h4>
+                      <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PHILOSOPHY (Scroll-pinned) ────────────────────────────────── */}
+      <Philosophy />
+
+      {/* ── TEAM ─────────────────────────────────────────────────────── */}
+      <section className="py-32 lg:py-44">
+        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          <Reveal>
+            <div className="eyebrow mb-4">The Team</div>
+            <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] mb-16">
+              PEOPLE WHO<br /><span className="text-outline">BUILD.</span>
+            </h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {TEAM.map((member, i) => (
+              <Reveal key={member.name} delay={i * 0.08}>
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer">
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+                  {/* Name slide up on hover */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="eyebrow text-[#b7ff4a] mb-2">{member.role}</div>
+                    <h3 className="display-lg text-xl text-[#f2f2ec]">{member.name}</h3>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CULTURE VIDEO ─────────────────────────────────────────────── */}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+        <VideoLayer src="/videos/baseone.mp4" overlay="scrim" />
+        <div className="relative z-10 text-center px-6">
+          <Reveal>
+            <h2 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[6vw] leading-none">
+              WE BUILD<br /><span className="text-[#b7ff4a]">DIFFERENT.</span>
+            </h2>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────────────────── */}
+      <CTASection
+        title="Let's Build Something Different."
+        actionLabel="Start a Project"
+        href="/contact"
+        video="/videos/hero-pinterest.mp4"
+      />
+
+      <Footer />
+    </main>
+  );
+}
