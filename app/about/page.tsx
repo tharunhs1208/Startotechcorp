@@ -1,229 +1,235 @@
 "use client";
 
-import React from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { gsap } from "@/lib/gsap";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/home/CTASection";
-import { Sparkles, Target, Eye, ShieldCheck, Zap, Users, HeartHandshake, Award, CheckCircle2, ArrowRight } from "lucide-react";
-import { COMPANY_VALUES, COMPANY_STATS } from "@/data/siteData";
+import Reveal from "@/components/cinematic/Reveal";
+import VideoLayer from "@/components/cinematic/VideoLayer";
+import CTASection from "@/components/cinematic/CTASection";
 
-export default function AboutPage() {
-  const leadership = [
-    {
-      name: "Dr. Vikram Sethi",
-      role: "Chief Executive Officer & Founder",
-      bio: "Former VP of Distributed Systems. Over 15 years leading enterprise engineering teams and architecting cloud platforms.",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      name: "Aanya Sharma",
-      role: "Head of Product Design & Research",
-      bio: "Former Principal Design Lead. Specializes in atomic design token systems, accessibility, and high-conversion UX.",
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      name: "Rahul Verma",
-      role: "Principal Systems Architect",
-      bio: "Specializes in high-frequency payment ledgers, Kubernetes cluster orchestration, and sub-300ms voice pipelines.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      name: "Arthur Sterling",
-      role: "VP of Security & Compliance",
-      bio: "Certified Information Systems Auditor. Led SOC-2 Type II, ISO 27001, and HIPAA compliance audits for tier-1 institutions.",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop",
-    },
-  ];
+const TIMELINE = [
+  { year: "2021", title: "Founded", desc: "A small team with big ambitions in Bengaluru" },
+  { year: "2022", title: "First Products", desc: "Launched our first digital platforms" },
+  { year: "2023", title: "Growing Team", desc: "Expanded to 15+ talented builders" },
+  { year: "2024", title: "AI & Automation", desc: "Integrated intelligent systems" },
+  { year: "2025", title: "Global Expansion", desc: "Serving clients worldwide" },
+];
 
-  const timeline = [
-    { year: "2021", title: "Company Inception", desc: "StartoTech founded in Bengaluru with a core team of 4 senior distributed systems engineers." },
-    { year: "2023", title: "Launch of StartOne OS", desc: "Unified enterprise operating platform adopted by over 50 fast-growing mid-market companies." },
-    { year: "2024", title: "Zobay Voice & Legal AI", desc: "Breakthrough sub-280ms speech-to-speech voice pipeline and autonomous legal contract redlining." },
-    { year: "2026", title: "Global Sovereign Mesh", desc: "38 global edge nodes, SOC-2 Type II certification, and over 150 enterprise software deployments worldwide." },
-  ];
+const TEAM = [
+  { name: "Vikram Sethi", role: "CEO & Founder", photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" },
+  { name: "Aanya Sharma", role: "Head of Design", photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600&auto=format&fit=crop" },
+  { name: "Rahul Verma", role: "Systems Architect", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" },
+  { name: "Tharun Kumar", role: "Lead Engineer", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" },
+];
+
+/* ── PHILOSOPHY SECTION ───────────────────────────────────────────── */
+const PHILOSOPHY_LINES = [
+  { phrase: "Think bigger.", image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1600&auto=format&fit=crop" },
+  { phrase: "Build smarter.", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop" },
+  { phrase: "Move faster.", image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=1600&auto=format&fit=crop" },
+];
+
+function Philosophy() {
+  const ref = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const lines = el.querySelectorAll<HTMLElement>(".phil-line");
+    const bgs = el.querySelectorAll<HTMLElement>(".phil-bg");
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "top top",
+          end: "+=400%",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+      lines.forEach((line, i) => {
+        const bg = bgs[i];
+        tl.fromTo(line, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 1 });
+        if (bg) {
+          tl.fromTo(bg, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.2 }, "<");
+        }
+        if (i < lines.length - 1) {
+          tl.to(line, { opacity: 0, scale: 0.9, duration: 0.8 }, "+=0.5");
+          if (bg) {
+            tl.to(bg, { opacity: 0, duration: 0.8 }, "<");
+          }
+        }
+      });
+    }, el);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <section ref={ref} className="relative h-screen overflow-hidden bg-[#050505]">
+      {/* Base ambient image — visible behind the heading & between line transitions */}
+      <img
+        src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+
+      {/* Line background photos */}
+      <div className="absolute inset-0">
+        {PHILOSOPHY_LINES.map((line) => (
+          <img
+            key={line.phrase}
+            src={line.image}
+            alt=""
+            className="phil-bg absolute inset-0 h-full w-full object-cover opacity-0"
+          />
+        ))}
+        <div className="absolute inset-0 bg-[#050505]/65" />
+      </div>
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        {PHILOSOPHY_LINES.map((line) => (
+          <div key={line.phrase} className="phil-line absolute inset-0 flex items-center justify-center opacity-0">
+            <h2 className="display-xl text-[10vw] sm:text-[7vw] lg:text-[5.5vw] text-center px-6">
+              {line.phrase}
+            </h2>
+          </div>
+        ))}
+      </div>
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20">
+        <span className="eyebrow text-white/40">Our Philosophy</span>
+      </div>
+    </section>
+  );
+}
+
+export default function AboutPage() {
+  return (
+    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
       <Navbar />
 
-      <main className="pt-32 pb-20">
-        {/* 1. HERO SECTION */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold uppercase tracking-wider text-blue-700 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>About StartoTech</span>
-          </div>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-950 uppercase tracking-tight leading-tight mb-6">
-            Technology With Purpose
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl leading-relaxed">
-            We are a team of passionate software engineers, product designers, and AI specialists dedicated to crafting high-performance digital products and scalable cloud platforms for global enterprises.
-          </p>
+      {/* ── HERO ─────────────────────────────────────────────────────── */}
+      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
+        <VideoLayer src="/videos/validsoft.mp4" overlay="scrim-center" />
+        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
+          <Reveal delay={0.1}>
+            <div className="eyebrow mb-8">Builders. Designers. Problem Solvers.</div>
+          </Reveal>
+          <Reveal delay={0.25}>
+            <h1 className="display-xl text-[12vw] sm:text-[8vw] lg:text-[6.5vw] leading-none">
+              WE ARE<br />
+              <span className="text-outline">BUILDERS,</span><br />
+              DESIGNERS &amp;<br />
+              <span className="text-[#b7ff4a]">PROBLEM SOLVERS.</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.5}>
+            <p className="mt-8 text-sm sm:text-base text-white/50 tracking-wide max-w-lg">
+              A team turning ambitious ideas into products people love.
+            </p>
+          </Reveal>
         </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
+          <svg width="18" height="30" viewBox="0 0 18 30" fill="none">
+            <rect x="1" y="1" width="16" height="28" rx="8" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="9" cy="9" r="2.5" fill="currentColor" />
+          </svg>
+        </div>
+      </section>
 
-        {/* 2. COMPANY STORY & IMAGE */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 block">
-                Our Story &amp; Philosophy
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-950 uppercase tracking-tight leading-tight">
-                Built By Engineers For Modern Businesses
+      {/* ── OUR STORY (Video + Timeline) ─────────────────────────────── */}
+      <section className="relative overflow-hidden py-32 lg:py-44">
+        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-2 items-center gap-16 px-6 sm:px-10 lg:px-20">
+          {/* Video */}
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl">
+            <VideoLayer src="/videos/socan.mp4" overlay="scrim-bottom" />
+          </div>
+
+          {/* Timeline */}
+          <div>
+            <Reveal>
+              <div className="eyebrow mb-4">Our Story</div>
+              <h2 className="display-xl text-[9vw] sm:text-[5.5vw] lg:text-[4vw] mb-12">
+                FROM IDEA<br />TO <span className="text-[#b7ff4a]">REALITY.</span>
               </h2>
-              <p className="text-base text-slate-600 leading-relaxed">
-                StartoTech was founded on a singular conviction: modern institutions shouldn&apos;t be held back by disconnected software silos, fragile legacy codebases, and sluggish manual workflows.
-              </p>
-              <p className="text-base text-slate-600 leading-relaxed">
-                By uniting modern web frameworks, low-latency conversational AI models, distributed multi-tenant ledgers, and zero-trust cybersecurity, we engineer software solutions that deliver immediate operational clarity and quantifiable business ROI.
-              </p>
-
-              <div className="pt-2">
-                <Link href="/contact" className="btn-primary text-sm px-6 py-3.5 inline-flex items-center gap-2">
-                  <span>Work With Our Team</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6">
-              <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-2xl">
-                <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
-                  alt="StartoTech Team"
-                  className="w-full h-[400px] object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. MISSION & VISION CARDS */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-            <div className="card-blueprint p-8 sm:p-10 bg-gradient-to-br from-blue-50/80 to-white border-blue-200">
-              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-6 shadow-md shadow-blue-500/20">
-                <Target className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-black text-slate-950 uppercase tracking-tight mb-3">
-                Our Mission
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                To empower forward-thinking enterprises with sovereign, zero-friction software architectures that automate repetitive operations, eliminate technical debt, and accelerate sustainable commercial growth.
-              </p>
-            </div>
-
-            <div className="card-blueprint p-8 sm:p-10 bg-gradient-to-br from-emerald-50/80 to-white border-emerald-200">
-              <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-6 shadow-md shadow-emerald-500/20">
-                <Eye className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-black text-slate-950 uppercase tracking-tight mb-3">
-                Our Vision
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                To be the world&apos;s premier engineering partner for autonomous business platforms — setting global standards for speed, security, design elegance, and verifiable machine intelligence.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* 4. CORE VALUES */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="max-w-3xl mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 block">
-              What Drives Us
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 uppercase tracking-tight">
-              Our 4 Core Values
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {COMPANY_VALUES.map((val, idx) => (
-              <div key={idx} className="card-blueprint p-7 flex flex-col justify-between text-left">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center mb-4 text-slate-800 font-bold font-mono">
-                    0{idx + 1}
+            </Reveal>
+            <div className="space-y-8">
+              {TIMELINE.map((item, i) => (
+                <Reveal key={item.year} delay={i * 0.08}>
+                  <div className="flex items-start gap-6 border-t border-white/10 pt-8">
+                    <span className="text-[#b7ff4a] font-mono text-2xl font-black shrink-0 w-16">{item.year}</span>
+                    <div>
+                      <h4 className="display-lg text-xl text-[#f2f2ec] mb-1">{item.title}</h4>
+                      <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-950 mb-2">{val.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">{val.desc}</p>
-                </div>
-              </div>
-            ))}
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* 5. COMPANY TIMELINE */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="max-w-3xl mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 block">
-              Our Journey
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 uppercase tracking-tight">
-              Milestones &amp; Evolution
+      {/* ── PHILOSOPHY (Scroll-pinned) ────────────────────────────────── */}
+      <Philosophy />
+
+      {/* ── TEAM ─────────────────────────────────────────────────────── */}
+      <section className="py-32 lg:py-44">
+        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          <Reveal>
+            <div className="eyebrow mb-4">The Team</div>
+            <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] mb-16">
+              PEOPLE WHO<br /><span className="text-outline">BUILD.</span>
             </h2>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {timeline.map((item, idx) => (
-              <div key={idx} className="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 text-left">
-                <span className="text-2xl font-mono font-black text-blue-600 block mb-2">{item.year}</span>
-                <h4 className="text-base font-bold text-slate-950 mb-1">{item.title}</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 6. LEADERSHIP & TEAM */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="max-w-3xl mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 block">
-              Executive Leadership
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 uppercase tracking-tight">
-              Meet The Leadership Team
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {leadership.map((member, idx) => (
-              <div key={idx} className="card-blueprint overflow-hidden flex flex-col justify-between text-left">
-                <div className="h-60 w-full overflow-hidden bg-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {TEAM.map((member, i) => (
+              <Reveal key={member.name} delay={i * 0.08}>
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer">
                   <img
-                    src={member.image}
+                    src={member.photo}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+                  {/* Name slide up on hover */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="eyebrow text-[#b7ff4a] mb-2">{member.role}</div>
+                    <h3 className="display-lg text-xl text-[#f2f2ec]">{member.name}</h3>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-slate-950 mb-0.5">{member.name}</h3>
-                  <div className="text-xs font-semibold text-blue-600 mb-3">{member.role}</div>
-                  <p className="text-xs text-slate-600 leading-relaxed">{member.bio}</p>
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* 7. ACHIEVEMENTS STATS BAR */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 p-8 rounded-3xl bg-slate-50 border border-slate-200 text-center shadow-sm">
-            {COMPANY_STATS.map((stat, idx) => (
-              <div key={idx} className="space-y-1">
-                <div className="text-3xl sm:text-4xl font-black text-blue-600">{stat.value}</div>
-                <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+      {/* ── CULTURE VIDEO ─────────────────────────────────────────────── */}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+        <VideoLayer src="/videos/baseone.mp4" overlay="scrim" />
+        <div className="relative z-10 text-center px-6">
+          <Reveal>
+            <h2 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[6vw] leading-none">
+              WE BUILD<br /><span className="text-[#b7ff4a]">DIFFERENT.</span>
+            </h2>
+          </Reveal>
         </div>
+      </section>
 
-        {/* 8. CTA */}
-        <CTASection />
-      </main>
+      {/* ── CTA ──────────────────────────────────────────────────────── */}
+      <CTASection
+        title="Let's Build Something Different."
+        actionLabel="Start a Project"
+        href="/contact"
+        video="/videos/hero-pinterest.mp4"
+      />
 
       <Footer />
-    </div>
+    </main>
   );
 }

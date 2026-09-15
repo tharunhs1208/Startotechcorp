@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -13,31 +13,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "StartoTech — Sovereign Autonomous Enterprise Infrastructure",
-  description: "Architecting the autonomous enterprise with Zobay Voice AI, StartOne Cloud OS, LegalX Compliance Core, and BaseOne Treasury Settlement.",
+  title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
+  description: "Digital products. Intelligent systems. Real results.",
   keywords: [
-    "StartoTech",
-    "Zobay Voice AI",
-    "StartOne Enterprise OS",
-    "LegalX Contract Intelligence",
-    "BaseOne Treasury Settlement",
-    "ValidSoft Voice Biometrics",
-    "SOC-2 Type II",
-    "Autonomous Enterprise Infrastructure"
+    "Fortune Tech",
+    "Digital Products",
+    "Web Development",
+    "UI/UX Design",
+    "AI & Automation",
+    "Cloud & Technology",
   ],
-  authors: [{ name: "StartoTech Engineering" }],
+  authors: [{ name: "Fortune Tech" }],
   openGraph: {
-    title: "StartoTech — Sovereign Autonomous Enterprise Infrastructure",
-    description: "Sub-280ms voice AI, multi-entity fiscal cloud OS, and machine-speed legal intelligence.",
+    title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
+    description: "Digital products. Intelligent systems. Real results.",
     type: "website",
     locale: "en_US",
-    siteName: "StartoTech",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "StartoTech — Autonomous Enterprise Infrastructure",
-    description: "Sovereign machine-intelligent systems for global enterprises.",
   },
 };
 
@@ -49,12 +46,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} light scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}
     >
-      <body className="min-h-screen bg-white text-slate-900 antialiased font-sans selection:bg-[#9fe870] selection:text-[#0e0f0c]">
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+      <body className="min-h-screen bg-[#050505] text-[#f2f2ec] antialiased font-sans selection:bg-[#b7ff4a] selection:text-[#050505]">
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
