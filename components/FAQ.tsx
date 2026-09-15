@@ -35,9 +35,9 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
   ];
 
   return (
-    <section id="faq-section" className="py-24 relative z-20 bg-[#090a0f] border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    <section id="faq-section" className="py-24 relative z-20 bg-slate-50/50 border-t border-slate-200/80">
+      <div className="w-full px-4 sm:px-8 lg:px-[120px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start text-left">
           
           {/* Left: Redstone 'Let's talk' Card */}
           <motion.div
@@ -45,16 +45,16 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-4 p-8 rounded-3xl bg-[#12141e]/90 border border-white/10 relative overflow-hidden shadow-2xl"
+            className="lg:col-span-4 p-8 rounded-3xl bg-white border border-slate-200 relative overflow-hidden shadow-xl text-left"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[#e70000]/15 border border-[#e70000]/30 text-[#e70000] flex items-center justify-center mb-6 font-black text-2xl">
-              F
+            <div className="w-14 h-14 rounded-2xl bg-emerald-100 border border-emerald-300 text-emerald-700 flex items-center justify-center mb-6 font-black text-2xl shadow-sm">
+              S
             </div>
 
-            <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight mb-2">
-              Let's talk
+            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight mb-2">
+              Let&apos;s talk
             </h3>
-            <p className="text-gray-400 text-sm leading-relaxed mb-8">
+            <p className="text-slate-600 text-sm leading-relaxed mb-8">
               Have unique security requirements or multi-entity infrastructure needs? Speak directly with our executive engineering team.
             </p>
 
@@ -77,12 +77,12 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-8"
+            className="lg:col-span-8 text-left"
           >
-            <span className="text-xs font-bold uppercase tracking-widest text-[#e70000] mb-2 block">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 mb-3 inline-block">
               Direct Answers
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-8">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight mb-8">
               Frequently Asked Questions
             </h2>
 
@@ -92,20 +92,20 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
                 return (
                   <div
                     key={idx}
-                    className="rounded-2xl bg-[#12141e]/70 border border-white/10 hover:border-white/20 transition-all duration-200 overflow-hidden"
+                    className="rounded-2xl bg-white border border-slate-200 shadow-sm hover:border-slate-300 transition-all duration-200 overflow-hidden"
                   >
                     <button
                       type="button"
                       onClick={() => setOpenIndex(isOpen ? null : idx)}
                       className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
                     >
-                      <span className="font-bold text-base sm:text-lg text-white">
+                      <span className="font-bold text-base sm:text-lg text-slate-900">
                         {faq.q}
                       </span>
                       <motion.div
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.25 }}
-                        className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-white"
+                        className="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0 text-slate-700"
                       >
                         {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                       </motion.div>
@@ -121,7 +121,7 @@ export default function FAQ({ onOpenDemo }: FAQProps) {
                           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                           className="overflow-hidden"
                         >
-                          <div className="px-6 pb-6 text-sm text-gray-300 leading-relaxed pt-0 border-t border-white/5">
+                          <div className="px-6 pb-6 text-sm text-slate-600 leading-relaxed pt-0 border-t border-slate-100">
                             {faq.a}
                           </div>
                         </motion.div>

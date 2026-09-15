@@ -59,52 +59,52 @@ export default function ServicesList({ onOpenDemo }: ServicesListProps) {
       desc: "Single-tenant isolated clusters, on-premises private clouds, or sovereign data VPCs for defense, government, healthcare, and Tier-1 financial institutions.",
       tags: ["Air-Gapped", "ISO 27001", "HIPAA Ready", "Dedicated GPUs"],
       product: "Fortune Enterprise",
-      accent: "from-red-500 to-orange-500",
-      accentColor: "#e70000",
+      accent: "from-lime-400 to-emerald-500",
+      accentColor: "#9fe870",
     },
   ];
 
   return (
-    <section id="services-section" className="py-24 relative z-20 bg-[#0a0c13] border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services-section" className="py-24 relative z-20 bg-white border-t border-slate-200/80">
+      <div className="w-full px-4 sm:px-8 lg:px-[120px]">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 text-left">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#e70000] mb-2 block">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 mb-3 inline-block">
               Core Capabilities
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight">
               Enterprise Services
             </h2>
           </div>
-          <p className="text-gray-400 text-sm sm:text-base max-w-md">
+          <p className="text-slate-600 text-sm sm:text-base max-w-md">
             Architected to eliminate organizational friction and deploy production-ready AI workflows within weeks.
           </p>
         </div>
 
         {/* Numbered Service Accordion Rows */}
-        <div className="border-t border-white/10">
+        <div className="border-t border-slate-200">
           {services.map((svc, idx) => {
             const isHovered = hoveredService === idx;
             return (
               <motion.div
                 key={idx}
                 onMouseEnter={() => setHoveredService(idx)}
-                className="border-b border-white/10 group relative transition-colors duration-300 hover:bg-white/[0.02]"
+                className="border-b border-slate-200 group relative transition-colors duration-300 hover:bg-slate-50/80"
               >
                 <div className="py-8 px-4 sm:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   
                   {/* Left: Number + Title */}
-                  <div className="flex items-start sm:items-center gap-6 lg:w-1/2">
-                    <span className="font-mono text-2xl sm:text-3xl font-bold text-gray-500 group-hover:text-[#e70000] transition-colors duration-300">
+                  <div className="flex items-start sm:items-center gap-6 lg:w-1/2 text-left">
+                    <span className="font-mono text-2xl sm:text-3xl font-bold text-slate-400 group-hover:text-emerald-600 transition-colors duration-300">
                       {svc.num}
                     </span>
                     <div>
-                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">
                         {svc.category}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-gray-100 transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
                         {svc.title}
                       </h3>
                     </div>
@@ -112,14 +112,14 @@ export default function ServicesList({ onOpenDemo }: ServicesListProps) {
 
                   {/* Middle: Description & Tags */}
                   <div className="lg:w-5/12 text-left">
-                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
                       {svc.desc}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {svc.tags.map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/5 text-[11px] font-medium text-gray-300"
+                          className="px-2.5 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-[11px] font-medium text-slate-700"
                         >
                           {tag}
                         </span>
@@ -133,7 +133,7 @@ export default function ServicesList({ onOpenDemo }: ServicesListProps) {
                       whileHover={{ scale: 1.15, rotate: -45 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => onOpenDemo && onOpenDemo(svc.product)}
-                      className="w-12 h-12 rounded-full border border-white/15 group-hover:border-[#e70000] group-hover:bg-[#e70000] flex items-center justify-center text-white transition-all duration-300 cursor-pointer shadow-lg"
+                      className="w-12 h-12 rounded-full border border-slate-300 group-hover:border-slate-900 group-hover:bg-slate-900 flex items-center justify-center text-slate-800 group-hover:text-white transition-all duration-300 cursor-pointer shadow-sm"
                       aria-label={`Learn more about ${svc.title}`}
                     >
                       <ArrowRight className="w-5 h-5" />
@@ -145,7 +145,7 @@ export default function ServicesList({ onOpenDemo }: ServicesListProps) {
                 {isHovered && (
                   <motion.div
                     layoutId="serviceGlow"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#e70000] to-transparent shadow-[0_0_15px_#e70000]"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent"
                   />
                 )}
               </motion.div>

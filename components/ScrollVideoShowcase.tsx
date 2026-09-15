@@ -105,12 +105,12 @@ export default function ScrollVideoShowcase({ onOpenDemo }: ScrollVideoShowcaseP
             y: headerY,
             scale: headerScale,
           }}
-          className="absolute top-16 sm:top-20 md:top-24 left-0 right-0 z-30 px-4 sm:px-6 pointer-events-none text-center max-w-5xl mx-auto will-change-transform"
+          className="absolute top-8 sm:top-10 md:top-12 left-0 right-0 z-30 w-full px-4 sm:px-8 lg:px-[120px] pointer-events-none text-left will-change-transform"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-bold uppercase tracking-widest text-[#e70000] mb-3 backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" /> High Precision Execution
           </div>
-          <h2 className="text-xl sm:text-3xl md:text-5xl font-black text-white uppercase tracking-tight leading-tight max-w-4xl mx-auto drop-shadow-lg">
+          <h2 className="text-xl sm:text-3xl md:text-5xl font-black text-white uppercase tracking-tight leading-tight max-w-4xl drop-shadow-lg">
             All our enterprise systems{" "}
             <span className="inline-block px-3 py-0.5 rounded-full bg-[#e70000]/10 border border-[#e70000]/30 text-[#e70000] font-mono text-base sm:text-2xl md:text-3xl align-middle mx-1">
               PROVEN
@@ -160,7 +160,7 @@ export default function ScrollVideoShowcase({ onOpenDemo }: ScrollVideoShowcaseP
             opacity: bottomOpacity,
             y: bottomY,
           }}
-          className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 right-0 z-30 px-4 sm:px-6 pointer-events-auto text-center max-w-4xl mx-auto will-change-transform"
+          className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 right-0 z-30 w-full px-4 sm:px-8 lg:px-[120px] pointer-events-auto text-left will-change-transform"
         >
           <div className="text-xs sm:text-sm font-mono tracking-widest uppercase text-gray-400 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 mb-2.5 inline-flex items-center gap-2 backdrop-blur-md shadow-md">
             <span className="w-2 h-2 rounded-full bg-[#e70000] animate-pulse" />
@@ -171,11 +171,11 @@ export default function ScrollVideoShowcase({ onOpenDemo }: ScrollVideoShowcaseP
             We are <span className="text-[#e70000]">proud of every line</span> of code.
           </h3>
 
-          <p className="text-xs sm:text-sm md:text-base text-gray-300 max-w-2xl mx-auto mb-5 leading-relaxed drop-shadow">
+          <p className="text-xs sm:text-sm md:text-base text-gray-300 max-w-2xl mb-5 leading-relaxed drop-shadow">
             Sub-280ms voice latency, real-time fiscal orchestration, and automated legal compliance operating continuously.
           </p>
 
-          <div className="flex items-center gap-4 flex-wrap justify-center">
+          <div className="flex items-center gap-4 flex-wrap justify-start">
             <Link href="/portfolio">
               <div className="redstone-btn text-xs sm:text-sm md:text-base px-6 sm:px-8 py-3 sm:py-3.5 cursor-pointer shadow-lg shadow-[#e70000]/20">
                 <span>Explore Projects</span>

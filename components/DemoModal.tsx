@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X, Sparkles, CheckCircle2, Mic, LayoutGrid, Shield, Send, ArrowRight } from "lucide-react";
+import { X, Sparkles, CheckCircle2, Mic, LayoutGrid, Shield, Send, ArrowRight, ArrowLeft, Key, Terminal, Copy, Check, Server, Globe, Cpu } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface DemoModalProps {
@@ -11,12 +11,17 @@ interface DemoModalProps {
 }
 
 export default function DemoModal({ isOpen, onClose, defaultProduct }: DemoModalProps) {
-  const [selectedProduct, setSelectedProduct] = useState<string>(defaultProduct || "Fortune Suite");
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [selectedProduct, setSelectedProduct] = useState<string>(defaultProduct || "StartoTech Suite");
+  const [deploymentTarget, setDeploymentTarget] = useState<"edge" | "vpc" | "on-prem">("edge");
+  const [slaTier, setSlaTier] = useState<"standard" | "carrier">("carrier");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [generatedApiKey, setGeneratedApiKey] = useState("");
+  const [copiedKey, setCopiedKey] = useState(false);
+  const [copiedCurl, setCopiedCurl] = useState(false);
 
   useEffect(() => {
     if (defaultProduct) {
@@ -26,178 +31,338 @@ export default function DemoModal({ isOpen, onClose, defaultProduct }: DemoModal
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleNextToStep2 = () => {
+    setStep(2);
+  };
+
+  const handleBackToStep1 = () => {
+    setStep(1);
+  };
+
+  const handleProvisionSandbox = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     setTimeout(() => {
+      const mockKey = `st_live_${Math.random().toString(36).substring(2, 10)}${Math.random().toString(36).substring(2, 10)}_soc2`;
+      setGeneratedApiKey(mockKey);
       setLoading(false);
-      setSubmitted(true);
+      setStep(3);
 
-      // Trigger Celebration Confetti
       try {
         confetti({
-          particleCount: 100,
-          spread: 70,
+          particleCount: 120,
+          spread: 80,
           origin: { y: 0.6 },
-          colors: ["#6366f1", "#8b5cf6", "#10b981", "#f59e0b"],
+          colors: ["#e70000", "#ff4d4d", "#a855f7", "#10b981", "#3b82f6"],
         });
       } catch (err) {
         console.warn("Confetti error:", err);
       }
-    }, 900);
+    }, 1100);
+  };
+
+  const handleCopyKey = () => {
+    navigator.clipboard.writeText(generatedApiKey);
+    setCopiedKey(true);
+    setTimeout(() => setCopiedKey(false), 2000);
+  };
+
+  const curlCommand = `curl -X POST https://api.startotech.com/v1/auth/provision \\\n  -H "Authorization: Bearer ${generatedApiKey || "st_live_sample"}" \\\n  -H "Content-Type: application/json" \\\n  -d '{"target": "${deploymentTarget}", "sla": "${slaTier}", "module": "${selectedProduct}"}'`;
+
+  const handleCopyCurl = () => {
+    navigator.clipboard.writeText(curlCommand);
+    setCopiedCurl(true);
+    setTimeout(() => setCopiedCurl(false), 2000);
   };
 
   const handleReset = () => {
-    setSubmitted(false);
+    setStep(1);
     setFullName("");
     setEmail("");
     setCompany("");
+    setGeneratedApiKey("");
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="bg-[#11131c] border border-white/10 rounded-3xl max-w-xl w-full p-6 sm:p-8 relative shadow-2xl overflow-hidden">
-        {/* Top Gradient Bar */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl overflow-hidden text-left text-slate-900">
+        {/* Top Accent Gradient Line */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-slate-900" />
 
         {/* Close Button */}
         <button
-          onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          onClick={handleReset}
+          className="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
-        {!submitted ? (
+        {/* Step Indicator Pills */}
+        <div className="flex items-center gap-2 mb-6">
+          <div className={`px-3 py-1 rounded-full text-xs font-mono font-bold flex items-center gap-1.5 ${
+            step >= 1 ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500"
+          }`}>
+            <span>1</span>
+            <span>Module</span>
+          </div>
+          <div className="w-4 h-[1px] bg-slate-200" />
+          <div className={`px-3 py-1 rounded-full text-xs font-mono font-bold flex items-center gap-1.5 ${
+            step >= 2 ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500"
+          }`}>
+            <span>2</span>
+            <span>Architecture</span>
+          </div>
+          <div className="w-4 h-[1px] bg-slate-200" />
+          <div className={`px-3 py-1 rounded-full text-xs font-mono font-bold flex items-center gap-1.5 ${
+            step === 3 ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-500"
+          }`}>
+            <span>3</span>
+            <span>Provisioned</span>
+          </div>
+        </div>
+
+        {/* STEP 1: Select Platform Module */}
+        {step === 1 && (
           <div>
             <div className="mb-6">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-2">
-                <Sparkles className="w-3.5 h-3.5" /> FortuneTechCorp Access Key
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-2">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600" /> Step 1 of 3: Sandbox Selection
               </div>
-              <h3 className="text-2xl font-bold text-white tracking-tight">
-                Request Private Enterprise Access
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight">
+                Select Platform Focus
               </h3>
-              <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                Experience dedicated sandbox instances of Zobay, StartOne, and LegalX.
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Choose the autonomous engine you want to provision in your dedicated sandbox.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Product Selection Chips */}
-              <div>
-                <label className="text-xs font-semibold text-gray-300 block mb-2">
-                  Select Focus Platform
-                </label>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { id: "Zobay", label: "Zobay (Voice AI)", icon: <Mic className="w-3.5 h-3.5 text-purple-400" /> },
-                    { id: "StartOne", label: "StartOne (Enterprise OS)", icon: <LayoutGrid className="w-3.5 h-3.5 text-emerald-400" /> },
-                    { id: "LegalX", label: "LegalX (Legal Intel)", icon: <Shield className="w-3.5 h-3.5 text-amber-400" /> },
-                    { id: "Fortune Suite", label: "Full Fortune Suite", icon: <Sparkles className="w-3.5 h-3.5 text-indigo-400" /> },
-                  ].map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setSelectedProduct(item.id)}
-                      className={`p-2.5 rounded-xl border text-xs font-medium flex items-center gap-2 transition-all cursor-pointer ${
-                        selectedProduct === item.id
-                          ? "bg-indigo-600/20 border-indigo-500 text-white font-bold shadow-md shadow-indigo-600/20"
-                          : "bg-white/[0.02] border-white/10 text-gray-400 hover:text-gray-200 hover:bg-white/5"
-                      }`}
-                    >
-                      {item.icon}
-                      <span className="truncate">{item.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+              {[
+                { id: "Zobay", label: "Zobay (Voice AI)", desc: "Sub-280ms voice phone agents & CRM mesh", icon: <Mic className="w-4 h-4 text-purple-600" /> },
+                { id: "StartOne", label: "StartOne (Enterprise OS)", desc: "Multi-entity ledgers & workflow cloud", icon: <LayoutGrid className="w-4 h-4 text-emerald-600" /> },
+                { id: "LegalX", label: "LegalX (Legal Intel)", desc: "Instant clause redlining & SOC-2 compliance", icon: <Shield className="w-4 h-4 text-blue-600" /> },
+                { id: "BaseOne", label: "BaseOne (Treasury Ledger)", desc: "High-frequency cross-border liquidity", icon: <Cpu className="w-4 h-4 text-amber-600" /> },
+                { id: "ValidSoft", label: "ValidSoft (Biometrics)", desc: "Acoustic deepfake voice defense", icon: <Shield className="w-4 h-4 text-emerald-600" /> },
+                { id: "StartoTech Suite", label: "Full StartoTech Stack", desc: "Unified autonomous enterprise deployment", icon: <Sparkles className="w-4 h-4 text-emerald-600" /> },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setSelectedProduct(item.id)}
+                  className={`p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                    selectedProduct === item.id
+                      ? "bg-emerald-50 border-emerald-500 text-slate-900 shadow-sm"
+                      : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 font-bold text-sm text-slate-900 mb-1">
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                  <div className="text-[11px] text-slate-500 leading-snug">
+                    {item.desc}
+                  </div>
+                </button>
+              ))}
+            </div>
 
-              {/* Name Input */}
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={handleNextToStep2}
+                className="redstone-btn text-xs sm:text-sm px-6 py-3 cursor-pointer shadow-md"
+              >
+                <span>Continue to Architecture</span>
+                <div className="btn-icon-circle">
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </div>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 2: Architecture & Contact */}
+        {step === 2 && (
+          <form onSubmit={handleProvisionSandbox}>
+            <div className="mb-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-800 text-xs font-semibold mb-2">
+                <Server className="w-3.5 h-3.5 text-purple-600" /> Step 2 of 3: Cluster Configuration
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight">
+                Deployment Architecture &amp; Credentials
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Configure deployment environment for <strong className="text-slate-900">{selectedProduct}</strong>.
+              </p>
+            </div>
+
+            {/* Target Selector */}
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-slate-700 block mb-2">
+                Deployment Infrastructure
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { id: "edge", label: "38-Node Edge Mesh" },
+                  { id: "vpc", label: "Private Cloud VPC" },
+                  { id: "on-prem", label: "Air-Gapped Sovereign" },
+                ].map((target) => (
+                  <button
+                    key={target.id}
+                    type="button"
+                    onClick={() => setDeploymentTarget(target.id as any)}
+                    className={`p-2.5 rounded-xl text-center text-xs font-bold border transition-all cursor-pointer ${
+                      deploymentTarget === target.id
+                        ? "bg-slate-900 border-slate-900 text-white font-bold"
+                        : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    {target.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Form Fields */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
               <div>
-                <label className="text-xs font-semibold text-gray-300 block mb-1.5">
+                <label className="text-xs font-semibold text-slate-700 block mb-1.5">
                   Full Name
                 </label>
                 <input
                   type="text"
                   required
+                  placeholder="Satya Nadella"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="e.g. Sarah Connor"
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:bg-white"
                 />
               </div>
 
-              {/* Work Email */}
               <div>
-                <label className="text-xs font-semibold text-gray-300 block mb-1.5">
-                  Corporate Work Email
+                <label className="text-xs font-semibold text-slate-700 block mb-1.5">
+                  Corporate Email
                 </label>
                 <input
                   type="email"
                   required
+                  placeholder="alex@enterprise.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@company.com"
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:bg-white"
                 />
               </div>
+            </div>
 
-              {/* Company Name */}
-              <div>
-                <label className="text-xs font-semibold text-gray-300 block mb-1.5">
-                  Company / Organization
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  placeholder="e.g. Apex Global Ltd"
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
-                />
-              </div>
+            <div className="mb-6">
+              <label className="text-xs font-semibold text-slate-700 block mb-1.5">
+                Organization / Company Name
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="Enterprise Corp"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:bg-white"
+              />
+            </div>
 
-              {/* Submit Button */}
+            <div className="flex items-center justify-between pt-2">
+              <button
+                type="button"
+                onClick={handleBackToStep1}
+                className="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-600 hover:text-slate-900 text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back</span>
+              </button>
+
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-4 py-3.5 px-6 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white font-semibold text-sm shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/50 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="redstone-btn text-xs sm:text-sm px-6 py-3 cursor-pointer shadow-md"
               >
-                {loading ? (
-                  <span className="inline-block animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                ) : (
-                  <>
-                    <span>Generate Sandbox Key for {selectedProduct}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
+                <span>{loading ? "Provisioning Sandbox..." : "Generate Sandbox Key"}</span>
+                <div className="btn-icon-circle">
+                  {loading ? <Sparkles className="w-3.5 h-3.5 animate-spin" /> : <Key className="w-3.5 h-3.5 text-white" />}
+                </div>
               </button>
-            </form>
-          </div>
-        ) : (
-          <div className="py-8 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto mb-2 animate-bounce">
-              <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="text-2xl font-bold text-white tracking-tight">
-              Access Request Registered!
-            </h3>
-            <p className="text-sm text-gray-300 max-w-md mx-auto leading-relaxed">
-              Thank you, <span className="text-white font-semibold">{fullName}</span>. An invitation token for{" "}
-              <span className="text-indigo-400 font-bold">{selectedProduct}</span> has been dispatched to{" "}
-              <span className="text-white font-mono">{email}</span>.
-            </p>
-            <div className="p-3 bg-white/[0.03] border border-white/10 rounded-xl max-w-sm mx-auto font-mono text-xs text-gray-400">
-              API Sandbox Cluster: <span className="text-emerald-400">us-east-cluster-04</span>
+          </form>
+        )}
+
+        {/* STEP 3: Sandbox Key & Code Snippet */}
+        {step === 3 && (
+          <div>
+            <div className="mb-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Sandbox Instance Active
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight">
+                Sandbox Successfully Provisioned
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Your dedicated sandbox credentials have been generated and dispatched to <strong className="text-slate-900">{email}</strong>.
+              </p>
             </div>
-            <button
-              onClick={handleReset}
-              className="mt-6 px-8 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm transition-colors cursor-pointer"
-            >
-              Return to FortuneTechCorp
-            </button>
+
+            {/* Generated API Key Card */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-emerald-500/40 mb-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
+                  Live Sandbox API Key
+                </span>
+                <span className="text-[10px] font-mono text-emerald-700 font-bold">
+                  EXP: 72 HOURS
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-900">
+                <span className="truncate">{generatedApiKey}</span>
+                <button
+                  type="button"
+                  onClick={handleCopyKey}
+                  className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-colors cursor-pointer shrink-0"
+                  title="Copy API key"
+                >
+                  {copiedKey ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Terminal Curl Snippet */}
+            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 mb-6 font-mono text-xs">
+              <div className="flex items-center justify-between text-slate-400 mb-2">
+                <span className="text-[11px] text-slate-400">Quick Test API Request</span>
+                <button
+                  type="button"
+                  onClick={handleCopyCurl}
+                  className="flex items-center gap-1 text-[11px] text-slate-300 hover:text-white transition-colors cursor-pointer"
+                >
+                  {copiedCurl ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                  <span>{copiedCurl ? "Copied" : "Copy cURL"}</span>
+                </button>
+              </div>
+              <pre className="text-slate-200 overflow-x-auto text-[11px] leading-relaxed">
+                {curlCommand}
+              </pre>
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={handleReset}
+                className="redstone-btn text-xs sm:text-sm px-6 py-3 cursor-pointer"
+              >
+                <span>Done &amp; Close</span>
+                <div className="btn-icon-circle">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+              </button>
+            </div>
           </div>
         )}
       </div>
