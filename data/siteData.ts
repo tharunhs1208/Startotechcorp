@@ -75,7 +75,7 @@ export interface JobItem {
 export interface BlogPost {
   slug: string;
   title: string;
-  category: "Technology" | "AI" | "Design" | "Business" | "Cloud";
+  category: "Technology" | "AI" | "Design" | "Development" | "Business" | "Cloud";
   readTime: string;
   publishDate: string;
   author: { name: string; role: string; avatar: string };

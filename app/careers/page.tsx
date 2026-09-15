@@ -1,246 +1,201 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, MapPin, Clock } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/cinematic/Reveal";
-import VideoLayer from "@/components/cinematic/VideoLayer";
-import CTASection from "@/components/cinematic/CTASection";
+import ScrollReveal from "@/components/ScrollReveal";
 import { JOBS_DATA } from "@/data/siteData";
 
-/* ─── Culture gallery ─────────────────────────────────────────────────── */
-const GALLERY = [
-  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop",
+const WHY_JOIN = [
+  { num: "01", title: "Build Real Products", desc: "Ship software used by businesses worldwide daily, not temporary throwaway decks." },
+  { num: "02", title: "Modern Tech Stack", desc: "Next.js, TypeScript, LLMs, Vector DBs, WebRTC, Edge CDNs, and clean microservices." },
+  { num: "03", title: "Learn Every Day", desc: "Work closely with senior engineers, designers, and architects in a high-autonomy culture." },
+  { num: "04", title: "Solve Hard Problems", desc: "Tackle sub-millisecond audio streams, multi-tenant SaaS scaling, and autonomous AI agents." },
 ];
 
-/* ─── Culture pillars: hover plays the matching video ─────────────────── */
-const CULTURE = [
-  { word: "WORK", video: "/videos/startone.mp4" },
-  { word: "LEARN", video: "/videos/validsoft.mp4" },
-  { word: "CREATE", video: "/videos/legalx.mp4" },
-  { word: "GROW", video: "/videos/zobay.mp4" },
+const LIFE_PHOTOS = [
+  { title: "Design Sprint", url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" },
+  { title: "Engineering Sync", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" },
+  { title: "Studio Space", url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" },
+  { title: "Collaborative Workshop", url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" },
 ];
 
 export default function CareersPage() {
-  const [activeCulture, setActiveCulture] = useState<number | null>(null);
-
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
       <Navbar />
 
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-        <VideoLayer src="/videos/socan.mp4" overlay="scrim-center" />
-        <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 pt-20">
-          <Reveal delay={0.1}>
-            <div className="eyebrow mb-6 sm:mb-8">Bengaluru · Hybrid · Remote-friendly</div>
-          </Reveal>
-          <Reveal delay={0.25}>
-            <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl lg:text-[6.5vw] leading-none break-words">
-              BUILD YOUR
-              <br />
-              <span className="text-outline">FUTURE</span>{" "}
-              <span className="text-[#b7ff4a]">WITH US.</span>
+      {/* ── HEADER ──────────────────────────────────────────────────── */}
+      <section className="pt-32 sm:pt-40 pb-16 sm:pb-24 border-b border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container text-center">
+          <ScrollReveal delay={0.05} y={16}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/[0.08] bg-black/[0.03] text-xs font-medium text-[#0070f3] mb-6">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Join Our Team</span>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.15} y={20}>
+            <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-zinc-900 max-w-3xl mx-auto">
+              Build the future of digital products with us.
             </h1>
-          </Reveal>
-          <Reveal delay={0.5}>
-            <p className="mt-6 sm:mt-8 text-xs sm:text-base text-white/50 tracking-wide max-w-lg">
-              Engineers, designers, and problem solvers — building what&apos;s next.
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.25} y={20}>
+            <p className="mt-6 text-base sm:text-xl text-zinc-600 max-w-2xl mx-auto font-light leading-relaxed">
+              We are looking for exceptional engineers, designers, and problem solvers to build next-generation products.
             </p>
-          </Reveal>
-          <Reveal delay={0.65}>
-            <div className="mt-8 sm:mt-10 flex flex-wrap justify-center gap-4">
-              <Link href="#open-positions" className="btn-pill btn-accent-c">
-                View Open Roles
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/about" className="btn-pill btn-ghost">
-                Meet The Team
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
-          <svg width="18" height="30" viewBox="0 0 18 30" fill="none">
-            <rect x="1" y="1" width="16" height="28" rx="8" stroke="currentColor" strokeWidth="1.5" />
-            <circle cx="9" cy="9" r="2.5" fill="currentColor" />
-          </svg>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* ── LIFE AT COMPANY (photo gallery) ──────────────────────────── */}
-      <section className="py-20 sm:py-32 lg:py-44">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
-              <div>
-                <div className="eyebrow mb-3 sm:mb-4 text-[#b7ff4a]/80">Life At FortuneTech</div>
-                <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl leading-none break-words">
-                  MORE THAN<br />
-                  <span className="text-outline">A WORKPLACE.</span>
-                </h2>
-              </div>
-              <p className="text-white/40 text-xs sm:text-sm max-w-xs leading-relaxed">
-                Small teams. Big ownership. Zero bureaucracy.
-              </p>
+      {/* ── WHY STRATOTECHCORP ──────────────────────────────────────── */}
+      <section className="py-16 sm:py-24">
+        <div className="page-container">
+          <ScrollReveal y={24}>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+                Culture
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+                Why StratoTechCorp?
+              </h2>
             </div>
-          </Reveal>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {GALLERY.map((photo, i) => (
-              <Reveal key={photo} delay={i * 0.08} y={24}>
-                <div
-                  className={`group relative overflow-hidden rounded-2xl ${
-                    i % 2 === 0 ? "aspect-[3/4]" : "aspect-[3/4] lg:mt-10"
-                  }`}
-                >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {WHY_JOIN.map((item, i) => (
+              <ScrollReveal key={item.num} delay={i * 0.08} y={24}>
+                <div className="p-8 rounded-2xl border border-black/[0.08] bg-white shadow-xs flex flex-col justify-between min-h-[220px] h-full">
+                  <div>
+                    <span className="font-mono text-sm font-bold text-[#0070f3]">
+                      {item.num}
+                    </span>
+                    <h3 className="font-display text-lg font-bold text-zinc-900 mt-4 mb-2">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                    {item.desc}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── LIFE AT STRATOTECHCORP ──────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container">
+          <ScrollReveal y={24}>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+                Studio
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+                Life at StratoTechCorp
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {LIFE_PHOTOS.map((photo, i) => (
+              <ScrollReveal key={i} delay={i * 0.08} y={24}>
+                <div className="relative aspect-square rounded-2xl overflow-hidden border border-black/[0.08] bg-zinc-950 group shadow-xs">
                   <img
-                    src={photo}
-                    alt={`FortuneTech culture ${i + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    src={photo.url}
+                    alt={photo.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-white">
+                      {photo.title}
+                    </span>
+                  </div>
                 </div>
-              </Reveal>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CULTURE (WORK / LEARN / CREATE / GROW) ───────────────────── */}
-      <section className="relative py-20 sm:py-32 lg:py-44 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          {CULTURE.map((c, i) => (
-            <video
-              key={c.word}
-              src={c.video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className={`video-layer transition-opacity duration-700 ${
-                activeCulture === i ? "opacity-30" : "opacity-0"
-              }`}
-            />
-          ))}
-          <div className="absolute inset-0 bg-[#050505]/50" />
-        </div>
-
-        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="eyebrow mb-10 sm:mb-16 text-[#b7ff4a]/80">The Culture</div>
-          </Reveal>
-          <div className="divide-y divide-white/10 border-y border-white/10">
-            {CULTURE.map((c, i) => (
-              <Reveal key={c.word} delay={i * 0.05} y={24}>
-                <div
-                  className="reveal-row group cursor-default py-6 sm:py-10 lg:py-14"
-                  onMouseEnter={() => setActiveCulture(i)}
-                  onMouseLeave={() => setActiveCulture(null)}
-                >
-                  <span className="display-xl text-5xl sm:text-7xl md:text-8xl lg:text-[7vw] leading-none text-white/30 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)] break-words">
-                    {c.word}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── OPEN POSITIONS ───────────────────────────────────────────── */}
-      <section id="open-positions" className="relative py-20 sm:py-32 lg:py-44">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
+      {/* ── OPEN POSITIONS ──────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
+        <div className="page-container">
+          <ScrollReveal y={20}>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-black/[0.08] gap-4">
               <div>
-                <div className="eyebrow mb-3 sm:mb-4 text-[#b7ff4a]/80">Open Positions</div>
-                <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl leading-none break-words">
-                  JOIN THE<br />
-                  <span className="text-[#b7ff4a]">TEAM.</span>
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+                  Openings
+                </span>
+                <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+                  Available Positions
                 </h2>
               </div>
-              <span className="hidden lg:block text-white/20 font-mono text-xs uppercase tracking-widest">
+              <span className="text-xs font-mono text-zinc-500 font-medium">
                 {JOBS_DATA.length} Open Roles
               </span>
             </div>
-          </Reveal>
+          </ScrollReveal>
 
-          <div className="border-t border-white/10">
-            {JOBS_DATA.map((job, i) => (
-              <Reveal key={job.slug} delay={i * 0.05} y={24}>
-                <Link
-                  href={`/careers/${job.slug}`}
-                  className="reveal-row group flex flex-col md:flex-row md:items-center justify-between gap-4 py-6 sm:py-8 lg:py-10"
-                >
-                  <div className="flex items-start sm:items-center gap-4 sm:gap-10">
-                    <span className="text-[#b7ff4a] text-lg sm:text-2xl font-mono font-normal tabular-nums shrink-0 mt-1 sm:mt-0">
-                      0{i + 1}
-                    </span>
+          <div className="divide-y divide-black/[0.08]">
+            {JOBS_DATA.map((job, idx) => (
+              <ScrollReveal key={job.slug} delay={idx * 0.06} y={20}>
+                <div className="group py-6 sm:py-8 transition-colors">
+                  <Link
+                    href={`/careers/${job.slug}`}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
                     <div>
-                      <h3 className="display-lg text-2xl sm:text-4xl lg:text-5xl text-white/35 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)] break-words">
+                      <h3 className="font-display text-xl sm:text-2xl font-bold text-zinc-900 group-hover:text-[#0070f3] transition-colors">
                         {job.title}
                       </h3>
-                      <div className="mt-2 sm:mt-3 flex flex-wrap items-center gap-3 sm:gap-4 text-[11px] sm:text-xs text-white/40">
-                        <span className="flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5" />
-                          {job.location.split("(")[0].trim()}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5" />
-                          {job.type} · {job.experience}
-                        </span>
+                      <div className="flex items-center gap-4 mt-2 font-mono text-xs text-zinc-500">
+                        <span>{job.department}</span>
+                        <span>·</span>
+                        <span>{job.location}</span>
+                        <span>·</span>
+                        <span>{job.type}</span>
                       </div>
                     </div>
-                  </div>
-                  <span className="flex items-center gap-4 shrink-0 self-end md:self-auto">
-                    <span className="hidden lg:block text-sm font-mono text-white/0 group-hover:text-[#b7ff4a]/80 transition-colors duration-500 uppercase tracking-wider">
-                      {job.department}
-                    </span>
-                    <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 text-white/20 group-hover:text-[#b7ff4a] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </span>
-                </Link>
-              </Reveal>
+
+                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0070f3]">
+                      <span>View Role</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                  </Link>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── PERKS STRIP ──────────────────────────────────────────────── */}
-      <section className="border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <div className="flex flex-wrap gap-2.5 sm:gap-3">
-            {[
-              "Equity Options",
-              "Remote / Hybrid",
-              "$2,000 Learning Stipend",
-              "Full Health Cover",
-              "Top-tier Hardware",
-              "Annual Offsites",
-            ].map((perk, i) => (
-              <Reveal key={perk} delay={i * 0.04} y={16}>
-                <span className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full border border-white/15 text-white/60 text-[11px] sm:text-xs uppercase tracking-widest hover:border-[#b7ff4a]/50 hover:text-[#b7ff4a] transition-colors duration-300">
-                  {perk}
-                </span>
-              </Reveal>
-            ))}
-          </div>
+      {/* ── GENERAL APPLICATION CTA ─────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+        <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
+          <ScrollReveal y={24}>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+              Don&apos;t see your role?
+            </h2>
+            <p className="mt-4 text-sm text-zinc-600 font-light">
+              We are always interested in meeting exceptional people. Send us your portfolio or GitHub profile.
+            </p>
+            <div className="mt-8">
+              <Link
+                href="/contact"
+                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5 shadow-xs"
+              >
+                <span>Get in Touch</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
-
-      {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <CTASection
-        title="Come Build With Us."
-        actionLabel="See Open Roles"
-        href="#open-positions"
-        video="/videos/baseone.mp4"
-      />
 
       <Footer />
     </main>

@@ -3,10 +3,11 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/cinematic/CTASection";
-import { Sparkles, ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
+import TechBadge from "@/components/TechBadge";
 import { INDUSTRIES_DATA, PROJECTS_DATA } from "@/data/siteData";
 
 interface PageProps {
@@ -15,116 +16,190 @@ interface PageProps {
 
 export default function IndustryDetailPage({ params }: PageProps) {
   const { slug } = use(params);
-  const industry = INDUSTRIES_DATA.find((ind) => ind.slug === slug);
+  const industry = INDUSTRIES_DATA.find((i) => i.slug === slug);
 
   if (!industry) {
     notFound();
   }
 
-  const relatedProject = PROJECTS_DATA.find((p) => p.slug === industry.caseStudySlug) || PROJECTS_DATA[0];
+  const selectedProject =
+    PROJECTS_DATA.find((p) => p.slug === industry.caseStudySlug) ||
+    PROJECTS_DATA[0];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white">
       <Navbar />
 
-      <main className="pt-32 pb-20">
-        
-        {/* BREADCRUMBS & HERO */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-left">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 mb-6">
-            <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <Link href="/industries" className="hover:text-blue-600 transition-colors">Industries</Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-slate-900">{industry.name}</span>
-          </div>
-
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold uppercase tracking-wider text-blue-700 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>Industry Sector</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl font-black text-slate-950 uppercase tracking-tight leading-tight mb-4">
-            {industry.name}
-          </h1>
-
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl leading-relaxed mb-8">
-            {industry.description}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/contact" className="btn-primary text-sm sm:text-base px-7 py-4 inline-flex items-center gap-2">
-              <span>Request Industry Architecture Brief</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-
-        {/* CHALLENGES & SOLUTIONS */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-            <div className="card-blueprint p-8 sm:p-10 bg-rose-50/50 border-rose-200">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-600 block mb-2">
-                Industry Headwinds
-              </span>
-              <h3 className="text-2xl font-black text-slate-950 mb-4">Sector Challenges</h3>
-              <ul className="space-y-3">
-                {industry.challenges.map((c, i) => (
-                  <li key={i} className="text-sm text-slate-700 leading-relaxed flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" />
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="card-blueprint p-8 sm:p-10 bg-emerald-50/50 border-emerald-200">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-700 block mb-2">
-                Engineering Approach
-              </span>
-              <h3 className="text-2xl font-black text-slate-950 mb-4">Our Tailored Solutions</h3>
-              <ul className="space-y-3">
-                {industry.solutions.map((s, i) => (
-                  <li key={i} className="text-sm text-slate-700 leading-relaxed flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                    <span>{s}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* CASE STUDY HIGHLIGHT */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <span className="text-xs font-mono font-bold uppercase text-blue-600 block mb-2">
-                Featured Case Study
-              </span>
-              <h3 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 mb-3">
-                {relatedProject.title}
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                {relatedProject.overview}
-              </p>
-            </div>
-
+      {/* ── HEADER ──────────────────────────────────────────────────── */}
+      <section className="pt-32 sm:pt-40 pb-12 sm:pb-16 border-b border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container">
+          <ScrollReveal>
             <Link
-              href={`/projects/${relatedProject.slug}`}
-              className="btn-primary text-white shrink-0 text-sm px-6 py-3.5"
+              href="/industries"
+              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-[#0070f3] transition-colors mb-6"
             >
-              <span>Explore Case Study</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to All Industries</span>
             </Link>
+
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
+              Industry Domain
+            </span>
+
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-900">
+              {industry.name}
+            </h1>
+
+            <p className="mt-4 text-base sm:text-xl text-zinc-600 max-w-2xl font-light leading-relaxed">
+              {industry.tagline}
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── SOLUTIONS & CAPABILITIES ─────────────────────────────────── */}
+      <section className="py-16 sm:py-24">
+        <div className="page-container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-4">
+              <ScrollReveal>
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
+                  Expertise
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
+                  What We Build for {industry.name}
+                </h2>
+                <p className="mt-4 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
+                  {industry.description}
+                </p>
+              </ScrollReveal>
+            </div>
+
+            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {industry.solutions.map((sol, i) => (
+                <ScrollReveal key={i} delay={i * 0.08}>
+                  <div className="p-6 rounded-2xl border border-black/[0.08] bg-white shadow-xs hover:shadow-md transition-all h-full">
+                    <span className="font-mono text-xs font-bold text-[#0070f3]">
+                      0{i + 1}
+                    </span>
+                    <h3 className="font-display text-lg font-bold text-zinc-900 mt-3 mb-2">
+                      {sol}
+                    </h3>
+                    <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                      Engineered for high security, data privacy, and rapid user workflows in {industry.name.toLowerCase()}.
+                    </p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* CTA */}
-        <CTASection />
-      </main>
+      {/* ── FEATURED CASE STUDY ─────────────────────────────────────── */}
+      {selectedProject && (
+        <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+          <div className="page-container">
+            <ScrollReveal>
+              <div className="mb-12">
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
+                  Case Study
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
+                  Featured {industry.name} Project
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.1}>
+              <div className="rounded-2xl border border-black/[0.08] bg-white overflow-hidden shadow-xs">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                  <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[400px] bg-zinc-950">
+                    <video
+                      src={selectedProject.video || "/videos/startone.mp4"}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between">
+                    <div>
+                      <span className="font-mono text-xs font-semibold text-[#0070f3]">
+                        {selectedProject.category}
+                      </span>
+                      <h3 className="font-display text-2xl font-bold text-zinc-900 mt-2">
+                        {selectedProject.title}
+                      </h3>
+                      <p className="mt-4 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
+                        {selectedProject.overview}
+                      </p>
+                    </div>
+                    <div className="mt-8 pt-6 border-t border-black/[0.08]">
+                      <Link
+                        href={`/projects/${selectedProject.slug}`}
+                        className="btn-pill btn-ghost w-full justify-between text-xs font-semibold !py-3 border-black/15 hover:border-black text-zinc-900"
+                      >
+                        <span>Read Case Study</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      )}
+
+      {/* ── TECH STACK ──────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
+        <div className="page-container flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <ScrollReveal>
+            <div>
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
+                Stack
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
+                Domain Tech Stack
+              </h2>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <div className="flex flex-wrap gap-2.5 max-w-xl">
+              {industry.technologies.map((t) => (
+                <TechBadge key={t} name={t} />
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── CTA ─────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+        <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
+          <ScrollReveal>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+              Build something for {industry.name}?
+            </h2>
+            <p className="mt-4 text-sm text-zinc-600 font-light">
+              We are ready to design and engineer your next platform.
+            </p>
+            <div className="mt-8">
+              <Link
+                href="/contact"
+                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5"
+              >
+                <span>Start a Project</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
       <Footer />
-    </div>
+    </main>
   );
 }

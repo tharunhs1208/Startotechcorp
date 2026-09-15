@@ -1,21 +1,26 @@
 "use client";
 
-import React, { use, useState, useLayoutEffect, useRef } from "react";
+import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
-import { gsap } from "@/lib/gsap";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/cinematic/Reveal";
-import VideoLayer from "@/components/cinematic/VideoLayer";
-import CTASection from "@/components/cinematic/CTASection";
-import Marquee from "@/components/cinematic/Marquee";
+import ScrollReveal from "@/components/ScrollReveal";
+import TechBadge from "@/components/TechBadge";
 import { SERVICES_DATA, PROJECTS_DATA } from "@/data/siteData";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+const WORK_PROCESS = [
+  { num: "01", title: "Discover & Scope", desc: "Stakeholder mapping, technical feasibility review, and architecture definition." },
+  { num: "02", title: "UI/UX & Design Tokens", desc: "Interactive Figma prototypes, design tokens, and user flow validation." },
+  { num: "03", title: "Agile Development", desc: "Two-week sprints shipping clean, test-driven TypeScript code with automated pipelines." },
+  { num: "04", title: "QA & Security Hardening", desc: "Cross-platform QA, load testing, and penetration security audits." },
+  { num: "05", title: "Production Deployment", desc: "Zero-downtime cutover, edge CDN telemetry, and continuous 24/7 SLA support." },
+];
 
 export default function ServiceDetailPage({ params }: PageProps) {
   const { slug } = use(params);
@@ -25,436 +30,217 @@ export default function ServiceDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const relatedProjects = PROJECTS_DATA.slice(0, 2);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  /* ─── GSAP: features list stagger ─────────────────────────────────────── */
-  const featuresRef = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    const el = featuresRef.current;
-    if (!el) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll(".feat-row"),
-        { opacity: 0, x: -40 },
-        {
-          opacity: 1,
-          x: 0,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 75%", toggleActions: "play none none none" },
-        }
-      );
-    }, el);
-    return () => ctx.revert();
-  }, []);
-
-  /* ─── GSAP: benefits metrics counter reveal ────────────────────────────── */
-  const benefitsRef = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    const el = benefitsRef.current;
-    if (!el) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll(".benefit-card"),
-        { opacity: 0, y: 60, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          stagger: 0.15,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 70%", toggleActions: "play none none none" },
-        }
-      );
-    }, el);
-    return () => ctx.revert();
-  }, []);
+  const selectedProjects = PROJECTS_DATA.slice(0, 2);
 
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
       <Navbar />
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          1. HERO — full-screen video
-          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative flex min-h-[100svh] items-end overflow-hidden">
-        <VideoLayer
-          src={service.video || "/videos/startone.mp4"}
-          overlay="scrim-bottom"
-        />
-        <div className="relative z-10 w-full max-w-[1600px] px-4 sm:px-10 lg:px-20 pb-16 sm:pb-24 mx-auto">
-          <Reveal delay={0.1}>
-            <div className="eyebrow mb-4 text-[#b7ff4a]">
-              Service — {service.title}
-            </div>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl lg:text-[7vw] leading-[0.92] font-black uppercase tracking-tight break-words">
-              {service.title.toUpperCase()}
+      {/* ── HEADER ──────────────────────────────────────────────────── */}
+      <section className="pt-32 sm:pt-40 pb-12 sm:pb-16 border-b border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container">
+          <ScrollReveal delay={0.05} y={16}>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-[#0070f3] transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to All Services</span>
+            </Link>
+
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+              Service Capability
+            </span>
+
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-900">
+              {service.title}
             </h1>
-          </Reveal>
-          <Reveal delay={0.4}>
-            <p className="mt-4 sm:mt-6 text-white/60 max-w-xl text-xs sm:text-sm leading-relaxed">
+
+            <p className="mt-4 text-base sm:text-xl text-zinc-600 max-w-2xl font-light leading-relaxed">
               {service.tagline}
             </p>
-          </Reveal>
-          <Reveal delay={0.55}>
-            <div className="mt-8 sm:mt-10 flex flex-wrap gap-4">
-              <Link href="/contact" className="btn-pill btn-accent-c">
-                Start a Project <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/projects" className="btn-pill btn-ghost">
-                View Work
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Subtle scroll indicator */}
-        <div className="absolute bottom-8 right-6 sm:right-10 z-10 flex flex-col items-center gap-2 opacity-40">
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white rotate-90 origin-center translate-x-6">
-            Scroll
-          </span>
-          <div className="h-8 sm:h-12 w-px bg-white/40" />
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          2. CHALLENGE & SOLUTION — dark side-by-side cards
-          ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── OVERVIEW & FEATURES ─────────────────────────────────────── */}
       <section className="py-16 sm:py-24">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {/* Problem */}
-            <Reveal>
-              <div className="h-full p-6 sm:p-10 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col">
-                <div className="eyebrow mb-4 text-red-400">The Problem</div>
-                <h3 className="display-lg text-xl sm:text-3xl mb-4 sm:mb-6 font-bold">
-                  What Holds Companies Back
-                </h3>
-                <p className="text-white/60 text-xs sm:text-sm leading-relaxed flex-1">
-                  {service.challenge}
+        <div className="page-container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-4">
+              <ScrollReveal y={20}>
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+                  Scope
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
+                  What We Deliver
+                </h2>
+                <p className="mt-4 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
+                  {service.fullDescription}
                 </p>
-                {/* decorative line accent */}
-                <div className="mt-6 sm:mt-8 h-px w-16 bg-red-400/40" />
-              </div>
-            </Reveal>
+              </ScrollReveal>
+            </div>
 
-            {/* Solution */}
-            <Reveal delay={0.15}>
-              <div className="h-full p-6 sm:p-10 rounded-2xl border border-[#b7ff4a]/20 bg-[#b7ff4a]/[0.03] flex flex-col">
-                <div className="eyebrow mb-4 text-[#b7ff4a]">Our Solution</div>
-                <h3 className="display-lg text-xl sm:text-3xl mb-4 sm:mb-6 font-bold">
-                  How We Deliver Results
-                </h3>
-                <p className="text-white/60 text-xs sm:text-sm leading-relaxed flex-1">
-                  {service.solution}
-                </p>
-                <div className="mt-6 sm:mt-8 h-px w-16 bg-[#b7ff4a]/40" />
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          3. FEATURES — numbered vertical reveal rows
-          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 border-t border-white/10" ref={featuresRef}>
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="eyebrow mb-4 text-white/50">What We Build</div>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl mb-10 sm:mb-16 font-black uppercase break-words">
-              CAPABILITIES.
-            </h2>
-          </Reveal>
-
-          <div className="divide-y divide-white/10">
-            {service.features.map((feat, i) => (
-              <div
-                key={i}
-                className="feat-row reveal-row py-6 sm:py-10 group cursor-default opacity-0"
-              >
-                <div className="flex items-start gap-4 sm:gap-8">
-                  <span className="text-[#b7ff4a] font-mono text-base sm:text-lg shrink-0 mt-1 tabular-nums">
-                    0{i + 1}
-                  </span>
-                  <div className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 sm:gap-4 items-start">
-                    <div>
-                      <h3 className="display-lg text-2xl sm:text-4xl lg:text-5xl text-white/60 group-hover:text-white transition-colors duration-300 mb-2 sm:mb-3 font-bold break-words">
-                        {feat.title}
-                      </h3>
-                      <p className="text-white/40 text-xs sm:text-sm leading-relaxed max-w-2xl">
-                        {feat.desc}
-                      </p>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 text-white/20 group-hover:text-[#b7ff4a] transition-colors duration-300 mt-2 shrink-0" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          4. TECH STACK MARQUEE
-          ═══════════════════════════════════════════════════════════════════ */}
-      <div className="my-4">
-        <Marquee items={service.technologies} />
-      </div>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          5. PROCESS — vertical numbered list with connecting line
-          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="eyebrow mb-4 text-white/50">How We Work</div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl mb-10 sm:mb-16 font-black uppercase break-words">
-              THE PROCESS.
-            </h2>
-          </Reveal>
-
-          <div className="space-y-0">
-            {service.process.map((step, i) => (
-              <Reveal key={i} delay={i * 0.08}>
-                <div className="flex gap-4 sm:gap-8 py-6 sm:py-10 border-t border-white/10 group">
-                  {/* Step number */}
-                  <span className="text-[#b7ff4a] font-mono text-base sm:text-xl shrink-0 w-8 sm:w-12 pt-1 tabular-nums">
-                    {step.step}
-                  </span>
-
-                  {/* Content */}
-                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 items-start">
-                    <h4 className="display-lg text-lg sm:text-2xl font-bold text-[#f2f2ec] group-hover:text-[#b7ff4a] transition-colors duration-300">
-                      {step.title}
-                    </h4>
-                    <p className="text-white/50 text-xs sm:text-sm leading-relaxed">
-                      {step.desc}
+            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {service.features.map((feat, i) => (
+                <ScrollReveal key={i} delay={i * 0.08} y={24}>
+                  <div className="p-6 rounded-2xl border border-black/[0.08] bg-white shadow-xs h-full">
+                    <span className="font-mono text-xs font-bold text-[#0070f3]">
+                      0{i + 1}
+                    </span>
+                    <h3 className="font-display text-lg font-bold text-zinc-900 mt-3 mb-2">
+                      {feat.title}
+                    </h3>
+                    <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                      {feat.desc}
                     </p>
                   </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          6. BENEFITS / RESULTS — full-width video bg with metrics
-          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-20 sm:py-32 overflow-hidden" ref={benefitsRef}>
-        <VideoLayer src="/videos/legalx.mp4" overlay="scrim" />
-        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="eyebrow mb-12 sm:mb-16 text-center text-white/50">
-              Measurable Impact
+                </ScrollReveal>
+              ))}
             </div>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
-            {service.benefits.map((b, i) => (
-              <div
-                key={i}
-                className="benefit-card text-center opacity-0"
-              >
-                {/* Metric */}
-                <div className="display-xl text-4xl sm:text-6xl lg:text-7xl text-[#b7ff4a] mb-2 leading-none font-black">
-                  {b.metric}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HOW WE WORK (PROCESS) ───────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container">
+          <ScrollReveal y={24}>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+                Process
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+                How We Work
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {WORK_PROCESS.map((p, i) => (
+              <ScrollReveal key={p.num} delay={i * 0.08} y={24}>
+                <div className="p-6 rounded-xl border border-black/[0.08] bg-white shadow-xs flex flex-col justify-between min-h-[200px] h-full">
+                  <div>
+                    <span className="font-mono text-sm font-bold text-[#0070f3]">
+                      {p.num}
+                    </span>
+                    <h3 className="font-display text-base font-bold text-zinc-900 mt-4 mb-2">
+                      {p.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-zinc-600 leading-relaxed font-light">
+                    {p.desc}
+                  </p>
                 </div>
-                {/* Label */}
-                <div className="display-lg text-base sm:text-lg font-bold text-white mb-2 sm:mb-3">
-                  {b.label}
-                </div>
-                {/* Divider */}
-                <div className="mx-auto mb-3 h-px w-12 bg-[#b7ff4a]/30" />
-                {/* Description */}
-                <p className="text-white/50 text-xs leading-relaxed max-w-[200px] mx-auto">
-                  {b.desc}
-                </p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          7. RELATED PROJECTS — two large dark cards
-          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          {/* Header row */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-14">
-            <div>
-              <Reveal>
-                <div className="eyebrow mb-3 text-white/50">Proof of Execution</div>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl font-black uppercase break-words">
-                  RELATED WORK.
+      {/* ── TECHNOLOGY STACK ────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
+        <div className="page-container">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <ScrollReveal y={20}>
+              <div>
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+                  Stack
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
+                  Technologies & Tools
                 </h2>
-              </Reveal>
+              </div>
+            </ScrollReveal>
+
+            <div className="flex flex-wrap gap-2.5 max-w-xl">
+              {service.technologies.map((t, i) => (
+                <ScrollReveal key={t} delay={i * 0.04} y={12}>
+                  <TechBadge name={t} />
+                </ScrollReveal>
+              ))}
             </div>
-            <Reveal delay={0.2}>
+          </div>
+        </div>
+      </section>
+
+      {/* ── RELATED WORK ────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container">
+          <ScrollReveal y={24}>
+            <div className="flex items-center justify-between mb-12">
+              <div>
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
+                  Portfolio
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
+                  Featured Case Studies
+                </h2>
+              </div>
               <Link
                 href="/projects"
-                className="btn-pill btn-ghost self-start sm:self-end"
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-600 hover:text-[#0070f3] transition-colors"
               >
-                All Projects <ArrowUpRight className="w-4 h-4" />
+                <span>All Projects</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
-            </Reveal>
-          </div>
+            </div>
+          </ScrollReveal>
 
-          {/* Project Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {relatedProjects.map((proj, idx) => (
-              <Reveal key={proj.slug} delay={idx * 0.12}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {selectedProjects.map((proj, i) => (
+              <ScrollReveal key={proj.slug} delay={i * 0.1} y={28}>
                 <Link
                   href={`/projects/${proj.slug}`}
-                  className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-colors duration-300"
+                  className="group rounded-2xl border border-black/[0.08] bg-white overflow-hidden hover:border-black/20 shadow-xs hover:shadow-md transition-all block"
                 >
-                  {/* Image */}
-                  <div className="relative h-48 sm:h-72 overflow-hidden">
+                  <div className="relative aspect-video bg-zinc-950 overflow-hidden">
                     <img
                       src={proj.image}
                       alt={proj.title}
-                      className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    {/* Industry badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className="eyebrow px-3 py-1.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
-                        {proj.industry}
-                      </span>
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-mono text-[#0070f3] border border-black/10 font-semibold shadow-xs">
+                      {proj.category}
                     </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-5 sm:p-8 flex items-end justify-between gap-4">
-                    <div className="flex-1">
-                      <h4 className="display-lg text-lg sm:text-2xl font-bold text-[#f2f2ec] group-hover:text-[#b7ff4a] transition-colors duration-300 mb-2">
-                        {proj.title}
-                      </h4>
-                      <p className="text-white/40 text-xs leading-relaxed line-clamp-2 max-w-sm">
-                        {proj.overview}
-                      </p>
-                    </div>
-                    <span className="shrink-0 grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full border border-white/10 group-hover:border-[#b7ff4a] group-hover:bg-[#b7ff4a] group-hover:text-black transition-all duration-300">
-                      <ArrowUpRight className="w-4 h-4" />
-                    </span>
-                  </div>
-
-                  {/* Results strip */}
-                  <div className="px-5 sm:px-8 pb-5 sm:pb-6 flex flex-wrap gap-4">
-                    {proj.results.slice(0, 3).map((r, ri) => (
-                      <div key={ri} className="flex flex-col">
-                        <span className="text-[#b7ff4a] font-mono text-xs sm:text-sm font-bold">
-                          {r.metric}
-                        </span>
-                        <span className="text-white/40 text-[9px] sm:text-[10px] uppercase tracking-wider">
-                          {r.label}
-                        </span>
-                      </div>
-                    ))}
+                  <div className="p-6">
+                    <h3 className="font-display text-lg font-bold text-zinc-900 group-hover:text-[#0070f3] transition-colors">
+                      {proj.title}
+                    </h3>
+                    <p className="mt-2 text-xs text-zinc-600 line-clamp-2 font-light">
+                      {proj.overview}
+                    </p>
                   </div>
                 </Link>
-              </Reveal>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          8. FAQ — accordion with rotating Plus icon
-          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
-            {/* Left label */}
-            <div>
-              <Reveal>
-                <div className="eyebrow mb-4 text-white/50">Quick Answers</div>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <h2 className="display-xl text-3xl sm:text-5xl lg:text-6xl font-black uppercase leading-tight break-words">
-                  COMMON QUESTIONS.
-                </h2>
-              </Reveal>
-              <Reveal delay={0.2}>
-                <p className="mt-4 sm:mt-6 text-white/40 text-xs sm:text-sm leading-relaxed max-w-xs">
-                  Everything you need to know about our {service.title}{" "}
-                  practice.
-                </p>
-              </Reveal>
+      {/* ── CTA ─────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
+        <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
+          <ScrollReveal y={24}>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
+              Ready to build with {service.title}?
+            </h2>
+            <p className="mt-4 text-sm text-zinc-600 font-light">
+              Let&apos;s evaluate your requirements and scope a delivery plan.
+            </p>
+            <div className="mt-8">
+              <Link
+                href="/contact"
+                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5 shadow-xs"
+              >
+                <span>Talk to Us</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
-
-            {/* Right accordion */}
-            <div className="divide-y divide-white/10">
-              {service.faqs.map((faq, i) => {
-                const isOpen = openFaq === i;
-                return (
-                  <Reveal key={i} delay={i * 0.06}>
-                    <button
-                      onClick={() => setOpenFaq(isOpen ? null : i)}
-                      className="w-full text-left py-6 sm:py-8 flex items-start gap-4 sm:gap-6 group"
-                      aria-expanded={isOpen}
-                    >
-                      {/* Plus icon */}
-                      <span
-                        className={`shrink-0 mt-0.5 grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-full border transition-all duration-300 ${
-                          isOpen
-                            ? "border-[#b7ff4a] bg-[#b7ff4a] text-black rotate-45"
-                            : "border-white/20 text-white/50 group-hover:border-white/50 rotate-0"
-                        }`}
-                        style={{ transition: "transform 0.3s ease, border-color 0.3s ease, background 0.3s ease" }}
-                      >
-                        <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </span>
-
-                      {/* Question & Answer */}
-                      <div className="flex-1">
-                        <h4
-                          className={`text-sm sm:text-lg font-semibold transition-colors duration-300 ${
-                            isOpen ? "text-[#b7ff4a]" : "text-[#f2f2ec] group-hover:text-white"
-                          }`}
-                        >
-                          {faq.question}
-                        </h4>
-
-                        {/* Collapsible answer */}
-                        <div
-                          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                            isOpen ? "max-h-96 mt-3 sm:mt-4" : "max-h-0"
-                          }`}
-                        >
-                          <p className="text-white/50 text-xs sm:text-sm leading-relaxed">
-                            {faq.answer}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          9. CTA — full-screen cinematic close
-          ═══════════════════════════════════════════════════════════════════ */}
-      <CTASection
-        title="Start Your Project."
-        actionLabel="Let's Build It"
-        href="/contact"
-        video={service.video || "/videos/baseone.mp4"}
-      />
 
       <Footer />
     </main>

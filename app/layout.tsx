@@ -19,20 +19,21 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
-  description: "Digital products. Intelligent systems. Real results.",
+  title: "StratoTechCorp — Digital Product Studio",
+  description: "We build digital products that move businesses forward. AI, Software, Cloud & Design.",
   keywords: [
-    "Fortune Tech",
+    "StratoTechCorp",
     "Digital Products",
-    "Web Development",
+    "Product Engineering",
+    "AI & Machine Learning",
+    "Web & Mobile",
+    "Cloud Solutions",
     "UI/UX Design",
-    "AI & Automation",
-    "Cloud & Technology",
   ],
-  authors: [{ name: "Fortune Tech" }],
+  authors: [{ name: "StratoTechCorp" }],
   openGraph: {
-    title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
-    description: "Digital products. Intelligent systems. Real results.",
+    title: "StratoTechCorp — WE BUILD DIGITAL PRODUCTS.",
+    description: "We build digital products that move businesses forward. AI, Software, Cloud & Design.",
     type: "website",
     locale: "en_US",
   },
@@ -46,9 +47,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}
     >
-      <body className="min-h-screen bg-[#050505] text-[#f2f2ec] antialiased font-sans selection:bg-[#b7ff4a] selection:text-[#050505]">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-[#fafafa] text-zinc-900 antialiased font-sans selection:bg-[#0070f3] selection:text-white"
+      >
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
