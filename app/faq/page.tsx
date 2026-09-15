@@ -1,103 +1,212 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/home/CTASection";
-import { Sparkles, ChevronDown, HelpCircle, ArrowRight } from "lucide-react";
+import VideoLayer from "@/components/cinematic/VideoLayer";
+import Reveal from "@/components/cinematic/Reveal";
+import CTASection from "@/components/cinematic/CTASection";
+import { Plus } from "lucide-react";
+import { gsap } from "@/lib/gsap";
 import { FAQ_DATA } from "@/data/siteData";
 
-export default function FAQPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const [activeCategory, setActiveCategory] = useState("All");
+/* ---------- Inline fallback FAQs (used if FAQ_DATA is empty/unavailable) ---------- */
+const FALLBACK_FAQS = [
+  {
+    question: "What does your company do?",
+    answer:
+      "We design, build, and ship digital products — web apps, mobile apps, AI systems, and cloud platforms for companies that want to grow fast.",
+  },
+  {
+    question: "How do you start a project?",
+    answer:
+      "We start with a discovery call to understand your goals, then create a technical brief, timeline, and fixed-scope proposal within 3 business days.",
+  },
+  {
+    question: "How much does a project cost?",
+    answer:
+      "Projects typically range from $5k for landing pages to $100k+ for enterprise platforms. We provide transparent, itemised quotes with no hidden costs.",
+  },
+  {
+    question: "How long does development take?",
+    answer:
+      "Simple projects take 4–6 weeks. Complex platforms take 3–6 months. We work in 2-week sprints with regular client updates and demo sessions.",
+  },
+  {
+    question: "Do you work with international clients?",
+    answer:
+      "Yes. We work with clients globally and are experienced with remote collaboration across time zones, using async-first communication tools.",
+  },
+  {
+    question: "Do you provide post-launch support?",
+    answer:
+      "Yes. We offer SLA-backed maintenance packages covering monitoring, updates, bug fixes, and ongoing feature development.",
+  },
+  {
+    question: "What technologies do you use?",
+    answer:
+      "Next.js, React, TypeScript, Node.js, Python, React Native, Flutter, AWS, GCP, and more — always chosen to fit your specific product needs.",
+  },
+  {
+    question: "Can you work with our existing codebase?",
+    answer:
+      "Absolutely. We regularly audit and improve legacy systems, and can integrate seamlessly within your existing tech stack and workflows.",
+  },
+];
 
-  const categories = ["All", "General & Process", "Timeline & Pricing", "Security & Compliance", "Engagement"];
+/* Normalise FAQ_DATA (it has a `question` and `answer` field) */
+const FAQS =
+  Array.isArray(FAQ_DATA) && FAQ_DATA.length > 0
+    ? FAQ_DATA.map((f) => ({ question: f.question, answer: f.answer }))
+    : FALLBACK_FAQS;
 
-  const filteredFaqs = activeCategory === "All"
-    ? FAQ_DATA
-    : FAQ_DATA.filter((f) => f.category === activeCategory);
+/* ---------- Single accordion item ---------- */
+function FaqItem({
+  faq,
+  index,
+  isOpen,
+  onToggle,
+}: {
+  faq: { question: string; answer: string };
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const bodyRef = useRef<HTMLDivElement>(null);
 
-  const toggleAccordion = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
+  useLayoutEffect(() => {
+    const el = bodyRef.current;
+    if (!el) return;
+    if (isOpen) {
+      gsap.fromTo(el, { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.4, ease: "power3.out" });
+    } else {
+      gsap.to(el, { height: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+    }
+  }, [isOpen]);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div className="border-b border-white/10">
+      <button
+        onClick={onToggle}
+        className="w-full py-8 flex items-start justify-between gap-6 text-left group"
+        aria-expanded={isOpen}
+      >
+        <div className="flex items-start gap-6">
+          <span className="text-[#b7ff4a] font-mono text-lg shrink-0 mt-1">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="display-lg text-2xl sm:text-3xl lg:text-4xl text-white/70 group-hover:text-white transition-colors duration-300">
+            {faq.question}
+          </span>
+        </div>
+        <span
+          className={`shrink-0 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+            isOpen
+              ? "border-[#b7ff4a] bg-[#b7ff4a] text-[#050505] rotate-45"
+              : "border-white/20 text-white/50 group-hover:border-white/50"
+          }`}
+        >
+          <Plus className="w-5 h-5" />
+        </span>
+      </button>
+
+      {/* Animated body — always rendered, height animated via GSAP */}
+      <div ref={bodyRef} className="overflow-hidden" style={{ height: 0, opacity: 0 }}>
+        <div className="pb-10 pl-[3.25rem]">
+          <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-3xl">
+            {faq.answer}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Page ---------- */
+export default function FAQPage() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  /* Stagger-reveal the rows on scroll */
+  useLayoutEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el.querySelectorAll(".faq-row"),
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.07,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 80%", once: true },
+        }
+      );
+    }, el);
+    return () => ctx.revert();
+  }, []);
+
+  const handleToggle = (i: number) =>
+    setOpenIndex((prev) => (prev === i ? null : i));
+
+  return (
+    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
       <Navbar />
 
-      <main className="pt-32 pb-20">
-        
-        {/* HERO */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold uppercase tracking-wider text-blue-700 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>Got Questions?</span>
-          </div>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-950 uppercase tracking-tight leading-tight mb-4">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl leading-relaxed mb-8">
-            Find answers to common questions about our software development process, technologies, SLA guarantees, security compliance, and pricing models.
+      {/* ── HERO ── */}
+      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden">
+        <VideoLayer src="/videos/legalx.mp4" overlay="scrim-center" />
+        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
+          <Reveal delay={0.1}>
+            <div className="eyebrow mb-8">FAQ</div>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <h1 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[7vw] leading-none">
+              QUESTIONS?
+              <br />
+              <span className="text-outline">WE HAVE</span>
+              <br />
+              ANSWERS.
+            </h1>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── INTRO LINE ── */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-24 pb-6">
+        <Reveal delay={0.1}>
+          <p className="text-white/40 text-sm sm:text-base max-w-lg">
+            Everything you need to know about working with us — from kicking off a project to shipping and beyond.
           </p>
+        </Reveal>
+      </section>
 
-          {/* CATEGORY FILTERS */}
-          <div className="flex flex-wrap items-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeCategory === cat
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                    : "bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      {/* ── ACCORDION LIST ── */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12">
+        <div ref={listRef} className="border-t border-white/10">
+          {FAQS.map((faq, i) => (
+            <div key={i} className="faq-row">
+              <FaqItem
+                faq={faq}
+                index={i}
+                isOpen={openIndex === i}
+                onToggle={() => handleToggle(i)}
+              />
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* ACCORDION FAQ SECTION (TEMPLATE #15) */}
-        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="space-y-4">
-            {filteredFaqs.map((faq, idx) => {
-              const isOpen = openIndex === idx;
-              return (
-                <div
-                  key={idx}
-                  className="card-blueprint overflow-hidden text-left transition-all"
-                >
-                  <button
-                    onClick={() => toggleAccordion(idx)}
-                    className="w-full p-6 sm:p-7 flex items-center justify-between gap-4 text-left cursor-pointer hover:bg-slate-50/80 transition-colors"
-                  >
-                    <span className="font-bold text-base sm:text-lg text-slate-950 flex items-center gap-3">
-                      <HelpCircle className="w-5 h-5 text-blue-600 shrink-0" />
-                      <span>{faq.question}</span>
-                    </span>
-                    <div className={`w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180 bg-blue-50 text-blue-600" : "text-slate-500"}`}>
-                      <ChevronDown className="w-4 h-4" />
-                    </div>
-                  </button>
-
-                  {isOpen && (
-                    <div className="px-6 pb-6 sm:px-7 sm:pb-7 text-sm sm:text-base text-slate-600 leading-relaxed pl-14 animate-in fade-in duration-200 border-t border-slate-100 pt-4">
-                      {faq.answer}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* CTA */}
-        <CTASection />
-      </main>
+      {/* ── CTA ── */}
+      <CTASection
+        title={"STILL HAVE\nQUESTIONS?"}
+        actionLabel="Talk to Us"
+        href="/contact"
+        video="/videos/baseone.mp4"
+      />
 
       <Footer />
-    </div>
+    </main>
   );
 }

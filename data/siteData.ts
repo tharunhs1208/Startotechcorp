@@ -5,6 +5,7 @@ export interface ServiceItem {
   tagline: string;
   shortDescription: string;
   fullDescription: string;
+  video?: string;
   technologies: string[];
   features: { title: string; desc: string }[];
   challenge: string;
@@ -23,6 +24,7 @@ export interface ProjectItem {
   overview: string;
   challenge: string;
   solution: string;
+  video?: string;
   features: string[];
   technologies: string[];
   results: { metric: string; label: string }[];
@@ -37,12 +39,22 @@ export interface IndustryItem {
   icon: string;
   tagline: string;
   description: string;
+  video?: string;
   challenges: string[];
   solutions: string[];
   features: string[];
   technologies: string[];
   caseStudySlug: string;
   benefits: string[];
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  department: string;
+  photo: string;
+  bio: string;
+  social: { linkedin?: string; github?: string; twitter?: string };
 }
 
 export interface JobItem {
@@ -91,7 +103,7 @@ export interface FAQItem {
 }
 
 /* =========================================================================
-   SERVICES DATA
+   SERVICES DATA WITH VIDEO ATTACHMENTS
    ========================================================================= */
 export const SERVICES_DATA: ServiceItem[] = [
   {
@@ -101,6 +113,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     tagline: "Build scalable, responsive and high-performance web applications.",
     shortDescription: "Engineered with modern frameworks like Next.js, React, and Node.js for lightning-fast speeds and flawless reliability.",
     fullDescription: "We build enterprise-grade web applications designed for scale, speed, and rock-solid security. From mission-critical SaaS dashboards to high-converting public portals, our engineering team adheres to clean architecture, automated testing, and performance optimization.",
+    video: "/videos/startone.mp4",
     technologies: ["React.js", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "PostgreSQL", "GraphQL", "Docker"],
     features: [
       { title: "Custom SaaS Architectures", desc: "Multi-tenant platforms with role-based access control, automated billing, and real-time sockets." },
@@ -130,12 +143,47 @@ export const SERVICES_DATA: ServiceItem[] = [
     ],
   },
   {
+    slug: "ui-ux-design",
+    title: "UI/UX Design",
+    icon: "layout",
+    tagline: "User-centric design that captivates and converts.",
+    shortDescription: "Intuitive digital interfaces, comprehensive Figma design systems, and data-driven user experience blueprints.",
+    fullDescription: "Great design is not just how it looks, but how it works. We conduct user research, establish scalable Figma token systems, map customer journey blueprints, and craft visually striking interfaces that elevate your brand and drive measurable conversions.",
+    video: "/videos/validsoft.mp4",
+    technologies: ["Figma", "Design Systems", "Prototyping", "User Research", "Wireframing", "Tailwind Tokens", "A/B Testing"],
+    features: [
+      { title: "Design System Architecture", desc: "Modular component libraries with atomic design tokens for seamless Figma-to-code parity." },
+      { title: "User Journey & Persona Mapping", desc: "Empathy maps, user workflows, and wireframes targeting key conversion and retention funnels." },
+      { title: "Interactive Micro-Interactions", desc: "Subtle physics-based animations that guide attention and provide satisfying tactile feedback." },
+      { title: "Accessibility Standards (WCAG 2.1)", desc: "AA/AAA contrast compliance, keyboard navigability, and screen reader-friendly structures." },
+    ],
+    challenge: "Cluttered interfaces, confusing navigation, and visual inconsistency lead to high bounce rates, frustrated users, and lost revenue.",
+    solution: "We redesign user flows with clean visual hierarchy, modern aesthetics, intuitive patterns, and continuous usability testing.",
+    process: [
+      { step: "01", title: "User Research & Audit", desc: "Heuristic evaluation, competitive benchmarking, and stakeholder interviews." },
+      { step: "02", title: "Information Architecture", desc: "Sitemaps, user flow diagrams, and low-fidelity structural wireframes." },
+      { step: "03", title: "Visual Design & Systems", desc: "Typography scales, color harmony palettes, iconography, and high-fidelity mockups." },
+      { step: "04", title: "Interactive Prototyping", desc: "Clickable Figma prototypes with realistic transition logic and user testing." },
+      { step: "05", title: "Developer Handoff", desc: "Complete token documentation, CSS export, and pairing with frontend engineers." },
+      { step: "06", title: "Usability Optimization", desc: "Heatmap analysis, session recordings, and A/B test iterations." },
+    ],
+    benefits: [
+      { metric: "+65%", label: "User Engagement", desc: "Intuitive flows and clear calls-to-action." },
+      { metric: "-50%", label: "Dev Handoff Time", desc: "Complete design token systems synced directly to code." },
+      { metric: "100%", label: "WCAG 2.1 Compliant", desc: "Universal accessibility across all devices." },
+    ],
+    faqs: [
+      { question: "What deliverables do we receive at the end of a UI/UX project?", answer: "You receive a complete Figma design file with responsive components, design token variables, user flow maps, interactive prototypes, and developer specs." },
+    ],
+  },
+  {
     slug: "mobile-development",
     title: "Mobile Development",
     icon: "smartphone",
     tagline: "Native and cross-platform mobile apps that delight users.",
     shortDescription: "Intuitive iOS and Android apps powered by React Native and Flutter with native performance and offline sync.",
     fullDescription: "We design and build engaging mobile applications that users love. Leveraging React Native, Flutter, Swift, and Kotlin, our team crafts pixel-perfect native experiences with biometric authentication, push notifications, and background processing.",
+    video: "/videos/socan.mp4",
     technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "GraphQL", "Redux Toolkit", "Fastlane"],
     features: [
       { title: "Cross-Platform Efficiency", desc: "Single codebase delivering authentic native iOS and Android performance with 40% lower cost." },
@@ -164,45 +212,13 @@ export const SERVICES_DATA: ServiceItem[] = [
     ],
   },
   {
-    slug: "ui-ux-design",
-    title: "UI/UX Design",
-    icon: "layout",
-    tagline: "User-centric design that captivates and converts.",
-    shortDescription: "Intuitive digital interfaces, comprehensive Figma design systems, and data-driven user experience blueprints.",
-    fullDescription: "Great design is not just how it looks, but how it works. We conduct user research, establish scalable Figma token systems, map customer journey blueprints, and craft visually striking interfaces that elevate your brand and drive measurable conversions.",
-    technologies: ["Figma", "Design Systems", "Prototyping", "User Research", "Wireframing", "Tailwind Tokens", "A/B Testing"],
-    features: [
-      { title: "Design System Architecture", desc: "Modular component libraries with atomic design tokens for seamless Figma-to-code parity." },
-      { title: "User Journey & Persona Mapping", desc: "Empathy maps, user workflows, and wireframes targeting key conversion and retention funnels." },
-      { title: "Interactive Micro-Interactions", desc: "Subtle physics-based animations that guide attention and provide satisfying tactile feedback." },
-      { title: "Accessibility Standards (WCAG 2.1)", desc: "AA/AAA contrast compliance, keyboard navigability, and screen reader-friendly structures." },
-    ],
-    challenge: "Cluttered interfaces, confusing navigation, and visual inconsistency lead to high bounce rates, frustrated users, and lost revenue.",
-    solution: "We redesign user flows with clean visual hierarchy, modern aesthetics, intuitive patterns, and continuous usability testing.",
-    process: [
-      { step: "01", title: "User Research & Audit", desc: "Heuristic evaluation, competitive benchmarking, and stakeholder interviews." },
-      { step: "02", title: "Information Architecture", desc: "Sitemaps, user flow diagrams, and low-fidelity structural wireframes." },
-      { step: "03", title: "Visual Design & Systems", desc: "Typography scales, color harmony palettes, iconography, and high-fidelity mockups." },
-      { step: "04", title: "Interactive Prototyping", desc: "Clickable Figma prototypes with realistic transition logic and user testing." },
-      { step: "05", title: "Developer Handoff", desc: "Complete token documentation, CSS export, and pairing with frontend engineers." },
-      { step: "06", title: "Usability Optimization", desc: "Heatmap analysis, session recordings, and A/B test iterations." },
-    ],
-    benefits: [
-      { metric: "+65%", label: "User Engagement", desc: "Intuitive flows and clear calls-to-action." },
-      { metric: "-50%", label: "Dev Handoff Time", desc: "Complete design token systems synced directly to code." },
-      { metric: "100%", label: "WCAG 2.1 Compliant", desc: "Universal accessibility across all devices." },
-    ],
-    faqs: [
-      { question: "What deliverables do we receive at the end of a UI/UX project?", answer: "You receive a complete Figma design file with responsive components, design token variables, user flow maps, interactive prototypes, and developer specs." },
-    ],
-  },
-  {
     slug: "ai-machine-learning",
     title: "AI & Machine Learning",
     icon: "cpu",
     tagline: "Empower your business with smart intelligence and automation.",
     shortDescription: "Custom LLM solutions, retrieval-augmented generation (RAG), conversational agents, and predictive analytics pipelines.",
     fullDescription: "Harness the transformative power of modern Artificial Intelligence. We build custom conversational AI agents, private enterprise RAG pipelines, computer vision systems, and automated predictive intelligence models tailored to your proprietary data.",
+    video: "/videos/zobay.mp4",
     technologies: ["OpenAI APIs", "LangChain", "Llama 3", "Pinecone", "pgvector", "Python", "PyTorch", "FastAPI"],
     features: [
       { title: "Enterprise RAG Pipelines", desc: "Semantic vector search across proprietary documentation with zero data leakage guarantees." },
@@ -236,6 +252,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     tagline: "Scalable, secure and reliable cloud infrastructure.",
     shortDescription: "AWS, Azure, and GCP architecture, automated Kubernetes clusters, serverless pipelines, and SOC-2 compliance.",
     fullDescription: "Modernize your infrastructure for infinite scalability and minimal cloud expenditure. We architect multi-region Kubernetes clusters, automated CI/CD deployment pipelines, serverless microservices, and airtight cybersecurity controls.",
+    video: "/videos/baseone.mp4",
     technologies: ["AWS", "Microsoft Azure", "Google Cloud", "Kubernetes", "Terraform", "Docker", "Cloudflare", "Datadog"],
     features: [
       { title: "Infrastructure as Code (IaC)", desc: "100% reproducible environments configured with Terraform, Ansible, and Helm charts." },
@@ -269,6 +286,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     tagline: "Strategic tech consulting to modernize legacy operations.",
     shortDescription: "End-to-end technical roadmap consulting, legacy code refactoring, enterprise ERP/CRM integration, and process automation.",
     fullDescription: "Accelerate your company's digital maturity. We partner with executive leadership to audit technical debt, replace obsolete manual spreadsheets with unified business operating systems, and implement automated enterprise workflows.",
+    video: "/videos/legalx.mp4",
     technologies: ["Enterprise Architecture", "Microservices", "ERP/CRM", "BPMN Workflows", "GraphQL", "Legacy Migration", "Security"],
     features: [
       { title: "Legacy System Modernization", desc: "Safe incremental migration from outdated monolithic codebases to modular microservices." },
@@ -310,6 +328,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A groundbreaking voice intelligence platform enabling Fortune 500 enterprises to handle millions of inbound customer calls and outbound sales appointments with sub-280ms audio latency and real-time CRM synchronization.",
     challenge: "Legacy IVR menus and robotic voice bots forced customers through frustrating keypad trees with 2-second awkward pauses that destroyed call conversion rates.",
     solution: "We engineered a direct streaming speech-to-speech neural pipeline with predictive audio turn-taking and emotion-aware acoustic pacing.",
+    video: "/videos/zobay.mp4",
     features: [
       "Sub-280ms voice turn-taking latency across global telephony gateways",
       "Multilingual fluency across 40+ languages with dynamic accent adaptation",
@@ -345,6 +364,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A unified enterprise operating platform that consolidated 8 disconnected SaaS tools into a single high-performance workspace covering multi-entity accounting, automated approvals, and real-time team analytics.",
     challenge: "Mid-market corporations were spending $40,000+ monthly on fragmented SaaS licenses while employees wasted hundreds of hours reconciling spreadsheets across isolated tools.",
     solution: "We engineered StartOne with a multi-tenant distributed ledger, drag-and-drop workflow builder, and instantaneous real-time dashboard analytics.",
+    video: "/videos/startone.mp4",
     features: [
       "Multi-entity double-entry ledger with instant currency conversion",
       "Automated procurement and expense approval pipelines",
@@ -380,6 +400,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "An enterprise AI platform that audits Master Services Agreements, NDAs, and procurement vendor contracts in under 10 seconds, scoring risk across 50+ clause categories.",
     challenge: "In-house legal teams faced a 3-week backlog reviewing complex commercial contracts, stalling enterprise sales cycles and risking overlooked liability clauses.",
     solution: "We built a private RAG pipeline powered by custom fine-tuned legal LLMs that flags risky indemnifications and proposes playbook-aligned redlines.",
+    video: "/videos/legalx.mp4",
     features: [
       "10-second multi-party contract risk scoring across 50+ vectors",
       "Automated clause redlining matching company risk tolerances",
@@ -415,6 +436,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "An institutional-grade payment clearing and treasury management platform facilitating sub-50ms transaction settlements with ISO 20022 compliance.",
     challenge: "Cross-border corporate transactions suffered from 3-day correspondent banking delays and opaque FX conversion markups.",
     solution: "We built BaseOne with an immutable double-entry distributed ledger and algorithmic FX liquidity routing across global clearing nodes.",
+    video: "/videos/baseone.mp4",
     features: [
       "Sub-50ms transaction finality across 28 global currencies",
       "Automated liquidity rebalancing and multi-currency pooling",
@@ -449,6 +471,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A cybersecurity engine analyzing micro-frequency vocal tract resonance to detect synthetic AI voice clones and biometric spoofing in under 150 milliseconds.",
     challenge: "Sophisticated deepfake audio scams were breaching telephone banking authentication and CEO impersonation wire transfers.",
     solution: "We developed a hardware-accelerated spectrogram neural network that verifies biological vocal physics independent of language or audio compression.",
+    video: "/videos/validsoft.mp4",
     features: [
       "99.8% synthetic voice clone rejection accuracy",
       "Sub-150ms real-time audio spectrogram analysis",
@@ -482,6 +505,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A real-time audio stream recognition and smart-contract royalty routing platform monitoring broadcast media across 140+ digital channels.",
     challenge: "Independent music creators and rightsholders lost millions annually in uncollected royalties due to fragmented streaming logs and manual payout spreadsheets.",
     solution: "We engineered an acoustic fingerprint index of 1.2 billion tracks with automated micro-payment splits executed via smart contracts.",
+    video: "/videos/socan.mp4",
     features: [
       "1.2 Billion track acoustic fingerprint index with 0.2s matching",
       "Continuous live stream audio monitoring across 140+ platforms",
@@ -506,6 +530,320 @@ export const PROJECTS_DATA: ProjectItem[] = [
       company: "Sonic Rights Collective",
     },
   },
+  {
+    slug: "aura-fintech-design-system",
+    title: "Aura Global FinTech & Design System",
+    category: "UI/UX",
+    industry: "Financial Services & Wealth Management",
+    tagline: "Minimalist luxury interface design, fluid 120Hz micro-interactions, and enterprise design tokens.",
+    overview: "A complete end-to-end UX research, wireframing, and design system overhaul for a global wealth management platform, increasing user engagement by 140% and cutting feature turnaround time in half.",
+    challenge: "Complex investment portfolios and multi-asset charts were cluttered and unintuitive, causing high drop-off rates during mobile onboarding.",
+    solution: "We conducted 40+ user interviews and created a refined dark-mode design system with clear visual hierarchy, accessible micro-interactions, and fluid charting.",
+    video: "/videos/baseone.mp4",
+    features: [
+      "Figma Token architecture synchronizing directly with React component libraries",
+      "Fluid 120Hz interactive candlestick and portfolio allocation visualization",
+      "Streamlined 3-step mobile onboarding reducing drop-off by 62%",
+      "WCAG 2.1 AAA accessible color contrast across all dark and light themes",
+    ],
+    technologies: ["Figma", "Design Systems", "Framer Motion", "React", "TypeScript", "Tailwind CSS", "Storybook", "UserTesting"],
+    results: [
+      { metric: "+140%", label: "User Engagement" },
+      { metric: "-62%", label: "Onboarding Drop-off" },
+      { metric: "250+", label: "Design Components" },
+      { metric: "4.9★", label: "App Store UX Rating" },
+    ],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "The new Aura interface is breathtaking. Our users love the smoothness and our developers ship new screens in half the time thanks to the design system.",
+      author: "Julian Thorne",
+      role: "Chief Product Officer",
+      company: "Aura Wealth Global",
+    },
+  },
+  {
+    slug: "novus-spatial-3d-ux",
+    title: "Novus Immersive 3D Spatial Commerce",
+    category: "UI/UX",
+    industry: "E-Commerce & Digital Products",
+    tagline: "WebGL-powered spatial product configurator and frictionless zero-friction checkout UX.",
+    overview: "An innovative WebGL and 3D product customization interface crafted for luxury direct-to-consumer brands, elevating conversions and reducing return rates.",
+    challenge: "Standard flat 2D e-commerce photos failed to convey spatial dimensions, material tactile quality, and custom configurations.",
+    solution: "We designed a frictionless 3D viewport UI with gesture-driven 360-degree rotation, instant swatch switching, and an Apple Pay 1-click checkout flow.",
+    video: "/videos/startone.mp4",
+    features: [
+      "Gesture-driven 3D product interaction with 60fps WebGL rendering",
+      "Dynamic material and finish customizer with live cost calculation",
+      "Frictionless 1-click checkout integrating Apple Pay and Google Pay",
+      "Intuitive mobile ergonomics designed for single-thumb navigation",
+    ],
+    technologies: ["Figma", "WebGL", "Three.js", "Next.js", "Framer Motion", "Tailwind CSS", "Blender"],
+    results: [
+      { metric: "+48%", label: "Conversion Rate" },
+      { metric: "-35%", label: "Product Return Rate" },
+      { metric: "3.2x", label: "Average Time on Site" },
+      { metric: "60 FPS", label: "Mobile Render Speed" },
+    ],
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "Novus transformed our online buying experience. Customers spend over 3x longer interacting with products and return rates dropped dramatically.",
+      author: "Clara Dupont",
+      role: "Head of Digital Experience",
+      company: "Novus Luxury Goods",
+    },
+  },
+  {
+    slug: "pulse-clinical-dashboard-ux",
+    title: "Pulse Health Clinical Workflow & UI",
+    category: "UI/UX",
+    industry: "Healthcare & Medical Devices",
+    tagline: "Cognitive-load-optimized clinical interface for ICU telemetry and electronic medical records.",
+    overview: "A mission-critical medical UI/UX system created for doctors and nursing staff, reducing cognitive fatigue and preventing medical charting errors during high-stress shifts.",
+    challenge: "Cluttered legacy hospital EHR software with tiny text and confusing menus led to doctor burnout and delayed critical care interventions.",
+    solution: "We developed a high-contrast, card-based clinical dashboard using color-coded vitals triage and zero-distraction dark mode.",
+    video: "/videos/validsoft.mp4",
+    features: [
+      "Color-coded vitals triage with instant visual anomaly alerts",
+      "Card-based patient telemetry layout reducing charting time by 50%",
+      "Touch-optimized large tap targets for sterile medical tablet use",
+      "FDA and HIPAA compliance-verified ergonomic design guidelines",
+    ],
+    technologies: ["Figma", "UX Research", "React", "TypeScript", "Tailwind CSS", "Design Tokens", "Accessibility"],
+    results: [
+      { metric: "-50%", label: "Charting Time" },
+      { metric: "Zero", label: "Input Errors" },
+      { metric: "98%", label: "Clinician Satisfaction" },
+      { metric: "100%", label: "HIPAA Compliant" },
+    ],
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "The Pulse clinical interface was designed with profound empathy for medical staff. It saves hours of exhausting charting every single day.",
+      author: "Dr. Aris Thorne",
+      role: "Chief Medical Officer",
+      company: "St. Jude Health Network",
+    },
+  },
+  {
+    slug: "nexus-b2b-marketplace",
+    title: "Nexus Global B2B Commerce Network",
+    category: "Web",
+    industry: "Logistics & Supply Chain",
+    tagline: "Next-generation wholesale marketplace with real-time bidding, escrow, and instant trade credit.",
+    overview: "An enterprise B2B e-commerce platform connecting raw material suppliers with global manufacturers, featuring real-time auction engines, multi-currency escrow, and dynamic credit scoring.",
+    challenge: "Cross-border procurement was bottlenecked by slow email negotiations, opaque pricing, and 60-day manual invoicing cycles.",
+    solution: "We engineered a web platform with high-frequency bidding algorithms, verified supplier digital passports, and automated trade credit financing.",
+    video: "/videos/startone.mp4",
+    features: [
+      "Real-time WebSocket auction and tender bidding system",
+      "Automated multi-currency escrow with smart contract release",
+      "Dynamic trade credit underwriting powered by real-time ledger analysis",
+      "Interactive multi-vendor inventory tracking across 200+ global warehouses",
+    ],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL", "Redis", "WebSockets", "AWS"],
+    results: [
+      { metric: "$320M+", label: "Gross Trade Volume" },
+      { metric: "-75%", label: "Procurement Cycle" },
+      { metric: "99.98%", label: "Uptime SLA" },
+      { metric: "12,000+", label: "Verified Suppliers" },
+    ],
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "Nexus revolutionized how we source raw inventory internationally. Transaction speeds went from 3 weeks to under 15 minutes.",
+      author: "Henrik Lindqvist",
+      role: "Global Head of Procurement",
+      company: "Aetheric Industrial",
+    },
+  },
+  {
+    slug: "omni-headless-ecommerce",
+    title: "Omni Headless Commerce Engine",
+    category: "Web",
+    industry: "Retail & Consumer Brands",
+    tagline: "Ultra-fast headless commerce architecture with Edge SSR and sub-50ms page transitions.",
+    overview: "A composable headless storefront engineered for high-growth consumer lifestyle brands, delivering instantaneous global page loads and unified omni-channel checkout.",
+    challenge: "Monolithic e-commerce backends caused sluggish 4-second mobile load times and severe crashes during viral flash sales.",
+    solution: "We decoupled frontend presentation via Next.js Edge rendering and integrated an event-driven inventory service handling 50,000 requests per second.",
+    video: "/videos/baseone.mp4",
+    features: [
+      "Edge-rendered ISR architecture achieving sub-50ms TTFB worldwide",
+      "Modular checkout pipeline integrating Stripe, Apple Pay, and Klarna",
+      "Real-time omnichannel inventory synchronization across 150+ retail stores",
+      "Personalized product recommendation engine delivering 18% higher AOV",
+    ],
+    technologies: ["Next.js", "GraphQL", "Shopify Plus", "Tailwind CSS", "Redis", "Vercel Edge", "Algolia"],
+    results: [
+      { metric: "+52%", label: "Conversion Lift" },
+      { metric: "42ms", label: "Global TTFB" },
+      { metric: "+18%", label: "Average Order Value" },
+      { metric: "50k/sec", label: "Peak Flash RPS" },
+    ],
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "Our mobile conversion rate surged over 50% within two weeks of launching with Omni. The speed is unbelievable.",
+      author: "Camille Laurent",
+      role: "VP of E-Commerce",
+      company: "Maison Luxe Paris",
+    },
+  },
+  {
+    slug: "stride-telehealth-mobile",
+    title: "Stride Mobile Clinical Companion",
+    category: "Mobile",
+    industry: "Healthcare & Digital Health",
+    tagline: "Patient-first mobile health app with real-time biometric telemetry and encrypted HD telehealth.",
+    overview: "A native cross-platform mobile application empowering over 500,000 patients to monitor chronic conditions, sync vital signs with wearable devices, and access 24/7 on-demand doctor consultations.",
+    challenge: "Patients struggling with diabetes and hypertension lacked an easy way to share daily glucose and blood pressure data with their care teams.",
+    solution: "We built a zero-friction mobile application with Apple HealthKit / Google Fit integration, automated abnormal vitals alerting, and end-to-end encrypted WebRTC video visits.",
+    video: "/videos/validsoft.mp4",
+    features: [
+      "Seamless Apple HealthKit & Google Health Connect automated sensor syncing",
+      "End-to-end encrypted WebRTC HD video appointments with clinical screen sharing",
+      "AI-driven prescription reminder scheduler with push notification reminders",
+      "Biometric FaceID / TouchID authentication with HIPAA Type-II compliance",
+    ],
+    technologies: ["React Native", "TypeScript", "WebRTC", "HealthKit", "Node.js", "PostgreSQL", "AWS"],
+    results: [
+      { metric: "500k+", label: "Active Mobile Users" },
+      { metric: "-42%", label: "Hospital Readmissions" },
+      { metric: "4.9★", label: "App Store Rating" },
+      { metric: "100%", label: "HIPAA Compliant" },
+    ],
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "Stride has given our chronic care patients a lifeline. Hospital readmissions plummeted by over 40% in our pilot group.",
+      author: "Dr. Rachel Sterling",
+      role: "Director of Digital Care",
+      company: "Horizon Health Group",
+    },
+  },
+  {
+    slug: "vault-crypto-neobank-app",
+    title: "Vault Sovereign Mobile Neobank",
+    category: "Mobile",
+    industry: "Fintech & Web3",
+    tagline: "Institutional-grade non-custodial crypto wallet and global multi-currency card application.",
+    overview: "A high-security mobile banking app offering seamless fiat on-ramps, multi-chain asset custody, instant peer-to-peer payments, and virtual card issuance.",
+    challenge: "Crypto wallets were notoriously complex for non-technical users, requiring cumbersome seed phrase backups and high gas fee calculations.",
+    solution: "We designed a biometric MPC (Multi-Party Computation) key management flow with account abstraction, allowing one-tap gasless transfers and instant Visa card provisioning.",
+    video: "/videos/baseone.mp4",
+    features: [
+      "Multi-Party Computation (MPC) non-custodial key recovery via biometrics",
+      "Instant virtual and physical Visa debit card generation with Apple Wallet support",
+      "Zero-gas peer-to-peer instant fiat & stablecoin transfers",
+      "Real-time portfolio performance tracking with institutional charting",
+    ],
+    technologies: ["Flutter", "Dart", "Rust", "Solidity", "Node.js", "Redis", "AWS CloudHSM"],
+    results: [
+      { metric: "$1.8B+", label: "Annual Transaction Flow" },
+      { metric: "850k+", label: "Registered Cardholders" },
+      { metric: "< 0.5s", label: "Biometric Auth Speed" },
+      { metric: "Zero", label: "Security Breaches" },
+    ],
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "Vault combines the ultimate security of hardware crypto custody with the delightful user experience of a modern neo-bank.",
+      author: "Viktor Vance",
+      role: "Managing Partner",
+      company: "Krypton Capital",
+    },
+  },
+  {
+    slug: "stratos-multi-cloud-mesh",
+    title: "Stratos Multi-Cloud Sovereign Mesh",
+    category: "Cloud",
+    industry: "Enterprise Infrastructure & DevOps",
+    tagline: "Automated multi-cloud control plane with zero-trust networking and global edge compute orchestration.",
+    overview: "An enterprise cloud orchestration engine unifying workloads across AWS, Google Cloud, Azure, and on-premise bare-metal servers through a single declarative plane.",
+    challenge: "Enterprise IT teams suffered from cloud vendor lock-in, fragmented Terraform codebases, and inconsistent disaster recovery failover pipelines.",
+    solution: "We engineered Stratos to automate cross-cloud container routing, dynamic egress cost minimization, and active-active failover in under 3 seconds.",
+    video: "/videos/startone.mp4",
+    features: [
+      "Cross-cloud Kubernetes mesh with automated active-active failover",
+      "Algorithmic egress routing cutting data transfer costs by 45%",
+      "Zero-Trust mTLS networking with dynamic certificate rotation",
+      "Unified compliance telemetry for SOC-2, ISO 27001, and FedRAMP",
+    ],
+    technologies: ["Go", "Kubernetes", "eBPF", "Envoy", "Terraform", "Prometheus", "AWS", "GCP"],
+    results: [
+      { metric: "-45%", label: "Cloud Egress Costs" },
+      { metric: "< 3s", label: "Cross-Cloud Failover" },
+      { metric: "99.999%", label: "Target Availability" },
+      { metric: "400k+", label: "Microservices Managed" },
+    ],
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "Stratos gave us true multi-cloud sovereignty. We can migrate critical banking workloads between AWS and GCP in minutes with zero downtime.",
+      author: "Gabriel Santos",
+      role: "VP of Cloud Architecture",
+      company: "OmniBank Global",
+    },
+  },
+  {
+    slug: "vortex-data-lakehouse",
+    title: "Vortex Real-Time Cloud Lakehouse",
+    category: "Cloud",
+    industry: "Big Data & AI Infrastructure",
+    tagline: "Petabyte-scale streaming data platform with automated schema evolution and sub-second SQL analytics.",
+    overview: "A distributed streaming lakehouse architecture engineered to ingest 20 billion event records per day with sub-second querying and continuous AI feature store syncing.",
+    challenge: "Nightly batch ETL pipelines were failing under 50TB daily data bursts, leaving executive teams working with stale 24-hour-old metrics.",
+    solution: "We built an Apache Iceberg and Kafka-based streaming ingestion engine on AWS with serverless query caching and automated data compaction.",
+    video: "/videos/zobay.mp4",
+    features: [
+      "Sub-second SQL query engine across 10+ petabytes of unstructured data",
+      "Automated schema evolution and real-time CDC (Change Data Capture)",
+      "Continuous feature store pipeline feeding real-time machine learning models",
+      "Role-based column-level data masking and GDPR compliance auditing",
+    ],
+    technologies: ["Apache Iceberg", "Kafka", "Rust", "Python", "ClickHouse", "Spark", "AWS S3", "Docker"],
+    results: [
+      { metric: "20B+", label: "Daily Events Ingested" },
+      { metric: "< 250ms", label: "Query Response Time" },
+      { metric: "-60%", label: "Storage & Compute Costs" },
+      { metric: "100%", label: "Real-Time Freshness" },
+    ],
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "Vortex eliminated our ETL latency completely. Our fraud models and analytics dashboards operate on live data with instantaneous sub-second queries.",
+      author: "Samantha Bell",
+      role: "Head of Data Engineering",
+      company: "Quantum Analytics Corp",
+    },
+  },
 ];
 
 /* =========================================================================
@@ -518,6 +856,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "heart-pulse",
     tagline: "HIPAA-compliant telemedicine, electronic health records, and clinical AI workflows.",
     description: "We engineer secure digital healthcare solutions that streamline patient intake, automate clinical transcription, and maintain rigorous HIPAA compliance.",
+    video: "/videos/validsoft.mp4",
     challenges: [
       "Strict data privacy regulations (HIPAA/HITECH) and legacy EHR data silos.",
       "Physician burnout caused by excessive manual administrative charting.",
@@ -539,6 +878,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "banknote",
     tagline: "High-frequency payment clearing, algorithmic treasury, and fraud prevention.",
     description: "Transform banking and wealth management operations with sub-50ms transaction settlements, automated AML checks, and SOC-2 certified infrastructure.",
+    video: "/videos/baseone.mp4",
     challenges: [
       "Slow multi-day cross-border settlement times and high foreign exchange fees.",
       "Increasingly sophisticated deepfake and account takeover fraud threats.",
@@ -560,6 +900,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "building",
     tagline: "Automated property management, virtual leasing agents, and lease accounting.",
     description: "Streamline tenant lifecycle management, automated contract redlining, and digital rent collection across commercial and residential portfolios.",
+    video: "/videos/startone.mp4",
     challenges: [
       "High tenant acquisition costs and slow manual lease agreement drafting.",
       "Manual rent reconciliation across hundreds of property entities.",
@@ -581,6 +922,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "graduation-cap",
     tagline: "Adaptive learning platforms, virtual classrooms, and automated grading pipelines.",
     description: "Empower educational institutions with personalized learning pathways, interactive virtual classrooms, and scalable student management systems.",
+    video: "/videos/zobay.mp4",
     challenges: [
       "One-size-fits-all curricula failing to address individual student learning paces.",
       "Heavy teacher administrative grading workloads reducing 1-on-1 student time.",
@@ -602,6 +944,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "shopping-bag",
     tagline: "High-conversion storefronts, dynamic pricing, and automated inventory sync.",
     description: "Build ultra-fast Next.js storefronts with headless CMS architectures, personalized recommendation engines, and seamless global payment gateways.",
+    video: "/videos/startone.mp4",
     challenges: [
       "Slow page load speeds causing catastrophic shopping cart drop-offs.",
       "Inventory desynchronization across multi-channel marketplaces (Amazon, Shopify).",
@@ -623,6 +966,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "factory",
     tagline: "IoT sensor telemetry, predictive maintenance, and supply chain visibility.",
     description: "Modernize shop-floor operations with real-time IoT device streaming, automated defect vision analysis, and integrated ERP supply chain tracking.",
+    video: "/videos/validsoft.mp4",
     challenges: [
       "Unplanned machine downtime costing millions in lost factory production.",
       "Manual quality assurance inspections prone to human error.",
@@ -644,6 +988,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "truck",
     tagline: "Route optimization, real-time fleet dispatch, and automated freight audit.",
     description: "Optimize complex transportation networks with AI-driven route planning, automated freight document OCR, and live GPS fleet tracking.",
+    video: "/videos/socan.mp4",
     challenges: [
       "Fluctuating fuel costs and inefficient delivery routing wasting operational capital.",
       "Delayed paper bills of lading and dispute-prone manual freight auditing.",
@@ -665,6 +1010,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     icon: "terminal",
     tagline: "High-velocity MVP engineering, multi-tenant cloud OS, and developer APIs.",
     description: "We partner with high-growth technology companies to build scalable product architectures, clean design systems, and rock-solid developer APIs.",
+    video: "/videos/zobay.mp4",
     challenges: [
       "Slow development cycles burning through venture capital runways.",
       "Technical debt preventing enterprise customer onboarding and SOC-2 compliance.",
@@ -683,6 +1029,60 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
 ];
 
 /* =========================================================================
+   TEAM MEMBERS DATA
+   ========================================================================= */
+export const TEAM_MEMBERS: TeamMember[] = [
+  {
+    name: "Vikram Sethi",
+    role: "Chief Executive Officer & Founder",
+    department: "Executive Leadership",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+    bio: "Ex-Google architect with 14+ years scaling cloud platforms and AI systems.",
+    social: { linkedin: "#", twitter: "#", github: "#" },
+  },
+  {
+    name: "Elena Rostova",
+    role: "Chief Technology Officer",
+    department: "Engineering",
+    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
+    bio: "Pioneered sub-300ms speech-to-speech models and distributed systems.",
+    social: { linkedin: "#", twitter: "#", github: "#" },
+  },
+  {
+    name: "Aanya Sharma",
+    role: "Head of UI/UX & Design Systems",
+    department: "Design",
+    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
+    bio: "Design lead crafting accessible token systems and high-converting interfaces.",
+    social: { linkedin: "#", twitter: "#" },
+  },
+  {
+    name: "Rahul Verma",
+    role: "Principal AI / ML Architect",
+    department: "AI Research",
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop",
+    bio: "Specialist in enterprise RAG vector stores and LLM fine-tuning pipelines.",
+    social: { linkedin: "#", github: "#" },
+  },
+  {
+    name: "Sarah Jenkins",
+    role: "VP of Cloud & Security Operations",
+    department: "Cloud & DevOps",
+    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop",
+    bio: "Kubernetes and Zero-Trust cloud security veteran with SOC-2 auditor expertise.",
+    social: { linkedin: "#", github: "#" },
+  },
+  {
+    name: "Marcus Vance",
+    role: "VP of Product Strategy",
+    department: "Product Management",
+    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop",
+    bio: "10+ years transforming mid-market enterprise operations through automation.",
+    social: { linkedin: "#", twitter: "#" },
+  },
+];
+
+/* =========================================================================
    CAREERS & JOBS DATA
    ========================================================================= */
 export const JOBS_DATA: JobItem[] = [
@@ -693,17 +1093,17 @@ export const JOBS_DATA: JobItem[] = [
     location: "Bengaluru, India (Hybrid / Remote)",
     type: "Full Time",
     experience: "4+ Years",
-    about: "We are seeking an exceptional Senior Frontend Engineer to build world-class web applications, design systems, and responsive customer-facing portals using Next.js, React, TypeScript, and Tailwind CSS.",
+    about: "We are seeking an exceptional Senior Frontend Engineer to build world-class web applications, design systems, and responsive dashboards using Next.js 15+, TypeScript, and Tailwind CSS.",
     responsibilities: [
-      "Architect and build high-performance, accessible, and responsive user interfaces with Next.js and TypeScript.",
-      "Collaborate closely with UI/UX designers to translate Figma design tokens into reusable component systems.",
-      "Optimize Core Web Vitals, client-side bundle sizes, and state management workflows.",
-      "Mentor junior developers and participate in rigorous code reviews to maintain top-tier code quality.",
+      "Architect and ship high-performance, accessible web applications using Next.js, React, and TypeScript.",
+      "Collaborate with product designers to implement pixel-perfect Figma design tokens and micro-interactions.",
+      "Optimize Core Web Vitals, streaming SSR rendering, and client-side state performance.",
+      "Mentor junior engineers and champion modern frontend engineering standards.",
     ],
     requirements: [
-      "4+ years of professional frontend development experience with React and TypeScript.",
-      "Deep expertise in Next.js (App Router, Server Components, SSR/SSG) and modern Tailwind CSS.",
-      "Strong understanding of browser rendering performance, WebSockets, and REST/GraphQL APIs.",
+      "4+ years of professional production frontend engineering experience.",
+      "Mastery of TypeScript, React, Next.js App Router, and Tailwind CSS.",
+      "Deep understanding of browser rendering, WebSockets, REST/GraphQL APIs, and state management.",
       "Proven track record of delivering clean, well-tested code using Jest/Playwright.",
     ],
     niceToHave: [
@@ -1040,10 +1440,11 @@ export const COMPANY_VALUES = [
 ];
 
 export const COMPANY_STATS = [
-  { value: "150+", label: "Enterprise Projects Completed" },
-  { value: "99.99%", label: "Uptime SLA Standard" },
-  { value: "< 280ms", label: "Voice AI Streaming Latency" },
-  { value: "40+", label: "Elite Engineers & Designers" },
+  { value: "280+", label: "Projects Delivered", num: 280, suffix: "+" },
+  { value: "150+", label: "Global Clients", num: 150, suffix: "+" },
+  { value: "8+", label: "Key Industries", num: 8, suffix: "+" },
+  { value: "45+", label: "Senior Engineers", num: 45, suffix: "+" },
+  { value: "12+", label: "Years Experience", num: 12, suffix: "+" },
 ];
 
 export const CLIENT_LOGOS = [
@@ -1053,4 +1454,6 @@ export const CLIENT_LOGOS = [
   { name: "SecureTrust Bank", logo: "SecureTrust" },
   { name: "Sonic Rights", logo: "Sonic" },
   { name: "Novus Financial", logo: "Novus" },
+  { name: "Veritas AI", logo: "Veritas" },
+  { name: "HyperScale Corp", logo: "HyperScale" },
 ];

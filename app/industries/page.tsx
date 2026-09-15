@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/home/CTASection";
+import CTASection from "@/components/cinematic/CTASection";
 import { Sparkles, ArrowRight, HeartPulse, Banknote, Building, GraduationCap, ShoppingBag, Factory, Truck, Terminal } from "lucide-react";
 import { INDUSTRIES_DATA } from "@/data/siteData";
 
@@ -29,7 +29,7 @@ export default function IndustriesPage() {
       <main className="pt-32 pb-20">
         
         {/* HERO */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-left">
+        <div className="w-full max-w-[1540px] mx-auto px-4 sm:px-8 lg:px-[120px] mb-16 text-left">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold uppercase tracking-wider text-blue-700 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-blue-600" />
             <span>Vertical Domain Expertise</span>
@@ -43,7 +43,7 @@ export default function IndustriesPage() {
         </div>
 
         {/* INDUSTRY CARDS GRID */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+        <div className="w-full max-w-[1540px] mx-auto px-4 sm:px-8 lg:px-[120px] mb-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             {INDUSTRIES_DATA.map((ind) => (
               <div

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Sparkles, Activity, ShieldCheck, Zap, Server, Wifi, ArrowUpRight } from "lucide-react";
-import Counter from "./Counter";
+import Counter from "@/components/cinematic/Counter";
 
 interface EdgeNode {
   id: string;

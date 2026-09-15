@@ -1,12 +1,16 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useState, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
+import { gsap } from "@/lib/gsap";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/home/CTASection";
-import { Sparkles, ArrowRight, CheckCircle2, ChevronRight, HelpCircle, Code, Smartphone, Layout, Cpu, Cloud, Briefcase } from "lucide-react";
+import Reveal from "@/components/cinematic/Reveal";
+import VideoLayer from "@/components/cinematic/VideoLayer";
+import CTASection from "@/components/cinematic/CTASection";
+import Marquee from "@/components/cinematic/Marquee";
 import { SERVICES_DATA, PROJECTS_DATA } from "@/data/siteData";
 
 interface PageProps {
@@ -22,228 +26,437 @@ export default function ServiceDetailPage({ params }: PageProps) {
   }
 
   const relatedProjects = PROJECTS_DATA.slice(0, 2);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  /* ─── GSAP: features list stagger ─────────────────────────────────────── */
+  const featuresRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const el = featuresRef.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el.querySelectorAll(".feat-row"),
+        { opacity: 0, x: -40 },
+        {
+          opacity: 1,
+          x: 0,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 75%", toggleActions: "play none none none" },
+        }
+      );
+    }, el);
+    return () => ctx.revert();
+  }, []);
+
+  /* ─── GSAP: benefits metrics counter reveal ────────────────────────────── */
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const el = benefitsRef.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el.querySelectorAll(".benefit-card"),
+        { opacity: 0, y: 60, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          stagger: 0.15,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 70%", toggleActions: "play none none none" },
+        }
+      );
+    }, el);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
       <Navbar />
 
-      <main className="pt-32 pb-20">
-        
-        {/* 1. BREADCRUMBS & HERO */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-left">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 mb-6">
-            <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <Link href="/services" className="hover:text-blue-600 transition-colors">Services</Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-slate-900">{service.title}</span>
-          </div>
-
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold uppercase tracking-wider text-blue-700 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>Service Capability</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-950 uppercase tracking-tight leading-tight mb-6">
-            {service.title}
-          </h1>
-
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl leading-relaxed mb-8">
-            {service.fullDescription}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/contact" className="btn-primary text-sm sm:text-base px-7 py-4 inline-flex items-center gap-2">
-              <span>Schedule Architecture Consultation</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="/projects" className="btn-secondary text-sm sm:text-base px-7 py-4">
-              View Related Case Studies
-            </Link>
-          </div>
+      {/* ═══════════════════════════════════════════════════════════════════
+          1. HERO — full-screen video
+          ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative flex min-h-[100svh] items-end overflow-hidden">
+        <VideoLayer
+          src={service.video || "/videos/startone.mp4"}
+          overlay="scrim-bottom"
+        />
+        <div className="relative z-10 w-full max-w-[1600px] px-6 sm:px-10 lg:px-20 pb-24 mx-auto">
+          <Reveal delay={0.1}>
+            <div className="eyebrow mb-4 text-[#b7ff4a]">
+              Service — {service.title}
+            </div>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <h1 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[7vw] leading-[0.92] font-black uppercase tracking-tight">
+              {service.title.toUpperCase()}
+            </h1>
+          </Reveal>
+          <Reveal delay={0.4}>
+            <p className="mt-6 text-white/60 max-w-xl text-sm leading-relaxed">
+              {service.tagline}
+            </p>
+          </Reveal>
+          <Reveal delay={0.55}>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href="/contact" className="btn-pill btn-accent-c">
+                Start a Project <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link href="/projects" className="btn-pill btn-ghost">
+                View Work
+              </Link>
+            </div>
+          </Reveal>
         </div>
 
-        {/* 2. THE CHALLENGE & OUR SOLUTION */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-            <div className="card-blueprint p-8 sm:p-10 bg-rose-50/50 border-rose-200">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-600 block mb-2">
-                The Core Challenge
-              </span>
-              <h3 className="text-2xl font-black text-slate-950 mb-4">
-                What Holds Companies Back
-              </h3>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                {service.challenge}
-              </p>
-            </div>
+        {/* Subtle scroll indicator */}
+        <div className="absolute bottom-8 right-10 z-10 flex flex-col items-center gap-2 opacity-40">
+          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white rotate-90 origin-center translate-x-6">
+            Scroll
+          </span>
+          <div className="h-12 w-px bg-white/40" />
+        </div>
+      </section>
 
-            <div className="card-blueprint p-8 sm:p-10 bg-emerald-50/50 border-emerald-200">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-700 block mb-2">
-                Our Engineered Solution
-              </span>
-              <h3 className="text-2xl font-black text-slate-950 mb-4">
-                How We Deliver Results
-              </h3>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                {service.solution}
-              </p>
-            </div>
+      {/* ═══════════════════════════════════════════════════════════════════
+          2. CHALLENGE & SOLUTION — dark side-by-side cards
+          ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-24">
+        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Problem */}
+            <Reveal>
+              <div className="h-full p-10 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col">
+                <div className="eyebrow mb-4 text-red-400">The Problem</div>
+                <h3 className="display-lg text-2xl sm:text-3xl mb-6 font-bold">
+                  What Holds Companies Back
+                </h3>
+                <p className="text-white/60 text-sm leading-relaxed flex-1">
+                  {service.challenge}
+                </p>
+                {/* decorative line accent */}
+                <div className="mt-8 h-px w-16 bg-red-400/40" />
+              </div>
+            </Reveal>
+
+            {/* Solution */}
+            <Reveal delay={0.15}>
+              <div className="h-full p-10 rounded-2xl border border-[#b7ff4a]/20 bg-[#b7ff4a]/[0.03] flex flex-col">
+                <div className="eyebrow mb-4 text-[#b7ff4a]">Our Solution</div>
+                <h3 className="display-lg text-2xl sm:text-3xl mb-6 font-bold">
+                  How We Deliver Results
+                </h3>
+                <p className="text-white/60 text-sm leading-relaxed flex-1">
+                  {service.solution}
+                </p>
+                <div className="mt-8 h-px w-16 bg-[#b7ff4a]/40" />
+              </div>
+            </Reveal>
           </div>
         </div>
+      </section>
 
-        {/* 3. WHAT WE OFFER (4 FEATURES) */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="max-w-3xl mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 block">
-              Core Capabilities
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 uppercase tracking-tight">
-              What We Offer in {service.title}
+      {/* ═══════════════════════════════════════════════════════════════════
+          3. FEATURES — numbered vertical reveal rows
+          ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 border-t border-white/10" ref={featuresRef}>
+        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          <Reveal>
+            <div className="eyebrow mb-4 text-white/50">What We Build</div>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] mb-16 font-black uppercase">
+              CAPABILITIES.
             </h2>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {service.features.map((feat, idx) => (
-              <div key={idx} className="card-blueprint p-8 text-left flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-1 font-mono font-bold">
-                  0{idx + 1}
-                </div>
-                <div>
-                  <h4 className="text-lg font-bold text-slate-950 mb-2">{feat.title}</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">{feat.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 4. TECHNOLOGIES USED */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm">
-            <span className="text-xs font-mono font-bold text-blue-600 uppercase tracking-wider block mb-2">
-              Technology Stack
-            </span>
-            <h3 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 mb-6">
-              Modern Tooling &amp; Frameworks
-            </h3>
-            <div className="flex flex-wrap gap-2.5">
-              {service.technologies.map((tech, idx) => (
-                <span
-                  key={idx}
-                  className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-sm font-mono font-bold text-slate-800 shadow-sm"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* 5. DEVELOPMENT PROCESS */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="max-w-3xl mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 block">
-              Step-by-Step Delivery
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 uppercase tracking-tight">
-              Development Process
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {service.process.map((step, idx) => (
-              <div key={idx} className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-left">
-                <span className="text-2xl font-mono font-black text-blue-600 block mb-2">{step.step}</span>
-                <h4 className="text-base font-bold text-slate-950 mb-1">{step.title}</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 6. QUANTIFIABLE BENEFITS */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            {service.benefits.map((b, idx) => (
-              <div key={idx} className="card-blueprint p-8 bg-blue-50/50 border-blue-200">
-                <div className="text-4xl font-black text-blue-600 mb-2">{b.metric}</div>
-                <div className="text-base font-bold text-slate-950 mb-1">{b.label}</div>
-                <p className="text-xs text-slate-600 leading-relaxed">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 7. RELATED PROJECTS */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1 block">
-                Proof of Execution
-              </span>
-              <h3 className="text-2xl sm:text-4xl font-black text-slate-950 uppercase tracking-tight">
-                Related Case Studies
-              </h3>
-            </div>
-            <Link href="/projects" className="btn-secondary text-xs font-bold uppercase tracking-wider">
-              All Projects →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {relatedProjects.map((proj) => (
-              <div key={proj.slug} className="card-blueprint p-6 flex flex-col justify-between">
-                <div>
-                  <img src={proj.image} alt={proj.title} className="w-full h-48 rounded-xl object-cover mb-4" />
-                  <span className="text-[10px] font-mono font-bold uppercase text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                    {proj.industry}
+          <div className="divide-y divide-white/10">
+            {service.features.map((feat, i) => (
+              <div
+                key={i}
+                className="feat-row reveal-row py-10 group cursor-default opacity-0"
+              >
+                <div className="flex items-start gap-8">
+                  <span className="text-[#b7ff4a] font-mono text-lg shrink-0 mt-1 tabular-nums">
+                    0{i + 1}
                   </span>
-                  <h4 className="text-xl font-bold text-slate-950 mt-2 mb-1">{proj.title}</h4>
-                  <p className="text-xs text-slate-600 line-clamp-2">{proj.overview}</p>
-                </div>
-                <div className="pt-4 mt-4 border-t border-slate-100">
-                  <Link href={`/projects/${proj.slug}`} className="text-xs font-bold text-blue-600 flex items-center gap-1">
-                    <span>View Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  <div className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-start">
+                    <div>
+                      <h3 className="display-lg text-3xl sm:text-4xl lg:text-5xl text-white/60 group-hover:text-white transition-colors duration-300 mb-3 font-bold">
+                        {feat.title}
+                      </h3>
+                      <p className="text-white/40 text-sm leading-relaxed max-w-2xl">
+                        {feat.desc}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="w-5 h-5 text-white/20 group-hover:text-[#b7ff4a] transition-colors duration-300 mt-2 shrink-0" />
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* 8. FAQ */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="max-w-3xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 block">
-              Frequently Asked Questions
-            </span>
-            <h3 className="text-2xl sm:text-4xl font-black text-slate-950 uppercase tracking-tight">
-              Common Questions About {service.title}
-            </h3>
+      {/* ═══════════════════════════════════════════════════════════════════
+          4. TECH STACK MARQUEE
+          ═══════════════════════════════════════════════════════════════════ */}
+      <div className="my-4">
+        <Marquee items={service.technologies} />
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          5. PROCESS — vertical numbered list with connecting line
+          ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          <Reveal>
+            <div className="eyebrow mb-4 text-white/50">How We Work</div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] mb-16 font-black uppercase">
+              THE PROCESS.
+            </h2>
+          </Reveal>
+
+          <div className="space-y-0">
+            {service.process.map((step, i) => (
+              <Reveal key={i} delay={i * 0.08}>
+                <div className="flex gap-8 py-10 border-t border-white/10 group">
+                  {/* Step number */}
+                  <span className="text-[#b7ff4a] font-mono text-xl shrink-0 w-12 pt-1 tabular-nums">
+                    {step.step}
+                  </span>
+
+                  {/* Content */}
+                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+                    <h4 className="display-lg text-xl sm:text-2xl font-bold text-[#f2f2ec] group-hover:text-[#b7ff4a] transition-colors duration-300">
+                      {step.title}
+                    </h4>
+                    <p className="text-white/50 text-sm leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="space-y-4">
-            {service.faqs.map((faq, idx) => (
-              <div key={idx} className="p-6 rounded-2xl bg-slate-50 border border-slate-200">
-                <h4 className="text-base font-bold text-slate-950 mb-2 flex items-center gap-2">
-                  <HelpCircle className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>{faq.question}</span>
-                </h4>
-                <p className="text-sm text-slate-600 leading-relaxed pl-6">
-                  {faq.answer}
+      {/* ═══════════════════════════════════════════════════════════════════
+          6. BENEFITS / RESULTS — full-width video bg with metrics
+          ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative py-32 overflow-hidden" ref={benefitsRef}>
+        <VideoLayer src="/videos/legalx.mp4" overlay="scrim" />
+        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          <Reveal>
+            <div className="eyebrow mb-16 text-center text-white/50">
+              Measurable Impact
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {service.benefits.map((b, i) => (
+              <div
+                key={i}
+                className="benefit-card text-center opacity-0"
+              >
+                {/* Metric */}
+                <div className="display-xl text-[12vw] sm:text-[7vw] lg:text-[5vw] text-[#b7ff4a] mb-2 leading-none font-black">
+                  {b.metric}
+                </div>
+                {/* Label */}
+                <div className="display-lg text-lg font-bold text-white mb-3">
+                  {b.label}
+                </div>
+                {/* Divider */}
+                <div className="mx-auto mb-3 h-px w-12 bg-[#b7ff4a]/30" />
+                {/* Description */}
+                <p className="text-white/50 text-xs leading-relaxed max-w-[200px] mx-auto">
+                  {b.desc}
                 </p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* 9. CTA */}
-        <CTASection />
-      </main>
+      {/* ═══════════════════════════════════════════════════════════════════
+          7. RELATED PROJECTS — two large dark cards
+          ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          {/* Header row */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
+            <div>
+              <Reveal>
+                <div className="eyebrow mb-3 text-white/50">Proof of Execution</div>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <h2 className="display-xl text-[8vw] sm:text-[5vw] lg:text-[3.5vw] font-black uppercase">
+                  RELATED WORK.
+                </h2>
+              </Reveal>
+            </div>
+            <Reveal delay={0.2}>
+              <Link
+                href="/projects"
+                className="btn-pill btn-ghost self-start sm:self-end"
+              >
+                All Projects <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </Reveal>
+          </div>
+
+          {/* Project Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {relatedProjects.map((proj, idx) => (
+              <Reveal key={proj.slug} delay={idx * 0.12}>
+                <Link
+                  href={`/projects/${proj.slug}`}
+                  className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-colors duration-300"
+                >
+                  {/* Image */}
+                  <div className="relative h-56 sm:h-72 overflow-hidden">
+                    <img
+                      src={proj.image}
+                      alt={proj.title}
+                      className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-90"
+                    />
+                    {/* Industry badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="eyebrow px-3 py-1.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-white/70">
+                        {proj.industry}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-8 flex items-end justify-between gap-4">
+                    <div className="flex-1">
+                      <h4 className="display-lg text-xl sm:text-2xl font-bold text-[#f2f2ec] group-hover:text-[#b7ff4a] transition-colors duration-300 mb-2">
+                        {proj.title}
+                      </h4>
+                      <p className="text-white/40 text-xs leading-relaxed line-clamp-2 max-w-sm">
+                        {proj.overview}
+                      </p>
+                    </div>
+                    <span className="shrink-0 grid h-10 w-10 place-items-center rounded-full border border-white/10 group-hover:border-[#b7ff4a] group-hover:bg-[#b7ff4a] group-hover:text-black transition-all duration-300">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </span>
+                  </div>
+
+                  {/* Results strip */}
+                  <div className="px-8 pb-6 flex flex-wrap gap-4">
+                    {proj.results.slice(0, 3).map((r, ri) => (
+                      <div key={ri} className="flex flex-col">
+                        <span className="text-[#b7ff4a] font-mono text-sm font-bold">
+                          {r.metric}
+                        </span>
+                        <span className="text-white/40 text-[10px] uppercase tracking-wider">
+                          {r.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          8. FAQ — accordion with rotating Plus icon
+          ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16">
+            {/* Left label */}
+            <div>
+              <Reveal>
+                <div className="eyebrow mb-4 text-white/50">Quick Answers</div>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[3.5vw] font-black uppercase leading-tight">
+                  COMMON QUESTIONS.
+                </h2>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <p className="mt-6 text-white/40 text-sm leading-relaxed max-w-xs">
+                  Everything you need to know about our {service.title}{" "}
+                  practice.
+                </p>
+              </Reveal>
+            </div>
+
+            {/* Right accordion */}
+            <div className="divide-y divide-white/10">
+              {service.faqs.map((faq, i) => {
+                const isOpen = openFaq === i;
+                return (
+                  <Reveal key={i} delay={i * 0.06}>
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      className="w-full text-left py-8 flex items-start gap-6 group"
+                      aria-expanded={isOpen}
+                    >
+                      {/* Plus icon */}
+                      <span
+                        className={`shrink-0 mt-0.5 grid h-8 w-8 place-items-center rounded-full border transition-all duration-300 ${
+                          isOpen
+                            ? "border-[#b7ff4a] bg-[#b7ff4a] text-black rotate-45"
+                            : "border-white/20 text-white/50 group-hover:border-white/50 rotate-0"
+                        }`}
+                        style={{ transition: "transform 0.3s ease, border-color 0.3s ease, background 0.3s ease" }}
+                      >
+                        <Plus className="w-4 h-4" />
+                      </span>
+
+                      {/* Question & Answer */}
+                      <div className="flex-1">
+                        <h4
+                          className={`text-base sm:text-lg font-semibold transition-colors duration-300 ${
+                            isOpen ? "text-[#b7ff4a]" : "text-[#f2f2ec] group-hover:text-white"
+                          }`}
+                        >
+                          {faq.question}
+                        </h4>
+
+                        {/* Collapsible answer */}
+                        <div
+                          className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                            isOpen ? "max-h-96 mt-4" : "max-h-0"
+                          }`}
+                        >
+                          <p className="text-white/50 text-sm leading-relaxed">
+                            {faq.answer}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          9. CTA — full-screen cinematic close
+          ═══════════════════════════════════════════════════════════════════ */}
+      <CTASection
+        title="Start Your Project."
+        actionLabel="Let's Build It"
+        href="/contact"
+        video={service.video || "/videos/baseone.mp4"}
+      />
 
       <Footer />
-    </div>
+    </main>
   );
 }

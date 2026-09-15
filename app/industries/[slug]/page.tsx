@@ -5,7 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/home/CTASection";
+import CTASection from "@/components/cinematic/CTASection";
 import { Sparkles, ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { INDUSTRIES_DATA, PROJECTS_DATA } from "@/data/siteData";
 
