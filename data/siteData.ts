@@ -342,11 +342,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "< 280ms", label: "Streaming Latency" },
       { metric: "1.2M+", label: "Calls Handled / Month" },
     ],
-    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Zobay transformed our contact center operations. We scaled our inbound call capacity 4x while saving over 80% on support staffing costs.",
@@ -378,11 +378,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "99.99%", label: "System Uptime" },
       { metric: "15,000+", label: "Active Daily Users" },
     ],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "StartOne allowed us to retire 6 standalone tools in our first month. Our finance and operations teams are moving 3x faster with zero data drift.",
@@ -417,8 +417,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "LegalX has cut our deal closing cycles from 21 days to under 48 hours. The automated redlining is remarkably accurate and trustworthy.",
@@ -450,10 +450,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "$1.4B+", label: "Monthly Volume" },
       { metric: "Zero", label: "Reconciliation Errors" },
     ],
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "BaseOne gave our enterprise treasury instant visibility and real-time clearing across our European and Asian subsidiaries.",
@@ -485,9 +486,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "100%", label: "Deepfake Defense" },
       { metric: "4.5M+", label: "Biometric Scans" },
     ],
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
     gallery: [
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "ValidSoft blocked over 1,400 synthetic audio attacks in our first quarter of deployment. It is indispensable for modern telephony security.",
@@ -522,6 +525,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "The transparency and speed of royalty payouts through this system has revolutionized how our artist roster gets compensated.",
@@ -539,7 +544,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A complete end-to-end UX research, wireframing, and design system overhaul for a global wealth management platform, increasing user engagement by 140% and cutting feature turnaround time in half.",
     challenge: "Complex investment portfolios and multi-asset charts were cluttered and unintuitive, causing high drop-off rates during mobile onboarding.",
     solution: "We conducted 40+ user interviews and created a refined dark-mode design system with clear visual hierarchy, accessible micro-interactions, and fluid charting.",
-    video: "/videos/baseone.mp4",
     features: [
       "Figma Token architecture synchronizing directly with React component libraries",
       "Fluid 120Hz interactive candlestick and portfolio allocation visualization",
@@ -553,11 +557,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "250+", label: "Design Components" },
       { metric: "4.9★", label: "App Store UX Rating" },
     ],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "The new Aura interface is breathtaking. Our users love the smoothness and our developers ship new screens in half the time thanks to the design system.",
@@ -575,7 +579,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "An innovative WebGL and 3D product customization interface crafted for luxury direct-to-consumer brands, elevating conversions and reducing return rates.",
     challenge: "Standard flat 2D e-commerce photos failed to convey spatial dimensions, material tactile quality, and custom configurations.",
     solution: "We designed a frictionless 3D viewport UI with gesture-driven 360-degree rotation, instant swatch switching, and an Apple Pay 1-click checkout flow.",
-    video: "/videos/startone.mp4",
     features: [
       "Gesture-driven 3D product interaction with 60fps WebGL rendering",
       "Dynamic material and finish customizer with live cost calculation",
@@ -589,10 +592,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "3.2x", label: "Average Time on Site" },
       { metric: "60 FPS", label: "Mobile Render Speed" },
     ],
-    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Novus transformed our online buying experience. Customers spend over 3x longer interacting with products and return rates dropped dramatically.",
@@ -610,7 +614,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A mission-critical medical UI/UX system created for doctors and nursing staff, reducing cognitive fatigue and preventing medical charting errors during high-stress shifts.",
     challenge: "Cluttered legacy hospital EHR software with tiny text and confusing menus led to doctor burnout and delayed critical care interventions.",
     solution: "We developed a high-contrast, card-based clinical dashboard using color-coded vitals triage and zero-distraction dark mode.",
-    video: "/videos/validsoft.mp4",
     features: [
       "Color-coded vitals triage with instant visual anomaly alerts",
       "Card-based patient telemetry layout reducing charting time by 50%",
@@ -627,7 +630,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "The Pulse clinical interface was designed with profound empathy for medical staff. It saves hours of exhausting charting every single day.",
@@ -645,7 +649,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "An enterprise B2B e-commerce platform connecting raw material suppliers with global manufacturers, featuring real-time auction engines, multi-currency escrow, and dynamic credit scoring.",
     challenge: "Cross-border procurement was bottlenecked by slow email negotiations, opaque pricing, and 60-day manual invoicing cycles.",
     solution: "We engineered a web platform with high-frequency bidding algorithms, verified supplier digital passports, and automated trade credit financing.",
-    video: "/videos/startone.mp4",
     features: [
       "Real-time WebSocket auction and tender bidding system",
       "Automated multi-currency escrow with smart contract release",
@@ -662,7 +665,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Nexus revolutionized how we source raw inventory internationally. Transaction speeds went from 3 weeks to under 15 minutes.",
@@ -680,7 +684,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A composable headless storefront engineered for high-growth consumer lifestyle brands, delivering instantaneous global page loads and unified omni-channel checkout.",
     challenge: "Monolithic e-commerce backends caused sluggish 4-second mobile load times and severe crashes during viral flash sales.",
     solution: "We decoupled frontend presentation via Next.js Edge rendering and integrated an event-driven inventory service handling 50,000 requests per second.",
-    video: "/videos/baseone.mp4",
     features: [
       "Edge-rendered ISR architecture achieving sub-50ms TTFB worldwide",
       "Modular checkout pipeline integrating Stripe, Apple Pay, and Klarna",
@@ -694,10 +697,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "+18%", label: "Average Order Value" },
       { metric: "50k/sec", label: "Peak Flash RPS" },
     ],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Our mobile conversion rate surged over 50% within two weeks of launching with Omni. The speed is unbelievable.",
@@ -715,7 +719,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A native cross-platform mobile application empowering over 500,000 patients to monitor chronic conditions, sync vital signs with wearable devices, and access 24/7 on-demand doctor consultations.",
     challenge: "Patients struggling with diabetes and hypertension lacked an easy way to share daily glucose and blood pressure data with their care teams.",
     solution: "We built a zero-friction mobile application with Apple HealthKit / Google Fit integration, automated abnormal vitals alerting, and end-to-end encrypted WebRTC video visits.",
-    video: "/videos/validsoft.mp4",
     features: [
       "Seamless Apple HealthKit & Google Health Connect automated sensor syncing",
       "End-to-end encrypted WebRTC HD video appointments with clinical screen sharing",
@@ -729,10 +732,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "4.9★", label: "App Store Rating" },
       { metric: "100%", label: "HIPAA Compliant" },
     ],
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Stride has given our chronic care patients a lifeline. Hospital readmissions plummeted by over 40% in our pilot group.",
@@ -750,7 +754,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A high-security mobile banking app offering seamless fiat on-ramps, multi-chain asset custody, instant peer-to-peer payments, and virtual card issuance.",
     challenge: "Crypto wallets were notoriously complex for non-technical users, requiring cumbersome seed phrase backups and high gas fee calculations.",
     solution: "We designed a biometric MPC (Multi-Party Computation) key management flow with account abstraction, allowing one-tap gasless transfers and instant Visa card provisioning.",
-    video: "/videos/baseone.mp4",
     features: [
       "Multi-Party Computation (MPC) non-custodial key recovery via biometrics",
       "Instant virtual and physical Visa debit card generation with Apple Wallet support",
@@ -764,9 +767,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "< 0.5s", label: "Biometric Auth Speed" },
       { metric: "Zero", label: "Security Breaches" },
     ],
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
     gallery: [
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556742049-0a67e557224f?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Vault combines the ultimate security of hardware crypto custody with the delightful user experience of a modern neo-bank.",
@@ -784,7 +789,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "An enterprise cloud orchestration engine unifying workloads across AWS, Google Cloud, Azure, and on-premise bare-metal servers through a single declarative plane.",
     challenge: "Enterprise IT teams suffered from cloud vendor lock-in, fragmented Terraform codebases, and inconsistent disaster recovery failover pipelines.",
     solution: "We engineered Stratos to automate cross-cloud container routing, dynamic egress cost minimization, and active-active failover in under 3 seconds.",
-    video: "/videos/startone.mp4",
     features: [
       "Cross-cloud Kubernetes mesh with automated active-active failover",
       "Algorithmic egress routing cutting data transfer costs by 45%",
@@ -801,7 +805,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1520869562399-e772f042f422?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Stratos gave us true multi-cloud sovereignty. We can migrate critical banking workloads between AWS and GCP in minutes with zero downtime.",
@@ -819,7 +824,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     overview: "A distributed streaming lakehouse architecture engineered to ingest 20 billion event records per day with sub-second querying and continuous AI feature store syncing.",
     challenge: "Nightly batch ETL pipelines were failing under 50TB daily data bursts, leaving executive teams working with stale 24-hour-old metrics.",
     solution: "We built an Apache Iceberg and Kafka-based streaming ingestion engine on AWS with serverless query caching and automated data compaction.",
-    video: "/videos/zobay.mp4",
     features: [
       "Sub-second SQL query engine across 10+ petabytes of unstructured data",
       "Automated schema evolution and real-time CDC (Change Data Capture)",
@@ -836,6 +840,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop",
     ],
     testimonial: {
       quote: "Vortex eliminated our ETL latency completely. Our fraud models and analytics dashboards operate on live data with instantaneous sub-second queries.",
