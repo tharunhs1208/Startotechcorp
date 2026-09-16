@@ -19,20 +19,23 @@ export default function SalesOverview() {
   })
 
   return (
-    <div style={{
-    width: "100%",
-    maxWidth: "250px",
-    height: "275px",
-      background: "#fff",
-      borderRadius: "16px",
-      border: "1px solid #F1F5F9",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
-      padding: "18px",
-      boxSizing: "border-box",
-      display: "flex",
-      flexDirection: "column",
-      gap: "14px",
-    }}>
+    <div
+      className="sales-overview-card"
+      style={{
+        width: "100%",
+        maxWidth: "250px",
+        height: "275px",
+        background: "#fff",
+        borderRadius: "16px",
+        border: "1px solid #F1F5F9",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
+        padding: "18px",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        gap: "14px",
+      }}
+    >
       {/* Header */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span style={{ fontSize: "15px", fontWeight: 600, color: "#0f172a" }}>Sales Overview</span>

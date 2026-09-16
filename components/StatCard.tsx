@@ -33,6 +33,7 @@ const chartConfig = {
 export function DashboardChart() {
   return (
     <div
+      className="dashboard-chart-card"
       style={{
         background: "#fff",
         padding: "24px",

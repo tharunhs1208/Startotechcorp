@@ -1601,7 +1601,7 @@ display: list-item;
 .lp-helps__card {
   width: 226px;
   height: 320px;
-position: relative;
+  position: relative;
   background: #F7FBFF;
   border: 1px solid #1764FA;
   border-radius: 24px;
@@ -1614,13 +1614,14 @@ position: relative;
   
   overflow: hidden;
 
-  transition: width 0.35s ease, transform 0.25s ease, box-shadow 0.25s ease;
-  
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  animation: cardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: width, transform, box-shadow;
 }
 .lp-helps__card.active {
   width: 450px;
-  transform: translateY(-4px);
-  box-shadow: var(--lp-shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 93, 204, 0.15);
 }
 
 .lp-helps__card.active .lp-helps__body{
@@ -1851,9 +1852,9 @@ position: relative;
   }
 }
 .lp-security__card {
- width: 280px;
+  width: 280px;
   height: 317px;
-position: relative;
+  position: relative;
   background: #F7FBFF;
   border: 1px solid #1764FA;
   border-radius: 24px;
@@ -1865,16 +1866,37 @@ position: relative;
   align-items: flex-start;
 
   overflow: hidden;
-
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  animation: cardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, box-shadow;
 }
-.lp-security__card:hover { transform: translateY(-3px); box-shadow: 0 0 24px rgba(0, 93, 204, 0.25);}
+.lp-security__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 93, 204, 0.2);
+  border-color: #005DCC;
+}
 .lp-security__card:hover .lp-security__card-title {
-  padding:5px;
-  transform: scale(1.08);
+  padding: 5px;
+  transform: scale(1.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .lp-security__card:hover .lp-security__card-body {
-  padding:5px;
-  transform: scale(1.08);
+  padding: 5px;
+  transform: scale(1.02);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dashboard chart & Sales overview card transitions */
+.dashboard-chart-card,
+.sales-overview-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+  animation: cardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, box-shadow;
+}
+.dashboard-chart-card:hover,
+.sales-overview-card:hover {
+  transform: translateY(-4px) scale(1.008) !important;
+  box-shadow: 0 16px 36px rgba(0, 93, 204, 0.14) !important;
 }
 .lp-security__icon-wrap { display: flex; align-items: start;flex-direction: column; justify-content:start; margin-bottom: 16px; }
 .lp-security__icon { font-size: 1.5rem; }
