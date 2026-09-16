@@ -6,49 +6,28 @@ import {DashboardChart} from "@/components/StatCard";
 import SalesOverview from "@/components/SalesOverview";
 import Link from "next/link";
 export default function Hero() {
-  const glowRef = useRef<HTMLDivElement | null>(null);
   const heroConRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const glow = glowRef.current;
-    if (!glow) return;
-
-    let x = 0,
-      y = 0;
-    let targetX = 0,
-      targetY = 0;
-
-    const move = (e: MouseEvent) => {
-      targetX = e.clientX;
-      targetY = e.clientY;
-    };
-
-    const animate = () => {
-      x += (targetX - x) * 0.08;
-      y += (targetY - y) * 0.08;
-
-      glow.style.transform = `translate3d(${x - 150}px, ${y - 150}px, 0)`;
-      requestAnimationFrame(animate);
-    };
-
-    window.addEventListener("mousemove", move);
-    animate();
-
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
+  
 
   useEffect(() => {
-  const handleScroll = () => {
+  const handleResize = () => {
     if (!heroConRef.current) return;
 
-    const scale = Math.min(1.3, 1 + window.scrollY * 0.001);
+    const baseWidth = 1169;
+    const viewport = window.innerWidth;
 
-    heroConRef.current.style.transform = `scale(${scale})`;
+    const responsiveScale = Math.min(1, viewport / baseWidth);
+
+    heroConRef.current.style.transform = `scale(${responsiveScale})`;
   };
 
-  window.addEventListener("scroll", handleScroll);
+  handleResize();
 
-  return () => window.removeEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleResize);
+
+  return () =>
+    window.removeEventListener("resize", handleResize);
 }, []);
   return (
     <section className="lp-hero">
@@ -56,10 +35,15 @@ export default function Hero() {
      
        <div className="lp-bg">
          
-       
-  <div className="lp-bg__layer lp-bg__layer--base" />
-  <div className="lp-bg__layer lp-bg__layer--mid" />
-  <div className="lp-bg__layer lp-bg__layer--top" />
+       <div className="blob blob-1" />
+  <div className="blob blob-2" />
+  <div className="blob blob-3" />
+  <div className="blob blob-4" />
+  <div className="blob blob-5" />
+  <div className="blob blob-6" />
+  <div className="blob blob-7" />
+<div className="blob blob-8" />
+  
       </div>
        
       
@@ -67,12 +51,9 @@ export default function Hero() {
       
       <div className="lp-hero__content">
         <div className="lp-hero__headline">
-          <p className="lp-hero__title">
-     <span className="ol">Run Your Entire Business Form</span>
-  </p>
-  <p className="lp-hero__badge">One Platform</p>
-  
-</div>
+          <p className="lp-hero__title"><span className="ol">Run Your Entire Business From</span></p>
+          <p className="lp-hero__badge">One Platform</p>
+  </div>
         <p className="lp-hero__sub">
           Manage IT, Finance, Design, Civil Engineering, Architecture, Operations, HR, and <br className="lp-br" />
           more  all inside one intelligent ecosystem built for growing businesses.
@@ -84,11 +65,10 @@ export default function Hero() {
 
         {/* Stats row */}
         <div ref={heroConRef} className="lp-hero_con">
-          <div className="lp-hero__stats">
-          <div 
+          <div className="lp-hero__stats ">
+          <div className="lp-stat-card"
       style={{
-  width: '201.82px',
-  height: '96.52px',
+ 
   borderRadius: '13.25px',
   background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
   padding: '12px 16px',
@@ -142,10 +122,9 @@ export default function Hero() {
         <ShoppingCart size={20} color="#7c3aed" />
       </div>
     </div>
-          <div 
+          <div className="lp-stat-card"
       style={{
-  width: '201.82px',
-  height: '96.52px',
+  
   borderRadius: '13.25px',
   background: '#FFFFFF',
   padding: '12px 16px',
@@ -203,10 +182,9 @@ export default function Hero() {
         <UserPlus size={18} color="white" />
       </div>
     </div>
-          <div 
+          <div className="lp-stat-card"
       style={{
-  width: '201.82px',
-  height: '96.52px',
+  
   borderRadius: '13.25px',
   background: 'linear-gradient(135deg, #fcfcfc 0%, #ffffff 100%)',
   padding: '12px 16px',
@@ -261,10 +239,9 @@ export default function Hero() {
       </div>
     </div>
   
-          <div 
-      style={{
-  width: '201.82px',
-  height: '96.52px',
+          <div className="lp-stat-card"
+      style={{ 
+  
   borderRadius: '13.25px',
   background: '#FFFFFF',
   padding: '12px 16px',

@@ -20,8 +20,9 @@ export default function SalesOverview() {
 
   return (
     <div style={{
-      width: "250.23px",
-      height: "275.95px",
+    width: "100%",
+    maxWidth: "250px",
+    height: "275px",
       background: "#fff",
       borderRadius: "16px",
       border: "1px solid #F1F5F9",
@@ -46,15 +47,15 @@ export default function SalesOverview() {
   key={i}
   d={seg.d}
   fill="none"
-  stroke={seg.filled ? (seg.late ? "#60a5fa" : "#2563eb") : "#e2e8f0"}
+  stroke={seg.filled ? (seg.late ? "#2563eb" : "#2563eb") : "#e2e8f0"}
   strokeWidth="13"
   strokeLinecap="round"
   style={{
     strokeDasharray: 100,
-    strokeDashoffset: seg.filled ? 0 : 100,
-    animation: seg.filled
-      ? `gaugeFill 0.8s ease forwards ${i * 0.15}s`
-      : "none",
+  strokeDashoffset: 100,
+  animation: seg.filled
+    ? `gaugeFill 5s cubic-bezier(0.22, 1, 0.36, 1) forwards ${i * 0.15}s`
+    : "none",
   }}
 />
           ))}

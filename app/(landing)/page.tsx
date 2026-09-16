@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Hero from "@/components/hero";
+import img67 from "@/public/image-67.svg";
 import Navbar from "@/components/navbar";
 import {DashboardChart} from "@/components/StatCard";
 import {
@@ -84,13 +85,6 @@ useEffect(() => {
 
   return () => clearInterval(interval)
 }, [])
-useEffect(() => {
-  const interval = setInterval(() => {
-    setActiveIndex((prev) => (prev + 1) % 8)
-  }, 2500)
-
-  return () => clearInterval(interval)
-}, [])
 
  useEffect(() => {
   const interval =setInterval(() => {
@@ -109,8 +103,7 @@ useEffect(() => {
   </p>
 
   <p className="lp-section__body lp-whatis__body">
-   StratoOne is the operational layer that connects your people, processes, workflows, departments, and business activities into one unified environment.
-Instead of managing multiple disconnected platforms, organizations can oversee operations from a single ecosystem designed to scale alongside their structure.
+   StratoOne brings your teams, workflows, departments, and business operations together in one unified platform, giving you complete visibility and control as your organization grows.
   </p>
 
   <Link href="/contact" className="lp-btn lp-btn--primary lp-btn--cta">
@@ -130,98 +123,252 @@ Instead of managing multiple disconnected platforms, organizations can oversee o
           </div>
         </div> */}
         <div className="component-wrapper">
-  {/* The Elliptical Curve */}
-  <div className="arc-line"></div>
+          <div className="integration-flow">
+  
+  
+  
+  <svg viewBox="0 0 814 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      
 
-  {/* The Content following the curve */}
- <div className="content-overlay">
-  <div
-    className="moving-indicator"
-    style={{ transform: `translateX(${activeIndex * 80}px)` }}
+        <linearGradient id="pulseGlow" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="120" y2="0">
+
+            <stop offset="0%" stop-color="#212eee" />
+            <stop offset="20%" stop-color="#0f53ac" />
+            <stop offset="40%" stop-color="#495aee" />
+            <stop offset="60%" stop-color="#4d95d8" />
+            <stop offset="80%" stop-color="#1c63fd" />
+            <stop offset="100%" stop-color="#2642e0" />
+
+            <animateTransform attributeName="gradientTransform" type="translate" from="-120 0" to="0 0" dur="3s"
+                repeatCount="indefinite" />
+        </linearGradient>
+
+    </defs>
+
+
+    <g clip-path="url(#clip1_1158_26720)">
+        
+        <image
+    href="/image-58.svg"
+    x="71"
+    y="0"
+    width="38"
+    height="40"
+    preserveAspectRatio="xMidYMid meet"
   />
+    </g>
+   
+   <g>
+  <image
+    href="/image-58.svg"
+    x="705"
+    y="1"
+    width="38.0952"
+    height="38.0952"
+    preserveAspectRatio="xMidYMid meet"
+  />
+</g>
+  
+    <g>
+  <image
+    href="/image-58.svg"
+    x="0"
+    y="89"
+    width="40"
+    height="40"
+    preserveAspectRatio="xMidYMid meet"
+  />
+</g>
+   
+    <g>
+  <image
+    href="/image-58.svg"
+    x="774"
+    y="89"
+    width="40"
+    height="40"
+    preserveAspectRatio="xMidYMid meet"
+  />
+</g>
+   
+    <g clipPath="url(#clip2_1158_26720)">
+  <image
+    href="/image-58.svg"
+    x="0"
+    y="239"
+    width="40"
+    height="40"
+    preserveAspectRatio="xMidYMid meet"
+  />
+</g>
+    
+    <g clipPath="url(#clip0_1158_26720)">
+  <image
+    href="/image-58.svg"
+    x="774"
+    y="241"
+    width="40"
+    height="37"
+    preserveAspectRatio="xMidYMid meet"
+  />
+</g>
+  
+    <g>
+  <image
+    href="/image-58.svg"
+    x="67"
+    y="326"
+    width="44"
+    height="44"
+    preserveAspectRatio="xMidYMid meet"
+  />
+</g>
+    
+    <g>
+  <image
+    href="/image-58.svg"
+    x="705"
+    y="328"
+    width="40"
+    height="40"
+    preserveAspectRatio="xMidYMid meet"
+  />
+</g>
+    
+    <path id="path-logo-1"
+        d="M407 184H325.641C290.294 184 261.641 155.346 261.641 120V84C261.641 48.6538 232.987 20 197.641 20H109"
+        stroke="#808080" stroke-dasharray="4 4" />
+    
+    <path d="M407 184H325.641C290.294 184 261.641 155.346 261.641 120V84C261.641 48.6538 232.987 20 197.641 20H109"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin="0" dur="3s" repeatCount="indefinite" />
+    </path>
 
-  {/* icons */}
-  <div className="icon-unit item-1"><div className="circle"><TrendingUp /></div></div>
-  <div className="icon-unit item-2"><div className="circle"><Users /></div></div>
-  <div className="icon-unit item-3"><div className="circle"><Cpu /></div></div>
-  <div className="icon-unit item-4"><div className="circle"><Building /></div></div>
-  <div className="icon-unit item-5"><div className="circle"><Calculator /></div></div>
-  <div className="icon-unit item-6"><div className="circle"><Scale /></div></div>
-  <div className="icon-unit item-7"><div className="circle"><DraftingCompass /></div></div>
-  <div className="icon-unit item-8"><div className="circle"><Megaphone /></div></div>
+    
+    <path id="path-logo-2"
+        d="M407 184H488.359C523.706 184 552.359 155.346 552.359 120V84C552.359 48.6538 581.013 20 616.359 20H705"
+        stroke="#808080" stroke-dasharray="4 4" />
+    
+    <path d="M407 184H488.359C523.706 184 552.359 155.346 552.359 120V84C552.359 48.6538 581.013 20 616.359 20H705"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin="0" dur="3s" repeatCount="indefinite" />
+    </path>
+
+    
+    <path id="path-logo-3"
+        d="M407 184H236.563C215.852 184 199.063 167.211 199.063 146.5C199.063 125.789 182.274 109 161.563 109H40"
+        stroke="#808080" stroke-dasharray="4 4" />
+    
+    <path d="M407 184H236.563C215.852 184 199.063 167.211 199.063 146.5C199.063 125.789 182.274 109 161.563 109H40"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin=".5" dur="3s" repeatCount="indefinite" />
+    </path>
+
+    
+    <path id="path-logo-4"
+        d="M407 184H577.437C598.148 184 614.937 167.211 614.937 146.5C614.937 125.789 631.726 109 652.437 109H774"
+        stroke="#808080" stroke-dasharray="4 4" />
+   
+    <path d="M407 184H577.437C598.148 184 614.937 167.211 614.937 146.5C614.937 125.789 631.726 109 652.437 109H774"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin=".5" dur="3s" repeatCount="indefinite" />
+    </path>
+
+    
+    <path id="path-logo-5"
+        d="M407 184H236.563C215.852 184 199.063 200.789 199.063 221.5C199.063 242.211 182.274 259 161.563 259H40"
+        stroke="#808080" stroke-dasharray="4 4" />
+    
+    <path d="M407 184H236.563C215.852 184 199.063 200.789 199.063 221.5C199.063 242.211 182.274 259 161.563 259H40"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin=".5" dur="3s" repeatCount="indefinite" />
+    </path>
+
+    
+    <path id="path-logo-6"
+        d="M407 184H577.437C598.148 184 614.937 200.789 614.937 221.5C614.937 242.211 631.726 259 652.437 259H774"
+        stroke="#808080" stroke-dasharray="4 4" />
+   
+    <path d="M407 184H577.437C598.148 184 614.937 200.789 614.937 221.5C614.937 242.211 631.726 259 652.437 259H774"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin=".5" dur="3s" repeatCount="indefinite" />
+    </path>
 
   
-  {/* Left Side */}
-  <div className={`icon-unit item-1 ${activeIndex === 0 ? "active" : ""}`}>
-  <div className="circle">
-    <TrendingUp size={22} />
-  </div>
-</div>
+    <path id="path-logo-7"
+        d="M407 184H325.641C290.294 184 261.641 212.654 261.641 248V284C261.641 319.346 232.987 348 197.641 348H109"
+        stroke="#808080" stroke-dasharray="4 4" />
+    
+    <path d="M407 184H325.641C290.294 184 261.641 212.654 261.641 248V284C261.641 319.346 232.987 348 197.641 348H109"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin="0" dur="3s" repeatCount="indefinite" />
+    </path>
 
-  <div className={`icon-unit item-2 ${activeIndex === 1 ? "active" : ""}`}>
-  <div className="circle">
-    <Users size={22} />
-  </div>
-</div>
+    
+    <path id="path-logo-8"
+        d="M407 184H488.359C523.706 184 552.359 212.654 552.359 248V284C552.359 319.346 581.013 348 616.359 348H705"
+        stroke="#808080" stroke-dasharray="4 4" />
 
-  <div className={`icon-unit item-3 ${activeIndex === 2 ? "active" : ""}`}>
-  <div className="circle">
-    <Cpu size={22} />
-  </div>
-</div>
+    <path d="M407 184H488.359C523.706 184 552.359 212.654 552.359 248V284C552.359 319.346 581.013 348 616.359 348H705"
+        stroke="url(#pulseGlow)" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="30 1000"
+        stroke-dashoffset="0">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" begin="0" dur="3s" repeatCount="indefinite" />
+    </path>
 
-  <div className={`icon-unit item-4 ${activeIndex === 3 ? "active" : ""}`}>
-  <div className="circle">
-    <Building size={22} />
-  </div>
-</div>
+    <g clip-path="url(#clip3_1158_26720)">
+        
+         <image
+  href="/image-67.svg"
+  x="367"
+  y="140"
+  width="80"
+  height="80"
+/>
+      
+        
+    </g>
+    <defs>
+        <filter id="filter0_g_1158_26720" x="342.49" y="119.491" width="129.02" height="129.019"
+            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feTurbulence type="fractalNoise" baseFrequency="1 1" numOctaves="3" seed="4601" />
+            <feDisplacementMap in="shape" scale="16" xChannelSelector="R" yChannelSelector="G" result="displacedImage"
+                width="100%" height="100%" />
+            <feMerge result="effect1_texture_1158_26720">
+                <feMergeNode in="displacedImage" />
+            </feMerge>
+        </filter>
+        
+        
+        <clipPath id="clip0_1158_26720">
+            <rect width="40" height="37" fill="white" transform="translate(774 241)" />
+        </clipPath>
+        <clipPath id="clip1_1158_26720">
+            <rect width="38.0952" height="40" fill="white" transform="translate(71)" />
+        </clipPath>
+        <clipPath id="clip2_1158_26720">
+            <rect width="40" height="40" fill="white" transform="translate(0 239)" />
+        </clipPath>
+        <clipPath id="clip3_1158_26720">
+            <rect width="120" height="120" fill="white" transform="translate(347 124)" />
+        </clipPath>
+    </defs>
+  
 
-  <div className="pill-unit">
-  <div className="pill-label">
-    {modules[activeIndex]?.Icon && (
-      <>
-        {(() => {
-          const ActiveIcon = modules[activeIndex].Icon
-
-          return (
-            <>
-              <ActiveIcon size={20} strokeWidth={2} className="ll"/>
-              <span>{modules[activeIndex].name}</span>
-            </>
-          )
-        })()}
-      </>
-    )}
-  </div>
+</svg>
 </div>
-
-  {/* Right Side */}
-  <div className={`icon-unit item-5 ${activeIndex === 4 ? "active" : ""}`}>
-  <div className="circle">
-    <Calculator size={22} />
-  </div>
-</div>
-
-  <div className={`icon-unit item-6 ${activeIndex === 5 ? "active" : ""}`}>
-  <div className="circle">
-    <Scale size={22} />
-  </div>
-</div>
-
-  <div className={`icon-unit item-7 ${activeIndex === 6 ? "active" : ""}`}>
-  <div className="circle">
-    <DraftingCompass size={22} />
-  </div>
-</div>
-
-  <div className={`icon-unit item-8 ${activeIndex === 7 ? "active" : ""}`}>
-  <div className="circle">
-    <PenTool size={22} />
-  </div>
-</div>
-
-</div>
-</div>
+            
+ 
+        </div>
       </div>
     </section>
   )
@@ -233,12 +380,45 @@ function Platform() {
   const modules = [
     'IT & Development Suite',
     'Human Resources',
+    'Finance',
     'Project Management',
     'Leadership & Management',
     'Design',
   ]
+  const listRef = useRef<HTMLDivElement>(null);
 const [activeIndex, setActiveIndex] = useState<number | null>(null);
+const moduleImages = [
+  "/image 32.svg",
+  "/image 36.svg",
+  "/image 28 (1).svg",
+  "/image 28 (1).svg",
+  "/image 36.svg",
+  "/image 33.svg",
+];
+useEffect(() => {
+  const el = listRef.current;
+  if (!el) return;
 
+  const handleWheel = (e: WheelEvent) => {
+    e.preventDefault();
+
+    setActiveIndex((prev) => {
+      const current = prev ?? 0;
+
+      if (e.deltaY > 0) {
+        return Math.min(current + 1, modules.length - 1);
+      }
+
+      return Math.max(current - 1, 0);
+    });
+  };
+
+  el.addEventListener("wheel", handleWheel, { passive: false });
+
+  return () => {
+    el.removeEventListener("wheel", handleWheel);
+  };
+}, [modules.length]);
 const toggleModule = (i: number) => {
   setActiveIndex((prev) => (prev === i ? null : i));
 };
@@ -266,16 +446,21 @@ useEffect(() => {
   }
 }, [activeIndex]);
   return (
-    <section className="lp-section lp-platform" ref={ref}
-    style={{
-    backgroundImage: "url('/Property 1=Variant2 (3).svg')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  }}>
+    <section className="lp-section lp-hero lp-platform" ref={ref}
+   >
+     <div className="lp-bg">
+         
+       <div className="blob blob-1" />
+  <div className="blob blob-2" />
+  <div className="blob blob-3" />
+  <div className="blob blob-4" />
+  <div className="blob blob-5" />
+  <div className="blob blob-6" />
+  <div className="blob blob-7" />
+<div className="blob blob-8" />
+  
+      </div>
       <div className="lp-container">
-
-    {/* Header */}
     <div className="lp-platform__header">
       <p className="lp-platform__heading">
         <span className="lp-platform__highlight">Every tool</span> your organization needs<br />
@@ -290,18 +475,23 @@ useEffect(() => {
 
     {/* Content Row */}
     <div className="lp-platform__grid">
-      <div className="lp-platform__left">
-  <ul className="lp-platform__list">
+      <div className="lp-platform__left" ref={listRef}  onMouseLeave={() => setActiveIndex(null)}>
+  <ul >
     {modules.map((m, i) => (
       <li
         key={i}
-        className={`lp-platform__item ${activeIndex === i ? "active" : ""}`}
+        className={`lp-platform__list lp-platform__item ${activeIndex === i ? "active" : ""}`}
         onClick={() => toggleModule(i)}
+        onMouseEnter={() => setActiveIndex(i)}
       >
         <div className="lp-platform__title">{m}</div>
 
         <div className="lp-platform__desc">
-          Modular system layer connected to the core platform intelligence.
+          <ul>
+            <li>Project Management</li>
+            <li>DevOps Tracking</li>  
+            <li>Team Collaboration</li>
+          </ul>
         </div>
       </li>
     ))}
@@ -312,7 +502,11 @@ useEffect(() => {
         <div className="lp-platform__screen">
             <div className="lp-platform__screen-inner">
   <div className="lp-ph-full" />
-  <img src="/image 36.svg" className="lp-ph-image" alt="" />
+  <img
+  src={moduleImages[activeIndex ?? 0]}
+  className="lp-ph-image"
+  alt=""
+/>
 </div>
 
       </div>
@@ -326,6 +520,7 @@ useEffect(() => {
 /* ── How Strato One Helps ── */
 function HowHelps() {
   const { ref, visible } = useInView()
+   const [activeCard, setActiveCard] = useState(0);
   const cards = [
     { title: 'Centralize Operations', body: 'Manage multiple departments, workflows, and processes from a single platform.', shape: 'triangle', path: "M25,8 L43,38 C45,42 43,47 38,47 L12,47 C7,47 5,42 7,38 L25,8 Z" },
     { title: 'Improve Team Visibility', body: 'Track tasks, approvals, attendance, and performance in real time.', shape: 'pentagon', path: "M25,5 L45,20 L38,45 L12,45 L5,20 Z" },
@@ -333,16 +528,18 @@ function HowHelps() {
     { title: 'Scale Without Complexity', body: 'Add teams, modules, and workflows as your organization grows.', shape: 'hexagon', path: "M37,5 L48,25 L37,45 L13,45 L2,25 L13,5 Z" },
   ]
   return (
-    <section className="lp-section lp-helps" ref={ref}>
+    <section className=" lp-helps" ref={ref}>
       <div className={`lp-container lp-fade ${visible ? 'lp-fade--in' : ''}`}>
         <p className="lp-section__eyebrow">Stop managing tools<br/>
          Start managing your <span className="kk">business</span></p>
         <p className="lp-section__sub">
           StratoOne eliminates the friction that slows modern organizations down — so your teams can operate with speed, clarity, and confidence.
         </p>
-        <div className="lp-helps__grid">
+        <div className="lp-helps__grid" onMouseLeave={() => setActiveCard(0)}>
           {cards.map((c, i) => (
-            <div key={i} className={`lp-helps__card ${c.shape}`} style={{ animationDelay: `${i * 0.1}s` }}>
+            <div key={i} className={`lp-helps__card ${c.shape} ${
+  activeCard === i ? "active" : ""
+}`} onMouseEnter={() => setActiveCard(i)} style={{ animationDelay: `${i * 0.1}s` }}>
               <div className="lp-helps__content">
                 <div className="lp-helps__title">{c.title}</div>
                 <div className="lp-helps__body">{c.body}</div>
@@ -441,69 +638,14 @@ function Security() {
 }
 
 /* ── Testimonials ── */
-function Testimonials() {
-  const { ref, visible } = useInView()
-  const reviews = [
-    { quote: '"Real-time visibility changed how we manage work."', sub: 'We no longer run into situations where decisions are made without accurate data. The dashboards are clear, real-time, and actionable.' },
-    { quote: '"Simple for teams. Powerful for management."', sub: 'The hierarchical structure with role-based access makes it easy for us to manage permissions without constant IT involvement.'},
-    { quote: '"Everything finally works together."', sub: 'Before Strato One, we were using six different tools. Now everything from attendance to payroll is in one place and it all talks to each other.' },
-    { quote: '"Real-time visibility changed how we manage work."', sub: 'We no longer run into situations where decisions are made without accurate data. The dashboards are clear, real-time, and actionable.' },
-    { quote: '"Real-time visibility changed how we manage work."', sub: 'We no longer run into situations where decisions are made without accurate data.'},
-    { quote: '"Simple for teams. Powerful for management."', sub: 'The hierarchical structure makes it easy for us to manage permissions without constant IT involvement.'},
-    { quote: '"Everything Really works together."', sub: 'Before Strato One, we were using six different tools. Now everything is in one place'},
-    { quote: '"Real-time visibility changed how we manage work."', sub: 'We no longer run into situations where decisions are made without accurate data. The dashboards are clear, real-time, and actionable.' },
-  ]
-  const topReviews = reviews.slice(0, Math.ceil(reviews.length / 2))
-const bottomReviews = reviews.slice(Math.ceil(reviews.length / 2))
-  return (
-    <section className="lp-section lp-testimonials" ref={ref}>
-      <div className={`lp-container lp-fade ${visible ? 'lp-fade--in' : ''}`}>
-        <h2 className="lp-section__title"><span className="kk">Trusted</span> by operations leaders <br/>
-who've been there.</h2>
-        <p className="lp-section__sub">
-          See how organizations simplify operations, improve visibility, and scale faster with Strato One.
-        </p>
-        <div className="lp-testi__marquee">
 
- <div className="lp-testi__track lp-testi__track--left">
-  {[...topReviews, ...topReviews].map((r, i) => (
-    <div key={i} className="lp-testi__card">
-      <p className="lp-testi__quote">{r.quote}</p>
-      <p className="lp-testi__body">{r.sub}</p>
-
-      <div className="lp-testi__brand">
-        <div className="lp-testi__brandmark" />
-      </div>
-    </div>
-  ))}
-</div>
-
-<div className="lp-testi__track lp-testi__track--right">
-  {[...bottomReviews, ...bottomReviews].map((r, i) => (
-    <div key={i} className="lp-testi__card">
-      <p className="lp-testi__quote">{r.quote}</p>
-      <p className="lp-testi__body">{r.sub}</p>
-
-      <div className="lp-testi__brand">
-        <div className="lp-testi__brandmark" />
-      </div>
-    </div>
-  ))}
-</div>
-
-</div>
-      </div>
-    </section>
-  )
-}
 
 /* ── CTA Banner ── */
 function CtaBanner() {
   const { ref, visible } = useInView()
   return (
     <section className="lp-cta-banner" ref={ref}>
-      <div className="lp-cta-banner__blob lp-cta-banner__blob--1" />
-      <div className="lp-cta-banner__blob lp-cta-banner__blob--2" />
+      
       <div className={`lp-container lp-fade ${visible ? 'lp-fade--in' : ''}`}>
         
         <h2 className="lp-cta-banner__title">
@@ -516,15 +658,33 @@ than scattered tools and missed visibility
         <p className="lp-cta-banner__sub">
           Ready to transform how you operate?
         </p>
-        <Link href="/signup" className="lp-btn lp-btn--white lp-btn--lg" 
-        style={{ marginTop: "24px" }}
-        >
-          Start Free Trial ↗
-        </Link>
+        
+      
+        <div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    gap: "16px",
+    marginTop: "24px",
+    flexWrap: "wrap",
+  }}
+>
+  <Link
+    href="/signup"
+    className="lp-btn lp-btn--white lp-btn--lg"
+  >
+    Start Free Trial ↗
+  </Link>
+
+  <Link
+    href="/signin"
+    className="lp-btn lp-btn--primary lp-btn--lg"
+  >
+    Sign In
+  </Link>
+</div>
         {/* Dashboard preview placeholder */}
-        <div className="lp-cta-banner__preview">
-          <DashboardChart/>
-        </div>
+        
       </div>
     </section>
   )
@@ -545,7 +705,7 @@ function Footer() {
           <div className="lp-footer__brand">
             <div className="lp-logo">
               <img src="/Frame 2147237796.svg" alt=""/>
-              <span className="lp-logo__dot" />StartoCRM
+              <span className="lp-logo__dot" />StratoOne
             </div>
             <p className="lp-footer__tagline">
               One platform to run every department of your growing business.
@@ -587,7 +747,7 @@ export default function LandingPage() {
       <HowHelps />
       <Impact />
       <Security />
-      <Testimonials />
+      
       <CtaBanner />
       <Footer />
     </div>

@@ -19,7 +19,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="lp-nav__main">
         <Link href="/" className="lp-logo">
-          StartoOne
+          StratoOne
         </Link>
  
         {/* Desktop links */}

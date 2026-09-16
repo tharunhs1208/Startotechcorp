@@ -58,21 +58,18 @@ export function DashboardChart() {
 
       {/* ✅ Override aspect-video with explicit height */}
       <ChartContainer
-        config={chartConfig}
-        className="w-full"
-       style={{
-  height: "100px",
-  width: "450px",
-  minHeight: "200px",
-}}
-      >
+  config={chartConfig}
+  className="w-full"
+  style={{
+    width: "100%",
+    height: "220px",
+    minHeight: "200px",
+  }}
+>
         <BarChart
-          accessibilityLayer
-          data={chartData}
-          width={100}
-          height={50}
-          margin={{ top: 20, left: 10, right: 10, bottom: 10 }}
-        >
+  accessibilityLayer
+  data={chartData}
+>
           <CartesianGrid
             vertical={false}
             strokeDasharray="3 3"
