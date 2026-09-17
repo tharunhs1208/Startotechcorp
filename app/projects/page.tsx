@@ -1,172 +1,294 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollReveal from "@/components/ScrollReveal";
-import { PROJECTS_DATA } from "@/data/siteData";
 
-export default function ProjectsPage() {
-  const [activeFilter, setActiveFilter] = useState("ALL");
-  const filters = ["ALL", "AI", "WEB", "MOBILE", "CLOUD", "UI/UX"];
+type WorkCategory = "ALL" | "DESIGN" | "DEVELOPMENT" | "ENGINEERING" | "INTEGRATION" | "PRODUCT" | "RESEARCH";
 
-  const filtered =
-    activeFilter === "ALL"
-      ? PROJECTS_DATA
-      : PROJECTS_DATA.filter(
-          (p) => p.category.toUpperCase() === activeFilter.toUpperCase()
-        );
+interface WorkEntry {
+  number: string;
+  id: string;
+  discipline: string;
+  productName: string;
+  category: WorkCategory;
+  year: string;
+  scopeSummary: string;
+  deliverables: string[];
+  mediaType: "video" | "image";
+  mediaSrc: string;
+  linkHref: string;
+  layout: "visual-right" | "visual-left";
+}
+
+const WORK_ITEMS: WorkEntry[] = [
+  {
+    number: "01",
+    id: "salesx-design",
+    discipline: "PRODUCT DESIGN",
+    productName: "SalesX",
+    category: "DESIGN",
+    year: "2026",
+    scopeSummary: "Designing the complete end-to-end interface and workflow system for sales pipeline tracking, lead triage, and client follow-ups.",
+    deliverables: ["User Workflow Mapping", "Figma Design System", "Interactive Prototype", "Design Handoff"],
+    mediaType: "image",
+    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    linkHref: "/projects/startone-enterprise-os",
+    layout: "visual-right",
+  },
+  {
+    number: "02",
+    id: "zobay-voice-ui",
+    discipline: "UI / UX & STREAMING",
+    productName: "Zobay",
+    category: "ENGINEERING",
+    year: "2026",
+    scopeSummary: "Designing and engineering a voice-led conversational experience with sub-280ms audio turn-taking and real-time visual telemetry.",
+    deliverables: ["Direct Spectrogram Neural Pipeline", "WebRTC Audio Gateway", "Acoustic Sentiment Visualizer"],
+    mediaType: "video",
+    mediaSrc: "/videos/zobay.mp4",
+    linkHref: "/projects/zobay-voice-ai",
+    layout: "visual-left",
+  },
+  {
+    number: "03",
+    id: "meetingx-dev",
+    discipline: "WEB DEVELOPMENT",
+    productName: "MeetingX",
+    category: "DEVELOPMENT",
+    year: "2026",
+    scopeSummary: "Building a responsive meeting experience with low-latency peer-to-peer screen sharing, audio synchronization, and collaborative chat.",
+    deliverables: ["WebRTC Media Pipeline", "Next.js App Router Client", "Multi-Participant Room Mesh"],
+    mediaType: "video",
+    mediaSrc: "/videos/hero-pinterest.mp4",
+    linkHref: "/contact?subject=MeetingX+Case+Study",
+    layout: "visual-right",
+  },
+  {
+    number: "04",
+    id: "baseone-systems",
+    discipline: "DISTRIBUTED SYSTEMS",
+    productName: "BaseOne",
+    category: "ENGINEERING",
+    year: "2025",
+    scopeSummary: "Engineering a high-frequency multi-currency settlement ledger with sub-50ms transaction clearing and double-entry accounting reconciliation.",
+    deliverables: ["Lock-Free Memory Queues", "ISO 20022 Compliance Engine", "Multi-Currency Routing Matrix"],
+    mediaType: "video",
+    mediaSrc: "/videos/baseone.mp4",
+    linkHref: "/projects/baseone-treasury-settlement",
+    layout: "visual-left",
+  },
+  {
+    number: "05",
+    id: "startone-arch",
+    discipline: "ENTERPRISE ARCHITECTURE",
+    productName: "StartOne",
+    category: "PRODUCT",
+    year: "2025",
+    scopeSummary: "Architecting a unified multi-tenant cloud workspace consolidating fragmented spreadsheets, approval chains, and resource management.",
+    deliverables: ["Multi-Tenant RBAC Security", "Real-Time Executive Dashboards", "Workflow Automation Hooks"],
+    mediaType: "video",
+    mediaSrc: "/videos/startone.mp4",
+    linkHref: "/projects/startone-enterprise-os",
+    layout: "visual-right",
+  },
+  {
+    number: "06",
+    id: "legalx-ai",
+    discipline: "CONTRACT INTELLIGENCE",
+    productName: "LegalX",
+    category: "RESEARCH",
+    year: "2025",
+    scopeSummary: "Engineering a deterministic document review pipeline that audits Master Services Agreements and flags liability risks in under 10 seconds.",
+    deliverables: ["Private Document Embeddings", "Deterministic Risk Scoring Engine", "SOC-2 Air-Gapped Sandbox"],
+    mediaType: "video",
+    mediaSrc: "/videos/legalx.mp4",
+    linkHref: "/projects/legalx-contract-sentinel",
+    layout: "visual-left",
+  },
+];
+
+function WorkContent() {
+  const [activeCategory, setActiveCategory] = useState<WorkCategory>("ALL");
+
+  const categories: WorkCategory[] = [
+    "ALL",
+    "DESIGN",
+    "DEVELOPMENT",
+    "ENGINEERING",
+    "INTEGRATION",
+    "PRODUCT",
+    "RESEARCH",
+  ];
+
+  const filtered = WORK_ITEMS.filter((item) => {
+    if (activeCategory === "ALL") return true;
+    return item.category === activeCategory;
+  });
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
-      <Navbar />
-
-      {/* ── HEADER ──────────────────────────────────────────────────── */}
-      <section className="pt-32 sm:pt-40 pb-12 sm:pb-16 border-b border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container text-center">
-          <ScrollReveal delay={0.05} y={16}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/[0.08] bg-black/[0.03] text-xs font-medium text-[#0070f3] mb-6">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Case Studies & Product Showcase</span>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.15} y={20}>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-zinc-900">
-              Selected Work
+    <>
+      {/* ── WORK HERO ───────────────────────────────────────────────── */}
+      <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div>
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
+              WORK
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-display font-medium tracking-[-0.03em] text-[#1d1d1f] leading-[1.15] max-w-2xl">
+              The work behind the products.
             </h1>
-          </ScrollReveal>
+          </div>
 
-          <ScrollReveal delay={0.25} y={20}>
-            <p className="mt-4 text-base sm:text-lg text-zinc-600 max-w-xl mx-auto font-light leading-relaxed">
-              A showcase of digital platforms, AI systems, and SaaS products we&apos;ve designed, built, and launched.
-            </p>
-          </ScrollReveal>
+          <p className="text-[14px] sm:text-[15px] text-[#6e6e73] max-w-md font-normal leading-relaxed">
+            Design, development, engineering, and product work that turns business requirements into working digital products.
+          </p>
+        </div>
 
-          {/* Filter Bar */}
-          <ScrollReveal delay={0.35} y={20}>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-              {filters.map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setActiveFilter(f)}
-                  className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                    activeFilter === f
-                      ? "bg-[#0070f3] text-white shadow-md shadow-[#0070f3]/25"
-                      : "bg-black/[0.04] text-zinc-600 hover:text-zinc-900 hover:bg-black/[0.08] border border-black/[0.06]"
-                  }`}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
-          </ScrollReveal>
+        {/* Categories Navigation (Simple text filters) */}
+        <div className="mt-10 pt-6 border-t border-black/[0.06] flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-md transition-colors shrink-0 cursor-pointer ${
+                activeCategory === cat
+                  ? "bg-[#1d1d1f] text-white font-medium"
+                  : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </section>
 
-      {/* ── PROJECTS GRID ───────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24">
-        <div className="page-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {filtered.map((proj, idx) => (
-              <ScrollReveal key={proj.slug} delay={idx * 0.08} y={32}>
-                <div className="group rounded-2xl border border-black/[0.08] bg-white overflow-hidden hover:border-black/20 shadow-xs hover:shadow-md transition-all flex flex-col justify-between h-full">
-                  <div>
-                    {/* Media */}
-                    <div className="relative aspect-[16/10] bg-zinc-950 overflow-hidden">
-                      {proj.video ? (
+      {/* ── WORK CASE-STUDY ENTRIES ─────────────────────────────────── */}
+      <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-16">
+        <div className="space-y-16 sm:space-y-24">
+          {filtered.map((work) => {
+            const isVisualLeft = work.layout === "visual-left";
+
+            return (
+              <article
+                key={work.id}
+                className="group border-b border-black/[0.08] pb-16 sm:pb-24"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                  {/* Media Visual Container */}
+                  <div
+                    className={`lg:col-span-7 overflow-hidden rounded-xl bg-[#e5e5ea] border border-black/[0.06] ${
+                      isVisualLeft ? "lg:order-1 order-1" : "lg:order-2 order-1"
+                    }`}
+                  >
+                    <Link href={work.linkHref} className="block overflow-hidden">
+                      {work.mediaType === "video" ? (
                         <video
-                          src={proj.video}
+                          src={work.mediaSrc}
                           autoPlay
-                          muted
                           loop
+                          muted
                           playsInline
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                         />
                       ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={proj.image}
-                          alt={proj.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          src={work.mediaSrc}
+                          alt={work.productName}
+                          className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                         />
                       )}
-                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-[#0070f3] border border-black/10 font-semibold shadow-xs">
-                        {proj.category}
+                    </Link>
+                  </div>
+
+                  {/* Scope & Details Container */}
+                  <div
+                    className={`lg:col-span-5 flex flex-col justify-between ${
+                      isVisualLeft ? "lg:order-2 order-2" : "lg:order-1 order-2"
+                    }`}
+                  >
+                    <div>
+                      {/* Number & Discipline Metadata */}
+                      <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-wider">
+                        <span className="font-semibold text-[#1d1d1f]">{work.number}</span>
+                        <span>—</span>
+                        <span className="text-[#1d1d1f]">{work.discipline}</span>
+                        <span>·</span>
+                        <span>{work.year}</span>
+                      </div>
+
+                      {/* Product Title */}
+                      <h2 className="text-3xl font-display font-medium text-[#1d1d1f] tracking-tight mb-3">
+                        <Link href={work.linkHref} className="hover:underline underline-offset-4">
+                          {work.productName}
+                        </Link>
+                      </h2>
+
+                      {/* Scope Summary */}
+                      <p className="text-[14px] sm:text-[15px] text-[#6e6e73] leading-relaxed mb-6 font-normal">
+                        {work.scopeSummary}
+                      </p>
+
+                      {/* Deliverables */}
+                      <div className="space-y-1.5 mb-8 text-[12px] font-mono text-[#1d1d1f]">
+                        {work.deliverables.map((deliv, idx) => (
+                          <div key={idx} className="flex items-center gap-2">
+                            <span className="text-[#86868b]">↳</span>
+                            <span>{deliv}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
-                    {/* Info */}
-                    <div className="p-6 sm:p-8">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 block mb-1 font-semibold">
-                        {proj.industry}
-                      </span>
-                      <h2 className="font-display text-2xl font-bold text-zinc-900 group-hover:text-[#0070f3] transition-colors">
-                        {proj.title}
-                      </h2>
-                      <p className="mt-3 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light line-clamp-2">
-                        {proj.overview}
-                      </p>
-
-                      {/* Results / Tech */}
-                      {proj.results && proj.results.length > 0 && (
-                        <div className="mt-6 pt-4 border-t border-black/[0.06] flex items-center gap-6">
-                          {proj.results.slice(0, 2).map((res, i) => (
-                            <div key={i}>
-                              <div className="font-display text-lg font-bold text-[#0070f3]">
-                                {res.metric}
-                              </div>
-                              <div className="text-[10px] text-zinc-400 uppercase font-medium">
-                                {res.label}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                    <div className="pt-2">
+                      <Link
+                        href={work.linkHref}
+                        className="inline-flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
+                      >
+                        <span>View work</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
                     </div>
                   </div>
-
-                  <div className="p-6 sm:p-8 pt-0">
-                    <Link
-                      href={`/projects/${proj.slug}`}
-                      className="btn-pill btn-ghost w-full justify-between text-xs font-semibold !py-3 border-black/15 hover:border-black text-zinc-900"
-                    >
-                      <span>View Case Study</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+              </article>
+            );
+          })}
 
-      {/* ── CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
-        <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
-          <ScrollReveal y={24}>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
-              Have a project in mind? Let&apos;s build it.
-            </h2>
-            <p className="mt-4 text-sm text-zinc-600 font-light">
-              We partner with ambitious teams to engineer products that convert and scale.
-            </p>
-            <div className="mt-8">
-              <Link
-                href="/contact"
-                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5 shadow-xs"
+          {filtered.length === 0 && (
+            <div className="py-24 text-center">
+              <p className="text-[14px] font-mono text-[#6e6e73] uppercase mb-4">
+                No work items found for the {activeCategory} category.
+              </p>
+              <button
+                onClick={() => setActiveCategory("ALL")}
+                className="text-[13px] font-medium text-[#1d1d1f] underline underline-offset-4 cursor-pointer"
               >
-                <span>Start a Project</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                View all work
+              </button>
             </div>
-          </ScrollReveal>
+          )}
         </div>
       </section>
+    </>
+  );
+}
+
+export default function WorkPage() {
+  return (
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
+      <Navbar />
+
+      <main className="pt-28 sm:pt-36 pb-24 sm:pb-32">
+        <Suspense fallback={<div className="py-24 text-center text-[#6e6e73]">Loading work...</div>}>
+          <WorkContent />
+        </Suspense>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

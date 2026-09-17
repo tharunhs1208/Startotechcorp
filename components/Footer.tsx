@@ -1,91 +1,66 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-black/[0.08] bg-[#f8fafc] text-zinc-900">
-      <div className="page-container py-16 sm:py-24">
-        {/* TOP ROW */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-16 border-b border-black/[0.08]">
-          {/* BRAND COLUMN */}
-          <div className="lg:col-span-6 space-y-6">
-            <Link
-              href="/"
-              className="font-display text-2xl sm:text-3xl font-bold tracking-wider uppercase text-zinc-900 hover:text-[#0070f3] transition-colors inline-block"
-            >
-              STRATOTECHCORP
-            </Link>
-            <p className="font-display text-lg sm:text-2xl font-bold uppercase tracking-tight text-zinc-800 max-w-md leading-tight">
-              BUILDING DIGITAL PRODUCTS WITH TECHNOLOGY, DESIGN AND AI.
-            </p>
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-400 font-medium">
-              Bengaluru · India
-            </p>
+    <footer className="w-full bg-[#fafafa] text-[#1d1d1f] border-t border-black/[0.08] text-[13px] block clear-both">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16">
+        {/* Directory & Info */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-8 border-b border-black/[0.06]">
+          {/* Products Column */}
+          <div className="space-y-3">
+            <h4 className="text-[12px] font-mono uppercase tracking-wider text-[#1d1d1f] font-semibold">
+              Products
+            </h4>
+            <ul className="space-y-2 text-[#6e6e73]">
+              <li><Link href="/products" className="hover:text-[#1d1d1f] transition-colors">SalesX</Link></li>
+              <li><Link href="/projects/zobay-voice-ai" className="hover:text-[#1d1d1f] transition-colors">Zobay</Link></li>
+              <li><Link href="/products" className="hover:text-[#1d1d1f] transition-colors">MeetingX</Link></li>
+            </ul>
           </div>
 
-          {/* SITEMAP LINKS */}
-          <div className="lg:col-span-4">
-            <div className="eyebrow mb-6 text-[10px] text-zinc-400">Navigation</div>
-            <div className="grid grid-cols-2 gap-y-3 gap-x-6">
-              {[
-                { label: "Work", href: "/projects" },
-                { label: "Services", href: "/services" },
-                { label: "About", href: "/about" },
-                { label: "Industries", href: "/industries" },
-                { label: "Careers", href: "/careers" },
-                { label: "Blog", href: "/blog" },
-                { label: "Contact", href: "/contact" },
-                { label: "FAQ", href: "/faq" },
-              ].map((link) => (
+          {/* Company Column */}
+          <div className="space-y-3">
+            <h4 className="text-[12px] font-mono uppercase tracking-wider text-[#1d1d1f] font-semibold">
+              Company
+            </h4>
+            <ul className="space-y-2 text-[#6e6e73]">
+              <li><Link href="/projects" className="hover:text-[#1d1d1f] transition-colors">Work</Link></li>
+              <li><Link href="/archive" className="hover:text-[#1d1d1f] transition-colors">Archive</Link></li>
+              <li><Link href="/about" className="hover:text-[#1d1d1f] transition-colors">About</Link></li>
+            </ul>
+          </div>
+
+          {/* Contact Column */}
+          <div className="space-y-3">
+            <h4 className="text-[12px] font-mono uppercase tracking-wider text-[#1d1d1f] font-semibold">
+              Contact
+            </h4>
+            <div className="space-y-2">
+              <div>
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className="group flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-600 hover:text-[#0070f3] transition-colors py-1"
+                  href="/contact"
+                  className="inline-flex items-center gap-1.5 text-[#1d1d1f] font-medium hover:text-[#0071e3] transition-colors"
                 >
-                  <span>{link.label}</span>
-                  <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0070f3]" />
+                  <span>Get in touch</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* SOCIALS */}
-          <div className="lg:col-span-2">
-            <div className="eyebrow mb-6 text-[10px] text-zinc-400">Connect</div>
-            <div className="flex flex-col space-y-3">
-              {[
-                { label: "LinkedIn", href: "https://linkedin.com" },
-                { label: "GitHub", href: "https://github.com" },
-                { label: "Instagram", href: "https://instagram.com" },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-600 hover:text-[#0070f3] transition-colors py-1"
-                >
-                  <span>{s.label}</span>
-                  <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-[#0070f3] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                </a>
-              ))}
+              </div>
+              <p className="text-[#86868b] text-[12px] font-mono">Bengaluru, India</p>
             </div>
           </div>
         </div>
 
-        {/* BOTTOM ROW */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-zinc-500">
-          <div>© 2026 StratoTechCorp. All rights reserved.</div>
+        {/* Bottom Metadata */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#86868b] text-[12px] font-mono">
+          <p>© 2026 StratoTechCorp. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link
-              href="/privacy-policy"
-              className="hover:text-zinc-900 transition-colors"
-            >
-              Privacy
+            <Link href="/privacy-policy" className="hover:text-[#1d1d1f] transition-colors">
+              Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-zinc-900 transition-colors">
-              Terms
+            <Link href="/terms" className="hover:text-[#1d1d1f] transition-colors">
+              Terms of Service
             </Link>
           </div>
         </div>

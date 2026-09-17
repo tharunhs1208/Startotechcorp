@@ -78,7 +78,7 @@ export default function BlogPostDetailPage({ params }: PageProps) {
       <section className="py-10 sm:py-16">
         <div className="max-w-[900px] mx-auto px-4 sm:px-8">
           <ScrollReveal>
-            <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-black/[0.08] bg-zinc-950 shadow-xs">
+            <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-black/[0.08] bg-[#f5f5f7] shadow-xs">
               <img
                 src={post.image}
                 alt={post.title}

@@ -1,427 +1,451 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Code2,
-  Cpu,
-  Smartphone,
-  Cloud,
-  Layout,
-  Shield,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollReveal from "@/components/ScrollReveal";
+import TechBadge from "@/components/TechBadge";
 
-/* ============================================================================
-   DATA CONSTANTS
-============================================================================ */
-const FEATURED_PROJECTS = [
+const FEATURED_PRODUCTS = [
   {
-    num: "01",
-    title: "Zobay Voice AI",
-    category: "AI & Voice",
-    tagline: "Autonomous conversational phone agents with sub-280ms response latency and natural human emotion.",
-    metrics: "+45% Conversion · 280ms Latency",
-    href: "/projects/zobay-voice-ai",
-    video: "/videos/zobay.mp4",
+    number: "01",
+    id: "salesx",
+    name: "SalesX",
+    category: "Sales · Platform",
+    year: "2026",
+    description: "A digital platform built to support sales teams, lead management, customer follow-ups, and sales workflows.",
+    mediaType: "image",
+    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    linkHref: "/products",
+    linkLabel: "View SalesX",
+    layout: "text-left-visual-right",
   },
   {
-    num: "02",
-    title: "MeetingX Collaboration",
-    category: "Web & WebRTC",
-    tagline: "Real-time ultra-low latency conferencing platform with interactive breakout canvases.",
-    metrics: "120K+ Active Users · 99.99% Uptime",
-    href: "/projects/meetingx-collaboration",
-    video: "/videos/validsoft.mp4",
+    number: "02",
+    id: "zobay",
+    name: "Zobay",
+    category: "Sales · Voice",
+    year: "2026",
+    description: "A voice-focused product designed around sales communication and customer conversations.",
+    mediaType: "video",
+    mediaSrc: "/videos/zobay.mp4",
+    linkHref: "/projects/zobay-voice-ai",
+    linkLabel: "View Zobay",
+    layout: "visual-left-text-right",
   },
   {
-    num: "03",
-    title: "VideoVault Streaming",
-    category: "Cloud Platform",
-    tagline: "High-throughput adaptive media streaming and encrypted video asset delivery pipeline.",
-    metrics: "4.8x Faster Delivery · 10TB+ Streamed",
-    href: "/projects/videovault-streaming",
-    video: "/videos/socan.mp4",
-  },
-];
-
-const SERVICES = [
-  {
-    num: "01",
-    icon: Code2,
-    title: "Product Engineering",
-    slug: "web-development",
-    desc: "Modern web platforms, SaaS architectures, and full-stack enterprise applications built with Next.js, React, and Node.js.",
-    tech: ["Next.js", "React", "TypeScript", "Node.js"],
-  },
-  {
-    num: "02",
-    icon: Cpu,
-    title: "AI & Machine Learning",
-    slug: "ai-machine-learning",
-    desc: "Autonomous voice agents, custom LLM fine-tuning, retrieval systems, and predictive workflow automation.",
-    tech: ["Python", "PyTorch", "OpenAI", "FastAPI"],
-  },
-  {
-    num: "03",
-    icon: Smartphone,
-    title: "Mobile Development",
-    slug: "mobile-apps",
-    desc: "High-performance iOS and Android applications with native feel, fluid animations, and offline synchronization.",
-    tech: ["React Native", "Flutter", "Swift", "Kotlin"],
-  },
-  {
-    num: "04",
-    icon: Cloud,
-    title: "Cloud & DevOps",
-    slug: "cloud-solutions",
-    desc: "Scalable AWS and edge infrastructure, automated CI/CD pipelines, container orchestration, and multi-region failover.",
-    tech: ["AWS", "Docker", "Kubernetes", "PostgreSQL"],
-  },
-  {
-    num: "05",
-    icon: Layout,
-    title: "UI/UX Design Systems",
-    slug: "ui-ux-design",
-    desc: "Clean, human-centered product interfaces, modular Figma design tokens, and interactive accessible prototypes.",
-    tech: ["Figma", "Design Systems", "Prototyping", "Tailwind Tokens"],
-  },
-  {
-    num: "06",
-    icon: Shield,
-    title: "Cybersecurity & Auth",
-    slug: "cybersecurity",
-    desc: "Enterprise SSO, biometric verification, penetration testing, compliance hardening, and end-to-end encryption.",
-    tech: ["OAuth", "Vault", "Security", "Encryption"],
+    number: "03",
+    id: "meetingx",
+    name: "MeetingX",
+    category: "Communication · Platform",
+    year: "2026",
+    description: "A meeting and collaboration product designed for simple online communication.",
+    mediaType: "video",
+    mediaSrc: "/videos/hero-pinterest.mp4",
+    linkHref: "/products",
+    linkLabel: "View MeetingX",
+    layout: "text-left-visual-right",
   },
 ];
 
 const PROCESS_STEPS = [
   {
-    step: "01",
-    title: "Discover & Scope",
-    desc: "We analyze your business objectives, target audience, and technical feasibility to establish an architectural roadmap.",
+    number: "01",
+    title: "Understand",
+    description: "We start with the business problem, users, requirements, and what needs to work better.",
   },
   {
-    step: "02",
-    title: "Design & Prototype",
-    desc: "We build intuitive user flows, high-fidelity interactive prototypes, and unified design tokens in Figma.",
+    number: "02",
+    title: "Design",
+    description: "We turn requirements into clear interfaces, workflows, and practical product experiences.",
   },
   {
-    step: "03",
-    title: "Agile Engineering",
-    desc: "Two-week sprints shipping clean, test-driven TypeScript code with automated pipelines and weekly client demos.",
+    number: "03",
+    title: "Build",
+    description: "We develop the product, connect the required systems, and bring the experience to life.",
   },
   {
-    step: "04",
-    title: "Launch & Scale",
-    desc: "Zero-downtime deployment, global edge CDN optimization, telemetry monitoring, and 24/7 ongoing SLA support.",
+    number: "04",
+    title: "Improve",
+    description: "We test, refine, and improve the product as the business evolves.",
   },
 ];
 
-const STATS = [
-  { value: "8+", label: "Years of Engineering" },
-  { value: "150+", label: "Projects Delivered" },
-  { value: "99.8%", label: "Client Satisfaction" },
-  { value: "25+", label: "Countries Served" },
+const SELECTED_WORK_ITEMS = [
+  {
+    number: "01",
+    discipline: "Product Design",
+    productName: "SalesX",
+    description: "Interfaces and workflows designed around sales activities, lead management, and business operations.",
+    linkHref: "/projects",
+  },
+  {
+    number: "02",
+    discipline: "Product Development",
+    productName: "Zobay",
+    description: "A digital experience designed around voice-led sales communication and customer conversations.",
+    linkHref: "/projects/zobay-voice-ai",
+  },
+  {
+    number: "03",
+    discipline: "Web & Real-time Development",
+    productName: "MeetingX",
+    description: "A meeting and collaboration experience focused on simple online communication.",
+    linkHref: "/projects",
+  },
 ];
 
-/* ============================================================================
-   PAGE COMPONENT
-============================================================================ */
+const ARCHIVE_TIMELINE = [
+  { year: "2026", label: "SalesX v3.0, Zobay Voice Mesh, MeetingX WebRTC" },
+  { year: "2025", label: "StartOne Enterprise Cloud OS, BaseOne High-Frequency Treasury, LegalX Sentinel" },
+  { year: "2024", label: "SOCAN Media Stream Engine, Multi-Tenant Database Architecture Standard" },
+  { year: "2023", label: "Establishment of StratoTech Product Engineering Labs in Bengaluru" },
+];
+
 export default function HomePage() {
+  const [hoveredWork, setHoveredWork] = useState<string | null>(null);
+
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      {/* ── 1. HERO SECTION ─────────────────────────────────────────── */}
-      <section className="relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#0070f3]/10 blur-[140px] rounded-full pointer-events-none" />
+      <main className="pt-28 sm:pt-36 pb-24 sm:pb-32">
+        {/* ── 1. HERO SECTION ────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 border-b border-black/[0.08]">
+          <div className="max-w-3xl">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-4 font-semibold">
+              DIGITAL PRODUCTS
+            </span>
 
-        <div className="relative z-10 page-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
-              <ScrollReveal delay={0.05} y={20}>
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/[0.08] bg-white text-xs font-semibold text-[#0070f3] mb-6 shadow-xs">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Digital Product & AI Engineering Studio</span>
-                </div>
-              </ScrollReveal>
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-medium tracking-[-0.035em] text-[#1d1d1f] leading-[1.05] mb-6">
+              We build products that make business work better.
+            </h1>
 
-              <ScrollReveal delay={0.15} y={24}>
-                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-900 leading-[1.08]">
-                  We build digital products that move businesses forward.
-                </h1>
-              </ScrollReveal>
+            <p className="text-lg sm:text-xl text-[#6e6e73] font-normal leading-relaxed max-w-2xl mb-10">
+              We design and build digital products for sales, communication, operations, and the teams behind them.
+            </p>
 
-              <ScrollReveal delay={0.25} y={20}>
-                <p className="mt-6 text-base sm:text-lg lg:text-xl text-zinc-600 max-w-xl leading-relaxed font-light">
-                  StratoTechCorp designs, engineers, and scales world-class web applications, AI agents, cloud architectures, and digital experiences.
-                </p>
-              </ScrollReveal>
-
-              <ScrollReveal delay={0.35} y={20}>
-                <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                  <Link
-                    href="/contact"
-                    className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-7 py-3.5 shadow-xs"
-                  >
-                    <span>Start a Project</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="btn-pill btn-ghost text-xs sm:text-sm font-semibold px-7 py-3.5 border-black/20 hover:border-black text-zinc-900"
-                  >
-                    <span>View Selected Work</span>
-                  </Link>
-                </div>
-              </ScrollReveal>
-            </div>
-
-            {/* Right Video Column */}
-            <div className="lg:col-span-5 w-full">
-              <ScrollReveal delay={0.4} y={32}>
-                <div className="relative rounded-2xl border border-black/[0.08] bg-white p-2 sm:p-3 shadow-xl shadow-black/5">
-                  <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] rounded-xl overflow-hidden bg-zinc-950">
-                    <video
-                      src="/videos/hero-pinterest.mp4"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 2. STATS BAR ────────────────────────────────────────────── */}
-      <section className="py-12 border-y border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {STATS.map((stat, i) => (
-            <ScrollReveal key={i} delay={i * 0.08} y={16}>
-              <div>
-                <div className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm text-zinc-500 mt-1 font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 3. FEATURED WORK ────────────────────────────────────────── */}
-      <section className="py-20 sm:py-32">
-        <div className="page-container">
-          <ScrollReveal y={24}>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-black/[0.08] gap-4">
-              <div>
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-medium">
-                  Portfolio
-                </span>
-                <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
-                  Selected Work
-                </h2>
-              </div>
+            <div className="flex flex-wrap items-center gap-4">
               <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-600 hover:text-[#0070f3] transition-colors"
+                href="/products"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
               >
-                <span>View All Projects</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Explore our products</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border border-black/[0.08] text-[#1d1d1f] text-[14px] font-medium hover:bg-[#f5f5f7] transition-colors"
+              >
+                <span>Start a project</span>
               </Link>
             </div>
-          </ScrollReveal>
+          </div>
+        </section>
 
-          <div className="space-y-12">
-            {FEATURED_PROJECTS.map((proj, idx) => (
-              <ScrollReveal key={proj.title} delay={idx * 0.1} y={32}>
-                <div className="group rounded-2xl border border-black/[0.08] bg-white overflow-hidden hover:border-black/20 shadow-xs hover:shadow-md transition-all">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                    <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[420px] bg-zinc-950 overflow-hidden">
-                      <video
-                        src={proj.video}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-[#0070f3] border border-black/10 font-semibold shadow-xs">
-                        {proj.category}
-                      </div>
+        {/* ── 2. WHAT WE BUILD ───────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-black/[0.08]">
+            <div className="lg:col-span-4">
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-2 font-semibold">
+                WHAT WE BUILD
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-display font-medium text-[#1d1d1f] leading-snug">
+                Built for the way teams actually work.
+              </h2>
+            </div>
+            <div className="lg:col-span-8 flex items-center">
+              <p className="text-lg sm:text-xl text-[#6e6e73] font-normal leading-relaxed">
+                From sales workflows to communication platforms, we turn business requirements into simple, useful digital products.
+              </p>
+            </div>
+          </div>
+
+          {/* Technology Badges Bar */}
+          <div className="pt-6 pb-12 flex flex-wrap items-center gap-2.5">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#86868b] mr-2">
+              Stack:
+            </span>
+            {["Next.js", "TypeScript", "React", "Node.js", "Python", "PostgreSQL", "Docker", "AWS", "WebRTC", "Figma"].map((tech, i) => (
+              <TechBadge key={i} name={tech} />
+            ))}
+          </div>
+        </section>
+
+        {/* ── 3. FEATURED PRODUCTS ───────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-16 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                OUR PRODUCTS
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight">
+                Products built around real business needs.
+              </h2>
+            </div>
+            <Link
+              href="/products"
+              className="text-[13px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] inline-flex items-center gap-1 transition-colors"
+            >
+              <span>View all products</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="space-y-20 sm:space-y-28">
+            {FEATURED_PRODUCTS.map((prod) => {
+              const isVisualLeft = prod.layout === "visual-left-text-right";
+
+              return (
+                <article
+                  key={prod.id}
+                  className="group border-b border-black/[0.08] pb-20 sm:pb-28"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                    {/* Visual Container */}
+                    <div
+                      className={`lg:col-span-7 overflow-hidden rounded-xl bg-[#e5e5ea] border border-black/[0.06] ${
+                        isVisualLeft ? "lg:order-1 order-1" : "lg:order-2 order-1"
+                      }`}
+                    >
+                      <Link href={prod.linkHref} className="block overflow-hidden">
+                        {prod.mediaType === "video" ? (
+                          <video
+                            src={prod.mediaSrc}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                          />
+                        ) : (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={prod.mediaSrc}
+                            alt={prod.name}
+                            className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                          />
+                        )}
+                      </Link>
                     </div>
 
-                    <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between">
+                    {/* Content Container */}
+                    <div
+                      className={`lg:col-span-5 flex flex-col justify-between ${
+                        isVisualLeft ? "lg:order-2 order-2" : "lg:order-1 order-2"
+                      }`}
+                    >
                       <div>
-                        <span className="font-mono text-xs text-zinc-400 font-semibold">
-                          {proj.num}
-                        </span>
-                        <h3 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900 mt-2 group-hover:text-[#0070f3] transition-colors">
-                          {proj.title}
-                        </h3>
-                        <p className="mt-4 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
-                          {proj.tagline}
-                        </p>
-                        <div className="mt-6 pt-4 border-t border-black/[0.06] text-xs font-mono text-[#0070f3] font-semibold">
-                          {proj.metrics}
+                        {/* Number & Category */}
+                        <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-wider">
+                          <span className="font-semibold text-[#1d1d1f]">{prod.number}</span>
+                          <span>—</span>
+                          <span className="text-[#1d1d1f]">{prod.category}</span>
+                          <span>·</span>
+                          <span>{prod.year}</span>
                         </div>
+
+                        {/* Product Title */}
+                        <h3 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight mb-4">
+                          <Link href={prod.linkHref} className="hover:underline underline-offset-4">
+                            {prod.name}
+                          </Link>
+                        </h3>
+
+                        {/* Short Description */}
+                        <p className="text-[14px] sm:text-[15px] text-[#6e6e73] leading-relaxed mb-8 max-w-md font-normal">
+                          {prod.description}
+                        </p>
                       </div>
 
-                      <div className="mt-8 pt-6 border-t border-black/[0.08]">
+                      {/* CTA Action */}
+                      <div className="pt-2">
                         <Link
-                          href={proj.href}
-                          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-900 hover:text-[#0070f3] transition-colors"
+                          href={prod.linkHref}
+                          className="inline-flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
                         >
-                          <span>Explore Case Study</span>
-                          <ArrowRight className="w-4 h-4" />
+                          <span>{prod.linkLabel}</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                         </Link>
                       </div>
                     </div>
                   </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. SERVICES & CAPABILITIES ──────────────────────────────── */}
-      <section className="py-20 sm:py-32 bg-[#f8fafc] border-y border-black/[0.08]">
-        <div className="page-container">
-          <ScrollReveal y={24}>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-medium">
-                Capabilities
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
-                Services Built for Scale
-              </h2>
-              <p className="mt-4 text-xs sm:text-base text-zinc-600 font-light">
-                End-to-end product design, full-stack engineering, and AI automation tailored to modern digital enterprises.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((serv, i) => {
-              const Icon = serv.icon;
-              return (
-                <ScrollReveal key={serv.slug} delay={i * 0.08} y={28}>
-                  <Link
-                    href={`/services/${serv.slug}`}
-                    className="group p-8 rounded-2xl border border-black/[0.08] bg-white hover:border-[#0070f3]/50 hover:shadow-md transition-all flex flex-col justify-between h-full"
-                  >
-                    <div>
-                      <div className="w-12 h-12 rounded-xl bg-black/[0.04] border border-black/[0.06] flex items-center justify-center text-[#0070f3] mb-6 group-hover:scale-110 transition-transform">
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <h3 className="font-display text-xl font-bold text-zinc-900 group-hover:text-[#0070f3] transition-colors">
-                        {serv.title}
-                      </h3>
-                      <p className="mt-3 text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
-                        {serv.desc}
-                      </p>
-                    </div>
-
-                    <div className="mt-8 pt-4 border-t border-black/[0.06] flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-zinc-500 group-hover:text-[#0070f3]">
-                      <span>Learn More</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </div>
-                  </Link>
-                </ScrollReveal>
+                </article>
               );
             })}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 5. PROCESS / HOW WE WORK ─────────────────────────────────── */}
-      <section className="py-20 sm:py-32">
-        <div className="page-container">
-          <ScrollReveal y={24}>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-medium">
-                Methodology
+        {/* ── 4. HOW WE WORK (Numbered Editorial Process) ─────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 mb-12 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                OUR WORK
               </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
-                How We Build
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight">
+                From an idea to a working product.
               </h2>
-              <p className="mt-4 text-xs sm:text-base text-zinc-600 font-light">
-                A transparent, agile workflow designed to ship high-impact digital products on time.
-              </p>
             </div>
-          </ScrollReveal>
+            <p className="text-[14px] text-[#6e6e73] max-w-md leading-relaxed font-normal">
+              We combine product thinking, design, and engineering to turn business requirements into useful digital experiences.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PROCESS_STEPS.map((step, i) => (
-              <ScrollReveal key={step.step} delay={i * 0.08} y={24}>
-                <div className="p-8 rounded-2xl border border-black/[0.08] bg-white shadow-xs flex flex-col justify-between min-h-[220px] h-full">
-                  <div>
-                    <span className="font-mono text-sm font-bold text-[#0070f3]">
-                      {step.step}
-                    </span>
-                    <h3 className="font-display text-lg font-bold text-zinc-900 mt-4 mb-2">
-                      {step.title}
-                    </h3>
-                  </div>
-                  <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                    {step.desc}
-                  </p>
-                </div>
-              </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-20 border-b border-black/[0.08]">
+            {PROCESS_STEPS.map((step) => (
+              <div key={step.number} className="border-t border-black/[0.08] pt-6">
+                <span className="text-[12px] font-mono text-[#6e6e73] block mb-2">{step.number}</span>
+                <h3 className="text-lg font-display font-medium text-[#1d1d1f] mb-2">{step.title}</h3>
+                <p className="text-[13px] text-[#6e6e73] leading-relaxed font-normal">{step.description}</p>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 6. FINAL CTA BANNER ─────────────────────────────────────── */}
-      <section className="py-20 pb-32">
-        <div className="page-container">
-          <ScrollReveal y={32}>
-            <div className="relative rounded-3xl border border-black/[0.08] bg-gradient-to-b from-white to-[#f4f4f5] p-10 sm:p-16 text-center overflow-hidden shadow-lg shadow-black/5">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-[#0070f3]/10 blur-3xl rounded-full pointer-events-none" />
+        {/* ── 5. SELECTED WORK ───────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                SELECTED WORK
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight">
+                The work behind the products.
+              </h2>
+            </div>
+            <Link
+              href="/projects"
+              className="text-[13px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] inline-flex items-center gap-1 transition-colors"
+            >
+              <span>View all work</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
 
-              <div className="relative z-10 max-w-2xl mx-auto">
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-3 font-semibold">
-                  Let&apos;s Connect
-                </span>
-                <h2 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
-                  Have a project in mind? Let&apos;s build it.
-                </h2>
-                <p className="mt-4 text-xs sm:text-base text-zinc-600 font-light leading-relaxed">
-                  Whether you need an MVP from scratch or are looking to re-engineer an enterprise platform, we&apos;re ready to help you ship.
-                </p>
-                <div className="mt-8 flex justify-center">
+          <div className="divide-y divide-black/[0.08] pb-16">
+            {SELECTED_WORK_ITEMS.map((item) => (
+              <div
+                key={item.number}
+                onMouseEnter={() => setHoveredWork(item.number)}
+                onMouseLeave={() => setHoveredWork(null)}
+                className="py-8 group flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors"
+              >
+                <div className="max-w-2xl">
+                  <div className="flex items-center gap-3 text-[11px] font-mono text-[#6e6e73] mb-2 uppercase tracking-wider">
+                    <span>{item.number}</span>
+                    <span>—</span>
+                    <span className="font-semibold text-[#1d1d1f]">{item.discipline}</span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-display font-medium text-[#1d1d1f] mb-2 group-hover:text-[#0071e3] transition-colors">
+                    <Link href={item.linkHref}>{item.productName}</Link>
+                  </h3>
+
+                  <p className="text-[14px] text-[#6e6e73] leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="shrink-0 flex items-center">
                   <Link
-                    href="/contact"
-                    className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-4 shadow-xs"
+                    href={item.linkHref}
+                    className="inline-flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors"
                   >
-                    <span>Start a Project</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>View work</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 6. ARCHIVE SECTION ─────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="border-t border-black/[0.08] pt-16 grid grid-cols-1 lg:grid-cols-12 gap-10 pb-20 border-b border-black/[0.08]">
+            <div className="lg:col-span-5">
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-2 font-semibold">
+                ARCHIVE
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight mb-4">
+                A record of what we&apos;ve built.
+              </h2>
+              <p className="text-[14px] sm:text-[15px] text-[#6e6e73] leading-relaxed mb-8 font-normal max-w-md">
+                Explore products, projects, and work developed across the company over time.
+              </p>
+              <Link
+                href="/archive"
+                className="inline-flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors group"
+              >
+                <span>Explore archive</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
+
+            <div className="lg:col-span-7 space-y-4 font-mono text-[12px]">
+              {ARCHIVE_TIMELINE.map((entry, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-lg bg-[#f5f5f7] border border-black/[0.04] flex flex-col sm:flex-row sm:items-baseline justify-between gap-2"
+                >
+                  <span className="font-semibold text-[#1d1d1f] shrink-0">{entry.year}</span>
+                  <span className="text-[#6e6e73]">{entry.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 7. ABOUT STATEMENT ─────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="max-w-3xl pb-20 border-b border-black/[0.08]">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-4 font-semibold">
+              ABOUT
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-display font-medium tracking-tight text-[#1d1d1f] leading-[1.1] mb-6">
+              Technology should solve a problem before it tries to impress.
+            </h2>
+            <p className="text-base sm:text-lg text-[#6e6e73] font-normal leading-relaxed mb-8 max-w-2xl">
+              We build practical digital products around real business requirements — combining product thinking, design, and engineering to create experiences that people can actually use.
+            </p>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors group"
+            >
+              <span>About us</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </section>
+
+        {/* ── 8. FINAL CTA ───────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div>
+              <h3 className="text-3xl sm:text-5xl font-display font-medium tracking-tight text-[#1d1d1f] mb-3">
+                Have something worth building?
+              </h3>
+              <p className="text-[15px] sm:text-[16px] text-[#6e6e73] max-w-md font-normal leading-relaxed">
+                Tell us what you&apos;re working on. We&apos;ll figure out what to build next.
+              </p>
+            </div>
+
+            <div>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
+              >
+                <span>Start a project</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }
