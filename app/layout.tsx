@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import CommandPalette from "@/components/CommandPalette";
+import AIAssistant from "@/components/AIAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +21,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://stratotechcorp.com"),
   title: "StratoTechCorp — Digital Product Studio",
   description: "We build digital products that move businesses forward. AI, Software, Cloud & Design.",
   keywords: [
@@ -52,8 +55,10 @@ export default function RootLayout({
     >
       <body
         suppressHydrationWarning
-        className="min-h-screen bg-[#fafafa] text-zinc-900 antialiased font-sans selection:bg-[#0070f3] selection:text-white"
+        className="min-h-screen bg-white text-[#1d1d1f] antialiased font-sans selection:bg-[#0071e3] selection:text-white"
       >
+        <CommandPalette />
+        <AIAssistant />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

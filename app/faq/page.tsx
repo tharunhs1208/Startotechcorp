@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Plus, Minus, ArrowRight, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { ChevronDown, ArrowUpRight, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -38,53 +39,77 @@ export default function FAQPage() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 w-full max-w-full overflow-x-hidden selection:bg-[#0070f3] selection:text-white">
       <Navbar />
 
       {/* ── HEADER ──────────────────────────────────────────────────── */}
-      <section className="pt-32 sm:pt-40 pb-12 sm:pb-16 border-b border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container text-center">
-          <ScrollReveal>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/[0.08] bg-white text-xs font-semibold text-[#0070f3] mb-6 shadow-xs">
+      <section className="pt-28 sm:pt-40 pb-12 sm:pb-16 border-b border-black/[0.08] bg-[#f8fafc]">
+        <div className="page-container text-center max-w-4xl mx-auto">
+          <ScrollReveal delay={0.05} y={16}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-black/[0.08] bg-white text-xs font-semibold text-[#0070f3] mb-5 shadow-xs">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Common Questions</span>
             </div>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-zinc-900">
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-900 leading-[1.1]">
               Frequently Asked Questions
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-zinc-600 max-w-xl mx-auto font-light leading-relaxed">
+            <p className="mt-4 text-sm sm:text-base md:text-lg text-zinc-600 max-w-xl mx-auto font-light leading-relaxed">
               Everything you need to know about working with StratoTechCorp.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── ACCORDION LIST ──────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24">
+      {/* ── MINIMALIST LINEAR ACCORDION LIST ────────────────────────── */}
+      <section className="py-12 sm:py-20">
         <div className="max-w-[860px] mx-auto px-4 sm:px-8">
-          <div className="divide-y divide-black/[0.08]">
+          <div className="border-t border-black/[0.08] divide-y divide-black/[0.08]">
             {FAQS.map((faq, i) => {
               const isOpen = openIdx === i;
               return (
-                <ScrollReveal key={i} delay={i * 0.05}>
-                  <div className="py-6">
+                <ScrollReveal key={i} delay={i * 0.04} y={12}>
+                  <div className="py-6 sm:py-7 transition-colors group">
                     <button
+                      type="button"
                       onClick={() => setOpenIdx(isOpen ? null : i)}
-                      className="w-full flex items-center justify-between gap-6 text-left group cursor-pointer"
+                      aria-expanded={isOpen}
+                      className="w-full flex items-start justify-between gap-6 text-left cursor-pointer select-none touch-manipulation"
                     >
-                      <span className="font-display text-lg sm:text-xl font-bold text-zinc-900 group-hover:text-[#0070f3] transition-colors">
-                        {faq.q}
-                      </span>
-                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-black/15 text-zinc-700 group-hover:border-[#0070f3] group-hover:text-[#0070f3] transition-colors">
-                        {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+                      <div className="flex items-start gap-3 sm:gap-4 pr-2">
+                        <span className="shrink-0 font-mono text-xs sm:text-sm font-semibold text-[#0070f3] pt-0.5 sm:pt-1">
+                          0{i + 1}
+                        </span>
+                        <h3 className={`font-display text-lg sm:text-2xl font-bold tracking-tight transition-colors duration-200 ${
+                          isOpen ? "text-[#0070f3]" : "text-zinc-900 group-hover:text-[#0070f3]"
+                        }`}>
+                          {faq.q}
+                        </h3>
+                      </div>
+
+                      <span className={`shrink-0 grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-full transition-all duration-300 ${
+                        isOpen
+                          ? "rotate-180 text-[#0070f3] bg-[#0070f3]/10"
+                          : "text-zinc-400 group-hover:text-zinc-700 group-hover:bg-zinc-100"
+                      }`}>
+                        <ChevronDown className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform" />
                       </span>
                     </button>
 
-                    {isOpen && (
-                      <div className="mt-4 text-xs sm:text-sm text-zinc-600 font-light leading-relaxed pr-8">
-                        {faq.a}
-                      </div>
-                    )}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-3.5 sm:pt-4 pl-7 sm:pl-9 pr-4 sm:pr-8 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <p>{faq.a}</p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </ScrollReveal>
               );
@@ -96,20 +121,20 @@ export default function FAQPage() {
       {/* ── CTA ─────────────────────────────────────────────────────── */}
       <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
         <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
-          <ScrollReveal>
+          <ScrollReveal y={24}>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
               Still have questions?
             </h2>
-            <p className="mt-4 text-sm text-zinc-600 font-light">
+            <p className="mt-4 text-sm sm:text-base text-zinc-600 font-light">
               We are always happy to discuss technical architectures and scope.
             </p>
             <div className="mt-8">
               <Link
                 href="/contact"
-                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] hover:bg-black text-white px-8 py-3.5 text-xs sm:text-sm font-medium transition-all shadow-xs active:scale-95 touch-manipulation"
               >
-                <span>Contact Us</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Contact us</span>
+                <ArrowUpRight className="w-4 h-4 opacity-80" />
               </Link>
             </div>
           </ScrollReveal>

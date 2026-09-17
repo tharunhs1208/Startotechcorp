@@ -2,215 +2,219 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollReveal from "@/components/ScrollReveal";
-import { TEAM_MEMBERS, COMPANY_VALUES } from "@/data/siteData";
+import TechBadge from "@/components/TechBadge";
+import { TEAM_MEMBERS } from "@/data/siteData";
 
-const APPROACH_STEPS = [
-  { num: "01", title: "Understand", desc: "We study your business goals, user behavior, and technology requirements to map a clear path forward." },
-  { num: "02", title: "Design", desc: "We craft intuitive user journeys, high-fidelity prototypes, and robust design systems in Figma." },
-  { num: "03", title: "Engineer", desc: "We write clean, modular, scalable code using modern frameworks and rigorous automated testing." },
-  { num: "04", title: "Launch", desc: "We ship seamlessly to global infrastructure with continuous telemetry, monitoring, and SLA support." },
+const DISCIPLINES = [
+  {
+    number: "01",
+    title: "Product Engineering",
+    description: "We write clean, modular, scalable TypeScript and Rust backends with automated test suites and high-throughput databases.",
+  },
+  {
+    number: "02",
+    title: "Design Systems & Craft",
+    description: "We design complete Figma variable token systems and intuitive user interfaces that bridge the gap between design and production code.",
+  },
+  {
+    number: "03",
+    title: "Intelligent Systems",
+    description: "We build sub-300ms neural voice pipelines, deterministic agentic tools, and private enterprise retrieval-augmented generation systems.",
+  },
+  {
+    number: "04",
+    title: "Cloud & Reliability",
+    description: "We deploy secure, multi-region edge infrastructure with automated CI/CD pipelines, ISO 27001 readiness, and 99.99% uptime SLAs.",
+  },
+];
+
+const WORKING_PRINCIPLES = [
+  {
+    title: "Less design. Better design.",
+    desc: "We avoid unnecessary decorative noise. Every layout decision, typographic scale, and interaction exists to solve a real user and business need.",
+  },
+  {
+    title: "Direct engineering collaboration.",
+    desc: "You work directly with senior architects and product designers who write code and ship features daily. No bureaucratic layers.",
+  },
+  {
+    title: "Speed with structural rigor.",
+    desc: "We ship functional production increments every two weeks, pairing rapid sprint velocity with clean architectural boundaries.",
+  },
+  {
+    title: "Durable software.",
+    desc: "We engineer software meant to last years in production without accumulating tech debt or fragile dependencies.",
+  },
 ];
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      {/* ── HEADER ──────────────────────────────────────────────────── */}
-      <section className="pt-32 sm:pt-40 pb-16 sm:pb-24 border-b border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container text-center">
-          <ScrollReveal delay={0.05} y={16}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/[0.08] bg-black/[0.03] text-xs font-medium text-[#0070f3] mb-6">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Our Story & Philosophy</span>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.15} y={20}>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-zinc-900 max-w-3xl mx-auto">
-              We design, build, and ship products that matter.
+      <main className="pt-28 sm:pt-36 pb-24 sm:pb-32">
+        {/* ── 1. EDITORIAL HERO ────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 border-b border-black/[0.08]">
+          <div className="max-w-3xl">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-4 font-semibold">
+              ABOUT US
+            </span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-medium tracking-[-0.03em] text-[#1d1d1f] leading-[1.1] mb-6">
+              We build digital products around the way businesses actually work.
             </h1>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.25} y={20}>
-            <p className="mt-6 text-base sm:text-xl text-zinc-600 max-w-2xl mx-auto font-light leading-relaxed">
-              StratoTechCorp is a technology and product development company building digital experiences, software, and intelligent systems.
+            <p className="text-lg text-[#6e6e73] font-normal leading-relaxed max-w-2xl">
+              StratoTech is a product engineering studio based in Bengaluru. We partner with founders, growing teams, and enterprises to design, architect, and ship high-performance software.
             </p>
-          </ScrollReveal>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* ── WHO WE ARE ──────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24">
-        <div className="page-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* ── 2. WHAT WE DO & HOW WE OPERATE ─────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-20 border-b border-black/[0.08]">
             <div className="lg:col-span-4">
-              <ScrollReveal y={20}>
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                  Who We Are
-                </span>
-                <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
-                  A Product Engineering Studio
-                </h2>
-              </ScrollReveal>
-            </div>
-            <div className="lg:col-span-8 space-y-6 text-sm sm:text-base text-zinc-700 font-light leading-relaxed">
-              <ScrollReveal delay={0.1} y={20}>
-                <p>
-                  Founded in Bengaluru, StratoTechCorp works with founders, fast-growing startups, and forward-thinking enterprises worldwide to turn complex challenges into elegant, high-impact digital products.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.2} y={20}>
-                <p>
-                  We believe in extreme technical craft, clean architecture, and rapid agile delivery. We don&apos;t just deliver code—we partner with you to engineer durable software that scales effortlessly.
-                </p>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── OUR APPROACH ────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container">
-          <ScrollReveal y={24}>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                Methodology
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#6e6e73] block mb-2">
+                OUR PHILOSOPHY
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
-                Our Approach
+              <h2 className="text-2xl sm:text-3xl font-display font-medium text-[#1d1d1f]">
+                Engineering with clarity and restraint.
               </h2>
             </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {APPROACH_STEPS.map((step, i) => (
-              <ScrollReveal key={step.num} delay={i * 0.08} y={24}>
-                <div className="p-8 rounded-2xl border border-black/[0.08] bg-white shadow-xs flex flex-col justify-between min-h-[220px] h-full">
-                  <div>
-                    <span className="font-mono text-sm font-bold text-[#0070f3]">
-                      {step.num}
-                    </span>
-                    <h3 className="font-display text-xl font-bold text-zinc-900 mt-4 mb-2">
-                      {step.title}
-                    </h3>
-                  </div>
-                  <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                    {step.desc}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
+            <div className="lg:col-span-8 space-y-6 text-[15px] sm:text-[16px] text-[#6e6e73] font-normal leading-relaxed">
+              <p>
+                Modern software often suffers from excessive complexity, bloated dependencies, and over-designed interfaces. We take the opposite approach: building clean, focused tools that solve specific operational problems.
+              </p>
+              <p>
+                Whether developing an internal sales platform like SalesX, an AI voice tool like Zobay, or an operational execution layer like StartOne, our goal is always the same: make complex workflows simple, reliable, and fast.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── OUR VALUES ──────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
-        <div className="page-container">
-          <ScrollReveal y={24}>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                Principles
+        {/* ── 3. DISCIPLINES ─────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1">
+                PRACTICE AREAS
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
-                Our Core Values
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight">
+                What We Build
               </h2>
             </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {COMPANY_VALUES.map((val, idx) => (
-              <ScrollReveal key={val.title} delay={idx * 0.08} y={24}>
-                <div className="p-8 rounded-2xl border border-black/[0.08] bg-white shadow-xs h-full">
-                  <div className="text-xs font-mono text-[#0070f3] font-semibold mb-3">
-                    0{idx + 1}
-                  </div>
-                  <h3 className="font-display text-lg font-bold text-zinc-900 mb-2">
-                    {val.title}
-                  </h3>
-                  <p className="text-xs text-zinc-600 leading-relaxed font-light">
-                    {val.desc}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TEAM ────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container">
-          <ScrollReveal y={24}>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                Leadership
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
-                People Behind the Products
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TEAM_MEMBERS.map((member, i) => (
-              <ScrollReveal key={member.name} delay={i * 0.08} y={28}>
-                <div className="group rounded-2xl border border-black/[0.08] bg-white shadow-xs overflow-hidden h-full">
-                  <div className="relative aspect-[4/5] bg-zinc-950 overflow-hidden">
-                    <img
-                      src={member.photo}
-                      alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-display text-lg font-bold text-zinc-900">
-                      {member.name}
-                    </h3>
-                    <p className="text-xs text-[#0070f3] font-mono mt-1 font-semibold">
-                      {member.role}
-                    </p>
-                    <p className="text-xs text-zinc-600 mt-3 line-clamp-2 font-light">
-                      {member.bio}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
-        <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
-          <ScrollReveal y={24}>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
-              Let&apos;s build something useful together.
-            </h2>
-            <p className="mt-4 text-sm text-zinc-600 font-light">
-              We are always excited to collaborate on new ideas and ambitious technical products.
+            <p className="text-[14px] text-[#6e6e73] max-w-sm">
+              Core technical disciplines applied across our client and internal products.
             </p>
-            <div className="mt-8">
-              <Link
-                href="/contact"
-                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5 shadow-xs"
-              >
-                <span>Start a Project</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-14 border-b border-black/[0.08]">
+            {DISCIPLINES.map((d) => (
+              <div key={d.number} className="border-t border-black/[0.08] pt-6">
+                <span className="text-[12px] font-mono text-[#6e6e73] block mb-2">{d.number}</span>
+                <h3 className="text-lg font-display font-medium text-[#1d1d1f] mb-2">{d.title}</h3>
+                <p className="text-[13px] text-[#6e6e73] leading-relaxed">{d.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Technology Stack Grid */}
+          <div className="pt-10 pb-20 border-b border-black/[0.08]">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-4 font-semibold">
+              ENGINEERING STACK &amp; TOOLING
+            </span>
+            <div className="flex flex-wrap gap-2.5">
+              {[
+                "TypeScript",
+                "Next.js",
+                "React",
+                "Node.js",
+                "Python",
+                "PostgreSQL",
+                "Prisma",
+                "Supabase",
+                "Docker",
+                "Kubernetes",
+                "AWS",
+                "WebRTC",
+                "Redis",
+                "Tailwind CSS",
+                "Figma",
+                "PyTorch",
+                "OpenAI",
+                "GraphQL"
+              ].map((tech, i) => (
+                <TechBadge key={i} name={tech} />
+              ))}
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
+          </div>
+        </section>
+
+        {/* ── 4. WORKING PRINCIPLES ──────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1">
+                STANDARDS
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight">
+                How We Work
+              </h2>
+            </div>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm">
+              The foundational principles guiding every sprint and architectural choice.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-20 border-b border-black/[0.08]">
+            {WORKING_PRINCIPLES.map((p, idx) => (
+              <div key={idx} className="border-t border-black/[0.08] pt-6">
+                <h3 className="text-xl font-display font-medium text-[#1d1d1f] mb-2">{p.title}</h3>
+                <p className="text-[14px] text-[#6e6e73] leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 5. TEAM DIRECTORY ──────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1">
+                LEADERSHIP & ENGINEERING
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight">
+                Team
+              </h2>
+            </div>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm">
+              Engineers, designers, and systems architects based out of Bengaluru.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {TEAM_MEMBERS.map((member, idx) => (
+              <div key={idx} className="border-t border-black/[0.08] pt-6">
+                <div className="aspect-[4/3] rounded-lg overflow-hidden bg-[#e5e5ea] mb-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+                <h3 className="text-lg font-display font-medium text-[#1d1d1f]">{member.name}</h3>
+                <p className="text-[12px] font-mono text-[#0071e3] uppercase mb-2">{member.role}</p>
+                <p className="text-[13px] text-[#6e6e73] leading-relaxed line-clamp-3">{member.bio}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

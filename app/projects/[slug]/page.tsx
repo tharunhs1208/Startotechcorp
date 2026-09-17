@@ -6,9 +6,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollReveal from "@/components/ScrollReveal";
-import TechBadge from "@/components/TechBadge";
 import { PROJECTS_DATA } from "@/data/siteData";
+import TechBadge from "@/components/TechBadge";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -26,227 +25,171 @@ export default function ProjectDetailPage({ params }: PageProps) {
   const nextProject = PROJECTS_DATA[(currentIdx + 1) % PROJECTS_DATA.length];
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      {/* ── HEADER ──────────────────────────────────────────────────── */}
-      <section className="pt-32 sm:pt-40 pb-12 sm:pb-16 border-b border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container">
-          <ScrollReveal delay={0.05} y={16}>
+      <main className="pt-28 sm:pt-36 pb-24 sm:pb-32">
+        {/* ── BREADCRUMB & HEADER ────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-10 border-b border-black/[0.08]">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Work</span>
+          </Link>
+
+          <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-wider">
+            <span className="font-semibold text-[#1d1d1f]">PRODUCT</span>
+            <span>·</span>
+            <span>{project.category}</span>
+            <span>·</span>
+            <span>{project.industry}</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-medium tracking-[-0.03em] text-[#1d1d1f] leading-[1.1] mb-4">
+            {project.title}
+          </h1>
+
+          <p className="text-lg text-[#6e6e73] font-normal leading-relaxed max-w-2xl">
+            {project.tagline}
+          </p>
+        </section>
+
+        {/* ── LARGE PRODUCT VISUAL ───────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16">
+          <div className="overflow-hidden rounded-xl bg-[#e5e5ea] border border-black/[0.06]">
+            {project.video ? (
+              <video
+                src={project.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full aspect-video object-cover"
+              />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full aspect-video object-cover"
+              />
+            )}
+          </div>
+        </section>
+
+        {/* ── EDITORIAL CASE-STUDY CONTENT (Problem, Product, Work) ── */}
+        <section className="max-w-[1024px] mx-auto px-5 sm:px-8 py-8 space-y-16">
+          {/* Overview */}
+          <div className="border-t border-black/[0.08] pt-8">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#6e6e73] block mb-3 font-semibold">
+              01 · Overview
+            </span>
+            <h2 className="text-2xl font-display font-medium text-[#1d1d1f] mb-4">
+              What the product does.
+            </h2>
+            <p className="text-[15px] sm:text-[16px] text-[#6e6e73] leading-relaxed font-normal">
+              {project.overview}
+            </p>
+          </div>
+
+          {/* The Problem */}
+          <div className="border-t border-black/[0.08] pt-8">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#6e6e73] block mb-3 font-semibold">
+              02 · The Challenge
+            </span>
+            <h2 className="text-2xl font-display font-medium text-[#1d1d1f] mb-4">
+              The business problem it was designed to address.
+            </h2>
+            <p className="text-[15px] sm:text-[16px] text-[#6e6e73] leading-relaxed font-normal">
+              {project.challenge}
+            </p>
+          </div>
+
+          {/* The Product & Solution */}
+          <div className="border-t border-black/[0.08] pt-8">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#6e6e73] block mb-3 font-semibold">
+              03 · The Product & Engineering
+            </span>
+            <h2 className="text-2xl font-display font-medium text-[#1d1d1f] mb-4">
+              How the product works.
+            </h2>
+            <p className="text-[15px] sm:text-[16px] text-[#6e6e73] leading-relaxed font-normal mb-8">
+              {project.solution}
+            </p>
+
+            {/* Key Features */}
+            <div className="space-y-3 pt-2">
+              <h3 className="text-[14px] font-mono uppercase tracking-wider text-[#1d1d1f] font-semibold">
+                Key Features
+              </h3>
+              <ul className="space-y-2 text-[14px] text-[#6e6e73] font-mono">
+                {project.features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-[#86868b] shrink-0">↳</span>
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Technology Stacks */}
+          <div className="border-t border-black/[0.08] pt-8">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#6e6e73] block mb-3 font-semibold">
+              04 · Technology
+            </span>
+            <h2 className="text-2xl font-display font-medium text-[#1d1d1f] mb-4">
+              Core technologies used.
+            </h2>
+            <div className="flex flex-wrap gap-2.5">
+              {project.technologies.map((tech, i) => (
+                <TechBadge key={i} name={tech} />
+              ))}
+            </div>
+          </div>
+
+          {/* Testimonial / Outcome */}
+          {project.testimonial && (
+            <div className="border-t border-black/[0.08] pt-8">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#6e6e73] block mb-3 font-semibold">
+                05 · Client Partner Review
+              </span>
+              <blockquote className="text-lg sm:text-xl font-display text-[#1d1d1f] leading-relaxed mb-4">
+                &ldquo;{project.testimonial.quote}&rdquo;
+              </blockquote>
+              <div className="text-[13px] font-mono text-[#6e6e73]">
+                {project.testimonial.author} · {project.testimonial.role}, {project.testimonial.company}
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* ── NEXT CASE STUDY NAVIGATION ─────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-16">
+          <div className="border-t border-black/[0.08] pt-12 flex items-center justify-between">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-[#0070f3] transition-colors mb-6"
+              className="text-[13px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to All Work</span>
+              ← Back to all work
             </Link>
 
-            <div className="flex items-center gap-3 font-mono text-xs text-[#0070f3] mb-3 font-semibold">
-              <span>{project.category}</span>
-              <span>·</span>
-              <span>{project.industry}</span>
-            </div>
-
-            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-900">
-              {project.title}
-            </h1>
-
-            <p className="mt-4 text-base sm:text-xl text-zinc-600 max-w-2xl font-light leading-relaxed">
-              {project.tagline}
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── MAIN MEDIA SHOWCASE ──────────────────────────────────────── */}
-      <section className="py-12 sm:py-16">
-        <div className="page-container">
-          <ScrollReveal delay={0.15} y={28}>
-            <div className="relative aspect-video rounded-2xl overflow-hidden border border-black/[0.08] bg-zinc-950 shadow-xl shadow-black/5">
-              {project.video ? (
-                <video
-                  src={project.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-              )}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── OVERVIEW & CHALLENGE & SOLUTION ─────────────────────────── */}
-      <section className="py-12 sm:py-16 border-t border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-4">
-              <ScrollReveal y={20}>
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                  Overview
-                </span>
-                <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900">
-                  The Project Scope
-                </h2>
-              </ScrollReveal>
-            </div>
-            <div className="lg:col-span-8 space-y-8">
-              <ScrollReveal delay={0.1} y={20}>
-                <p className="text-base sm:text-lg text-zinc-700 leading-relaxed font-light">
-                  {project.overview}
-                </p>
-              </ScrollReveal>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-                <ScrollReveal delay={0.15} y={24}>
-                  <div className="p-6 rounded-xl border border-black/[0.08] bg-white h-full shadow-xs">
-                    <h3 className="font-display text-base font-bold text-zinc-900 mb-2">
-                      The Challenge
-                    </h3>
-                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
-                      {project.challenge}
-                    </p>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={0.25} y={24}>
-                  <div className="p-6 rounded-xl border border-black/[0.08] bg-white h-full shadow-xs">
-                    <h3 className="font-display text-base font-bold text-zinc-900 mb-2">
-                      The Solution
-                    </h3>
-                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
-                      {project.solution}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── KEY FEATURES ────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
-        <div className="page-container">
-          <ScrollReveal y={24}>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                Capabilities
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
-                Key Features & Architecture
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {project.features.map((feat, i) => (
-              <ScrollReveal key={i} delay={i * 0.08} y={24}>
-                <div className="p-6 rounded-xl border border-black/[0.08] bg-white shadow-xs flex flex-col justify-between min-h-[160px] h-full">
-                  <span className="font-mono text-xs font-bold text-[#0070f3]">
-                    0{i + 1}
-                  </span>
-                  <p className="font-display text-base font-semibold text-zinc-900 mt-4">
-                    {feat}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── RESULTS & TECH STACK ────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <ScrollReveal y={20}>
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                  Impact
-                </span>
-                <h2 className="font-display text-3xl font-bold text-zinc-900 mb-8">
-                  Measurable Results
-                </h2>
-              </ScrollReveal>
-
-              <div className="grid grid-cols-2 gap-6">
-                {project.results.map((res, i) => (
-                  <ScrollReveal key={i} delay={i * 0.1} y={20}>
-                    <div className="p-6 rounded-xl border border-black/[0.08] bg-white shadow-xs">
-                      <div className="font-display text-3xl sm:text-4xl font-bold text-[#0070f3]">
-                        {res.metric}
-                      </div>
-                      <div className="text-xs text-zinc-500 uppercase tracking-wider mt-1 font-medium">
-                        {res.label}
-                      </div>
-                    </div>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <ScrollReveal y={20}>
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
-                  Technologies
-                </span>
-                <h2 className="font-display text-3xl font-bold text-zinc-900 mb-8">
-                  Engineered With
-                </h2>
-              </ScrollReveal>
-
-              <div className="flex flex-wrap gap-2.5">
-                {project.technologies.map((t, i) => (
-                  <ScrollReveal key={t} delay={i * 0.04} y={12}>
-                    <TechBadge name={t} />
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── NEXT PROJECT NAVIGATOR ──────────────────────────────────── */}
-      <section className="py-16 border-t border-black/[0.08]">
-        <div className="page-container flex flex-col sm:flex-row items-center justify-between gap-6">
-          <ScrollReveal y={16}>
-            <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-1 font-medium">
-                Next Case Study
-              </span>
+            {nextProject && (
               <Link
                 href={`/projects/${nextProject.slug}`}
-                className="font-display text-2xl sm:text-3xl font-bold text-zinc-900 hover:text-[#0070f3] transition-colors inline-flex items-center gap-3"
+                className="inline-flex items-center gap-2 text-[13px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
               >
-                <span>{nextProject.title}</span>
-                <ArrowRight className="w-5 h-5" />
+                <span>Next Project: {nextProject.title}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.1} y={16}>
-            <Link
-              href="/contact"
-              className="btn-pill btn-accent-c text-xs font-semibold px-6 py-3 shadow-xs"
-            >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
+            )}
+          </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

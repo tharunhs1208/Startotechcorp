@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -194,7 +194,7 @@ export default function ServiceDetailPage({ params }: PageProps) {
                   href={`/projects/${proj.slug}`}
                   className="group rounded-2xl border border-black/[0.08] bg-white overflow-hidden hover:border-black/20 shadow-xs hover:shadow-md transition-all block"
                 >
-                  <div className="relative aspect-video bg-zinc-950 overflow-hidden">
+                  <div className="relative aspect-video bg-[#f5f5f7] overflow-hidden border-b border-black/[0.04]">
                     <img
                       src={proj.image}
                       alt={proj.title}
@@ -232,10 +232,10 @@ export default function ServiceDetailPage({ params }: PageProps) {
             <div className="mt-8">
               <Link
                 href="/contact"
-                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5 shadow-xs"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] hover:bg-black text-white px-8 py-3.5 text-xs sm:text-sm font-medium transition-all shadow-xs active:scale-95"
               >
-                <span>Talk to Us</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Start a project</span>
+                <ArrowUpRight className="w-4 h-4 opacity-80" />
               </Link>
             </div>
           </ScrollReveal>

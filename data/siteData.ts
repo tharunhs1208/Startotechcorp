@@ -203,7 +203,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     ],
     benefits: [
       { metric: "-40%", label: "Development Cost", desc: "Unified codebase across iOS and Android platforms." },
-      { metric: "4.8★", label: "Average App Rating", desc: "Fluid animations, 60 FPS rendering, and crash-free sessions." },
+      { metric: "4.8/5.0", label: "Average App Rating", desc: "Fluid animations, 60 FPS rendering, and crash-free sessions." },
       { metric: "2x", label: "Faster Feature Rollouts", desc: "Over-the-air updates and shared component modules." },
     ],
     faqs: [
@@ -311,6 +311,74 @@ export const SERVICES_DATA: ServiceItem[] = [
     ],
     faqs: [
       { question: "How long does a digital transformation initiative take?", answer: "We deliver measurable pilot prototypes in 4-6 weeks, with full phased rollouts completing in 3 to 6 months without interrupting daily operations." },
+    ],
+  },
+  {
+    slug: "cybersecurity",
+    title: "Cybersecurity & Identity",
+    icon: "shield",
+    tagline: "Zero-trust architecture, biometric protection, and automated threat defense.",
+    shortDescription: "Acoustic biometric authentication, automated penetration testing, SOC-2 compliance, and end-to-end payload encryption.",
+    fullDescription: "Protect your mission-critical applications and customer data from sophisticated cyber attacks, deepfake fraud, and unauthorized data breaches. We implement zero-trust access control, biometric verification, and automated vulnerability monitoring.",
+    video: "/videos/validsoft.mp4",
+    technologies: ["OAuth 2.0", "OIDC", "HashiCorp Vault", "WebAuthn", "FIDO2", "mTLS", "AWS KMS", "Cloudflare WAF"],
+    features: [
+      { title: "Zero-Trust Identity & Access", desc: "Granular role-based permissions with adaptive multi-factor authentication (MFA)." },
+      { title: "Biometric & Deepfake Defense", desc: "Real-time acoustic analysis and synthetic voice clone detection." },
+      { title: "Compliance & Penetration Audits", desc: "Continuous vulnerability scanning for SOC-2 Type II, ISO 27001, and HIPAA compliance." },
+      { title: "End-to-End Cryptography", desc: "AES-256 payload encryption at rest and TLS 1.3 in transit with automated key rotation." },
+    ],
+    challenge: "Modern cyber threats, identity theft, and distributed denial-of-service attacks threaten enterprise stability and regulatory compliance.",
+    solution: "We implement defense-in-depth zero-trust architectures with hardware-grade key management and continuous threat telemetry.",
+    process: [
+      { step: "01", title: "Vulnerability Assessment", desc: "Comprehensive penetration testing and architectural risk analysis." },
+      { step: "02", title: "Zero-Trust Design", desc: "Designing least-privilege network segmentation and cryptographic key topologies." },
+      { step: "03", title: "Security Integration", desc: "Deploying SSO, biometric gating, and encrypted data vaults." },
+      { step: "04", title: "Automated SIEM Telemetry", desc: "Configuring real-time anomaly alerts and automated incident response." },
+      { step: "05", title: "Compliance Certification", desc: "Guidance and evidence collection for SOC-2 and ISO certifications." },
+      { step: "06", title: "Ongoing Red Team Drills", desc: "Simulated adversary attack testing and continuous patch management." },
+    ],
+    benefits: [
+      { metric: "100%", label: "Zero-Trust Coverage", desc: "Complete end-to-end encryption across all services." },
+      { metric: "< 150ms", label: "Biometric Auth Speed", desc: "Frictionless authentication without user latency." },
+      { metric: "Zero", label: "Security Breaches", desc: "Rigorous automated policy enforcement." },
+    ],
+    faqs: [
+      { question: "How do you help our company prepare for SOC-2 compliance?", answer: "We implement automated audit logging, access controls, encrypted backups, and continuous monitoring to ensure your infrastructure passes third-party SOC-2 Type II audits." },
+    ],
+  },
+  {
+    slug: "mobile-apps",
+    title: "Mobile App Development",
+    icon: "smartphone",
+    tagline: "High-performance iOS & Android applications with native smoothness.",
+    shortDescription: "Native and cross-platform mobile apps built with React Native and Flutter with offline sync and 60 FPS performance.",
+    fullDescription: "We build intuitive, fluid mobile applications that users love. Leveraging React Native, Flutter, Swift, and Kotlin, our team crafts pixel-perfect native experiences with biometric authentication, push notifications, and background processing.",
+    video: "/videos/socan.mp4",
+    technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "GraphQL", "Redux Toolkit", "Fastlane"],
+    features: [
+      { title: "Cross-Platform Efficiency", desc: "Single codebase delivering authentic native iOS and Android performance with 40% lower cost." },
+      { title: "Offline-First Synchronization", desc: "Local SQLite/WatermelonDB storage ensuring smooth workflows even without an active cellular connection." },
+      { title: "Biometrics & Hardware Access", desc: "FaceID, TouchID, GPS geofencing, Bluetooth BLE, camera scanning, and NFC integration." },
+      { title: "App Store Publishing", desc: "End-to-end Apple App Store and Google Play Store review approval and compliance management." },
+    ],
+    challenge: "Developing separate native apps for iOS and Android inflates engineering budgets, slows down feature releases, and creates fragmented user experiences.",
+    solution: "We build unified cross-platform mobile apps with native UI components and shared business logic, ensuring rapid time-to-market without compromising performance.",
+    process: [
+      { step: "01", title: "Mobile Strategy", desc: "Platform selection, feature prioritization, and device compatibility matrix." },
+      { step: "02", title: "Mobile UX Design", desc: "Human Interface Guidelines (HIG) and Material Design 3 compliant interactive prototypes." },
+      { step: "03", title: "App Engineering", desc: "Clean modular architecture, native bridge modules, and robust state management." },
+      { step: "04", title: "Device Farm Testing", desc: "Automated testing across 50+ real physical Android and iOS phone/tablet models." },
+      { step: "05", title: "Store Submission", desc: "App Store & Play Store metadata, screenshot generation, review compliance, and live launch." },
+      { step: "06", title: "Telemetry & Updates", desc: "Crashlytics monitoring, OTA bug fixes via CodePush, and app review optimization." },
+    ],
+    benefits: [
+      { metric: "-40%", label: "Development Cost", desc: "Unified codebase across iOS and Android platforms." },
+      { metric: "4.8/5.0", label: "Average App Rating", desc: "Fluid animations, 60 FPS rendering, and crash-free sessions." },
+      { metric: "2x", label: "Faster Feature Rollouts", desc: "Over-the-air updates and shared component modules." },
+    ],
+    faqs: [
+      { question: "Should we build with React Native, Flutter, or pure Native?", answer: "For 90% of business applications, React Native or Flutter offers identical performance to native apps while saving 40-50% in engineering time and cost." },
     ],
   },
 ];
@@ -555,7 +623,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "+140%", label: "User Engagement" },
       { metric: "-62%", label: "Onboarding Drop-off" },
       { metric: "250+", label: "Design Components" },
-      { metric: "4.9★", label: "App Store UX Rating" },
+      { metric: "4.9/5.0", label: "App Store UX Rating" },
     ],
     image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1200&auto=format&fit=crop",
     gallery: [
@@ -729,7 +797,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     results: [
       { metric: "500k+", label: "Active Mobile Users" },
       { metric: "-42%", label: "Hospital Readmissions" },
-      { metric: "4.9★", label: "App Store Rating" },
+      { metric: "4.9/5.0", label: "App Store Rating" },
       { metric: "100%", label: "HIPAA Compliant" },
     ],
     image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1200&auto=format&fit=crop",
@@ -850,6 +918,42 @@ export const PROJECTS_DATA: ProjectItem[] = [
       company: "Quantum Analytics Corp",
     },
   },
+  {
+    slug: "meetingx-collaboration",
+    title: "MeetingX Real-Time Collaboration",
+    category: "Web",
+    industry: "Enterprise Collaboration & WebRTC",
+    tagline: "Real-time ultra-low latency conferencing platform with interactive breakout canvases.",
+    overview: "An enterprise real-time communications suite engineered to support high-density video conferences, interactive whiteboard breakout rooms, and live AI transcriptions for 120,000+ active enterprise teams.",
+    challenge: "Traditional conferencing software suffered from high latency during large-scale interactive town halls and high server bandwidth costs.",
+    solution: "We engineered a selective forwarding unit (SFU) mesh with adaptive simulcast video streams and WebRTC data channels for sub-100ms screen sharing and collaborative canvas sync.",
+    video: "/videos/validsoft.mp4",
+    features: [
+      "Sub-100ms ultra-low latency WebRTC audio/video SFU streaming",
+      "Collaborative infinite-canvas breakout spaces with live vector syncing",
+      "Real-time multilingual live captions and AI meeting summaries",
+      "End-to-end SRTP/DTLS encryption with enterprise single sign-on (SSO)",
+    ],
+    technologies: ["Next.js", "TypeScript", "WebRTC", "Go", "WebSockets", "Node.js", "Redis", "Docker", "AWS"],
+    results: [
+      { metric: "120k+", label: "Active Users" },
+      { metric: "< 100ms", label: "Media Latency" },
+      { metric: "99.99%", label: "Platform Uptime" },
+      { metric: "-45%", label: "Server Bandwidth" },
+    ],
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+    ],
+    testimonial: {
+      quote: "MeetingX has become the backbone of our remote collaboration. The real-time interactive canvases and crystal clear audio make distributed meetings seamless.",
+      author: "David Vance",
+      role: "Chief Technology Officer",
+      company: "Apex Global Media",
+    },
+  },
 ];
 
 /* =========================================================================
@@ -942,7 +1046,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     features: ["Adaptive AI tutoring", "Interactive live video classrooms", "Automated grading engine", "Parent/Student mobile app"],
     technologies: ["React", "Node.js", "WebRTC", "Python", "PostgreSQL", "AWS"],
     caseStudySlug: "zobay-voice-ai",
-    benefits: ["+40% Student Retention", "-60% Grading Overhead", "4.9★ Student Satisfaction"],
+    benefits: ["+40% Student Retention", "-60% Grading Overhead", "4.9/5.0 Student Satisfaction"],
   },
   {
     slug: "e-commerce",

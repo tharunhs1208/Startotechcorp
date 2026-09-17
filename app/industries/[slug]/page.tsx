@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -114,7 +114,7 @@ export default function IndustryDetailPage({ params }: PageProps) {
             <ScrollReveal delay={0.1}>
               <div className="rounded-2xl border border-black/[0.08] bg-white overflow-hidden shadow-xs">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                  <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[400px] bg-zinc-950">
+                  <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[400px] bg-[#f5f5f7] border-b lg:border-b-0 lg:border-r border-black/[0.04]">
                     <video
                       src={selectedProject.video || "/videos/startone.mp4"}
                       autoPlay
@@ -139,10 +139,10 @@ export default function IndustryDetailPage({ params }: PageProps) {
                     <div className="mt-8 pt-6 border-t border-black/[0.08]">
                       <Link
                         href={`/projects/${selectedProject.slug}`}
-                        className="btn-pill btn-ghost w-full justify-between text-xs font-semibold !py-3 border-black/15 hover:border-black text-zinc-900"
+                        className="w-full py-2.5 px-4 rounded-full bg-[#0a0a0a] hover:bg-black text-white transition-all flex items-center justify-between text-xs font-medium shadow-xs active:scale-95"
                       >
-                        <span>Read Case Study</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <span>View Case Study</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
                       </Link>
                     </div>
                   </div>
@@ -189,10 +189,10 @@ export default function IndustryDetailPage({ params }: PageProps) {
             <div className="mt-8">
               <Link
                 href="/contact"
-                className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-8 py-3.5"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] hover:bg-black text-white px-8 py-3.5 text-xs sm:text-sm font-medium transition-all shadow-xs active:scale-95"
               >
-                <span>Start a Project</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Start a project</span>
+                <ArrowUpRight className="w-4 h-4 opacity-80" />
               </Link>
             </div>
           </ScrollReveal>
