@@ -4,7 +4,6 @@ import React from "react";
 import {
   Code2,
   Cpu,
-  Database,
   Shield,
   Smartphone,
   Boxes,
@@ -12,14 +11,8 @@ import {
   Radio,
   Sparkles,
   Palette,
-  Server,
   Cloud,
-  Layers,
-  Lock,
-  Zap,
-  Globe,
-  Activity,
-  Workflow
+  Zap
 } from "lucide-react";
 
 export function TechIcon({ name, className = "w-4 h-4" }: { name: string; className?: string }) {

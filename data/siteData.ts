@@ -1371,7 +1371,7 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["Artificial Intelligence", "Autonomous Systems", "Enterprise Tech", "Future of Work"],
     content: [
       "The narrative around artificial intelligence has shifted dramatically over the past eighteen months. Where businesses previously experimented with generic chatbots, modern enterprises are now deploying mission-critical autonomous agents capable of independent multi-step execution.",
-      "At StartoTech, we observe three definitive pillars defining the new enterprise AI architecture: cognitive latency elimination, deterministic safety guardrails, and air-gapped data sovereignty.",
+      "At StratoTechCorp, we observe three definitive pillars defining the new enterprise AI architecture: cognitive latency elimination, deterministic safety guardrails, and air-gapped data sovereignty.",
       "Sub-300ms Conversational Latency: Human conversations occur with an average turn-taking delay of 250 to 300 milliseconds. When AI systems exceed this threshold, the interaction feels robotic and frustrating. By bypassing text intermediaries and streaming audio directly through spectrogram models, systems like Zobay achieve natural conversational cadence.",
       "Private Enterprise RAG: Generic LLMs lack private business context and are prone to hallucinations. Enterprise Retrieval-Augmented Generation (RAG) connects proprietary knowledge bases with semantic vector embeddings, ensuring every response is grounded in verifiable company data with zero data leakage.",
       "Autonomous Compliance & Auditing: In legal and regulatory domains, AI models can now scan 100-page contracts in under 10 seconds, scoring liability vectors against 50+ clause categories and generating precision redlines.",
@@ -1447,7 +1447,7 @@ export const BLOG_POSTS: BlogPost[] = [
 export const TESTIMONIALS_DATA: TestimonialItem[] = [
   {
     id: "test-1",
-    quote: "StartoTech transformed our entire digital infrastructure. Their engineering rigor, sub-300ms voice AI, and flawless Next.js delivery helped us scale from 10,000 to over 500,000 active users with zero downtime.",
+    quote: "StratoTechCorp transformed our entire digital infrastructure. Their engineering rigor, sub-300ms voice AI, and flawless Next.js delivery helped us scale from 10,000 to over 500,000 active users with zero downtime.",
     author: "Elena Rostova",
     role: "VP of Product Engineering",
     company: "Apex Global Solutions",
@@ -1519,7 +1519,7 @@ export const FAQ_DATA: FAQItem[] = [
   {
     category: "Engagement",
     question: "How can we start a project or request an architecture review?",
-    answer: "You can click the 'Get Started' or 'Talk to an Expert' button anywhere on our website, or email enterprise@startotech.com. Our principal systems architect will schedule a discovery session within 2 hours.",
+    answer: "You can click the 'Get Started' or 'Talk to an Expert' button anywhere on our website, or email enterprise@stratotechcorp.com. Our principal systems architect will schedule a discovery session within 2 hours.",
   },
 ];
 

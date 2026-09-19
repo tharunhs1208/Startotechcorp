@@ -2,6 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -147,131 +148,174 @@ function WorkContent() {
           </p>
         </div>
 
-        {/* Categories Navigation (Simple text filters) */}
-        <div className="mt-10 pt-6 border-t border-black/[0.06] flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-md transition-colors shrink-0 cursor-pointer ${
-                activeCategory === cat
-                  ? "bg-[#1d1d1f] text-white font-medium"
-                  : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Categories Navigation with Smooth Animated Active Pill */}
+        <div className="mt-10 pt-6 border-t border-black/[0.06] flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 no-scrollbar">
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`relative text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-md shrink-0 cursor-pointer transition-colors duration-200 ${
+                  isActive
+                    ? "text-[#1d1d1f] font-semibold"
+                    : "text-[#86868b] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="workActiveCategoryPill"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    className="absolute inset-0 bg-black/[0.08] border border-black/[0.06] rounded-md -z-10"
+                  />
+                )}
+                <span className="relative z-10">{cat}</span>
+              </button>
+            );
+          })}
         </div>
       </section>
 
-      {/* ── WORK CASE-STUDY ENTRIES ─────────────────────────────────── */}
+      {/* ── WORK CASE-STUDY ENTRIES WITH SMOOTH IN/OUT TRANSITIONS ───── */}
       <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-16">
-        <div className="space-y-16 sm:space-y-24">
-          {filtered.map((work) => {
-            const isVisualLeft = work.layout === "visual-left";
+        <motion.div layout className="space-y-12 sm:space-y-20">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filtered.map((work, idx) => {
+              const isVisualLeft = work.layout === "visual-left";
 
-            return (
-              <article
-                key={work.id}
-                className="group border-b border-black/[0.08] pb-16 sm:pb-24"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-                  {/* Media Visual Container */}
-                  <div
-                    className={`lg:col-span-7 overflow-hidden rounded-xl bg-[#e5e5ea] border border-black/[0.06] ${
-                      isVisualLeft ? "lg:order-1 order-1" : "lg:order-2 order-1"
-                    }`}
-                  >
-                    <Link href={work.linkHref} className="block overflow-hidden">
-                      {work.mediaType === "video" ? (
-                        <video
-                          src={work.mediaSrc}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                        />
-                      ) : (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={work.mediaSrc}
-                          alt={work.productName}
-                          className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                        />
-                      )}
-                    </Link>
-                  </div>
-
-                  {/* Scope & Details Container */}
-                  <div
-                    className={`lg:col-span-5 flex flex-col justify-between ${
-                      isVisualLeft ? "lg:order-2 order-2" : "lg:order-1 order-2"
-                    }`}
-                  >
-                    <div>
-                      {/* Number & Discipline Metadata */}
-                      <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-wider">
-                        <span className="font-semibold text-[#1d1d1f]">{work.number}</span>
-                        <span>—</span>
-                        <span className="text-[#1d1d1f]">{work.discipline}</span>
-                        <span>·</span>
-                        <span>{work.year}</span>
-                      </div>
-
-                      {/* Product Title */}
-                      <h2 className="text-3xl font-display font-medium text-[#1d1d1f] tracking-tight mb-3">
-                        <Link href={work.linkHref} className="hover:underline underline-offset-4">
-                          {work.productName}
-                        </Link>
-                      </h2>
-
-                      {/* Scope Summary */}
-                      <p className="text-[14px] sm:text-[15px] text-[#6e6e73] leading-relaxed mb-6 font-normal">
-                        {work.scopeSummary}
-                      </p>
-
-                      {/* Deliverables */}
-                      <div className="space-y-1.5 mb-8 text-[12px] font-mono text-[#1d1d1f]">
-                        {work.deliverables.map((deliv, idx) => (
-                          <div key={idx} className="flex items-center gap-2">
-                            <span className="text-[#86868b]">↳</span>
-                            <span>{deliv}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-2">
-                      <Link
-                        href={work.linkHref}
-                        className="inline-flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
-                      >
-                        <span>View work</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              return (
+                <motion.article
+                  key={work.id}
+                  layout
+                  initial={{ opacity: 0, y: 32, scale: 0.98 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: {
+                      duration: 0.55,
+                      delay: Math.min(idx * 0.04, 0.2),
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -20,
+                    scale: 0.98,
+                    transition: {
+                      duration: 0.32,
+                      ease: [0.4, 0, 0.2, 1],
+                    },
+                  }}
+                  transition={{
+                    layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                  }}
+                  className="group border-b border-black/[0.08] pb-12 sm:pb-20 last:border-b-0 last:pb-0"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                    {/* Media Visual Container */}
+                    <div
+                      className={`lg:col-span-7 overflow-hidden rounded-xl bg-[#e5e5ea] border border-black/[0.06] ${
+                        isVisualLeft ? "lg:order-1 order-1" : "lg:order-2 order-1"
+                      }`}
+                    >
+                      <Link href={work.linkHref} className="block overflow-hidden">
+                        {work.mediaType === "video" ? (
+                          <video
+                            src={work.mediaSrc}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                          />
+                        ) : (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={work.mediaSrc}
+                            alt={work.productName}
+                            className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                          />
+                        )}
                       </Link>
                     </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
 
-          {filtered.length === 0 && (
-            <div className="py-24 text-center">
-              <p className="text-[14px] font-mono text-[#6e6e73] uppercase mb-4">
-                No work items found for the {activeCategory} category.
-              </p>
-              <button
-                onClick={() => setActiveCategory("ALL")}
-                className="text-[13px] font-medium text-[#1d1d1f] underline underline-offset-4 cursor-pointer"
+                    {/* Scope & Details Container */}
+                    <div
+                      className={`lg:col-span-5 flex flex-col justify-between ${
+                        isVisualLeft ? "lg:order-2 order-2" : "lg:order-1 order-2"
+                      }`}
+                    >
+                      <div>
+                        {/* Number & Discipline Metadata */}
+                        <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-wider">
+                          <span className="font-semibold text-[#1d1d1f]">{work.number}</span>
+                          <span>—</span>
+                          <span className="text-[#1d1d1f]">{work.discipline}</span>
+                          <span>·</span>
+                          <span>{work.year}</span>
+                        </div>
+
+                        {/* Product Title */}
+                        <h2 className="text-3xl font-display font-medium text-[#1d1d1f] tracking-tight mb-3">
+                          <Link href={work.linkHref} className="hover:underline underline-offset-4">
+                            {work.productName}
+                          </Link>
+                        </h2>
+
+                        {/* Scope Summary */}
+                        <p className="text-[14px] sm:text-[15px] text-[#6e6e73] leading-relaxed mb-6 font-normal">
+                          {work.scopeSummary}
+                        </p>
+
+                        {/* Deliverables */}
+                        <div className="space-y-1.5 mb-8 text-[12px] font-mono text-[#1d1d1f]">
+                          {work.deliverables.map((deliv, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <span className="text-[#86868b]">↳</span>
+                              <span>{deliv}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-2">
+                        <Link
+                          href={work.linkHref}
+                          className="inline-flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
+                        >
+                          <span>View work</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
+
+            {filtered.length === 0 && (
+              <motion.div
+                key="empty-state"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="py-24 text-center"
               >
-                View all work
-              </button>
-            </div>
-          )}
-        </div>
+                <p className="text-[14px] font-mono text-[#6e6e73] uppercase mb-4">
+                  No work items found for the {activeCategory} category.
+                </p>
+                <button
+                  onClick={() => setActiveCategory("ALL")}
+                  className="text-[13px] font-medium text-[#1d1d1f] underline underline-offset-4 cursor-pointer"
+                >
+                  View all work
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </section>
     </>
   );
@@ -282,7 +326,7 @@ export default function WorkPage() {
     <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      <main className="pt-28 sm:pt-36 pb-24 sm:pb-32">
+      <main className="pt-28 sm:pt-36 pb-10 sm:pb-16">
         <Suspense fallback={<div className="py-24 text-center text-[#6e6e73]">Loading work...</div>}>
           <WorkContent />
         </Suspense>

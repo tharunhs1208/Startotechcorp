@@ -38,7 +38,7 @@ export default function IndustriesPage() {
       </section>
 
       {/* ── INDUSTRIES GRID ─────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24">
+      <section className="py-10 sm:py-16">
         <div className="page-container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {INDUSTRIES_DATA.map((ind, idx) => (
@@ -109,7 +109,7 @@ export default function IndustriesPage() {
       </section>
 
       {/* ── CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+      <section className="py-10 sm:py-16 border-t border-black/[0.08] bg-[#f8fafc]">
         <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
           <ScrollReveal y={20}>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">

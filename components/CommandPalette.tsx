@@ -6,10 +6,8 @@ import {
   Search,
   ArrowRight,
   Sparkles,
-  Command,
   Layout,
   Briefcase,
-  Archive,
   Info,
   Phone,
   Layers,
@@ -101,14 +99,6 @@ export default function CommandPalette() {
         icon: Briefcase,
       },
       {
-        id: "page-archive",
-        title: "Archive Repository",
-        category: "Pages",
-        description: "Chronological records of past systems and ADRs",
-        href: "/archive",
-        icon: Archive,
-      },
-      {
         id: "page-about",
         title: "About Studio",
         category: "Pages",
@@ -126,9 +116,9 @@ export default function CommandPalette() {
       },
       {
         id: "page-contact",
-        title: "Contact / Scope Configurator",
+        title: "Contact / Start a Project",
         category: "Pages",
-        description: "Start a project or configure a sprint engagement",
+        description: "Submit a project brief or start a conversation",
         href: "/contact",
         icon: Phone,
       },
@@ -137,8 +127,8 @@ export default function CommandPalette() {
         id: "action-start-project",
         title: "Start a Project Brief",
         category: "Actions",
-        description: "Configure project scope and sprint timeline",
-        href: "/contact#configurator",
+        description: "Submit your project requirements and target timeline",
+        href: "/contact",
         icon: ArrowRight,
       },
       {
@@ -191,11 +181,12 @@ export default function CommandPalette() {
   // Focus input when opened
   useEffect(() => {
     if (isOpen) {
-      setSelectedIndex(0);
-      setSearch("");
-      setTimeout(() => {
+      const timer = setTimeout(() => {
+        setSelectedIndex(0);
+        setSearch("");
         inputRef.current?.focus();
-      }, 50);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 

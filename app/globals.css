@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -11,11 +10,10 @@
   --accent-light: #0077ed;
   --accent-dim: #0062c4;
   --line: rgba(0, 0, 0, 0.08);
-  --font-apple-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-apple-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-apple-mono: "SF Mono", Monaco, Menlo, Consolas, "Courier New", monospace;
-  --font-funnel-display: 'Funnel Display', var(--font-apple-display), sans-serif;
-  --display: var(--font-funnel-display);
+  --font-heading: var(--font-sans), 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-sans), 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), 'Geist Mono', "SF Mono", Monaco, Menlo, Consolas, monospace;
+  --display: var(--font-sans);
 }
 
 * ,
@@ -37,7 +35,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--fg);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
   max-width: 100vw;
   width: 100%;
   overflow-x: clip;
@@ -53,8 +51,12 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-funnel-display), var(--font-geist-sans), sans-serif;
-  letter-spacing: -0.035em;
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
 }
 
 .card-soft-shadow {

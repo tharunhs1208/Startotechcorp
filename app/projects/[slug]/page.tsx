@@ -3,11 +3,12 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { PROJECTS_DATA } from "@/data/siteData";
 import TechBadge from "@/components/TechBadge";
+import { SoftwareAppJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -26,9 +27,23 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
+      <SoftwareAppJsonLd
+        name={project.title}
+        applicationCategory={`${project.category} Application, ${project.industry}`}
+        description={project.overview || project.tagline}
+        url={`https://stratotechcorp.in/projects/${project.slug}`}
+        features={project.features}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", item: "https://stratotechcorp.in" },
+          { name: "Projects", item: "https://stratotechcorp.in/projects" },
+          { name: project.title, item: `https://stratotechcorp.in/projects/${project.slug}` },
+        ]}
+      />
       <Navbar />
 
-      <main className="pt-28 sm:pt-36 pb-24 sm:pb-32">
+      <main className="pt-28 sm:pt-36 pb-10 sm:pb-16">
         {/* ── BREADCRUMB & HEADER ────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-10 border-b border-black/[0.08]">
           <Link

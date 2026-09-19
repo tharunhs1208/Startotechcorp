@@ -39,7 +39,7 @@ export default function FAQPage() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 w-full max-w-full overflow-x-hidden selection:bg-[#0070f3] selection:text-white">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 w-full max-w-full overflow-x-hidden selection:bg-[#0070f3] selection:text-white pb-10 sm:pb-16">
       <Navbar />
 
       {/* ── HEADER ──────────────────────────────────────────────────── */}
@@ -119,7 +119,7 @@ export default function FAQPage() {
       </section>
 
       {/* ── CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+      <section className="py-10 sm:py-16 border-t border-black/[0.08] bg-[#f8fafc]">
         <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
           <ScrollReveal y={24}>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">

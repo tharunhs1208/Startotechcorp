@@ -5,9 +5,10 @@ import Link from "next/link";
 import {
   MessageSquare,
   X,
-  Send,
   ArrowRight,
-  RotateCcw
+  RotateCcw,
+  Maximize2,
+  Minimize2
 } from "lucide-react";
 
 interface ActionButton {
@@ -23,11 +24,12 @@ interface Message {
 }
 
 const SUGGESTED_ACTIONS = [
-  { label: "Our Products", query: "What products do you build?" },
-  { label: "Our Work", query: "Show me your work" },
-  { label: "Services", query: "What services do you provide?" },
-  { label: "About StratoTech", query: "What does StratoTech do?" },
-  { label: "Talk to the Team", query: "I want to work with you" },
+  { label: "SalesX Platform", query: "Tell me about SalesX" },
+  { label: "Zobay Voice AI", query: "Tell me about Zobay Voice AI" },
+  { label: "MeetingX Platform", query: "Tell me about MeetingX" },
+  { label: "All Products", query: "What products do you build?" },
+  { label: "Engineering Services", query: "What services do you provide?" },
+  { label: "Start a Project", query: "I want to work with you" },
 ];
 
 interface KnowledgeEntry {
@@ -50,7 +52,7 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
       q.includes("studio") ||
       q.includes("overview"),
     reply:
-      "StratoTech is a digital product engineering studio based in Bengaluru. We partner with founders, growing teams, and enterprises to design, architect, and ship high-performance software, intelligent voice systems, and scalable web platforms.",
+      "StratoTechCorp is a strategic technology consulting & digital engineering studio based in Bengaluru.\n\nWe partner with founders, growing teams, and enterprises to design, architect, and ship high-performance software, intelligent voice AI systems, and scalable web platforms.",
     actions: [
       { label: "About StratoTech →", href: "/about" },
       { label: "Our Products →", href: "/products" },
@@ -58,7 +60,7 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
     ],
   },
 
-  // 2. Products List
+  // 2. All Products List
   {
     matcher: (q) =>
       q.includes("what products") ||
@@ -68,13 +70,14 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
       q.includes("product catalog") ||
       q.includes("product list") ||
       q.includes("platforms") ||
-      (q.includes("products") && !q.includes("salesx") && !q.includes("meetingx")),
+      (q.includes("products") && !q.includes("salesx") && !q.includes("meetingx") && !q.includes("zobay") && !q.includes("startone") && !q.includes("baseone") && !q.includes("legalx")),
     reply:
-      "We build digital products designed around real business needs:\n\n• SalesX — Sales teams, lead management, and deal workflows\n• MeetingX — Low-latency video conferencing & collaboration\n• Zobay — Autonomous voice AI phone agent\n• StartOne — Unified enterprise operations cloud OS\n• BaseOne — High-frequency treasury & multi-currency settlement\n• LegalX — Automated contract intelligence & compliance review",
+      "Products built around real business needs:\n\n• SalesX (Sales · Platform) — High-velocity sales & automated lead triage (⚡ 3.4x Faster Follow-up)\n• Zobay Voice AI (Sales · Voice) — Full-duplex voice AI phone agent (🎙️ <280ms Latency)\n• MeetingX (Communication · Platform) — Low-latency video collaboration & transcription (🌐 99.99% Uptime)\n• StartOne Enterprise OS (Operations) — Unified enterprise operating system (🏢 60% Fewer Tool Silos)\n• BaseOne Treasury (Accounts) — Multi-currency high-frequency clearing (⚡ Instant Settlement)\n• LegalX Sentinel (Operations) — Automated contract intelligence & policy verification (🛡️ 100% Automated)",
     actions: [
-      { label: "View all products →", href: "/products" },
-      { label: "View SalesX →", href: "/products/salesx" },
-      { label: "View MeetingX →", href: "/products/meetingx" },
+      { label: "View all products catalog →", href: "/products" },
+      { label: "Explore SalesX →", href: "/products/salesx" },
+      { label: "Explore MeetingX →", href: "/products/meetingx" },
+      { label: "Explore Zobay Voice AI →", href: "/projects/zobay-voice-ai" },
     ],
   },
 
@@ -82,12 +85,12 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
   {
     matcher: (q) =>
       q.includes("salesx") ||
-      (q.includes("sales") && (q.includes("tool") || q.includes("crm") || q.includes("platform") || q.includes("lead"))),
+      (q.includes("sales") && (q.includes("tool") || q.includes("crm") || q.includes("platform") || q.includes("lead") || q.includes("pipeline"))),
     reply:
-      "SalesX is a digital platform built to support sales teams, lead management, customer follow-ups, and sales workflows. It includes automated inbound lead triage, scheduled follow-up cadences, two-way CRM syncing, and pipeline velocity forecasting.",
+      "SalesX — Sales · Platform (2026)\n⚡ Metric: 3.4x Faster Follow-up\n\nA high-velocity digital sales platform engineered to automate pipeline triaging, lead qualification, and multi-channel customer follow-ups.\n\nKey Capabilities:\n• Lead Intelligence — Automated scoring and enrichment in <500ms\n• Pipeline Automation — Trigger multi-touch cadences dynamically\n• Bi-directional Sync — Real-time sync with Salesforce & HubSpot\n• Deal Velocity Insights — Live bottleneck detection across deal stages",
     actions: [
-      { label: "View product →", href: "/products/salesx" },
-      { label: "Start a conversation →", href: "/contact?subject=Inquiry+regarding+SalesX" },
+      { label: "Explore SalesX Details →", href: "/products/salesx" },
+      { label: "Inquire about SalesX →", href: "/contact?subject=Inquiry+regarding+SalesX" },
     ],
   },
 
@@ -100,14 +103,14 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
       q.includes("webrtc") ||
       q.includes("conferencing"),
     reply:
-      "MeetingX is a high-fidelity meeting and collaboration platform engineered for low latency and clear communication. It is built on a geo-distributed WebRTC SFU mesh with sub-50ms latency, adaptive 48kHz Opus audio, 60 FPS screen sharing, and automated meeting transcription.",
+      "MeetingX — Communication · Platform (2026)\n🌐 Metric: 99.99% Mesh Uptime\n\nA next-generation collaboration and real-time meeting platform engineered for crystal-clear video streaming and automated AI transcription summaries.\n\nKey Capabilities:\n• Adaptive Bitrate — 4K video streaming with selective forwarding unit\n• Live Transcriptions — Speaker-differentiated speech-to-text in real time\n• Interactive Canvas — Multiplayer whiteboarding with zero input lag\n• Action Item Sync — Auto-extract tasks and push to Jira & Notion",
     actions: [
-      { label: "View product →", href: "/products/meetingx" },
-      { label: "Start a conversation →", href: "/contact?subject=MeetingX+Inquiry" },
+      { label: "Explore MeetingX Details →", href: "/products/meetingx" },
+      { label: "Inquire about MeetingX →", href: "/contact?subject=MeetingX+Inquiry" },
     ],
   },
 
-  // 5. Zobay / Zobay Voice
+  // 5. Zobay / Zobay Voice AI
   {
     matcher: (q) =>
       q.includes("zobay") ||
@@ -117,43 +120,43 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
       q.includes("call agent") ||
       q.includes("telephony"),
     reply:
-      "Zobay is our autonomous voice AI phone agent engineered for enterprise communication. It features sub-280ms speech-to-speech neural streaming, emotion-aware acoustic pacing, multilingual fluency across 40+ languages, and automated CRM calendar booking.",
+      "Zobay Voice AI — Sales · Voice (2026)\n🎙️ Metric: <280ms Turn-Taking Latency\n\nA full-duplex voice AI platform engineered for natural, low-latency sales conversations, instantaneous qualification, and meeting bookings.\n\nKey Capabilities:\n• Sub-280ms Loop — Full-duplex speech recognition & synthesis\n• Interruption Aware — Natural back-and-forth conversational fluidity\n• Contextual Memory — Maintains multi-turn context throughout calls\n• Instant Summaries — Structured CRM record extraction on hang-up",
     actions: [
-      { label: "View product →", href: "/projects/zobay-voice-ai" },
-      { label: "Start a conversation →", href: "/contact?subject=Zobay+Voice+AI" },
+      { label: "Explore Zobay Voice AI →", href: "/projects/zobay-voice-ai" },
+      { label: "Inquire about Zobay →", href: "/contact?subject=Zobay+Voice+AI" },
     ],
   },
 
-  // 6. StartOne
+  // 6. StartOne Enterprise OS
   {
-    matcher: (q) => q.includes("startone") || q.includes("operations os") || q.includes("internal tool"),
+    matcher: (q) => q.includes("startone") || q.includes("operations os") || q.includes("internal tool") || q.includes("enterprise os"),
     reply:
-      "StartOne is an enterprise cloud operations platform that consolidates financial approvals, team resource tracking, and day-to-day business coordination into a single executive dashboard.",
+      "StartOne Enterprise OS — Operations (2026)\n🏢 Metric: 60% Fewer Tool Silos\n\nAn all-in-one operational operating system connecting financial approvals, team resource tracking, cross-departmental roadmaps, and day-to-day business coordination.\n\nKey Capabilities:\n• Multi-Tier Approvals — Automated routing for capital expenses & contracts\n• Resource Orchestration — Live workload balancing across engineering & design\n• Audit Trail Sentinel — SOC2-compliant immutable logging for every record\n• Unified Data Mesh — Aggregates disparate team tools into one single pane",
     actions: [
-      { label: "View product →", href: "/projects/startone-enterprise-os" },
-      { label: "Start a conversation →", href: "/contact" },
+      { label: "Explore StartOne System →", href: "/projects/startone-enterprise-os" },
+      { label: "Inquire about StartOne →", href: "/contact" },
     ],
   },
 
-  // 7. BaseOne
+  // 7. BaseOne Treasury
   {
-    matcher: (q) => q.includes("baseone") || q.includes("treasury") || q.includes("settlement") || q.includes("ledger"),
+    matcher: (q) => q.includes("baseone") || q.includes("treasury") || q.includes("settlement") || q.includes("ledger") || q.includes("currency"),
     reply:
-      "BaseOne is a high-frequency treasury settlement engine built to manage multi-currency balances, transactions, and account reconciliation with sub-50ms clearing and ISO 20022 compliance.",
+      "BaseOne Treasury — Accounts & Settlement (2025)\n⚡ Metric: Instant Multi-Currency Settlement\n\nA financial settlement and treasury platform built to manage multi-currency balances, cross-border transactions, and instant account reconciliation.\n\nKey Capabilities:\n• Multi-Currency Ledger — Double-entry bookkeeping for 40+ fiat & stable currencies\n• Automated Reconciliation — 99.8% auto-match rate on incoming settlements\n• Liquidity Sentinel — Predictive cash flow shortfall alerts & runway analysis\n• Multi-Sig Authorizations — Hardware-key verified release protocols for wires",
     actions: [
-      { label: "View product →", href: "/projects/baseone-treasury-settlement" },
-      { label: "Start a conversation →", href: "/contact" },
+      { label: "Explore BaseOne Platform →", href: "/projects/baseone-treasury-settlement" },
+      { label: "Inquire about BaseOne →", href: "/contact" },
     ],
   },
 
-  // 8. LegalX
+  // 8. LegalX Contract Sentinel
   {
-    matcher: (q) => q.includes("legalx") || q.includes("legal") || q.includes("contract") || q.includes("msa"),
+    matcher: (q) => q.includes("legalx") || q.includes("legal") || q.includes("contract") || q.includes("compliance") || q.includes("msa"),
     reply:
-      "LegalX is an autonomous contract review platform that audits Master Services Agreements and vendor contracts in under 10 seconds, scoring risk across 50+ clause categories and suggesting playbook-aligned redlines.",
+      "LegalX Contract Sentinel — Operations & Legal (2025)\n🛡️ Metric: 100% Automated Policy Verification\n\nAn intelligent contract review and document verification platform designed to streamline compliance checks, clause comparison, and agreement execution.\n\nKey Capabilities:\n• Clause Risk Analyzer — Flags high-liability indemnities & jurisdiction risks\n• Automated Redlining — Generates standard fallback clauses in seconds\n• Regulatory Checkpoints — Validates GDPR, HIPAA, and custom vendor guidelines\n• Contract Lifecycle Hub — Renewal alerts, obligation tracking & secure vault",
     actions: [
-      { label: "View product →", href: "/projects/legalx-contract-sentinel" },
-      { label: "Start a conversation →", href: "/contact" },
+      { label: "Explore LegalX Sentinel →", href: "/projects/legalx-contract-sentinel" },
+      { label: "Inquire about LegalX →", href: "/contact" },
     ],
   },
 
@@ -187,7 +190,7 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
       "Our work spans end-to-end design, development, and distributed systems for modern products:\n\n• Zobay Autonomous Voice AI (Sub-280ms Speech AI)\n• StartOne Enterprise Cloud OS (Operations Platform)\n• BaseOne High-Frequency Treasury (Real-Time Settlement)\n• LegalX Contract Sentinel (Automated Compliance)\n• MeetingX WebRTC Pipeline (Low-Latency Video)",
     actions: [
       { label: "View all work →", href: "/projects" },
-      { label: "Browse product archive →", href: "/archive" },
+      { label: "Browse products →", href: "/products" },
     ],
   },
 
@@ -210,7 +213,7 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
       q.includes("bengaluru") ||
       q.includes("office"),
     reply:
-      "We partner with teams via dedicated 2-week continuous delivery sprints. All engagements include an upfront mutual NDA and 100% intellectual property ownership transfer.\n\n• Email: hr@stratotechcorp.com\n• Studio HQ: Queens Road, Shivajinagar, Bengaluru\n• Response SLA: Under 24 business hours",
+      "We partner with teams via dedicated 2-week continuous delivery sprints. All engagements include an upfront mutual NDA and 100% intellectual property ownership transfer.\n\n• Email: tharun.hs@startotechcorp.in\n• Studio HQ: Queens Road, Shivajinagar, Bengaluru\n• Response SLA: Under 24 business hours",
     actions: [
       { label: "Start a conversation →", href: "/contact" },
     ],
@@ -228,7 +231,7 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
     reply:
       "We deliver all work in focused 2-week continuous delivery cycles:\n\n• 1 Sprint (2 Weeks) — Architecture Spec & Clickable Figma Prototype\n• 2 Sprints (4 Weeks) — Production-Ready MVP (Auth, DB, Workflows)\n• 4 Sprints (8 Weeks) — Comprehensive Enterprise Platform\n• 6+ Sprints — Dedicated Continuous Engineering Squad",
     actions: [
-      { label: "Configure sprint scope →", href: "/contact" },
+      { label: "Start a project →", href: "/contact" },
       { label: "Working principles →", href: "/about" },
     ],
   },
@@ -299,11 +302,12 @@ function getBotReply(query: string): { reply: string; actions?: ActionButton[] }
 
 export default function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       sender: "assistant",
-      text: "Hi, what would you like to explore?",
+      text: "Hi! I'm StratoTech's AI Assistant. What would you like to explore?",
     },
   ]);
   const [inputVal, setInputVal] = useState("");
@@ -342,14 +346,14 @@ export default function AIAssistant() {
       setTimeout(() => inputRef.current?.focus(), 80);
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [isOpen, messages, isTyping]);
+  }, [isOpen, messages, isTyping, isExpanded]);
 
   const handleSend = (textToSend?: string) => {
     const text = (textToSend || inputVal).trim();
     if (!text) return;
 
     const userMessage: Message = {
-      id: `user-${Date.now()}`,
+      id: `user-${crypto.randomUUID()}`,
       sender: "user",
       text,
     };
@@ -363,7 +367,7 @@ export default function AIAssistant() {
       const { reply, actions } = getBotReply(text);
 
       const botMessage: Message = {
-        id: `assistant-${Date.now()}`,
+        id: `assistant-${crypto.randomUUID()}`,
         sender: "assistant",
         text: reply,
         actions,
@@ -377,9 +381,9 @@ export default function AIAssistant() {
   const handleReset = () => {
     setMessages([
       {
-        id: `welcome-${Date.now()}`,
+        id: `welcome-${crypto.randomUUID()}`,
         sender: "assistant",
-        text: "Hi, what would you like to explore?",
+        text: "Hi! I'm StratoTech's AI Assistant. What would you like to explore?",
       },
     ]);
   };
@@ -405,13 +409,18 @@ export default function AIAssistant() {
         <div
           role="dialog"
           aria-label="StratoTech Assistant"
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-32px)] sm:w-[390px] h-[520px] max-h-[calc(100vh-32px)] sm:max-h-[580px] rounded-2xl bg-white text-[#1d1d1f] border border-black/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden transition-all duration-200 animate-in fade-in zoom-in-95"
+          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 rounded-2xl bg-white text-[#1d1d1f] border border-black/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.14)] flex flex-col overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] animate-in fade-in zoom-in-95 ${
+            isExpanded
+              ? "w-[calc(100vw-32px)] sm:w-[580px] lg:w-[680px] h-[640px] sm:h-[720px] max-h-[calc(100vh-32px)] sm:max-h-[calc(100vh-48px)]"
+              : "w-[calc(100vw-32px)] sm:w-[390px] h-[520px] max-h-[calc(100vh-32px)] sm:max-h-[580px]"
+          }`}
         >
           {/* Header */}
           <div className="px-4 py-3.5 border-b border-black/[0.06] bg-[#fafafa] flex items-center justify-between shrink-0">
             <div>
-              <div className="text-[13px] font-semibold text-[#1d1d1f] tracking-tight">
-                StratoTech
+              <div className="text-[13px] font-semibold text-[#1d1d1f] tracking-tight flex items-center gap-2">
+                <span>StratoTech Assistant</span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               </div>
               <div className="text-[11px] text-[#6e6e73] font-normal">
                 How can we help?
@@ -419,6 +428,18 @@ export default function AIAssistant() {
             </div>
 
             <div className="flex items-center gap-1 text-[#86868b]">
+              <button
+                onClick={() => setIsExpanded((prev) => !prev)}
+                title={isExpanded ? "Collapse window" : "Enlarge window"}
+                aria-label={isExpanded ? "Collapse window" : "Enlarge window"}
+                className="p-1.5 hover:text-[#1d1d1f] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
+              >
+                {isExpanded ? (
+                  <Minimize2 className="w-3.5 h-3.5" />
+                ) : (
+                  <Maximize2 className="w-3.5 h-3.5" />
+                )}
+              </button>
               <button
                 onClick={handleReset}
                 title="Reset conversation"

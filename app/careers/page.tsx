@@ -90,7 +90,7 @@ export default function CareersPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 w-full max-w-full overflow-x-hidden">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 w-full max-w-full overflow-x-hidden pb-10 sm:pb-16">
       <Navbar />
 
       {/* ── HEADER ──────────────────────────────────────────────────── */}
@@ -181,6 +181,7 @@ export default function CareersPage() {
                 >
                   <div>
                     <div className="relative aspect-[16/10] bg-zinc-100 overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={photo.url}
                         alt={photo.title}
@@ -241,6 +242,7 @@ export default function CareersPage() {
                 <div className="rounded-2xl border border-black/[0.08] bg-white overflow-hidden hover:border-black/20 hover:shadow-sm transition-all flex flex-col justify-between h-full group">
                   <div>
                     <div className="relative aspect-[16/10] bg-zinc-100 overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={photo.url}
                         alt={photo.title}
@@ -314,7 +316,7 @@ export default function CareersPage() {
               onScroll={handleJobScroll}
               className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-4 px-4 pb-4 touch-pan-x"
             >
-              {JOBS_DATA.map((job, idx) => (
+              {JOBS_DATA.map((job) => (
                 <div
                   key={job.slug}
                   className="snap-center shrink-0 w-[84vw] max-w-[320px] rounded-2xl border border-black/[0.08] bg-white p-5 shadow-md shadow-black/5 flex flex-col justify-between"
@@ -377,7 +379,7 @@ export default function CareersPage() {
           <div className="hidden sm:block divide-y divide-black/[0.08]">
             {JOBS_DATA.map((job, idx) => (
               <ScrollReveal key={job.slug} delay={idx * 0.06} y={20}>
-                <div className="group py-6 sm:py-8 transition-colors">
+                <div className="group py-6 sm:py-8 transition-colors last:pb-0">
                   <Link
                     href={`/careers/${job.slug}`}
                     className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
@@ -408,7 +410,7 @@ export default function CareersPage() {
       </section>
 
       {/* ── GENERAL APPLICATION CTA ─────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+      <section className="py-10 sm:py-16 border-t border-black/[0.08] bg-[#f8fafc]">
         <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
           <ScrollReveal y={24}>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
