@@ -270,14 +270,12 @@ export default function ServicesPage() {
                     transition={{ duration: 0.35, ease: "easeOut" }}
                     className="rounded-3xl border border-black/[0.08] bg-white overflow-hidden shadow-xl shadow-black/5 hover:border-[#0070f3]/40 transition-all p-3 relative"
                   >
-                    {/* Media Banner with Video Preview & Metric Pill */}
+                    {/* Media Banner with Image Preview & Metric Pill */}
                     <div className="relative h-56 lg:h-64 rounded-2xl bg-zinc-950 overflow-hidden">
-                      <video
-                        src={currentService.video || "/videos/startone.mp4"}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={currentService.image || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"}
+                        alt={currentService.title}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
@@ -419,14 +417,12 @@ export default function ServicesPage() {
                 className="w-[86vw] sm:w-[500px] md:w-[560px] shrink-0 snap-center rounded-2xl sm:rounded-3xl border border-black/[0.08] bg-white overflow-hidden shadow-lg shadow-black/5 p-3 sm:p-4 flex flex-col justify-between"
               >
                 <div>
-                  {/* Media Video */}
+                  {/* Media Image */}
                   <div className="relative aspect-video rounded-xl sm:rounded-2xl bg-zinc-950 overflow-hidden">
-                    <video
-                      src={service.video || "/videos/startone.mp4"}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={service.image || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"}
+                      alt={service.title}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />

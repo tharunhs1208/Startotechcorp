@@ -268,14 +268,12 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Studio Video Showreel - Flexes to fill exact remaining height perfectly */}
+                {/* Studio Showcase - Flexes to fill exact remaining height perfectly */}
                 <div className="flex-1 min-h-[200px] rounded-2xl overflow-hidden border border-black/[0.08] bg-[#e5e5ea] shadow-[0_2px_16px_rgba(0,0,0,0.02)] relative group">
-                  <video
-                    src="/videos/legalx.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
+                    alt="StratoTech Engineering Studio"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

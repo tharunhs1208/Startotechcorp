@@ -47,12 +47,10 @@ export default function IndustriesPage() {
                   <div>
                     {/* Media Container */}
                     <div className="relative aspect-video rounded-xl sm:rounded-2xl bg-zinc-950 overflow-hidden">
-                      <video
-                        src={ind.video || "/videos/startone.mp4"}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={ind.image || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop"}
+                        alt={ind.name}
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />

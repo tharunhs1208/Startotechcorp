@@ -128,8 +128,8 @@ const FEATURED_PRODUCTS: ProductData[] = [
     ],
     techStack: ["WebRTC", "Python", "PyTorch", "Next.js", "FastAPI", "Docker"],
     architecture: "Custom WebRTC media server pipeline streaming audio to deep acoustic neural models with optimized GPU kernel inference.",
-    mediaType: "video",
-    mediaSrc: "/videos/zobay.mp4",
+    mediaType: "image",
+    mediaSrc: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1200&auto=format&fit=crop",
     linkHref: "/projects/zobay-voice-ai",
     linkLabel: "View Zobay Demo",
     layout: "visual-left-text-right",
@@ -155,8 +155,8 @@ const FEATURED_PRODUCTS: ProductData[] = [
     ],
     techStack: ["WebRTC", "Next.js", "TypeScript", "Node.js", "Redis", "AWS"],
     architecture: "Global distributed SFU mesh topology with WebAssembly audio processing and WebSocket state synchronization.",
-    mediaType: "video",
-    mediaSrc: "/videos/hero-pinterest.mp4",
+    mediaType: "image",
+    mediaSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
     linkHref: "/products/meetingx",
     linkLabel: "View MeetingX Details",
     layout: "text-left-visual-right",
@@ -210,8 +210,44 @@ const SELECTED_WORK_ITEMS = [
   },
 ];
 
+const HERO_TECH_IMAGES = [
+  {
+    url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2400&auto=format&fit=crop",
+    alt: "Technology & Product Engineering",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2400&auto=format&fit=crop",
+    alt: "Silicon Architecture & Microprocessors",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2400&auto=format&fit=crop",
+    alt: "Distributed Cloud Datacenter & Infrastructure",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2400&auto=format&fit=crop",
+    alt: "Global Network Mesh & Satellite Intelligence",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2400&auto=format&fit=crop",
+    alt: "Cybersecurity & Cryptographic Architecture",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2400&auto=format&fit=crop",
+    alt: "Neural Code & Advanced Software Engineering",
+  },
+];
+
 export default function HomePage() {
   const [activeFeedbackIndex, setActiveFeedbackIndex] = useState(0);
+  const [activeHeroImageIndex, setActiveHeroImageIndex] = useState(0);
+
+  // 5-second automatic image rotation with zero timers/indicators
+  useEffect(() => {
+    const heroTimer = setInterval(() => {
+      setActiveHeroImageIndex((prev) => (prev + 1) % HERO_TECH_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(heroTimer);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -227,17 +263,23 @@ export default function HomePage() {
       <main className="pt-0 pb-10 sm:pb-14">
         {/* ── 1. HERO SECTION (Full-Bleed Edge-to-Edge Tech Hero) ──── */}
         <section className="relative w-full h-screen min-h-[640px] flex flex-col justify-end px-5 sm:px-10 lg:px-14 pb-10 sm:pb-16 m-0 overflow-hidden">
-          {/* Background Tech Engineering Image */}
-          <div className="absolute inset-0 z-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2400&auto=format&fit=crop"
-              alt="Technology & Product Engineering"
-              className="w-full h-full object-cover object-center filter brightness-[0.88]"
-            />
+          {/* Background Tech Engineering Images with 5s Smooth Crossfade (No Timers / UI) */}
+          <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+            <AnimatePresence mode="sync">
+              <motion.img
+                key={HERO_TECH_IMAGES[activeHeroImageIndex].url}
+                src={HERO_TECH_IMAGES[activeHeroImageIndex].url}
+                alt={HERO_TECH_IMAGES[activeHeroImageIndex].alt}
+                initial={{ opacity: 0, scale: 1.04 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.88]"
+              />
+            </AnimatePresence>
             {/* Neutral Dark Cinematic Gradient Overlays (Zero Green Tint) */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent sm:w-[75%] lg:w-[62%]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent sm:w-[75%] lg:w-[62%] z-[1]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent z-[1]" />
           </div>
 
           {/* Inner Content Layout - Flush Left (No mx-auto centering) */}
