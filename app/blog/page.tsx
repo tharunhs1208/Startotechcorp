@@ -13,7 +13,7 @@ export default function BlogPage() {
   const others = BLOG_POSTS.slice(1);
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white pb-10 sm:pb-16">
       <Navbar />
 
       {/* ── HEADER ──────────────────────────────────────────────────── */}
@@ -48,6 +48,7 @@ export default function BlogPage() {
               <div className="group rounded-2xl sm:rounded-3xl border border-black/[0.08] bg-white overflow-hidden shadow-xs hover:border-[#0070f3]/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 p-2.5 sm:p-3">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                   <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-video rounded-xl sm:rounded-2xl bg-zinc-950 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={featured.image}
                       alt={featured.title}
@@ -94,7 +95,7 @@ export default function BlogPage() {
       )}
 
       {/* ── ALL ARTICLES ────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24">
+      <section className="py-10 sm:py-16">
         <div className="page-container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {others.map((post, idx) => (
@@ -102,6 +103,7 @@ export default function BlogPage() {
                 <div className="group rounded-2xl sm:rounded-3xl border border-black/[0.08] bg-white overflow-hidden shadow-xs hover:border-[#0070f3]/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full p-2.5 sm:p-3">
                   <div>
                     <div className="relative aspect-[16/10] rounded-xl sm:rounded-2xl bg-zinc-950 overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={post.image}
                         alt={post.title}

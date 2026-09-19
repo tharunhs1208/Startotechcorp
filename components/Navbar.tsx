@@ -3,224 +3,213 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, ChevronRight, Menu, X, ArrowUpRight, MessageSquare } from "lucide-react";
+import { ArrowRight, ChevronRight, Menu, X, ArrowUpRight } from "lucide-react";
 
-interface SubmenuColumn {
-  sectionTitle: string;
-  links: {
-    label: string;
-    href: string;
-    badge?: string;
-    isPrimary?: boolean;
-  }[];
+interface SubLink {
+  label: string;
+  href: string;
+  badge?: string;
+  description?: string;
 }
 
-interface NavItem {
+interface NavSection {
   id: string;
   label: string;
   href: string;
-  primaryLinks?: { label: string; href: string; badge?: string }[];
-  columns?: SubmenuColumn[];
-  featuredCard?: {
+  heading: string;
+  primaryLinks: SubLink[];
+  featured?: {
     tag: string;
     title: string;
-    desc: string;
+    description: string;
     href: string;
   };
 }
 
-const APPLE_NAV_ITEMS: NavItem[] = [
+const NAV_DROPDOWNS: NavSection[] = [
   {
     id: "work",
     label: "Work",
     href: "/projects",
+    heading: "Selected Case Studies",
     primaryLinks: [
-      { label: "Explore All Work", href: "/projects" },
-      { label: "Zobay Voice AI", href: "/projects/zobay-voice-ai", badge: "Sub-280ms" },
-      { label: "MeetingX Collaboration", href: "/contact?subject=MeetingX", badge: "WebRTC" },
-      { label: "StartOne Enterprise OS", href: "/projects/startone-enterprise-os" },
-      { label: "BaseOne Treasury Settlement", href: "/projects/baseone-treasury-settlement" },
-      { label: "LegalX Contract Sentinel", href: "/projects/legalx-contract-sentinel" },
-    ],
-    columns: [
       {
-        sectionTitle: "By Industry",
-        links: [
-          { label: "AI & Autonomous Systems", href: "/projects" },
-          { label: "Fintech & High-Frequency Ledgers", href: "/projects" },
-          { label: "Telehealth & Medical Systems", href: "/projects" },
-          { label: "Enterprise SaaS & Workspaces", href: "/projects" },
-          { label: "Media & Audio Distribution", href: "/projects" },
-        ],
+        label: "All Case Studies",
+        href: "/projects",
+        description: "Explore all client engineering and product architecture work",
       },
       {
-        sectionTitle: "Engineering Standards",
-        links: [
-          { label: "Zero-Downtime Releases", href: "/about" },
-          { label: "SOC-2 Type II Verification", href: "/about" },
-          { label: "Sub-Second Edge Latency", href: "/services/web-development" },
-          { label: "Client Testimonials", href: "/projects" },
-        ],
+        label: "Zobay Voice AI",
+        href: "/projects/zobay-voice-ai",
+        badge: "Sub-280ms",
+        description: "Low-latency acoustic turn-taking voice platform",
+      },
+      {
+        label: "StartOne Enterprise OS",
+        href: "/projects/startone-enterprise-os",
+        badge: "Enterprise",
+        description: "Operational management & resource scheduling hub",
+      },
+      {
+        label: "BaseOne Settlement Ledger",
+        href: "/projects/baseone-treasury-settlement",
+        badge: "Fintech",
+        description: "High-frequency multi-currency treasury engine",
+      },
+      {
+        label: "LegalX Contract Sentinel",
+        href: "/projects/legalx-contract-sentinel",
+        badge: "AI Review",
+        description: "Deterministic risk evaluation pipeline for enterprise MSAs",
       },
     ],
-    featuredCard: {
-      tag: "Case Study Spotlight",
-      title: "Zobay Conversational Voice",
-      desc: "Sub-280ms streaming speech AI with direct acoustic spectrogram reasoning.",
-      href: "/projects/zobay-voice-ai",
+    featured: {
+      tag: "Spotlight",
+      title: "The Work Behind the Products",
+      description: "End-to-end architecture, UI design tokens, and robust full-stack delivery.",
+      href: "/projects",
     },
   },
   {
     id: "products",
     label: "Products",
-    href: "/archive",
+    href: "/products",
+    heading: "Digital Products",
     primaryLinks: [
-      { label: "All Shipped Products", href: "/archive" },
-      { label: "SalesX", href: "/archive", badge: "Sales · 2026" },
-      { label: "Zobay Voice", href: "/projects/zobay-voice-ai", badge: "Sales · 2026" },
-      { label: "MeetingX", href: "/archive", badge: "Comm · 2026" },
-      { label: "StartOne Core", href: "/projects/startone-enterprise-os", badge: "Ops · 2026" },
-      { label: "BaseOne Ledger", href: "/projects/baseone-treasury-settlement" },
-    ],
-    columns: [
       {
-        sectionTitle: "By Department",
-        links: [
-          { label: "Sales & Lead Conversion", href: "/archive" },
-          { label: "Team Communication", href: "/archive" },
-          { label: "Operational Workspaces", href: "/archive" },
-          { label: "Accounts & Finance", href: "/archive" },
-          { label: "Security & Core Tech", href: "/archive" },
-        ],
+        label: "All Products",
+        href: "/products",
+        description: "Software platforms designed for modern operational teams",
       },
       {
-        sectionTitle: "Developer Toolkits",
-        links: [
-          { label: "Open Source Toolkits", href: "/archive" },
-          { label: "Next.js SaaS Starter Kit", href: "/archive" },
-          { label: "Figma Design Token Engine", href: "/archive" },
-          { label: "Architecture Decision Records", href: "/archive" },
-        ],
+        label: "SalesX",
+        href: "/products/salesx",
+        badge: "Sales",
+        description: "Pipeline acceleration and customer workflow tracking",
+      },
+      {
+        label: "MeetingX",
+        href: "/products/meetingx",
+        badge: "Comm",
+        description: "Collaborative meeting and real-time screen share tool",
+      },
+      {
+        label: "Zobay Voice",
+        href: "/projects/zobay-voice-ai",
+        badge: "Voice AI",
+        description: "AI-powered voice agent for sales and customer operations",
+      },
+      {
+        label: "StartOne",
+        href: "/projects/startone-enterprise-os",
+        badge: "Operations",
+        description: "Consolidated team execution and approvals hub",
       },
     ],
-    featuredCard: {
-      tag: "Latest Product Release",
-      title: "SalesX Platform v3.0",
-      desc: "Centralized lead management, sales workflows, and automated communication.",
-      href: "/archive",
+    featured: {
+      tag: "Product Suite",
+      title: "Built for Enterprise Velocity",
+      description: "Modular web products with sub-second response times and SOC-2 readiness.",
+      href: "/products",
     },
   },
   {
     id: "services",
     label: "Services",
     href: "/services",
+    heading: "Engineering Capabilities",
     primaryLinks: [
-      { label: "All Capabilities", href: "/services" },
-      { label: "Product Engineering", href: "/services/web-development" },
-      { label: "AI & Machine Learning", href: "/services/ai-machine-learning" },
-      { label: "UI/UX Design Systems", href: "/services/ui-ux-design" },
-      { label: "Mobile App Development", href: "/services/mobile-apps" },
-      { label: "Cloud & DevOps", href: "/services/cloud-solutions" },
-      { label: "Cybersecurity & Identity", href: "/services/cybersecurity" },
-    ],
-    columns: [
       {
-        sectionTitle: "Engagement Models",
-        links: [
-          { label: "Dedicated Product Squads", href: "/contact" },
-          { label: "Fixed-Scope Sprint MVP", href: "/contact" },
-          { label: "Fractional CTO & Architecture", href: "/about" },
-          { label: "24/7 Enterprise SLA Support", href: "/services" },
-        ],
+        label: "All Services",
+        href: "/services",
+        description: "Comprehensive software design and development capabilities",
       },
       {
-        sectionTitle: "Core Technologies",
-        links: [
-          { label: "Next.js & TypeScript", href: "/services/web-development" },
-          { label: "PyTorch & Real-time WebSockets", href: "/services/ai-machine-learning" },
-          { label: "React Native & Flutter", href: "/services/mobile-apps" },
-          { label: "PostgreSQL & AWS Infrastructure", href: "/services/cloud-solutions" },
-        ],
-      },
-    ],
-    featuredCard: {
-      tag: "Sprint Engagement",
-      title: "Rapid 4-Week MVP Sprints",
-      desc: "Turn complex product scopes into fully functional production releases with daily transparency.",
-      href: "/contact",
-    },
-  },
-  {
-    id: "archive",
-    label: "Archive",
-    href: "/archive",
-    primaryLinks: [
-      { label: "Complete Product Catalog", href: "/archive" },
-      { label: "2026 Releases", href: "/archive" },
-      { label: "2025 Releases", href: "/archive" },
-      { label: "2024 Releases", href: "/archive" },
-    ],
-    columns: [
-      {
-        sectionTitle: "Architecture Decisions",
-        links: [
-          { label: "ADR-014: Next.js App Router Architecture", href: "/archive" },
-          { label: "ADR-009: WebSocket State Reconciliation", href: "/archive" },
-          { label: "ADR-006: Automated Figma Token Pipeline", href: "/archive" },
-          { label: "ADR-003: Multi-Tenant PostgreSQL RLS", href: "/archive" },
-        ],
+        label: "Web Development",
+        href: "/services/web-development",
+        badge: "Next.js",
+        description: "High-performance SSR, micro-frontends & custom APIs",
       },
       {
-        sectionTitle: "R&D Experiments",
-        links: [
-          { label: "Sub-280ms Audio Pipeline", href: "/archive" },
-          { label: "High-Frequency Atomic Settlement", href: "/archive" },
-          { label: "Air-Gapped Tool Calling Sandbox", href: "/archive" },
-          { label: "Spatial Glass Shaders", href: "/archive" },
-        ],
+        label: "AI & Machine Learning",
+        href: "/services/ai-machine-learning",
+        badge: "Voice/LLM",
+        description: "Neural voice pipelines, agent systems & enterprise RAG",
+      },
+      {
+        label: "UI/UX Design Systems",
+        href: "/services/ui-ux-design",
+        badge: "Figma",
+        description: "Accessible design systems with atomic tokens",
+      },
+      {
+        label: "Mobile App Engineering",
+        href: "/services/mobile-apps",
+        badge: "iOS / Android",
+        description: "Native-grade cross-platform mobile solutions",
+      },
+      {
+        label: "Cloud & DevOps",
+        href: "/services/cloud-solutions",
+        badge: "AWS / Edge",
+        description: "Multi-region deployments, automated CI/CD & 99.99% uptime",
+      },
+      {
+        label: "Cybersecurity & Identity",
+        href: "/services/cybersecurity",
+        badge: "SecOps",
+        description: "RBAC security, audit logging & penetration testing",
       },
     ],
-    featuredCard: {
-      tag: "Open Documentation",
-      title: "Architecture Decision Records",
-      desc: "Detailed technical logs documenting why specific stacks and patterns were chosen.",
-      href: "/archive",
+    featured: {
+      tag: "Sprint Delivery",
+      title: "Dedicated Product Squads",
+      description: "Work directly with senior architects and designers shipping code every two weeks.",
+      href: "/services",
     },
   },
   {
     id: "about",
     label: "About",
     href: "/about",
+    heading: "Studio & Company",
     primaryLinks: [
-      { label: "Our Story & Philosophy", href: "/about" },
-      { label: "Leadership & Team", href: "/about" },
-      { label: "Working Principles", href: "/about" },
-      { label: "Careers & Open Roles", href: "/careers", badge: "Hiring" },
-      { label: "Studio Blog & Insights", href: "/blog" },
-      { label: "Frequently Asked Questions", href: "/faq" },
-    ],
-    columns: [
       {
-        sectionTitle: "Office Locations",
-        links: [
-          { label: "Bengaluru Studio (HQ)", href: "/contact" },
-          { label: "Global Distributed Teams", href: "/about" },
-          { label: "Schedule Studio Visit", href: "/contact" },
-        ],
+        label: "About Studio",
+        href: "/about",
+        description: "Philosophy, team directory, and working principles",
       },
       {
-        sectionTitle: "Trust & Governance",
-        links: [
-          { label: "ISO 27001 Security Standard", href: "/privacy-policy" },
-          { label: "Privacy Policy", href: "/privacy-policy" },
-          { label: "Terms of Service", href: "/terms" },
-        ],
+        label: "Careers & Open Roles",
+        href: "/careers",
+        badge: "Hiring",
+        description: "Join our engineering and design teams in Bengaluru",
+      },
+      {
+        label: "Studio Blog",
+        href: "/blog",
+        description: "Technical writing, design notes, and system architecture",
+      },
+      {
+        label: "Frequently Asked Questions",
+        href: "/faq",
+        description: "Common questions regarding pricing, SLAs, and kickoff",
+      },
+      {
+        label: "Privacy Policy",
+        href: "/privacy-policy",
+        description: "Data retention, GDPR compliance, and security standards",
+      },
+      {
+        label: "Terms of Service",
+        href: "/terms",
+        description: "Contract terms, intellectual property, and warranties",
       },
     ],
-    featuredCard: {
+    featured: {
       tag: "Studio Culture",
-      title: "Engineering With Craft",
-      desc: "A multidisciplinary studio building durable, human-centered software.",
+      title: "Engineering With Clarity",
+      description: "Technology should solve a real operational problem before trying to impress.",
       href: "/about",
     },
   },
@@ -242,12 +231,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setActiveMenu(null);
     setMobileMenuOpen(false);
     setMobileExpandedSection(null);
-  }, [pathname]);
+  }
 
+  // Prevent background scroll when mobile menu is active
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -273,39 +265,32 @@ export default function Navbar() {
     }, 180);
   };
 
-  const activeItemData = APPLE_NAV_ITEMS.find((item) => item.id === activeMenu);
+  const activeSection = NAV_DROPDOWNS.find((item) => item.id === activeMenu);
 
   return (
     <>
-      {/* ── EXACT APPLE GLOBAL NAV BAR (44px Height, 20px Blur, 12px SF Pro Text) ── */}
       <header
         onMouseLeave={handleMouseLeave}
-        className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
-        style={{
-          height: "44px",
-          backgroundColor: activeMenu || isScrolled ? "rgba(255, 255, 255, 0.92)" : "rgba(255, 255, 255, 0.8)",
-          backdropFilter: "saturate(180%) blur(20px)",
-          WebkitBackdropFilter: "saturate(180%) blur(20px)",
-          borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
-        }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          activeMenu || isScrolled
+            ? "bg-white/95 backdrop-blur-xl border-b border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
+            : "bg-white/80 backdrop-blur-md border-b border-black/[0.05]"
+        }`}
+        style={{ height: "52px" }}
       >
-        <div
-          className="mx-auto h-full flex items-center justify-between"
-          style={{ maxWidth: "1024px", padding: "0 22px" }}
-        >
+        <div className="max-w-[1240px] mx-auto h-full px-5 sm:px-8 flex items-center justify-between">
           {/* Brand Logo */}
           <Link
             href="/"
-            className="flex items-center gap-1.5 font-display text-[14px] font-bold tracking-tight text-[#1d1d1f] hover:opacity-70 transition-opacity shrink-0"
-            style={{ letterSpacing: "-0.01em" }}
+            className="flex items-center gap-2 font-display text-[15px] font-semibold tracking-tight text-[#1d1d1f] hover:opacity-80 transition-opacity shrink-0"
           >
             <span className="w-2 h-2 rounded-full bg-[#1d1d1f]" />
             <span>StratoTech</span>
           </Link>
 
-          {/* Center Navigation Items (Apple 12px Font Spec) */}
-          <nav className="hidden md:flex items-center h-full gap-7 lg:gap-9 text-[12px] text-[#1d1d1f]">
-            {APPLE_NAV_ITEMS.map((item) => {
+          {/* Desktop Navigation Items with Dropdowns on Hover */}
+          <nav className="hidden md:flex items-center h-full gap-7 lg:gap-8 text-[13px]">
+            {NAV_DROPDOWNS.map((item) => {
               const isActive =
                 item.href === "/"
                   ? pathname === "/"
@@ -319,44 +304,27 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    className="h-full flex items-center px-1 transition-opacity duration-200 cursor-pointer"
-                    style={{
-                      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif',
-                      fontSize: "12px",
-                      fontWeight: activeMenu === item.id || isActive ? 500 : 400,
-                      letterSpacing: "-0.01em",
-                      color: "#1d1d1f",
-                      opacity: activeMenu === item.id ? 1 : 0.8,
-                    }}
+                    className={`h-full flex items-center px-1 transition-colors duration-200 cursor-pointer ${
+                      activeMenu === item.id || isActive
+                        ? "text-[#1d1d1f] font-semibold"
+                        : "text-[#6e6e73] hover:text-[#1d1d1f] font-normal"
+                    }`}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
                   </Link>
                 </div>
               );
             })}
           </nav>
 
-          {/* Right Action: AI Assistant + Start a Project */}
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={() => window.dispatchEvent(new CustomEvent("open-ai-assistant"))}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-black/[0.08] hover:border-black/20 bg-black/[0.02] text-[11px] font-medium text-zinc-700 hover:text-zinc-950 transition-all cursor-pointer"
-              title="Ask us (⌘J)"
-            >
-              <MessageSquare className="w-3 h-3 text-zinc-700" />
-              <span>Ask us</span>
-            </button>
-
+          {/* Right Action: Start a Project */}
+          <div className="hidden md:flex items-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1 text-[12px] font-medium text-[#0071e3] hover:underline underline-offset-2 transition-all"
-              style={{
-                fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
-                letterSpacing: "-0.01em",
-              }}
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#1d1d1f] text-white hover:bg-black text-[12px] font-medium transition-all shadow-xs group"
             >
               <span>Start a Project</span>
-              <ArrowUpRight className="w-3 h-3" />
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
@@ -364,13 +332,13 @@ export default function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
-            className="md:hidden p-1 text-[#1d1d1f] hover:opacity-70 transition-opacity cursor-pointer"
+            className="md:hidden p-1.5 text-[#1d1d1f] hover:opacity-70 transition-opacity cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
-        {/* ── EXACT APPLE FULL-WIDTH SUBMENU FLYOUT PANE ───────────── */}
+        {/* ── DESKTOP FLYOUT SUBMENU PANE (ONLY LIVE PAGES) ─────────── */}
         <div
           onMouseEnter={() => {
             if (timeoutRef.current) {
@@ -378,110 +346,72 @@ export default function Navbar() {
             }
           }}
           onMouseLeave={handleMouseLeave}
-          className={`hidden md:block absolute top-full left-0 right-0 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] origin-top overflow-hidden ${
+          className={`hidden md:block absolute top-full left-0 right-0 transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top overflow-hidden border-b border-black/[0.08] ${
             activeMenu
-              ? "opacity-100 max-h-[580px] pointer-events-auto shadow-2xl"
-              : "opacity-0 max-h-0 pointer-events-none"
+              ? "opacity-100 max-h-[520px] pointer-events-auto bg-white/98 backdrop-blur-2xl shadow-[0_20px_48px_rgba(0,0,0,0.08)]"
+              : "opacity-0 max-h-0 pointer-events-none bg-white"
           }`}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.96)",
-            backdropFilter: "saturate(180%) blur(20px)",
-            WebkitBackdropFilter: "saturate(180%) blur(20px)",
-            borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
-          }}
         >
-          {activeItemData && (
-            <div
-              className="mx-auto pt-10 pb-14"
-              style={{ maxWidth: "1024px", paddingLeft: "22px", paddingRight: "22px" }}
-            >
-              <div className="grid grid-cols-12 gap-8 lg:gap-10 items-start">
-                {/* Column 1: Primary Large Heading Links (Apple Signature Submenu Style) */}
-                <div className="col-span-4 space-y-3">
-                  <div
-                    className="text-[11px] font-mono text-[#86868b] uppercase tracking-wider mb-3"
-                    style={{ letterSpacing: "-0.01em" }}
-                  >
-                    Explore {activeItemData.label}
-                  </div>
-                  <ul className="space-y-2">
-                    {activeItemData.primaryLinks?.map((pLink, pIdx) => (
-                      <li key={pIdx}>
-                        <Link
-                          href={pLink.href}
-                          onClick={() => setActiveMenu(null)}
-                          className="group inline-flex items-center gap-2 text-[20px] font-semibold tracking-tight text-[#1d1d1f] hover:text-[#0071e3] transition-colors leading-tight"
-                          style={{
-                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                            letterSpacing: "0.005em",
-                          }}
-                        >
-                          <span>{pLink.label}</span>
-                          {pLink.badge && (
+          {activeSection && (
+            <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-8 lg:py-10">
+              <div className="grid grid-cols-12 gap-8 items-start">
+                {/* Available Subpages Grid */}
+                <div className="col-span-8 space-y-4">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block font-semibold">
+                    {activeSection.heading}
+                  </span>
+
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                    {activeSection.primaryLinks.map((link, idx) => (
+                      <Link
+                        key={idx}
+                        href={link.href}
+                        onClick={() => setActiveMenu(null)}
+                        className="group/item p-2.5 -mx-2.5 rounded-xl hover:bg-black/[0.03] transition-colors block"
+                      >
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className="text-[14px] font-medium text-[#1d1d1f] group-hover/item:text-[#0071e3] transition-colors">
+                            {link.label}
+                          </span>
+                          {link.badge && (
                             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/[0.05] text-[#1d1d1f] font-normal">
-                              {pLink.badge}
+                              {link.badge}
                             </span>
                           )}
-                        </Link>
-                      </li>
+                        </div>
+                        {link.description && (
+                          <p className="text-[12px] text-[#6e6e73] line-clamp-1 font-normal">
+                            {link.description}
+                          </p>
+                        )}
+                      </Link>
                     ))}
-                  </ul>
+                  </div>
                 </div>
 
-                {/* Column 2 & 3: Secondary Categorized Sublinks */}
-                <div className="col-span-5 grid grid-cols-2 gap-6 pl-4">
-                  {activeItemData.columns?.map((col, cIdx) => (
-                    <div key={cIdx} className="space-y-3">
-                      <h4
-                        className="text-[11px] font-mono uppercase tracking-wider text-[#86868b] font-semibold"
-                        style={{ letterSpacing: "-0.01em" }}
-                      >
-                        {col.sectionTitle}
-                      </h4>
-                      <ul className="space-y-2">
-                        {col.links.map((link, lIdx) => (
-                          <li key={lIdx}>
-                            <Link
-                              href={link.href}
-                              onClick={() => setActiveMenu(null)}
-                              className="text-[12px] text-[#1d1d1f] hover:text-[#0071e3] transition-colors block leading-relaxed"
-                              style={{
-                                fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
-                                letterSpacing: "-0.01em",
-                              }}
-                            >
-                              {link.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Column 4: Editorial Showcase / Quick Card */}
-                {activeItemData.featuredCard && (
-                  <div className="col-span-3 border-l border-black/[0.06] pl-6 flex flex-col justify-between self-stretch">
+                {/* Featured Section Spotlight */}
+                {activeSection.featured && (
+                  <div className="col-span-4 border-l border-black/[0.06] pl-8 flex flex-col justify-between self-stretch">
                     <div>
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-[#0071e3] font-semibold block mb-1.5">
-                        {activeItemData.featuredCard.tag}
+                      <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#0071e3] block mb-2 font-semibold">
+                        {activeSection.featured.tag}
                       </span>
-                      <h4 className="text-[15px] font-semibold text-[#1d1d1f] leading-snug mb-1.5">
-                        {activeItemData.featuredCard.title}
+                      <h4 className="text-[16px] font-display font-medium text-[#1d1d1f] leading-snug mb-2">
+                        {activeSection.featured.title}
                       </h4>
-                      <p className="text-[12px] text-[#6e6e73] leading-normal font-normal">
-                        {activeItemData.featuredCard.desc}
+                      <p className="text-[13px] text-[#6e6e73] leading-relaxed font-normal">
+                        {activeSection.featured.description}
                       </p>
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-6">
                       <Link
-                        href={activeItemData.featuredCard.href}
+                        href={activeSection.featured.href}
                         onClick={() => setActiveMenu(null)}
-                        className="inline-flex items-center gap-1 text-[12px] font-medium text-[#0071e3] hover:underline underline-offset-2"
+                        className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors group/link"
                       >
-                        <span>Learn more</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <span>Explore section</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
                       </Link>
                     </div>
                   </div>
@@ -492,102 +422,91 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ── EXACT APPLE CURTAIN (Page Dimming Overlay) ─────────────── */}
+      {/* Dimmed Curtain Overlay when Hovering */}
       <div
         className={`fixed inset-0 z-40 transition-opacity duration-300 md:block hidden ${
           activeMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{
-          backgroundColor: "rgba(0, 0, 0, 0.48)",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
+          backgroundColor: "rgba(0, 0, 0, 0.25)",
+          backdropFilter: "blur(2px)",
+          WebkitBackdropFilter: "blur(2px)",
         }}
         onClick={() => setActiveMenu(null)}
       />
 
-      {/* ── APPLE MOBILE FULLSCREEN OVERLAY ─────────────────────────── */}
+      {/* Mobile Fullscreen Menu Overlay */}
       {mobileMenuOpen && (
-        <div
-          className="md:hidden fixed inset-0 z-40 bg-white pt-14 pb-8 px-6 flex flex-col justify-between overflow-y-auto"
-          style={{ animation: "fadeIn 0.25s ease-out forwards" }}
-        >
-          <div className="space-y-2 pt-4">
-            {APPLE_NAV_ITEMS.map((item) => {
-              const isExpanded = mobileExpandedSection === item.id;
+        <div className="md:hidden fixed inset-0 z-40 bg-white pt-20 pb-8 px-6 flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200">
+          <div className="space-y-4 pt-2">
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-2 font-semibold">
+              NAVIGATION
+            </span>
 
-              return (
-                <div key={item.id} className="border-b border-black/[0.06] pb-2">
-                  <div className="flex items-center justify-between py-2">
-                    <Link
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-[22px] font-semibold text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
-                      style={{
-                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                        letterSpacing: "0.005em",
-                      }}
-                    >
-                      {item.label}
-                    </Link>
-                    <button
-                      onClick={() => setMobileExpandedSection(isExpanded ? null : item.id)}
-                      className="p-2 text-[#86868b] hover:text-[#1d1d1f] cursor-pointer"
-                      aria-label={`Expand ${item.label} sub-items`}
-                    >
-                      <ChevronRight
-                        className={`w-5 h-5 transition-transform duration-200 ${
-                          isExpanded ? "rotate-90 text-[#0071e3]" : ""
-                        }`}
-                      />
-                    </button>
-                  </div>
+            <div className="space-y-2">
+              {NAV_DROPDOWNS.map((item) => {
+                const isExpanded = mobileExpandedSection === item.id;
 
-                  {/* Sub-items */}
-                  {isExpanded && (
-                    <div className="mt-2 pl-2 space-y-3 pb-3">
-                      {item.primaryLinks?.map((pLink, pIdx) => (
-                        <div key={pIdx}>
+                return (
+                  <div key={item.id} className="border-b border-black/[0.06] pb-2">
+                    <div className="flex items-center justify-between py-2">
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="text-[20px] font-display font-medium text-[#1d1d1f]"
+                      >
+                        {item.label}
+                      </Link>
+                      <button
+                        onClick={() => setMobileExpandedSection(isExpanded ? null : item.id)}
+                        className="p-2 text-[#86868b] hover:text-[#1d1d1f] cursor-pointer"
+                        aria-label={`Expand ${item.label} submenu`}
+                      >
+                        <ChevronRight
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            isExpanded ? "rotate-90 text-[#1d1d1f]" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
+
+                    {isExpanded && (
+                      <div className="mt-1 pl-2 space-y-2.5 pb-2">
+                        {item.primaryLinks.map((link, lIdx) => (
                           <Link
-                            href={pLink.href}
+                            key={lIdx}
+                            href={link.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="text-[14px] text-[#1d1d1f] hover:text-[#0071e3] flex items-center justify-between py-1"
+                            className="text-[14px] text-[#6e6e73] hover:text-[#1d1d1f] flex items-center justify-between py-1"
                           >
-                            <span>{pLink.label}</span>
-                            {pLink.badge && (
+                            <span>{link.label}</span>
+                            {link.badge && (
                               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/[0.05] text-[#1d1d1f]">
-                                {pLink.badge}
+                                {link.badge}
                               </span>
                             )}
                           </Link>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div className="pt-6 border-t border-black/[0.08] space-y-3">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                window.dispatchEvent(new CustomEvent("open-ai-assistant"));
-              }}
-              className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-full border border-black/[0.12] bg-white text-zinc-900 text-[14px] font-medium shadow-xs"
-            >
-              <MessageSquare className="w-4 h-4 text-zinc-700" />
-              <span>Ask us</span>
-            </button>
-
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full bg-[#0071e3] text-white text-[14px] font-medium shadow-xs"
+              className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-all shadow-xs"
             >
               <span>Start a Project</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
+            <p className="text-center text-[12px] font-mono text-[#86868b]">
+              StratoTech · Bengaluru Studio
+            </p>
           </div>
         </div>
       )}

@@ -24,7 +24,7 @@ export default function BlogPostDetailPage({ params }: PageProps) {
   const related = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 2);
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white pb-10 sm:pb-16">
       <Navbar />
 
       {/* ── HEADER ──────────────────────────────────────────────────── */}
@@ -33,9 +33,9 @@ export default function BlogPostDetailPage({ params }: PageProps) {
           <ScrollReveal>
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-[#0070f3] transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Insights</span>
             </Link>
 
@@ -58,6 +58,7 @@ export default function BlogPostDetailPage({ params }: PageProps) {
             </p>
 
             <div className="mt-8 pt-6 border-t border-black/[0.08] flex items-center gap-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={post.author.avatar}
                 alt={post.author.name}
@@ -79,6 +80,7 @@ export default function BlogPostDetailPage({ params }: PageProps) {
         <div className="max-w-[900px] mx-auto px-4 sm:px-8">
           <ScrollReveal>
             <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-black/[0.08] bg-[#f5f5f7] shadow-xs">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={post.image}
                 alt={post.title}
@@ -133,7 +135,7 @@ export default function BlogPostDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── RELATED ESSAYS ──────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08] bg-[#f8fafc]">
+      <section className="py-10 sm:py-16 border-t border-black/[0.08] bg-[#f8fafc]">
         <div className="page-container">
           <ScrollReveal>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900 mb-8">

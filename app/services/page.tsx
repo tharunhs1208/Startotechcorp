@@ -71,7 +71,7 @@ export default function ServicesPage() {
   };
 
   useEffect(() => {
-    let lastIndex = activeIdx;
+    let lastIndex = 0;
     const handleScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();

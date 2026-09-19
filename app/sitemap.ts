@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://stratotechcorp.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://stratotechcorp.in";
   const now = new Date();
 
   const routes = [
@@ -18,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: "/projects/legalx-contract-sentinel", priority: 0.8, changeFrequency: "monthly" as const },
     { url: "/about", priority: 0.7, changeFrequency: "monthly" as const },
     { url: "/services", priority: 0.8, changeFrequency: "monthly" as const },
-    { url: "/archive", priority: 0.6, changeFrequency: "monthly" as const },
     { url: "/blog", priority: 0.7, changeFrequency: "weekly" as const },
     { url: "/careers", priority: 0.7, changeFrequency: "weekly" as const },
     { url: "/contact", priority: 0.8, changeFrequency: "monthly" as const },

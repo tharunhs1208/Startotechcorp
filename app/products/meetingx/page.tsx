@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
+  ArrowLeft,
   ArrowRight,
   Mic,
   MicOff,
@@ -12,21 +13,18 @@ import {
   Users,
   MessageSquare,
   PhoneOff,
-  Settings,
   ShieldCheck,
   Zap,
-  Radio,
   FileText,
   Volume2,
   CheckCircle2,
-  Sparkles,
   ArrowUpRight,
-  Play,
   RotateCcw
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TechBadge from "@/components/TechBadge";
+import { SoftwareAppJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 interface Participant {
   id: string;
@@ -184,27 +182,54 @@ export default function MeetingXProductPage() {
 
   return (
     <main className="min-h-screen bg-white text-zinc-900 w-full max-w-full overflow-x-hidden selection:bg-zinc-900 selection:text-white">
+      <SoftwareAppJsonLd
+        name="MeetingX Platform"
+        applicationCategory="CommunicationApplication, VideoConferencing"
+        description="A next-generation collaboration and real-time meeting platform engineered for crystal-clear video streaming and automated AI transcription summaries."
+        url="https://stratotechcorp.in/products/meetingx"
+        features={[
+          "Adaptive 4K SFU Video Mesh",
+          "Live AI Transcriptions",
+          "Sub-50ms Global Latency",
+          "Interactive Canvas Whiteboarding",
+        ]}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", item: "https://stratotechcorp.in" },
+          { name: "Products", item: "https://stratotechcorp.in/products" },
+          { name: "MeetingX", item: "https://stratotechcorp.in/products/meetingx" },
+        ]}
+      />
       <Navbar />
 
       {/* ── 1. HERO SECTION ─────────────────────────────────────────── */}
       <section className="pt-32 sm:pt-44 pb-16 sm:pb-24 border-b border-black/[0.08] bg-[#fbfbfd]">
         <div className="page-container max-w-6xl">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Products</span>
+          </Link>
+
           <div className="max-w-3xl">
             {/* Meta tags */}
-            <div className="flex flex-wrap items-center gap-3 mb-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-black/[0.08] bg-white text-[11px] font-mono uppercase tracking-wider text-zinc-700">
-                <Radio className="w-3 h-3 text-[#0070f3] animate-pulse" />
-                Product 03 · Communication
-              </span>
-              <span className="text-xs font-mono text-zinc-600">Enterprise Audio & Video Infrastructure</span>
+            <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-4 uppercase tracking-wider">
+              <span className="font-semibold text-[#1d1d1f]">PRODUCT</span>
+              <span>·</span>
+              <span>COMMUNICATION · PLATFORM</span>
+              <span>·</span>
+              <span>2026</span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-950 leading-[1.08] mb-6">
+            <h1 className="text-4xl sm:text-6xl font-display font-medium tracking-[-0.035em] text-[#1d1d1f] leading-[1.05] mb-6">
               MeetingX
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-zinc-600 font-light leading-relaxed max-w-2xl mb-8">
-              A minimalist, high-fidelity meeting platform engineered for low-latency team collaboration, automated transcription, and crystal-clear communication.
+            <p className="text-lg sm:text-xl text-[#6e6e73] font-normal leading-relaxed max-w-2xl mb-8">
+              A next-generation collaboration and real-time meeting platform engineered for crystal-clear video streaming and automated AI transcription summaries.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
@@ -322,7 +347,7 @@ export default function MeetingXProductPage() {
                       </div>
                       <div className="w-full max-w-md p-6 bg-black/60 rounded-xl border border-white/10 text-left space-y-3">
                         <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
-                          // Release Pipeline Metrics
+                          Release Pipeline Metrics
                         </div>
                         <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                           <div className="h-full bg-emerald-500 w-4/5"></div>

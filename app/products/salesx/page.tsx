@@ -1,79 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, User, Phone, Mail, DollarSign, Calendar, Filter, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TechBadge from "@/components/TechBadge";
-
-interface DealCard {
-  id: string;
-  contactName: string;
-  company: string;
-  value: string;
-  stage: "New" | "Qualified" | "Proposal" | "Won";
-  priority: "High" | "Medium" | "Low";
-  lastActivity: string;
-}
-
-const INITIAL_DEALS: DealCard[] = [
-  {
-    id: "deal-1",
-    contactName: "Marcus Sterling",
-    company: "Apex Global Logistics",
-    value: "$48,000",
-    stage: "New",
-    priority: "High",
-    lastActivity: "Inbound form submitted (10m ago)",
-  },
-  {
-    id: "deal-2",
-    contactName: "Sarah Chen",
-    company: "Vanguard Tech Corp",
-    value: "$120,000",
-    stage: "Qualified",
-    priority: "High",
-    lastActivity: "Discovery call completed",
-  },
-  {
-    id: "deal-3",
-    contactName: "David Reynolds",
-    company: "Novus Financial Group",
-    value: "$85,000",
-    stage: "Proposal",
-    priority: "Medium",
-    lastActivity: "MSA contract draft sent",
-  },
-  {
-    id: "deal-4",
-    contactName: "Elena Rostova",
-    company: "Meridian Cloud",
-    value: "$64,000",
-    stage: "Won",
-    priority: "High",
-    lastActivity: "Contract executed · Onboarding",
-  },
-];
+import { SoftwareAppJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export default function SalesXProductPage() {
-  const [deals, setDeals] = useState<DealCard[]>(INITIAL_DEALS);
-  const [selectedDealId, setSelectedDealId] = useState<string>("deal-2");
-  const [activeStageFilter, setActiveStageFilter] = useState<string>("ALL");
-
-  const selectedDeal = deals.find((d) => d.id === selectedDealId) || deals[0];
-
-  const advanceStage = (dealId: string) => {
-    setDeals((prev) =>
-      prev.map((d) => {
-        if (d.id !== dealId) return d;
-        const stages: DealCard["stage"][] = ["New", "Qualified", "Proposal", "Won"];
-        const nextIdx = (stages.indexOf(d.stage) + 1) % stages.length;
-        return { ...d, stage: stages[nextIdx], lastActivity: "Stage advanced just now" };
-      })
-    );
-  };
-
   const capabilities = [
     {
       title: "Automated Lead Triage",
@@ -118,11 +53,38 @@ export default function SalesXProductPage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
+      <SoftwareAppJsonLd
+        name="SalesX Platform"
+        applicationCategory="BusinessApplication, CRM"
+        description="A high-velocity digital sales platform engineered to automate pipeline triaging, lead qualification, and multi-channel customer follow-ups."
+        url="https://stratotechcorp.in/products/salesx"
+        features={[
+          "Automated Lead Triage in <500ms",
+          "Scheduled Follow-up Cadence",
+          "Two-Way CRM Synchronization",
+          "Pipeline Velocity Analytics",
+        ]}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", item: "https://stratotechcorp.in" },
+          { name: "Products", item: "https://stratotechcorp.in/products" },
+          { name: "SalesX", item: "https://stratotechcorp.in/products/salesx" },
+        ]}
+      />
       <Navbar />
 
-      <main className="pt-28 sm:pt-36 pb-24 sm:pb-32">
+      <main className="pt-28 sm:pt-36 pb-10 sm:pb-16">
         {/* ── 1. HERO SECTION ────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 border-b border-black/[0.08]">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Products</span>
+          </Link>
+
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-4 uppercase tracking-wider">
               <span className="font-semibold text-[#1d1d1f]">PRODUCT</span>
@@ -137,7 +99,7 @@ export default function SalesXProductPage() {
             </h1>
 
             <p className="text-lg sm:text-xl text-[#6e6e73] font-normal leading-relaxed max-w-2xl mb-10">
-              A digital platform built to support sales teams, lead management, customer follow-ups, and sales workflows.
+              A high-velocity digital sales platform engineered to automate pipeline triaging, lead qualification, and multi-channel customer follow-ups.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
@@ -148,12 +110,12 @@ export default function SalesXProductPage() {
                 <span>Inquire about SalesX</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-              <a
-                href="#preview"
+              <Link
+                href="#capabilities"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border border-black/[0.08] text-[#1d1d1f] text-[14px] font-medium hover:bg-[#f5f5f7] transition-colors"
               >
-                <span>Explore live preview</span>
-              </a>
+                <span>Explore capabilities</span>
+              </Link>
             </div>
           </div>
         </section>
@@ -181,156 +143,8 @@ export default function SalesXProductPage() {
           </div>
         </section>
 
-        {/* ── 3. INTERACTIVE PRODUCT PREVIEW ─────────────────────────── */}
-        <section id="preview" className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-8 border-b border-black/[0.08]">
-            <div>
-              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
-                INTERACTIVE PREVIEW
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-medium text-[#1d1d1f] tracking-tight">
-                Pipeline & Lead Management Canvas
-              </h2>
-            </div>
-            <span className="text-[12px] font-mono text-[#86868b]">
-              Click any deal to view details or advance stage
-            </span>
-          </div>
-
-          {/* Realistic SalesX App Window */}
-          <div className="rounded-xl border border-black/[0.08] bg-white shadow-md overflow-hidden">
-            {/* Top Toolbar */}
-            <div className="px-5 py-3.5 bg-[#f8fafc] border-b border-black/[0.06] flex flex-wrap items-center justify-between gap-4 text-[12px] font-mono">
-              <div className="flex items-center gap-3">
-                <span className="font-semibold text-[#1d1d1f]">SalesX Workspace</span>
-                <span className="text-[#86868b]">/</span>
-                <span className="text-[#6e6e73]">Q1 Enterprise Pipeline</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {["ALL", "New", "Qualified", "Proposal", "Won"].map((stg) => (
-                  <button
-                    key={stg}
-                    onClick={() => setActiveStageFilter(stg)}
-                    className={`px-2.5 py-1 rounded text-[11px] transition-colors cursor-pointer ${
-                      activeStageFilter === stg
-                        ? "bg-[#1d1d1f] text-white"
-                        : "bg-white border border-black/[0.06] text-[#6e6e73] hover:text-[#1d1d1f]"
-                    }`}
-                  >
-                    {stg}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Pipeline Grid & Detail Drawer */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-black/[0.08]">
-              {/* Deals List */}
-              <div className="lg:col-span-7 p-4 sm:p-6 space-y-3">
-                {deals
-                  .filter((d) => activeStageFilter === "ALL" || d.stage === activeStageFilter)
-                  .map((deal) => {
-                    const isSelected = deal.id === selectedDealId;
-
-                    return (
-                      <div
-                        key={deal.id}
-                        onClick={() => setSelectedDealId(deal.id)}
-                        className={`p-4 rounded-lg border transition-all cursor-pointer ${
-                          isSelected
-                            ? "bg-[#f8fafc] border-[#0071e3]/40 shadow-xs ring-1 ring-[#0071e3]/20"
-                            : "bg-white border-black/[0.06] hover:bg-[#fafafa]"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="font-semibold text-[14px] text-[#1d1d1f]">
-                            {deal.contactName}
-                          </span>
-                          <span className="font-mono font-semibold text-[13px] text-[#1d1d1f]">
-                            {deal.value}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center justify-between text-[12px] text-[#6e6e73]">
-                          <span>{deal.company}</span>
-                          <span
-                            className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${
-                              deal.stage === "Won"
-                                ? "bg-emerald-50 text-emerald-700"
-                                : deal.stage === "Proposal"
-                                ? "bg-blue-50 text-blue-700"
-                                : "bg-black/[0.04] text-[#1d1d1f]"
-                            }`}
-                          >
-                            {deal.stage}
-                          </span>
-                        </div>
-
-                        <div className="mt-2 text-[11px] font-mono text-[#86868b]">
-                          {deal.lastActivity}
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-
-              {/* Deal Inspector Side Panel */}
-              <div className="lg:col-span-5 p-6 bg-[#fafafa] flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/[0.06]">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#86868b] font-semibold">
-                      Deal Details
-                    </span>
-                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white border border-black/[0.06] text-[#0071e3] font-semibold">
-                      Priority: {selectedDeal.priority}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-display font-medium text-[#1d1d1f] mb-1">
-                    {selectedDeal.contactName}
-                  </h3>
-                  <p className="text-[13px] text-[#6e6e73] mb-5">{selectedDeal.company}</p>
-
-                  <div className="space-y-3 text-[12px] font-mono mb-6">
-                    <div className="flex items-center justify-between p-2.5 rounded bg-white border border-black/[0.06]">
-                      <span className="text-[#86868b]">Pipeline Value:</span>
-                      <strong className="text-[#1d1d1f]">{selectedDeal.value}</strong>
-                    </div>
-                    <div className="flex items-center justify-between p-2.5 rounded bg-white border border-black/[0.06]">
-                      <span className="text-[#86868b]">Current Stage:</span>
-                      <strong className="text-[#0071e3]">{selectedDeal.stage}</strong>
-                    </div>
-                    <div className="flex items-center justify-between p-2.5 rounded bg-white border border-black/[0.06]">
-                      <span className="text-[#86868b]">Activity Status:</span>
-                      <span className="text-[#1d1d1f] truncate max-w-[160px]">{selectedDeal.lastActivity}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-black/[0.06] space-y-2">
-                  <button
-                    onClick={() => advanceStage(selectedDeal.id)}
-                    className="w-full py-2.5 rounded-lg bg-[#1d1d1f] text-white text-[13px] font-medium hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2"
-                  >
-                    <span>Advance Pipeline Stage</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                  <Link
-                    href={`/contact?subject=SalesX+Inquiry+for+${encodeURIComponent(selectedDeal.company)}`}
-                    className="w-full py-2 rounded-lg bg-white border border-black/[0.08] text-[#1d1d1f] text-[12px] font-medium hover:bg-[#f5f5f7] transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <span>Request Custom SalesX Demo</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 4. KEY CAPABILITIES ────────────────────────────────────── */}
-        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+        {/* ── 3. KEY CAPABILITIES ────────────────────────────────────── */}
+        <section id="capabilities" className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
             <div>
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
@@ -356,7 +170,7 @@ export default function SalesXProductPage() {
           </div>
         </section>
 
-        {/* ── 5. SALES WORKFLOW ──────────────────────────────────────── */}
+        {/* ── 4. SALES WORKFLOW ──────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
             <div>
@@ -383,7 +197,7 @@ export default function SalesXProductPage() {
           </div>
         </section>
 
-        {/* ── 5.5 TECHNOLOGY STACK ──────────────────────────────────── */}
+        {/* ── 5. TECHNOLOGY STACK ────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-10 border-b border-black/[0.08]">
             <div>

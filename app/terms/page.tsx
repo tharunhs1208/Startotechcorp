@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -42,11 +44,19 @@ const TERMS_SECTIONS = [
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white pb-10 sm:pb-16">
       <Navbar />
 
       <section className="pt-32 pb-16 sm:pb-24 border-b border-black/[0.08] bg-[#f8fafc]">
         <div className="page-container max-w-4xl">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Home</span>
+          </Link>
+
           <span className="eyebrow text-[#0070f3] font-semibold block mb-4">Legal</span>
           <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl text-zinc-900 uppercase">
             TERMS OF SERVICE
@@ -57,10 +67,10 @@ export default function TermsPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-28">
+      <section className="py-10 sm:py-16">
         <div className="page-container max-w-4xl space-y-12">
           {TERMS_SECTIONS.map((sec) => (
-            <div key={sec.num} className="pb-10 border-b border-black/[0.06]">
+            <div key={sec.num} className="pb-10 border-b border-black/[0.06] last:border-b-0 last:pb-0">
               <div className="flex items-baseline gap-4 mb-3">
                 <span className="font-mono text-sm font-bold text-[#0070f3]">
                   {sec.num}

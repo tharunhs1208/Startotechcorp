@@ -36,7 +36,7 @@ export default function JobDetailPage({ params }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900">
+    <main className="min-h-screen bg-[#fafafa] text-zinc-900 pb-10 sm:pb-16">
       <Navbar />
 
       {/* ── HEADER ──────────────────────────────────────────────────── */}
@@ -45,10 +45,10 @@ export default function JobDetailPage({ params }: PageProps) {
           <ScrollReveal>
             <Link
               href="/careers"
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-[#0070f3] transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to All Openings</span>
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Careers</span>
             </Link>
 
             <div className="flex items-center gap-3 font-mono text-xs text-[#0070f3] mb-3 font-semibold">
@@ -67,7 +67,7 @@ export default function JobDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── JOB DETAILS & APPLICATION ───────────────────────────────── */}
-      <section className="py-16 sm:py-24">
+      <section className="py-10 sm:py-16">
         <div className="page-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left: Job Details */}

@@ -3,11 +3,12 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import TechBadge from "@/components/TechBadge";
+import StartProjectButton from "@/components/StartProjectButton";
 import { SERVICES_DATA, PROJECTS_DATA } from "@/data/siteData";
 
 interface PageProps {
@@ -42,10 +43,10 @@ export default function ServiceDetailPage({ params }: PageProps) {
           <ScrollReveal delay={0.05} y={16}>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-[#0070f3] transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to All Services</span>
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Services</span>
             </Link>
 
             <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] block mb-2 font-semibold">
@@ -195,6 +196,7 @@ export default function ServiceDetailPage({ params }: PageProps) {
                   className="group rounded-2xl border border-black/[0.08] bg-white overflow-hidden hover:border-black/20 shadow-xs hover:shadow-md transition-all block"
                 >
                   <div className="relative aspect-video bg-[#f5f5f7] overflow-hidden border-b border-black/[0.04]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={proj.image}
                       alt={proj.title}
@@ -220,7 +222,7 @@ export default function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 border-t border-black/[0.08]">
+      <section className="py-10 sm:py-16 border-t border-black/[0.08]">
         <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
           <ScrollReveal y={24}>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-900">
@@ -230,13 +232,7 @@ export default function ServiceDetailPage({ params }: PageProps) {
               Let&apos;s evaluate your requirements and scope a delivery plan.
             </p>
             <div className="mt-8">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] hover:bg-black text-white px-8 py-3.5 text-xs sm:text-sm font-medium transition-all shadow-xs active:scale-95"
-              >
-                <span>Start a project</span>
-                <ArrowUpRight className="w-4 h-4 opacity-80" />
-              </Link>
+              <StartProjectButton size="lg" iconType="up-right" />
             </div>
           </ScrollReveal>
         </div>
