@@ -5,57 +5,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import OrbitalHero from "@/components/OrbitalHero";
 import TechBadge from "@/components/TechBadge";
 import TextMaskReveal from "@/components/TextMaskReveal";
 import StartProjectButton from "@/components/StartProjectButton";
-import ProductCard, { ProductData } from "@/components/ProductCard";
 import InteractiveProductShowcase from "@/components/InteractiveProductShowcase";
 import SelectedWorkShowcase from "@/components/SelectedWorkShowcase";
-
-const FEATURED_PRODUCTS: ProductData[] = [
-  {
-    number: "01",
-    id: "salesx",
-    name: "SalesX",
-    departmentLabel: "Sales Platform",
-    year: "2026",
-    description: "Routes incoming inbound leads directly to account executives based on territory and company size, then triggers follow-up cadences.",
-    beforeAfterSummary: "Teams cut first-response times from over 4 hours down to under 5 minutes without manual spreadsheet triage.",
-    supportingLine: "Every conversation and stage change syncs directly with Salesforce and HubSpot records in real time.",
-    linkHref: "/products/salesx",
-    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    ctaLabel: "See how lead routing works",
-    layout: "text-left-visual-right",
-  },
-  {
-    number: "02",
-    id: "zobay",
-    name: "Zobay Voice AI",
-    departmentLabel: "Voice AI",
-    year: "2026",
-    description: "Answers customer phone calls and qualifies inbound inquiries with fluid speech pacing that adapts to caller interruptions.",
-    beforeAfterSummary: "Callers experience natural back-and-forth conversation without the awkward 2-second delays of traditional phone trees.",
-    supportingLine: "On hang-up, the system writes structured meeting notes and places appointments directly onto rep calendars.",
-    linkHref: "/projects/zobay-voice-ai",
-    mediaSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-    ctaLabel: "Listen to live turn-taking",
-    layout: "visual-left-text-right",
-  },
-  {
-    number: "03",
-    id: "meetingx",
-    name: "MeetingX",
-    departmentLabel: "Communication",
-    year: "2026",
-    description: "Browser-based video collaboration with adaptive selective forwarding, real-time shared canvases, and live transcription.",
-    beforeAfterSummary: "Distributed product teams run multi-participant reviews with clear 1080p video, even on constrained bandwidth.",
-    supportingLine: "Action items and summaries are organized during the call and pushed directly to project management boards.",
-    linkHref: "/products/meetingx",
-    mediaSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-    ctaLabel: "See how rooms connect",
-    layout: "text-left-visual-right",
-  },
-];
 
 const PROCESS_STEPS = [
   {
@@ -112,8 +67,6 @@ const SELECTED_WORK_ITEMS = [
     linkHref: "/products/meetingx",
   },
 ];
-
-import OrbitalHero from "@/components/OrbitalHero";
 
 export default function HomePage() {
   return (
