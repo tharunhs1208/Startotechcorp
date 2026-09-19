@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
+import ScrollCardTransition from "./ScrollCardTransition";
 
 interface ScrollMaskTextProps {
   children?: string;
@@ -133,31 +134,17 @@ interface ScrollMaskCardProps {
 
 /**
  * Scroll Mask Reveal Card for lists and grids (disciplines, team, principles)
+ * Fully aligned with the global bi-directional card scroll transition system.
  */
 export function ScrollMaskCard({
   children,
   className = "",
   index = 0,
 }: ScrollMaskCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start 0.92", "end 0.6"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [36 + index * 6, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [0.25, 0.9, 1]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.97, 1]);
-
   return (
-    <motion.div
-      ref={cardRef}
-      style={{ y, opacity, scale }}
-      className={`will-change-[transform,opacity] ${className}`}
-    >
+    <ScrollCardTransition index={index} className={className}>
       {children}
-    </motion.div>
+    </ScrollCardTransition>
   );
 }
 

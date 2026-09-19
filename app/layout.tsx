@@ -88,7 +88,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="min-h-screen bg-white text-[#1d1d1f] antialiased font-sans selection:bg-[#0071e3] selection:text-white"
+        className="min-h-screen bg-white text-[#1d1d1f] antialiased font-sans selection:bg-[#1d1d1f] selection:text-white"
       >
         <CommandPalette />
         <AIAssistant />

@@ -3,9 +3,10 @@
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, ArrowUpRight, Layers, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+import ScrollCardTransition from "@/components/ScrollCardTransition";
 
 type WorkCategory = "ALL" | "DESIGN" | "DEVELOPMENT" | "ENGINEERING" | "INTEGRATION" | "PRODUCT" | "RESEARCH";
 
@@ -271,122 +272,99 @@ function WorkContent() {
         </motion.div>
       </section>
 
-      {/* ── WORK CASE-STUDY CARDS WITH SILKY INTERACTIVE TRANSITIONS ── */}
-      <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-16">
-        <motion.div layout className="space-y-12 sm:space-y-16">
+      {/* ── MINIMAL PREMIUM PROJECT SHOWCASE CARDS ─────────────── */}
+      <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-8 sm:pt-12">
+        <motion.div layout className="space-y-8 sm:space-y-12">
           <AnimatePresence mode="popLayout" initial={false}>
             {filtered.map((work, idx) => {
               const isVisualLeft = work.layout === "visual-left";
 
               return (
-                <motion.article
-                  key={work.id}
-                  layout
-                  initial={{ opacity: 0, y: 36, scale: 0.98 }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    transition: {
-                      duration: 0.65,
-                      delay: Math.min(idx * 0.05, 0.25),
-                      ease: [0.16, 1, 0.3, 1],
-                    },
-                  }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  exit={{
-                    opacity: 0,
-                    y: -24,
-                    scale: 0.98,
-                    transition: {
-                      duration: 0.3,
-                      ease: [0.4, 0, 0.2, 1],
-                    },
-                  }}
-                  transition={{
-                    layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
-                  }}
-                  className="group rounded-2xl sm:rounded-3xl border border-black/[0.08] bg-white p-6 sm:p-9 lg:p-10 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] hover:shadow-[0_24px_54px_-12px_rgba(0,0,0,0.08)] transition-all duration-500"
-                >
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-                    {/* Media Visual Container with Slow Zoom */}
-                    <div
-                      className={`lg:col-span-7 overflow-hidden rounded-xl bg-zinc-100 border border-black/[0.08] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)] group-hover:shadow-[0_16px_40px_-10px_rgba(0,0,0,0.1)] transition-all duration-500 ${
-                        isVisualLeft ? "lg:order-1 order-1" : "lg:order-2 order-1"
-                      }`}
-                    >
-                      <Link href={work.linkHref} className="block overflow-hidden relative group/media">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={work.mediaSrc}
-                          alt={work.productName}
-                          className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/media:scale-105"
-                        />
+                <ScrollCardTransition key={work.id} index={idx}>
+                  <motion.article
+                    layout
+                    exit={{
+                      opacity: 0,
+                      y: -20,
+                      transition: {
+                        duration: 0.3,
+                        ease: [0.4, 0, 0.2, 1],
+                      },
+                    }}
+                    transition={{
+                      layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                    }}
+                    className="group bg-white border border-black/[0.08] rounded-xl overflow-hidden hover:border-black/30 transition-all duration-300"
+                  >
+                    <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[360px] items-stretch">
+                      {/* Editorial Content (Clean hierarchy, generous spacing) */}
+                      <div
+                        className={`lg:col-span-6 p-7 sm:p-9 lg:p-11 flex flex-col justify-between ${
+                          isVisualLeft ? "lg:order-2 order-2" : "lg:order-1 order-2"
+                        }`}
+                      >
+                        <div>
+                          {/* Clean Minimal Metadata: Number · Category · Year */}
+                          <div className="flex items-center gap-2 text-[12px] font-mono text-[#86868b] mb-4 uppercase tracking-wider">
+                            <span className="font-semibold text-[#111]">{work.number}</span>
+                            <span>·</span>
+                            <span>{work.discipline}</span>
+                            <span>·</span>
+                            <span>{work.year}</span>
+                          </div>
 
-                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/media:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                          <span className="bg-white/95 backdrop-blur-md text-zinc-900 text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full shadow-lg transform translate-y-2 group-hover/media:translate-y-0 transition-transform duration-300 inline-flex items-center gap-1.5">
-                            <span>Explore Case Study</span>
-                            <ArrowUpRight className="w-3.5 h-3.5" />
-                          </span>
-                        </div>
-                      </Link>
-                    </div>
+                          {/* Confident Project Title */}
+                          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-semibold text-[#111111] tracking-[-0.03em] leading-tight mb-3">
+                            <Link href={work.linkHref} className="hover:text-black transition-colors">
+                              {work.productName}
+                            </Link>
+                          </h2>
 
-                    {/* Scope & Details Container */}
-                    <div
-                      className={`lg:col-span-5 flex flex-col justify-between ${
-                        isVisualLeft ? "lg:order-2 order-2" : "lg:order-1 order-2"
-                      }`}
-                    >
-                      <div>
-                        {/* Number & Discipline Metadata */}
-                        <div className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-[0.16em]">
-                          <span className="font-bold text-[#1d1d1f]">{work.number}</span>
-                          <span>/</span>
-                          <span className="text-[#1d1d1f] font-medium">{work.discipline}</span>
-                          <span>·</span>
-                          <span>{work.year}</span>
-                        </div>
+                          {/* Single Concise Description */}
+                          <p className="text-[15px] sm:text-[16px] text-zinc-600 leading-relaxed font-normal mb-6">
+                            {work.scopeSummary}
+                          </p>
 
-                        {/* Product Title */}
-                        <h2 className="text-2xl sm:text-3xl font-display font-medium text-[#1d1d1f] tracking-tight mb-3">
-                          <Link href={work.linkHref} className="hover:text-black transition-colors inline-block relative link-underline">
-                            {work.productName}
-                          </Link>
-                        </h2>
-
-                        {/* Scope Summary */}
-                        <p className="text-[14px] sm:text-[15px] text-[#6e6e73] leading-relaxed mb-6 font-light">
-                          {work.scopeSummary}
-                        </p>
-
-                        {/* Deliverables with Animated Checklist */}
-                        <div className="space-y-2 mb-8 text-[12px] font-mono text-[#1d1d1f]">
-                          {work.deliverables.map((deliv, i) => (
-                            <div key={i} className="flex items-center gap-2 text-zinc-700">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                              <span>{deliv}</span>
+                          {/* Concrete Deliverables Preview (Subtle hairlines, no icons) */}
+                          {work.deliverables && work.deliverables.length > 0 && (
+                            <div className="pt-4 border-t border-black/[0.06] text-[13px] font-mono text-[#6e6e73]">
+                              {work.deliverables.slice(0, 3).join(" · ")}
                             </div>
-                          ))}
+                          )}
+                        </div>
+
+                        {/* Simple "View project →" Text Link */}
+                        <div className="mt-8 pt-2">
+                          <Link
+                            href={work.linkHref}
+                            className="inline-flex items-center gap-2 text-[14px] font-medium text-[#111111] hover:text-black group transition-colors"
+                          >
+                            <span>View project</span>
+                            <span className="transition-transform duration-300 ease-out group-hover:translate-x-1">→</span>
+                          </Link>
                         </div>
                       </div>
 
-                      <div className="pt-4 border-t border-black/[0.06] flex items-center justify-between">
-                        <Link
-                          href={work.linkHref}
-                          className="group/btn inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[#1d1d1f] hover:text-emerald-700 transition-colors"
-                        >
-                          <span className="link-underline">View Project Details</span>
-                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-1.5 text-emerald-600" />
+                      {/* Visual Showcase (Subtle rounded, prominent, calm hover scale) */}
+                      <div
+                        className={`lg:col-span-6 bg-zinc-100 ${
+                          isVisualLeft
+                            ? "border-b lg:border-b-0 lg:border-r border-black/[0.06] lg:order-1 order-1"
+                            : "border-t lg:border-t-0 lg:border-l border-black/[0.06] lg:order-2 order-1"
+                        } relative flex items-stretch overflow-hidden min-h-[260px] sm:min-h-[320px]`}
+                      >
+                        <Link href={work.linkHref} className="block w-full h-full relative group/img overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={work.mediaSrc}
+                            alt={work.productName}
+                            className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.03]"
+                          />
                         </Link>
-
-                        <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                          {work.category}
-                        </span>
                       </div>
                     </div>
-                  </div>
-                </motion.article>
+                  </motion.article>
+                </ScrollCardTransition>
               );
             })}
 
@@ -397,16 +375,15 @@ function WorkContent() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -16 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="py-24 text-center rounded-2xl border border-black/[0.08] bg-white p-12"
+                className="py-24 text-center"
               >
-                <Layers className="w-8 h-8 text-zinc-400 mx-auto mb-3" />
-                <p className="text-[13px] font-mono text-[#6e6e73] uppercase mb-4">
-                  No projects found under the {activeCategory} category.
+                <p className="text-[14px] font-mono text-[#86868b] uppercase mb-4">
+                  No projects found for {activeCategory.toLowerCase()}.
                 </p>
                 <button
                   type="button"
                   onClick={() => setActiveCategory("ALL")}
-                  className="text-xs font-semibold uppercase tracking-wider text-black underline underline-offset-4 cursor-pointer"
+                  className="text-[13px] font-medium text-[#111] underline underline-offset-4 cursor-pointer"
                 >
                   View all projects
                 </button>

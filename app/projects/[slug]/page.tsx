@@ -4,7 +4,7 @@ import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { PROJECTS_DATA } from "@/data/siteData";
@@ -57,7 +57,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
           >
             <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span>← Back to Work</span>
+            <span>Back to Work</span>
           </Link>
 
           <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-wider">
@@ -154,17 +154,19 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
             {/* Key Features */}
             <div className="space-y-3 pt-2">
-              <h3 className="text-[13px] font-mono uppercase tracking-wider text-[#1d1d1f] font-semibold">
-                Key Features
+              <h3 className="text-[12px] font-mono uppercase tracking-wider text-[#1d1d1f] font-semibold">
+                Key Deliverables &amp; Features
               </h3>
-              <ul className="space-y-2.5 text-[14px] text-zinc-700 font-mono">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {project.features.map((feat, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <div
+                    key={idx}
+                    className="border-l-2 border-black/[0.12] pl-3.5 py-1 text-[14px] text-zinc-700 leading-snug"
+                  >
                     <span>{feat}</span>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </motion.div>
 

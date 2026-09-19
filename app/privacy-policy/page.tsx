@@ -38,56 +38,60 @@ const PRIVACY_SECTIONS = [
   {
     num: "07",
     title: "Contact",
-    desc: "For any privacy-related inquiries, please contact our data governance team directly at privacy@stratotechcorp.com.",
+    desc: "For any privacy-related inquiries, please contact our data governance team directly at privacy@stratotechcorp.in.",
   },
 ];
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white pb-10 sm:pb-16">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      <section className="pt-32 pb-16 sm:pb-24 border-b border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container max-w-4xl">
+      <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
             <span>Back to Home</span>
           </Link>
 
-          <span className="eyebrow text-[#0070f3] font-semibold block mb-4">Legal</span>
-          <h1 className="display-xl text-4xl sm:text-6xl md:text-7xl text-zinc-900 uppercase">
-            PRIVACY POLICY
-          </h1>
-          <p className="mt-4 font-mono text-xs text-zinc-500">
-            Last updated: September 2026
-          </p>
-        </div>
-      </section>
+          <div className="max-w-3xl">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
+              LEGAL &amp; COMPLIANCE
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-display font-medium tracking-tight text-[#1d1d1f] mb-4">
+              Privacy Policy
+            </h1>
+            <p className="text-[14px] text-[#86868b] font-mono">
+              Last updated: January 2026
+            </p>
+          </div>
+        </section>
 
-      <section className="py-10 sm:py-16">
-        <div className="page-container max-w-4xl space-y-12">
-          {PRIVACY_SECTIONS.map((sec) => (
-            <div key={sec.num} className="pb-10 border-b border-black/[0.06] last:border-b-0 last:pb-0">
-              <div className="flex items-baseline gap-4 mb-3">
-                <span className="font-mono text-sm font-bold text-[#0070f3]">
-                  {sec.num}
-                </span>
-                <h2 className="display-lg text-xl sm:text-2xl text-zinc-900 uppercase">
-                  {sec.title}
-                </h2>
+        <section className="max-w-[1024px] mx-auto px-5 sm:px-8 py-12 sm:py-16">
+          <div className="divide-y divide-black/[0.08]">
+            {PRIVACY_SECTIONS.map((sec) => (
+              <div key={sec.num} className="py-8 sm:py-10 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
+                <div className="md:col-span-4 flex items-center gap-3">
+                  <span className="font-mono text-[12px] text-[#86868b]">{sec.num}</span>
+                  <h2 className="font-display text-lg sm:text-xl font-medium text-[#1d1d1f]">
+                    {sec.title}
+                  </h2>
+                </div>
+                <div className="md:col-span-8">
+                  <p className="text-[15px] text-[#6e6e73] leading-relaxed font-normal">
+                    {sec.desc}
+                  </p>
+                </div>
               </div>
-              <p className="text-xs sm:text-sm text-zinc-600 font-light leading-relaxed pl-8">
-                {sec.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

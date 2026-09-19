@@ -14,17 +14,14 @@ import {
   MessageSquare,
   PhoneOff,
   ShieldCheck,
-  Zap,
-  FileText,
-  Volume2,
-  CheckCircle2,
-  ArrowUpRight,
   RotateCcw
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TechBadge from "@/components/TechBadge";
 import { SoftwareAppJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+
+import ScrollCardTransition from "@/components/ScrollCardTransition";
 
 interface Participant {
   id: string;
@@ -44,7 +41,7 @@ const INITIAL_PARTICIPANTS: Participant[] = [
     name: "Alex Rivera (You)",
     role: "Engineering Lead",
     initials: "AR",
-    avatarBg: "bg-blue-600",
+    avatarBg: "bg-[#27272a]",
     isMuted: false,
     isSpeaking: true,
     isVideoOff: false,
@@ -55,7 +52,7 @@ const INITIAL_PARTICIPANTS: Participant[] = [
     name: "Elena Rostova",
     role: "Product Strategy",
     initials: "ER",
-    avatarBg: "bg-emerald-600",
+    avatarBg: "bg-[#3f3f46]",
     isMuted: false,
     isSpeaking: false,
     isVideoOff: false,
@@ -65,7 +62,7 @@ const INITIAL_PARTICIPANTS: Participant[] = [
     name: "Marcus Sterling",
     role: "VP Operations",
     initials: "MS",
-    avatarBg: "bg-indigo-600",
+    avatarBg: "bg-[#52525b]",
     isMuted: true,
     isSpeaking: false,
     isVideoOff: true,
@@ -75,7 +72,7 @@ const INITIAL_PARTICIPANTS: Participant[] = [
     name: "Sarah Chen",
     role: "Architectural Lead",
     initials: "SC",
-    avatarBg: "bg-amber-600",
+    avatarBg: "bg-[#71717a]",
     isMuted: false,
     isSpeaking: false,
     isVideoOff: false,
@@ -94,7 +91,7 @@ export default function MeetingXProductPage() {
     { sender: "Sarah Chen", time: "10:44 AM", text: "Latency tests show 42ms median WebRTC round-trip time." },
   ]);
   const [newMsg, setNewMsg] = useState("");
-  const [callDuration, setCallDuration] = useState(284); // in seconds
+  const [callDuration, setCallDuration] = useState(284);
 
   useEffect(() => {
     if (callEnded) return;
@@ -137,23 +134,19 @@ export default function MeetingXProductPage() {
   const capabilities = [
     {
       title: "Sub-50ms Global Latency",
-      desc: "Distributed SFU edge mesh routing connections through the nearest Tier-1 data centers worldwide.",
-      icon: Zap,
+      desc: "Distributed SFU edge mesh routing connections through nearest Tier-1 data centers worldwide.",
     },
     {
       title: "Automated Live Transcription",
       desc: "Real-time speech-to-text generating searchable transcripts and action item summaries instantaneously.",
-      icon: FileText,
     },
     {
       title: "End-to-End Encryption",
-      desc: "Enterprise-grade DTLS-SRTP and double encryption ensuring zero third-party visibility into audio or video streams.",
-      icon: ShieldCheck,
+      desc: "Enterprise-grade DTLS-SRTP double encryption ensuring zero third-party visibility into audio or video streams.",
     },
     {
       title: "Adaptive 48kHz Opus Audio",
-      desc: "Intelligent background noise cancellation and dynamic bitrate throttling tailored for variable network conditions.",
-      icon: Volume2,
+      desc: "Intelligent background noise cancellation and dynamic bitrate throttling tailored for variable networks.",
     },
   ];
 
@@ -166,7 +159,7 @@ export default function MeetingXProductPage() {
     {
       step: "02",
       title: "Adaptive Media Mesh",
-      desc: "High-definition video & multi-track audio stream dynamically through lowest-latency edge nodes.",
+      desc: "High-definition video and multi-track audio stream dynamically through lowest-latency edge nodes.",
     },
     {
       step: "03",
@@ -181,15 +174,15 @@ export default function MeetingXProductPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-white text-zinc-900 w-full max-w-full overflow-x-hidden selection:bg-zinc-900 selection:text-white">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <SoftwareAppJsonLd
         name="MeetingX Platform"
         applicationCategory="CommunicationApplication, VideoConferencing"
-        description="A next-generation collaboration and real-time meeting platform engineered for crystal-clear video streaming and automated AI transcription summaries."
+        description="A real-time meeting and collaboration platform engineered for crystal-clear video streaming and automated transcription summaries."
         url="https://stratotechcorp.in/products/meetingx"
         features={[
           "Adaptive 4K SFU Video Mesh",
-          "Live AI Transcriptions",
+          "Live Transcriptions",
           "Sub-50ms Global Latency",
           "Interactive Canvas Whiteboarding",
         ]}
@@ -203,20 +196,19 @@ export default function MeetingXProductPage() {
       />
       <Navbar />
 
-      {/* ── 1. HERO SECTION ─────────────────────────────────────────── */}
-      <section className="pt-32 sm:pt-44 pb-16 sm:pb-24 border-b border-black/[0.08] bg-[#fbfbfd]">
-        <div className="page-container max-w-6xl">
+      <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        {/* ── 1. HERO SECTION ─────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
             <span>Back to Products</span>
           </Link>
 
           <div className="max-w-3xl">
-            {/* Meta tags */}
-            <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-4 uppercase tracking-wider">
+            <div className="flex items-center gap-3 text-[11px] font-mono text-[#6e6e73] mb-4 uppercase tracking-wider">
               <span className="font-semibold text-[#1d1d1f]">PRODUCT</span>
               <span>·</span>
               <span>COMMUNICATION · PLATFORM</span>
@@ -224,87 +216,82 @@ export default function MeetingXProductPage() {
               <span>2026</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-display font-medium tracking-[-0.035em] text-[#1d1d1f] leading-[1.05] mb-6">
+            <h1 className="text-4xl sm:text-6xl font-display font-medium tracking-tight text-[#1d1d1f] leading-tight mb-6">
               MeetingX
             </h1>
 
             <p className="text-lg sm:text-xl text-[#6e6e73] font-normal leading-relaxed max-w-2xl mb-8">
-              A next-generation collaboration and real-time meeting platform engineered for crystal-clear video streaming and automated AI transcription summaries.
+              A real-time collaboration and meeting platform engineered for crystal-clear video streaming and automated meeting transcription.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href="#interactive-demo"
-                className="inline-flex items-center gap-2 bg-zinc-950 text-white hover:bg-zinc-800 text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
               >
                 <span>Try Live Interactive Room</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <Link
                 href="/contact?subject=Schedule+MeetingX+Demo"
-                className="inline-flex items-center gap-2 border border-black/[0.12] bg-white hover:bg-black/[0.02] text-zinc-800 text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-black/[0.08] text-[#1d1d1f] text-[14px] font-medium hover:bg-[#f5f5f7] transition-colors"
               >
                 <span>Request Enterprise Pilot</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-600" />
               </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 2. PURPOSE STATEMENT ────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 border-b border-black/[0.08] bg-white">
-        <div className="page-container max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            <div className="md:col-span-4">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
-                Purpose & Philosophy
+        {/* ── 2. PURPOSE STATEMENT ────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <div className="lg:col-span-4">
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] font-semibold block mb-2">
+                PURPOSE &amp; PHILOSOPHY
               </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-950 tracking-tight">
+              <h2 className="font-display text-2xl sm:text-3xl font-medium text-[#1d1d1f] tracking-tight leading-snug">
                 No Bloat. No Sign-In Walls. Instant Connection.
               </h2>
             </div>
-            <div className="md:col-span-8 space-y-4 text-zinc-600 text-sm sm:text-base leading-relaxed font-light">
+            <div className="lg:col-span-8 space-y-4 text-[15px] sm:text-[16px] text-[#6e6e73] font-normal leading-relaxed">
               <p>
-                Legacy enterprise video conferencing platforms are notoriously bloated, burdened by heavy background processes, confusing authorization modals, and fragile connections on weak mobile data.
+                Legacy enterprise video conferencing platforms are notoriously bloated, burdened by heavy background processes, confusing authorization modals, and fragile connections on variable mobile data.
               </p>
               <p>
-                MeetingX strips away every non-essential layer to focus on what matters: pristine 48kHz Opus audio, sub-50ms WebRTC streaming, and intelligent real-time meeting synthesis that frees teams from taking manual notes.
+                MeetingX strips away non-essential layers to focus on what matters: pristine 48kHz Opus audio, sub-50ms WebRTC streaming, and real-time meeting synthesis that frees teams from manual note taking.
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 3. INTERACTIVE MEETING ROOM SIMULATOR ─────────────────────── */}
-      <section id="interactive-demo" className="py-16 sm:py-24 bg-[#f8fafc] border-b border-black/[0.08]">
-        <div className="page-container max-w-6xl">
+        {/* ── 3. INTERACTIVE MEETING ROOM SIMULATOR ─────────────────────── */}
+        <section id="interactive-demo" className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
           <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
-                Interactive Environment
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] font-semibold block mb-2">
+                INTERACTIVE ENVIRONMENT
               </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-950 tracking-tight">
+              <h2 className="font-display text-2xl sm:text-3xl font-medium text-[#1d1d1f] tracking-tight">
                 Meeting Room Simulator
               </h2>
-              <p className="text-xs sm:text-sm text-zinc-600 mt-1">
+              <p className="text-[14px] text-[#6e6e73] mt-1">
                 Interact with microphone, camera, screen-share, and chat controls to test real-time UI behavior.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-600">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <div className="flex items-center gap-2 text-[12px] font-mono text-[#6e6e73]">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
               <span>Encrypted Room #STC-7029</span>
             </div>
           </div>
 
           {/* Meeting Room Canvas Container */}
-          <div className="rounded-2xl border border-black/[0.12] bg-[#0f1117] text-white shadow-xl overflow-hidden flex flex-col min-h-[580px]">
+          <div className="rounded-xl border border-black/[0.12] bg-[#111113] text-white overflow-hidden flex flex-col min-h-[560px]">
             {/* Room Header bar */}
             <div className="px-4 sm:px-6 py-3 border-b border-white/[0.08] bg-black/40 flex items-center justify-between text-xs">
               <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
-                <span className="font-semibold text-zinc-200">Architecture Sprint & Delivery Review</span>
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                <span className="font-medium text-zinc-200">Architecture Sprint &amp; Delivery Review</span>
                 <span className="px-2 py-0.5 rounded bg-white/10 text-[10px] font-mono text-zinc-400">
                   {formatDuration(callDuration)}
                 </span>
@@ -322,26 +309,25 @@ export default function MeetingXProductPage() {
               <div className="flex-1 p-4 sm:p-6 flex flex-col justify-between">
                 {callEnded ? (
                   <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
-                    <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-4 text-zinc-400">
-                      <PhoneOff className="w-8 h-8 text-rose-400" />
+                    <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-4 text-zinc-400">
+                      <PhoneOff className="w-6 h-6 text-rose-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">You left the meeting</h3>
+                    <h3 className="text-lg font-medium text-white mb-2">You left the meeting</h3>
                     <p className="text-xs sm:text-sm text-zinc-400 max-w-sm mb-6">
                       The automated transcript and action items have been dispatched to your email inbox.
                     </p>
                     <button
                       onClick={() => setCallEnded(false)}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0070f3] text-white text-xs font-semibold hover:bg-blue-600 transition-colors"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-black text-xs font-semibold hover:bg-zinc-200 transition-colors cursor-pointer"
                     >
                       <RotateCcw className="w-4 h-4" />
                       <span>Rejoin Meeting</span>
                     </button>
                   </div>
                 ) : isScreenSharing ? (
-                  /* Screen share state */
                   <div className="flex-1 flex flex-col">
                     <div className="flex-1 bg-zinc-900/80 rounded-xl border border-white/10 p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
-                      <div className="absolute top-3 left-4 flex items-center gap-2 text-xs font-mono text-blue-400">
+                      <div className="absolute top-3 left-4 flex items-center gap-2 text-xs font-mono text-zinc-300">
                         <ScreenShare className="w-3.5 h-3.5" />
                         <span>Alex Rivera is sharing screen (1080p @ 60fps)</span>
                       </div>
@@ -350,7 +336,7 @@ export default function MeetingXProductPage() {
                           Release Pipeline Metrics
                         </div>
                         <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                          <div className="h-full bg-emerald-500 w-4/5"></div>
+                          <div className="h-full bg-emerald-500 w-4/5" />
                         </div>
                         <div className="flex justify-between text-xs text-zinc-400">
                           <span>Build Stage 4/5</span>
@@ -360,7 +346,6 @@ export default function MeetingXProductPage() {
                     </div>
                   </div>
                 ) : (
-                  /* Participant Grid (2x2) */
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                     {participants.map((p) => {
                       const isSelf = p.id === "p1";
@@ -369,13 +354,12 @@ export default function MeetingXProductPage() {
                           key={p.id}
                           className={`relative rounded-xl border overflow-hidden transition-all flex flex-col items-center justify-center p-6 ${
                             p.isSpeaking && !p.isMuted
-                              ? "border-[#0070f3] ring-2 ring-[#0070f3]/40 bg-zinc-900"
+                              ? "border-white/40 ring-1 ring-white/20 bg-zinc-900"
                               : "border-white/10 bg-zinc-900/60"
                           }`}
                         >
-                          {/* Audio indicator / status tags */}
                           <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                            <span className="px-2 py-0.5 rounded bg-black/60 text-[11px] font-medium text-zinc-300 backdrop-blur-xs">
+                            <span className="px-2 py-0.5 rounded bg-black/60 text-[11px] font-medium text-zinc-300">
                               {p.name} {p.isHost && "(Host)"}
                             </span>
                             <div className="flex items-center gap-1.5">
@@ -391,13 +375,10 @@ export default function MeetingXProductPage() {
                             </div>
                           </div>
 
-                          {/* Video canvas / Avatar fallback */}
                           {p.isVideoOff ? (
                             <div className="flex flex-col items-center">
                               <div
-                                className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl font-bold text-white shadow-lg ${p.avatarBg} ${
-                                  p.isSpeaking ? "scale-105 transition-transform" : ""
-                                }`}
+                                className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl font-medium text-white shadow-lg ${p.avatarBg}`}
                               >
                                 {p.initials}
                               </div>
@@ -406,23 +387,19 @@ export default function MeetingXProductPage() {
                           ) : (
                             <div className="flex flex-col items-center">
                               <div
-                                className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl font-bold text-white shadow-lg ${p.avatarBg} relative`}
+                                className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl font-medium text-white shadow-lg ${p.avatarBg} relative`}
                               >
                                 {p.initials}
-                                {p.isSpeaking && !p.isMuted && (
-                                  <span className="absolute -inset-1 rounded-full border-2 border-[#0070f3] animate-ping opacity-75"></span>
-                                )}
                               </div>
                               <span className="text-xs text-zinc-300 mt-2">{p.role}</span>
                               <div className="flex items-center gap-1 mt-2">
-                                <span className="w-1.5 h-3 bg-emerald-400 rounded-full animate-pulse"></span>
-                                <span className="w-1.5 h-5 bg-emerald-400 rounded-full animate-pulse delay-75"></span>
-                                <span className="w-1.5 h-2 bg-emerald-400 rounded-full animate-pulse delay-150"></span>
+                                <span className="w-1.5 h-3 bg-emerald-400 rounded-full animate-pulse" />
+                                <span className="w-1.5 h-5 bg-emerald-400 rounded-full animate-pulse delay-75" />
+                                <span className="w-1.5 h-2 bg-emerald-400 rounded-full animate-pulse delay-150" />
                               </div>
                             </div>
                           )}
 
-                          {/* Footer bar */}
                           <div className="absolute bottom-3 left-3 text-[10px] font-mono text-zinc-500">
                             {isSelf ? "Local Stream (WebRTC)" : "SFU Edge: Mumbai"}
                           </div>
@@ -433,69 +410,53 @@ export default function MeetingXProductPage() {
                 )}
               </div>
 
-              {/* Side Drawer (Chat or Participants) */}
+              {/* Side Drawer */}
               {activeSideTab && (
                 <div className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-white/[0.08] bg-black/30 flex flex-col">
-                  {/* Drawer Header */}
                   <div className="px-4 py-3 border-b border-white/[0.08] flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
+                    <div className="flex items-center gap-2 text-xs font-medium text-zinc-200">
                       {activeSideTab === "chat" ? (
                         <>
-                          <MessageSquare className="w-3.5 h-3.5 text-[#0070f3]" />
+                          <MessageSquare className="w-3.5 h-3.5 text-zinc-300" />
                           <span>Meeting Chat</span>
                         </>
                       ) : (
                         <>
-                          <Users className="w-3.5 h-3.5 text-[#0070f3]" />
+                          <Users className="w-3.5 h-3.5 text-zinc-300" />
                           <span>Participants ({participants.length})</span>
                         </>
                       )}
                     </div>
-                    <button
-                      onClick={() => setActiveSideTab(null)}
-                      className="text-zinc-500 hover:text-zinc-300 text-xs cursor-pointer"
-                    >
-                      ✕
-                    </button>
                   </div>
 
-                  {/* Drawer Content */}
-                  <div className="flex-1 p-4 overflow-y-auto max-h-72 lg:max-h-[380px] space-y-3 text-xs">
+                  <div className="flex-1 p-4 overflow-y-auto space-y-3 min-h-[200px]">
                     {activeSideTab === "chat" ? (
-                      <>
-                        {chatMessages.map((msg, i) => (
-                          <div key={i} className="bg-white/5 rounded-lg p-2.5 border border-white/5">
-                            <div className="flex items-center justify-between text-[11px] text-zinc-400 mb-1">
-                              <span className="font-semibold text-zinc-200">{msg.sender}</span>
-                              <span className="font-mono text-[10px]">{msg.time}</span>
-                            </div>
-                            <p className="text-zinc-300 leading-relaxed">{msg.text}</p>
+                      chatMessages.map((msg, i) => (
+                        <div key={i} className="text-xs space-y-1">
+                          <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500">
+                            <span className="font-semibold text-zinc-300">{msg.sender}</span>
+                            <span>{msg.time}</span>
                           </div>
-                        ))}
-                      </>
+                          <p className="text-zinc-200 bg-white/5 p-2 rounded-lg leading-relaxed">
+                            {msg.text}
+                          </p>
+                        </div>
+                      ))
                     ) : (
-                      <div className="space-y-2">
-                        {participants.map((p) => (
-                          <div key={p.id} className="flex items-center justify-between p-2 rounded bg-white/5">
-                            <div className="flex items-center gap-2.5">
-                              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold text-white ${p.avatarBg}`}>
-                                {p.initials}
-                              </div>
-                              <div>
-                                <div className="text-xs font-medium text-zinc-200">{p.name}</div>
-                                <div className="text-[10px] text-zinc-500">{p.role}</div>
-                              </div>
+                      participants.map((p) => (
+                        <div key={p.id} className="flex items-center justify-between text-xs py-1">
+                          <div className="flex items-center gap-2">
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white ${p.avatarBg}`}>
+                              {p.initials}
                             </div>
-                            <span className="text-[10px] font-mono text-zinc-400">
-                              {p.isMuted ? "Muted" : "Active"}
-                            </span>
+                            <span className="text-zinc-200">{p.name}</span>
                           </div>
-                        ))}
-                      </div>
+                          <span className="text-[10px] font-mono text-zinc-500">{p.role}</span>
+                        </div>
+                      ))
                     )}
                   </div>
 
-                  {/* Chat input form */}
                   {activeSideTab === "chat" && (
                     <form onSubmit={handleSendMessage} className="p-3 border-t border-white/[0.08] flex gap-2">
                       <input
@@ -503,11 +464,11 @@ export default function MeetingXProductPage() {
                         value={newMsg}
                         onChange={(e) => setNewMsg(e.target.value)}
                         placeholder="Type a message..."
-                        className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-[#0070f3]"
+                        className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-white/40"
                       />
                       <button
                         type="submit"
-                        className="px-3 py-1.5 bg-[#0070f3] text-white text-xs font-medium rounded-lg hover:bg-blue-600 transition-colors cursor-pointer"
+                        className="px-3 py-1.5 bg-white text-black text-xs font-medium rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer"
                       >
                         Send
                       </button>
@@ -522,7 +483,7 @@ export default function MeetingXProductPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={toggleMic}
-                  className={`p-2.5 rounded-full transition-colors cursor-pointer ${
+                  className={`p-2.5 rounded-xl transition-colors cursor-pointer ${
                     isMicMuted
                       ? "bg-rose-500 text-white hover:bg-rose-600"
                       : "bg-white/10 text-zinc-200 hover:bg-white/20"
@@ -534,7 +495,7 @@ export default function MeetingXProductPage() {
 
                 <button
                   onClick={toggleVideo}
-                  className={`p-2.5 rounded-full transition-colors cursor-pointer ${
+                  className={`p-2.5 rounded-xl transition-colors cursor-pointer ${
                     isVideoOff
                       ? "bg-rose-500 text-white hover:bg-rose-600"
                       : "bg-white/10 text-zinc-200 hover:bg-white/20"
@@ -546,9 +507,9 @@ export default function MeetingXProductPage() {
 
                 <button
                   onClick={() => setIsScreenSharing((prev) => !prev)}
-                  className={`p-2.5 rounded-full transition-colors cursor-pointer ${
+                  className={`p-2.5 rounded-xl transition-colors cursor-pointer ${
                     isScreenSharing
-                      ? "bg-[#0070f3] text-white"
+                      ? "bg-white text-black"
                       : "bg-white/10 text-zinc-200 hover:bg-white/20"
                   }`}
                   title={isScreenSharing ? "Stop Sharing" : "Share Screen"}
@@ -560,9 +521,9 @@ export default function MeetingXProductPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setActiveSideTab(activeSideTab === "participants" ? null : "participants")}
-                  className={`px-3 py-2 rounded-full text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer ${
                     activeSideTab === "participants"
-                      ? "bg-white text-zinc-950"
+                      ? "bg-white text-black"
                       : "bg-white/10 text-zinc-200 hover:bg-white/20"
                   }`}
                 >
@@ -572,9 +533,9 @@ export default function MeetingXProductPage() {
 
                 <button
                   onClick={() => setActiveSideTab(activeSideTab === "chat" ? null : "chat")}
-                  className={`px-3 py-2 rounded-full text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer ${
                     activeSideTab === "chat"
-                      ? "bg-white text-zinc-950"
+                      ? "bg-white text-black"
                       : "bg-white/10 text-zinc-200 hover:bg-white/20"
                   }`}
                 >
@@ -584,7 +545,7 @@ export default function MeetingXProductPage() {
 
                 <button
                   onClick={() => setCallEnded(true)}
-                  className="px-4 py-2 rounded-full text-xs font-semibold bg-rose-600 text-white hover:bg-rose-700 transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-rose-600 text-white hover:bg-rose-700 transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <PhoneOff className="w-3.5 h-3.5" />
                   <span>Leave</span>
@@ -592,173 +553,120 @@ export default function MeetingXProductPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 4. KEY CAPABILITIES ─────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 border-b border-black/[0.08] bg-white">
-        <div className="page-container max-w-6xl">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
-              Capabilities
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950 tracking-tight">
-              Engineered for Mission-Critical Collaboration
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {capabilities.map((cap, idx) => {
-              const IconComp = cap.icon;
-              return (
-                <div key={idx} className="p-6 sm:p-8 rounded-2xl border border-black/[0.08] bg-[#fbfbfd] space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0070f3] mb-4">
-                    <IconComp className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-zinc-950">
-                    {cap.title}
-                  </h3>
-                  <p className="text-sm text-zinc-600 font-light leading-relaxed">
-                    {cap.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. ARCHITECTURE & PROTOCOL STACK ────────────────────────── */}
-      <section className="py-20 sm:py-28 border-b border-black/[0.08] bg-[#f8fafc]">
-        <div className="page-container max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block">
-                Infrastructure & Networking
+        {/* ── 4. KEY CAPABILITIES (Product Feature Cards) ─────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] font-semibold block mb-1">
+                PLATFORM MODULES
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950 tracking-tight leading-tight">
-                Zero-relay Selective Forwarding Units (SFU)
+              <h2 className="font-display text-3xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
+                Engineered for Real-Time Reliability
               </h2>
-              <p className="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                Rather than forcing every stream through centralized bottlenecks, MeetingX deploys geo-distributed SFU instances with automatic STUN/TURN failover.
-              </p>
-
-              <div className="space-y-3 pt-2">
-                {[
-                  "Opus 48kHz audio with neural noise suppression",
-                  "VP9 & AV1 adaptive resolution downsampling (1080p to 240p)",
-                  "Instant reconnection protocol with zero stream packet loss",
-                  "Full SOC2 Type II & HIPAA compliant recording infrastructure",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 text-xs sm:text-sm text-zinc-700">
-                    <CheckCircle2 className="w-4 h-4 text-[#0070f3] shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
             </div>
-
-            <div className="lg:col-span-6">
-              <div className="p-6 sm:p-8 rounded-2xl border border-black/[0.1] bg-white shadow-xs font-mono text-xs space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-black/[0.06] text-zinc-500">
-                  <span>PROTOCOL SPECIFICATION</span>
-                  <span className="text-emerald-600 font-semibold">VERIFIED</span>
-                </div>
-                <div className="space-y-2 text-zinc-700">
-                  <div className="flex justify-between py-1.5 border-b border-black/[0.03]">
-                    <span className="text-zinc-500">Signaling Protocol</span>
-                    <span className="font-semibold text-zinc-900">Secure WebSocket (WSS)</span>
-                  </div>
-                  <div className="flex justify-between py-1.5 border-b border-black/[0.03]">
-                    <span className="text-zinc-500">Media Transport</span>
-                    <span className="font-semibold text-zinc-900">WebRTC / SRTP</span>
-                  </div>
-                  <div className="flex justify-between py-1.5 border-b border-black/[0.03]">
-                    <span className="text-zinc-500">Audio Codec</span>
-                    <span className="font-semibold text-zinc-900">Opus 48kHz Stereo</span>
-                  </div>
-                  <div className="flex justify-between py-1.5 border-b border-black/[0.03]">
-                    <span className="text-zinc-500">Video Codec</span>
-                    <span className="font-semibold text-zinc-900">AV1 / VP9 / H.264 Simucast</span>
-                  </div>
-                  <div className="flex justify-between py-1.5">
-                    <span className="text-zinc-500">Edge Gateway</span>
-                    <span className="font-semibold text-emerald-600">Global Anycast DNS</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Technology Badges Row */}
-          <div className="pt-12 mt-12 border-t border-black/[0.08]">
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-500 font-semibold block mb-4">
-              POWERED BY MODERN REAL-TIME PROTOCOLS
-            </span>
-            <div className="flex flex-wrap gap-3">
-              {["WebRTC", "TypeScript", "Next.js", "React", "Node.js", "Go", "Docker", "AWS", "WebSockets", "Redis", "Tailwind CSS"].map((tech, i) => (
-                <TechBadge key={i} name={tech} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. WORKFLOW SECTION ─────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 border-b border-black/[0.08] bg-white">
-        <div className="page-container max-w-6xl">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-2">
-              Workflow
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950 tracking-tight">
-              From Schedule to Automated Minutes
-            </h2>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm">
+              Core functionalities built for high-throughput multi-participant calls.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {workflowSteps.map((ws, idx) => (
-              <div key={idx} className="p-6 rounded-2xl border border-black/[0.08] bg-[#fbfbfd] space-y-3">
-                <span className="text-xs font-mono text-zinc-400 font-bold block">{ws.step}</span>
-                <h3 className="font-display text-base font-bold text-zinc-950">{ws.title}</h3>
-                <p className="text-xs sm:text-sm text-zinc-600 font-light leading-relaxed">{ws.desc}</p>
+            {capabilities.map((cap, idx) => (
+              <ScrollCardTransition key={idx} index={idx}>
+                <article className="group bg-white border border-black/[0.08] rounded-xl p-6 sm:p-7 hover:border-black/30 transition-all duration-300 flex flex-col justify-between h-full">
+                  <div>
+                    <span className="text-[12px] font-mono text-[#86868b] block mb-3 uppercase tracking-wider font-medium">
+                      0{idx + 1} · Module
+                    </span>
+                    <h3 className="text-lg font-sans font-semibold text-[#111111] mb-2.5 tracking-tight">
+                      {cap.title}
+                    </h3>
+                    <p className="text-[14px] text-zinc-600 leading-relaxed font-normal">
+                      {cap.desc}
+                    </p>
+                  </div>
+                </article>
+              </ScrollCardTransition>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 5. WORKFLOW SECTION ─────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                EXECUTION FLOW
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
+                From Schedule to Automated Minutes
+              </h2>
+            </div>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm">
+              How MeetingX automates call transcripts, summaries, and action item extraction.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {workflowSteps.map((ws) => (
+              <div key={ws.step} className="border-t border-black/[0.08] pt-6 flex flex-col justify-between">
+                <div>
+                  <span className="text-[12px] font-mono text-[#86868b] block mb-2">{ws.step}</span>
+                  <h3 className="text-lg font-display font-medium text-[#1d1d1f] mb-2">{ws.title}</h3>
+                  <p className="text-[14px] text-[#6e6e73] leading-relaxed font-normal">{ws.desc}</p>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 7. DEPLOYMENT CTA ───────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-[#fbfbfd]">
-        <div className="page-container max-w-4xl text-center">
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0070f3] font-semibold block mb-3">
-            Deploy MeetingX
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-950 tracking-tight mb-6">
-            Host self-hosted video rooms or scale our managed cloud.
-          </h2>
-          <p className="text-base text-zinc-600 font-light max-w-xl mx-auto leading-relaxed mb-8">
-            Available as a dedicated white-label platform or fully managed enterprise cluster with custom SLAs.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact?subject=MeetingX+Enterprise+Deployment"
-              className="inline-flex items-center gap-2 bg-zinc-950 text-white hover:bg-zinc-800 text-xs sm:text-sm font-medium px-6 py-3 rounded-full transition-colors"
-            >
-              <span>Deploy for Organization</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 border border-black/[0.12] bg-white hover:bg-black/[0.02] text-zinc-800 text-xs sm:text-sm font-medium px-6 py-3 rounded-full transition-colors"
-            >
-              <span>Explore All Products</span>
-            </Link>
+        {/* ── 6. TECHNOLOGY STACK ────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-14 sm:py-20 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                INFRASTRUCTURE &amp; TECH
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-medium text-[#1d1d1f]">
+                Core Technologies
+              </h2>
+            </div>
+
+            <div className="flex flex-wrap gap-2.5 max-w-xl">
+              {["WebRTC", "TypeScript", "Next.js", "React", "Node.js", "Go", "Docker", "AWS", "WebSockets", "Redis", "Tailwind CSS"].map((t, idx) => (
+                <TechBadge key={idx} name={t} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* ── 7. DEPLOYMENT CTA ───────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <h2 className="font-display text-2xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight mb-2">
+                Deploy MeetingX for Your Organization
+              </h2>
+              <p className="text-[15px] text-[#6e6e73] font-normal max-w-xl leading-relaxed">
+                Available as a dedicated white-label platform or fully managed enterprise cluster with custom SLAs.
+              </p>
+            </div>
+
+            <div className="shrink-0 flex items-center gap-4">
+              <Link
+                href="/contact?subject=MeetingX+Enterprise+Deployment"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
+              >
+                <span>Deploy for Organization</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import TextMaskReveal from "@/components/TextMaskReveal";
 import ProductCard, { ProductData } from "@/components/ProductCard";
 
+import ScrollCardTransition from "@/components/ScrollCardTransition";
+
 type DepartmentFilter = "ALL" | "SALES" | "COMMUNICATION" | "OPERATIONS" | "ACCOUNTS" | "MARKETING" | "TECHNOLOGY";
 
 interface ProductCatalogItem extends ProductData {
@@ -21,25 +23,12 @@ const PRODUCTS: ProductCatalogItem[] = [
     department: "SALES",
     departmentLabel: "Sales",
     year: "2026",
-    metricBadge: "⚡ 3.4x Faster Follow-up",
-    description: "A high-velocity digital sales platform engineered to automate pipeline triaging, lead qualification, and multi-channel customer follow-ups.",
-    highlights: [
-      "Real-time pipeline routing and automated lead triage in <500ms.",
-      "Predictive conversion score engine with custom cadence triggers.",
-      "Bi-directional synchronization with Salesforce, HubSpot, and custom DBs.",
-    ],
-    capabilities: [
-      { title: "Lead Intelligence", desc: "Automated scoring and enrichment in <500ms" },
-      { title: "Pipeline Automation", desc: "Trigger multi-touch cadences dynamically" },
-      { title: "Bi-directional Sync", desc: "Real-time sync with Salesforce & HubSpot" },
-      { title: "Deal Velocity Insights", desc: "Live bottleneck detection across deal stages" },
-    ],
-    techStack: ["Next.js", "TypeScript", "Python", "PostgreSQL", "Redis", "Docker"],
-    architecture: "Event-driven edge architecture running on low-latency microservices with sub-50ms Redis caching and transactional PostgreSQL replication.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    description: "Routes incoming inbound leads directly to account executives based on territory and company size, then triggers follow-up cadences.",
+    beforeAfterSummary: "Teams cut first-response times from over 4 hours down to under 5 minutes without manual spreadsheet triage.",
+    supportingLine: "Every conversation and stage change syncs directly with Salesforce and HubSpot records in real time.",
     linkHref: "/products/salesx",
-    ctaLabel: "View SalesX Details",
+    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "See how lead routing works",
     layout: "text-left-visual-right",
   },
   {
@@ -49,25 +38,12 @@ const PRODUCTS: ProductCatalogItem[] = [
     department: "SALES",
     departmentLabel: "Sales",
     year: "2026",
-    metricBadge: "🎙️ <280ms Turn-Taking Latency",
-    description: "A full-duplex voice AI platform engineered for natural, low-latency sales conversations, instantaneous qualification, and meeting bookings.",
-    highlights: [
-      "Sub-280ms full-duplex voice-to-voice neural pipeline.",
-      "Interruption-aware speech synthesis with conversational tone nuance.",
-      "Automated structured call notes and immediate calendar bookings.",
-    ],
-    capabilities: [
-      { title: "Sub-280ms Loop", desc: "Full-duplex speech recognition & synthesis" },
-      { title: "Interruption Aware", desc: "Natural back-and-forth conversational fluidity" },
-      { title: "Contextual Memory", desc: "Maintains multi-turn context throughout calls" },
-      { title: "Instant Summaries", desc: "Structured CRM record extraction on hang-up" },
-    ],
-    techStack: ["WebRTC", "Python", "PyTorch", "Next.js", "FastAPI", "Docker"],
-    architecture: "Custom WebRTC media server pipeline streaming audio to deep acoustic neural models with optimized GPU kernel inference.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1200&auto=format&fit=crop",
+    description: "Answers customer phone calls and qualifies inbound inquiries with fluid speech pacing that adapts to caller interruptions.",
+    beforeAfterSummary: "Callers experience natural back-and-forth conversation without the awkward 2-second delays of traditional phone trees.",
+    supportingLine: "On hang-up, the system writes structured meeting notes and places appointments directly onto rep calendars.",
     linkHref: "/projects/zobay-voice-ai",
-    ctaLabel: "View Zobay Demo",
+    mediaSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "Listen to live turn-taking",
     layout: "visual-left-text-right",
   },
   {
@@ -77,25 +53,12 @@ const PRODUCTS: ProductCatalogItem[] = [
     department: "COMMUNICATION",
     departmentLabel: "Communication",
     year: "2026",
-    metricBadge: "🌐 99.99% Mesh Uptime",
-    description: "A next-generation collaboration and real-time meeting platform engineered for crystal-clear video streaming and automated AI transcription summaries.",
-    highlights: [
-      "Adaptive SFU video routing optimized for low-bandwidth environments.",
-      "Live speaker-differentiated transcription and automated action items.",
-      "End-to-end encrypted rooms with granular role access controls.",
-    ],
-    capabilities: [
-      { title: "Adaptive Bitrate", desc: "4K video streaming with selective forwarding unit" },
-      { title: "Live Transcriptions", desc: "Speaker-differentiated speech-to-text in real time" },
-      { title: "Interactive Canvas", desc: "Multiplayer whiteboarding with zero input lag" },
-      { title: "Action Item Sync", desc: "Auto-extract tasks and push to Jira and Notion" },
-    ],
-    techStack: ["WebRTC", "Next.js", "TypeScript", "Node.js", "Redis", "AWS"],
-    architecture: "Global distributed SFU mesh topology with WebAssembly audio processing and WebSocket state synchronization.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+    description: "Browser-based video collaboration with adaptive selective forwarding, real-time shared canvases, and live transcription.",
+    beforeAfterSummary: "Distributed product teams run multi-participant reviews with clear 1080p video, even on constrained bandwidth.",
+    supportingLine: "Action items and summaries are organized during the call and pushed directly to project management boards.",
     linkHref: "/products/meetingx",
-    ctaLabel: "View MeetingX Details",
+    mediaSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "See how rooms connect",
     layout: "text-left-visual-right",
   },
   {
@@ -104,26 +67,13 @@ const PRODUCTS: ProductCatalogItem[] = [
     name: "StartOne Enterprise OS",
     department: "OPERATIONS",
     departmentLabel: "Operations",
-    year: "2026",
-    metricBadge: "🏢 60% Fewer Tool Silos",
-    description: "An all-in-one operational operating system connecting financial approvals, team resource tracking, cross-departmental roadmaps, and day-to-day business coordination.",
-    highlights: [
-      "Unified operational workspace consolidating approval chains and task ownership.",
-      "Real-time departmental capacity and financial burn rate dashboards.",
-      "Role-based governance with enterprise SOC2 audit compliance.",
-    ],
-    capabilities: [
-      { title: "Multi-Tier Approvals", desc: "Automated routing for capital expenses and contracts" },
-      { title: "Resource Orchestration", desc: "Live workload balancing across engineering and design" },
-      { title: "Audit Trail Sentinel", desc: "SOC2-compliant immutable logging for every record" },
-      { title: "Unified Data Mesh", desc: "Aggregates disparate team tools into one single pane" },
-    ],
-    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Docker", "AWS"],
-    architecture: "Microservices backend communicating over gRPC with row-level security PostgreSQL multi-tenancy and encrypted data stores.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    year: "2025",
+    description: "Connects internal financial approvals, team resource allocations, and cross-department milestones into one unified workspace.",
+    beforeAfterSummary: "Replaces disconnected spreadsheets and standalone approval apps, giving leaders an accurate view of operational budgets.",
+    supportingLine: "Every purchase request and contract review follows clear governance rules with a verifiable audit log.",
     linkHref: "/projects/startone-enterprise-os",
-    ctaLabel: "View StartOne System",
+    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "Inspect the operational workspace",
     layout: "visual-left-text-right",
   },
   {
@@ -133,25 +83,12 @@ const PRODUCTS: ProductCatalogItem[] = [
     department: "ACCOUNTS",
     departmentLabel: "Accounts",
     year: "2025",
-    metricBadge: "⚡ Instant Multi-Currency Settlement",
-    description: "A financial settlement and treasury platform built to manage multi-currency balances, cross-border transactions, and instant account reconciliation.",
-    highlights: [
-      "Real-time liquidity forecasting and foreign exchange hedging.",
-      "Automated ledger reconciliation with sub-second transaction validation.",
-      "Bank-grade security with multi-signature authorization flows.",
-    ],
-    capabilities: [
-      { title: "Multi-Currency Ledger", desc: "Double-entry bookkeeping supporting 40+ fiat & stable currencies" },
-      { title: "Automated Reconciliation", desc: "99.8% auto-match rate on incoming bank settlements" },
-      { title: "Liquidity Sentinel", desc: "Predictive cash flow shortfall alerts and runway analysis" },
-      { title: "Multi-Sig Authorizations", desc: "Hardware-key verified release protocols for large wires" },
-    ],
-    techStack: ["Next.js", "TypeScript", "Python", "PostgreSQL", "Docker", "AWS"],
-    architecture: "High-throughput event sourcing engine powered by Redis pub/sub and strict ACID-compliant double-entry ledger database.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200&auto=format&fit=crop",
+    description: "Automates multi-currency clearing and bank reconciliation across international accounts with a double-entry ledger.",
+    beforeAfterSummary: "Corporate finance teams settle cross-border supplier payments in seconds rather than waiting three banking days.",
+    supportingLine: "Reconciles inbound bank transfers with internal invoices automatically to eliminate manual accounting discrepancies.",
     linkHref: "/projects/baseone-treasury-settlement",
-    ctaLabel: "View BaseOne Platform",
+    mediaSrc: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "Review multi-currency clearing",
     layout: "text-left-visual-right",
   },
   {
@@ -161,25 +98,12 @@ const PRODUCTS: ProductCatalogItem[] = [
     department: "OPERATIONS",
     departmentLabel: "Operations",
     year: "2025",
-    metricBadge: "🛡️ 100% Automated Policy Verification",
-    description: "An intelligent contract review and document verification platform designed to streamline compliance checks, clause comparison, and agreement execution.",
-    highlights: [
-      "Instant clause risk scoring and non-standard term detection.",
-      "Side-by-side redline generation with regulatory compliance checklists.",
-      "Seamless integration with e-signature and enterprise document storage.",
-    ],
-    capabilities: [
-      { title: "Clause Risk Analyzer", desc: "Flags high-liability indemnities and jurisdiction risks" },
-      { title: "Automated Redlining", desc: "Generates standard fallback clauses in seconds" },
-      { title: "Regulatory Checkpoints", desc: "Validates GDPR, HIPAA, and custom vendor guidelines" },
-      { title: "Contract Lifecycle Hub", desc: "Renewal alerts, obligation tracking, and secure vault" },
-    ],
-    techStack: ["Next.js", "TypeScript", "Python", "FastAPI", "PostgreSQL", "AWS"],
-    architecture: "LLM-assisted document parsing pipeline with vector similarity indexing and deterministic rule engine verification.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    description: "Scans commercial agreements and vendor contracts against standard legal playbooks to flag non-standard liability terms.",
+    beforeAfterSummary: "In-house legal teams resolve contract review backlogs in minutes instead of losing weeks to manual page-by-page redlines.",
+    supportingLine: "Replaces risky indemnity clauses with approved company fallback language before agreements go out for signature.",
     linkHref: "/projects/legalx-contract-sentinel",
-    ctaLabel: "View LegalX Sentinel",
+    mediaSrc: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "Review the redline editor",
     layout: "visual-left-text-right",
   },
   {
@@ -189,25 +113,12 @@ const PRODUCTS: ProductCatalogItem[] = [
     department: "MARKETING",
     departmentLabel: "Marketing",
     year: "2026",
-    metricBadge: "🎯 +180% Campaign ROI",
-    description: "An autonomous marketing intelligence and revenue attribution engine providing continuous multi-touch campaign analytics and conversion optimization.",
-    highlights: [
-      "Multi-touch attribution across web, mobile, paid, and organic channels.",
-      "Automated cohort retention modeling and CAC/LTV optimization.",
-      "Instant visual dashboard and ad-spend synchronization with Meta and Google.",
-    ],
-    capabilities: [
-      { title: "Multi-Touch Attribution", desc: "Track full-funnel customer journeys with zero cookies" },
-      { title: "Cohort Modeling", desc: "Predict churn risk and lifetime value with ML models" },
-      { title: "Automated Ad Optimization", desc: "Real-time budget reallocation based on ROAS" },
-      { title: "Unified Campaign Hub", desc: "Live performance feeds across all paid channels" },
-    ],
-    techStack: ["Next.js", "TypeScript", "Python", "ClickHouse", "Redis", "AWS"],
-    architecture: "Columnar ClickHouse analytics engine aggregating billions of raw telemetry events with sub-100ms SQL query execution.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    description: "Tracks customer acquisition journeys from first touchpoint to closed revenue without relying on third-party tracking cookies.",
+    beforeAfterSummary: "Marketing leaders identify which specific campaigns drove revenue rather than guessing from aggregate ad clicks.",
+    supportingLine: "Aggregates conversion data across web channels to calculate accurate payback periods and customer acquisition costs.",
     linkHref: "/products/salesx",
-    ctaLabel: "View GrowthX Engine",
+    mediaSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "See how attribution models work",
     layout: "text-left-visual-right",
   },
   {
@@ -217,25 +128,12 @@ const PRODUCTS: ProductCatalogItem[] = [
     department: "TECHNOLOGY",
     departmentLabel: "Technology",
     year: "2025",
-    metricBadge: "🛡️ Sub-150ms Threat Shield",
-    description: "A cybersecurity engine analyzing micro-frequency vocal tract resonance to detect synthetic AI voice clones and biometric spoofing in real time.",
-    highlights: [
-      "Sub-150ms spectrogram neural pipeline detecting deepfakes across telephony networks.",
-      "Zero-knowledge biometric proofs with FIDO2 / NIST 800-63B standard compliance.",
-      "Automated risk scoring and real-time security alerting for enterprise IT infrastructure.",
-    ],
-    capabilities: [
-      { title: "Spectrogram Neural Analysis", desc: "Detects micro-frequency artifacts in cloned audio" },
-      { title: "Low-Latency Edge SDK", desc: "Under 150ms inference on CPU and mobile devices" },
-      { title: "Zero-Knowledge Biometrics", desc: "No raw voiceprints stored, cryptographic hashing only" },
-      { title: "Threat Telemetry Gateway", desc: "Live SIEM integration with Splunk and Datadog" },
-    ],
-    techStack: ["C++", "Python", "TensorFlow", "WebRTC", "CUDA", "Linux"],
-    architecture: "Hardware-accelerated edge inference clusters running CUDA-optimized acoustic models with millisecond threat telemetry.",
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+    description: "Analyzes vocal tract resonance during telephone authentication to detect synthetic voice clones and prevent account takeover fraud.",
+    beforeAfterSummary: "Financial institutions stop unauthorized wire transfers by verifying callers using biological vocal acoustic physics.",
+    supportingLine: "Operates directly on edge telephony gateways without storing or transmitting raw customer voice recordings.",
     linkHref: "/projects/validsoft-biometric-defense",
-    ctaLabel: "View Biometric Defense",
+    mediaSrc: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+    ctaLabel: "Inspect biometric defense proofs",
     layout: "visual-left-text-right",
   },
 ];
@@ -316,35 +214,25 @@ export default function ProductsPage() {
           <motion.div layout className="space-y-8 sm:space-y-12">
             <AnimatePresence mode="popLayout" initial={false}>
               {filtered.map((prod, idx) => (
-                <motion.div
-                  key={prod.id}
-                  layout
-                  initial={{ opacity: 0, y: 32, scale: 0.98 }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    transition: {
-                      duration: 0.55,
-                      delay: Math.min(idx * 0.04, 0.2),
-                      ease: [0.16, 1, 0.3, 1],
-                    },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: -20,
-                    scale: 0.98,
-                    transition: {
-                      duration: 0.32,
-                      ease: [0.4, 0, 0.2, 1],
-                    },
-                  }}
-                  transition={{
-                    layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
-                  }}
-                >
-                  <ProductCard product={prod} />
-                </motion.div>
+                <ScrollCardTransition key={prod.id} index={idx}>
+                  <motion.div
+                    layout
+                    exit={{
+                      opacity: 0,
+                      y: -20,
+                      scale: 0.98,
+                      transition: {
+                        duration: 0.32,
+                        ease: [0.4, 0, 0.2, 1],
+                      },
+                    }}
+                    transition={{
+                      layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                    }}
+                  >
+                    <ProductCard product={prod} />
+                  </motion.div>
+                </ScrollCardTransition>
               ))}
 
               {filtered.length === 0 && (

@@ -271,24 +271,28 @@ export default function Navbar() {
     <>
       <header
         onMouseLeave={handleMouseLeave}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
           activeMenu || isScrolled
             ? "bg-white/95 backdrop-blur-xl border-b border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
-            : "bg-white/80 backdrop-blur-md border-b border-black/[0.05]"
+            : "bg-white/90 backdrop-blur-md border-b border-black/[0.06]"
         }`}
-        style={{ height: "52px" }}
       >
-        <div className="max-w-[1240px] mx-auto h-full px-5 sm:px-8 flex items-center justify-between">
-          {/* Brand Logo */}
+        <div className="max-w-[1240px] mx-auto h-[60px] px-5 sm:px-8 flex items-center justify-between">
+          {/* Brand Logo (Deflexai clover style) */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-display text-[15px] font-semibold tracking-tight text-[#1d1d1f] hover:opacity-80 transition-opacity shrink-0"
+            className="flex items-center gap-2.5 font-display text-[16px] font-bold tracking-tight text-[#111111] hover:opacity-80 transition-opacity shrink-0"
           >
-            <span className="w-2 h-2 rounded-full bg-[#1d1d1f]" />
+            <div className="w-5 h-5 grid grid-cols-2 gap-0.5 items-center justify-center">
+              <span className="w-2 h-2 rounded-full bg-black" />
+              <span className="w-2 h-2 rounded-full bg-black" />
+              <span className="w-2 h-2 rounded-full bg-black" />
+              <span className="w-2 h-2 rounded-full bg-black" />
+            </div>
             <span>StratoTech</span>
           </Link>
 
-          {/* Desktop Navigation Items with Dropdowns on Hover */}
+          {/* Desktop Navigation Items */}
           <nav className="hidden md:flex items-center h-full gap-7 lg:gap-8 text-[13px]">
             {NAV_DROPDOWNS.map((item) => {
               const isActive =
@@ -306,8 +310,8 @@ export default function Navbar() {
                     href={item.href}
                     className={`h-full flex items-center px-1 transition-colors duration-200 cursor-pointer ${
                       activeMenu === item.id || isActive
-                        ? "text-[#1d1d1f] font-semibold"
-                        : "text-[#6e6e73] hover:text-[#1d1d1f] font-normal"
+                        ? "text-[#111111] font-semibold"
+                        : "text-[#666666] hover:text-[#111111] font-medium"
                     }`}
                   >
                     <span>{item.label}</span>
@@ -317,14 +321,13 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Right Action: Start a Project */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Right Action: Contact Button */}
+          <div className="hidden md:flex items-center gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#1d1d1f] text-white hover:bg-black text-[12px] font-medium transition-all shadow-xs group"
+              className="inline-flex items-center px-5 py-2 rounded-full bg-[#111111] text-white hover:bg-black text-[13px] font-semibold transition-all shadow-xs"
             >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span>Contact</span>
             </Link>
           </div>
 
@@ -370,14 +373,9 @@ export default function Navbar() {
                         className="group/item p-2.5 -mx-2.5 rounded-xl hover:bg-black/[0.03] transition-colors block"
                       >
                         <div className="flex items-center gap-2 mb-0.5">
-                          <span className="text-[14px] font-medium text-[#1d1d1f] group-hover/item:text-[#0071e3] transition-colors">
+                          <span className="text-[14px] font-medium text-[#1d1d1f] group-hover/item:text-black transition-colors">
                             {link.label}
                           </span>
-                          {link.badge && (
-                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/[0.05] text-[#1d1d1f] font-normal">
-                              {link.badge}
-                            </span>
-                          )}
                         </div>
                         {link.description && (
                           <p className="text-[12px] text-[#6e6e73] line-clamp-1 font-normal">
@@ -393,7 +391,7 @@ export default function Navbar() {
                 {activeSection.featured && (
                   <div className="col-span-4 border-l border-black/[0.06] pl-8 flex flex-col justify-between self-stretch">
                     <div>
-                      <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#0071e3] block mb-2 font-semibold">
+                      <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-2 font-semibold">
                         {activeSection.featured.tag}
                       </span>
                       <h4 className="text-[16px] font-display font-medium text-[#1d1d1f] leading-snug mb-2">
@@ -408,7 +406,7 @@ export default function Navbar() {
                       <Link
                         href={activeSection.featured.href}
                         onClick={() => setActiveMenu(null)}
-                        className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors group/link"
+                        className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d1d1f] hover:text-black transition-colors group/link"
                       >
                         <span>Explore section</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
