@@ -6,6 +6,7 @@ export interface ServiceItem {
   shortDescription: string;
   fullDescription: string;
   video?: string;
+  image?: string;
   technologies: string[];
   features: { title: string; desc: string }[];
   challenge: string;
@@ -40,6 +41,7 @@ export interface IndustryItem {
   tagline: string;
   description: string;
   video?: string;
+  image?: string;
   challenges: string[];
   solutions: string[];
   features: string[];

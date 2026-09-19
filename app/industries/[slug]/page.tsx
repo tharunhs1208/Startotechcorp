@@ -116,12 +116,10 @@ export default function IndustryDetailPage({ params }: PageProps) {
               <div className="rounded-2xl border border-black/[0.08] bg-white overflow-hidden shadow-xs">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                   <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[400px] bg-[#f5f5f7] border-b lg:border-b-0 lg:border-r border-black/[0.04]">
-                    <video
-                      src={selectedProject.video || "/videos/startone.mp4"}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={selectedProject.image || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"}
+                      alt={selectedProject.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
