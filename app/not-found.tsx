@@ -8,42 +8,39 @@ import Footer from "@/components/Footer";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-[#0070f3] selection:text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white flex flex-col justify-between">
       <Navbar />
 
-      <section className="pt-40 pb-28 text-center px-4 sm:px-8 max-w-2xl mx-auto flex-1 flex flex-col items-center justify-center">
-        <div className="font-mono text-xs uppercase tracking-[0.3em] text-[#0070f3] font-semibold mb-4">
+      <main className="pt-40 pb-28 text-center px-5 sm:px-8 max-w-2xl mx-auto flex-1 flex flex-col items-center justify-center">
+        <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#86868b] font-semibold mb-3">
           Error 404
         </div>
-        <div className="font-display text-7xl sm:text-9xl font-black text-zinc-300 mb-4 select-none">
-          404
-        </div>
-        <h1 className="font-display text-3xl sm:text-5xl font-bold text-zinc-900 tracking-tight">
+        <h1 className="font-display text-4xl sm:text-6xl font-medium text-[#1d1d1f] tracking-tight mb-4">
           Page Not Found
         </h1>
-        <p className="mt-4 text-sm sm:text-base text-zinc-600 font-light max-w-md">
-          The page you are looking for doesn&apos;t exist or has been moved to a new route.
+        <p className="text-[15px] text-[#6e6e73] font-normal max-w-md mb-8">
+          The requested route does not exist or has been relocated within the directory.
         </p>
 
-        <div className="mt-8 flex gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/"
-            className="btn-pill btn-accent-c text-xs sm:text-sm font-semibold px-6 py-3.5 inline-flex items-center gap-2"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-colors"
           >
             <Home className="w-4 h-4" />
             <span>Back to Home</span>
           </Link>
           <Link
             href="/projects"
-            className="btn-pill btn-ghost text-xs sm:text-sm font-semibold px-6 py-3.5 border-black/15 text-zinc-900 inline-flex items-center gap-2"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-black/[0.08] text-[#1d1d1f] hover:bg-[#f5f5f7] text-[14px] font-medium transition-colors"
           >
             <span>View Work</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-      </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

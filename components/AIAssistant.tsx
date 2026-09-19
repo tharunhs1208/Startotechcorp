@@ -314,6 +314,7 @@ export default function AIAssistant() {
   const [isTyping, setIsTyping] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Global Keyboard Shortcuts (⌘J / Ctrl+J, Esc) & Custom Event Listener
@@ -340,13 +341,18 @@ export default function AIAssistant() {
     };
   }, [isOpen]);
 
-  // Auto-scroll and auto-focus when opened or when messages change
+  // Auto-scroll inside chat body when opened or when new messages arrive
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 80);
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      if (chatBodyRef.current) {
+        chatBodyRef.current.scrollTo({
+          top: chatBodyRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
     }
-  }, [isOpen, messages, isTyping, isExpanded]);
+  }, [isOpen, messages.length, isTyping]);
 
   const handleSend = (textToSend?: string) => {
     const text = (textToSend || inputVal).trim();
@@ -409,7 +415,8 @@ export default function AIAssistant() {
         <div
           role="dialog"
           aria-label="StratoTech Assistant"
-          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 rounded-2xl bg-white text-[#1d1d1f] border border-black/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.14)] flex flex-col overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] animate-in fade-in zoom-in-95 ${
+          data-lenis-prevent
+          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 rounded-2xl bg-white text-[#1d1d1f] border border-black/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.14)] flex flex-col overflow-hidden overscroll-contain transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] animate-in fade-in zoom-in-95 ${
             isExpanded
               ? "w-[calc(100vw-32px)] sm:w-[580px] lg:w-[680px] h-[640px] sm:h-[720px] max-h-[calc(100vh-32px)] sm:max-h-[calc(100vh-48px)]"
               : "w-[calc(100vw-32px)] sm:w-[390px] h-[520px] max-h-[calc(100vh-32px)] sm:max-h-[580px]"
@@ -460,7 +467,13 @@ export default function AIAssistant() {
           </div>
 
           {/* Chat Body */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-4 text-[13px] bg-white">
+          <div
+            ref={chatBodyRef}
+            data-lenis-prevent
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            className="flex-1 p-4 overflow-y-auto overscroll-contain touch-pan-y space-y-4 text-[13px] bg-white"
+          >
             {messages.map((m) => (
               <div
                 key={m.id}

@@ -6,7 +6,7 @@ const RECIPIENT_EMAIL = "tharun.hs@stratotechcorp.in";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, company, subject, message } = body;
+    const { name, email, company, phone, services, budget, timeline, subject, message } = body;
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -15,19 +15,25 @@ export async function POST(request: Request) {
       );
     }
 
+    const servicesList = Array.isArray(services) && services.length > 0 ? services.join(", ") : (services || "Not specified");
+
     const emailSubject = subject?.trim()
       ? `[Project Inquiry] ${subject} - from ${name}`
-      : `New Project Inquiry from ${name}`;
+      : `New Project Inquiry from ${name} (${company || "Individual"})`;
 
     const textContent = `
-New Project Inquiry Received via Start a Project Form
+New Project Inquiry Received via StratoTech Contact Form
 
-Client Details:
+Client Overview:
 --------------------------------------------
 • Full Name: ${name}
 • Email: ${email}
+• Phone: ${phone || "Not provided"}
 • Company: ${company || "Not provided"}
 • Subject: ${subject || "General Inquiry"}
+• Services Interested In: ${servicesList}
+• Estimated Budget: ${budget || "Not specified"}
+• Target Timeline: ${timeline || "Not specified"}
 
 Project Message & Requirements:
 --------------------------------------------
@@ -49,7 +55,7 @@ Destination: ${RECIPIENT_EMAIL}
           <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #6e6e73; margin: 0 0 12px 0;">Client Overview</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
             <tr>
-              <td style="padding: 6px 0; color: #86868b; width: 120px;">Name:</td>
+              <td style="padding: 6px 0; color: #86868b; width: 140px;">Name:</td>
               <td style="padding: 6px 0; font-weight: 600; color: #1d1d1f;">${name}</td>
             </tr>
             <tr>
@@ -57,18 +63,30 @@ Destination: ${RECIPIENT_EMAIL}
               <td style="padding: 6px 0; font-weight: 600; color: #0071e3;"><a href="mailto:${email}" style="color: #0071e3; text-decoration: none;">${email}</a></td>
             </tr>
             <tr>
+              <td style="padding: 6px 0; color: #86868b;">Phone:</td>
+              <td style="padding: 6px 0; color: #1d1d1f;">${phone || "Not provided"}</td>
+            </tr>
+            <tr>
               <td style="padding: 6px 0; color: #86868b;">Company:</td>
               <td style="padding: 6px 0; color: #1d1d1f;">${company || "Not provided"}</td>
             </tr>
             <tr>
-              <td style="padding: 6px 0; color: #86868b;">Subject:</td>
-              <td style="padding: 6px 0; color: #1d1d1f;">${subject || "General Project Inquiry"}</td>
+              <td style="padding: 6px 0; color: #86868b;">Services:</td>
+              <td style="padding: 6px 0; font-weight: 600; color: #111111;">${servicesList}</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; color: #86868b;">Budget:</td>
+              <td style="padding: 6px 0; color: #1d1d1f;">${budget || "Not specified"}</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; color: #86868b;">Timeline:</td>
+              <td style="padding: 6px 0; color: #1d1d1f;">${timeline || "Not specified"}</td>
             </tr>
           </table>
         </div>
 
         <div style="margin-bottom: 24px;">
-          <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #6e6e73; margin: 0 0 10px 0;">Project Message & Requirements</h2>
+          <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #6e6e73; margin: 0 0 10px 0;">Project Message &amp; Requirements</h2>
           <div style="background-color: #ffffff; border: 1px solid #e5e5ea; border-radius: 12px; padding: 18px; font-size: 15px; color: #1d1d1f; white-space: pre-wrap;">
 ${message}
           </div>
@@ -80,7 +98,7 @@ ${message}
       </div>
     `;
 
-    // 1. Direct Delivery Gateway to tharunhs1208@gmail.com (Guarantees real inbox delivery)
+    // 1. Direct Delivery Gateway
     try {
       const gatewayResponse = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
         method: "POST",
@@ -96,7 +114,11 @@ ${message}
           _template: "table",
           "Sender Name": name,
           "Sender Email": email,
+          "Phone Number": phone || "Not provided",
           Company: company || "Not provided",
+          "Services Interested": servicesList,
+          "Budget Range": budget || "Not specified",
+          "Target Timeline": timeline || "Not specified",
           Subject: subject || "Project Inquiry",
           "Project Message": message,
           "Submitted At": new Date().toLocaleString(),
@@ -117,7 +139,7 @@ ${message}
       console.warn("[Contact API Gateway Warning]:", gatewayErr);
     }
 
-    // 2. Check if SMTP configuration exists in environment
+    // 2. SMTP fallback
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587;
     const smtpUser = process.env.SMTP_USER;
@@ -147,7 +169,7 @@ ${message}
       return NextResponse.json({ success: true, message: "Email sent successfully" });
     }
 
-    // 3. Check if Resend API Key is configured
+    // 3. Resend fallback
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey) {
       const resendRes = await fetch("https://api.resend.com/emails", {
@@ -171,16 +193,6 @@ ${message}
         return NextResponse.json({ success: true, message: "Email sent successfully" });
       }
     }
-
-    // Fallback: Log
-    console.log(`[Contact API - Inquiry Log for ${RECIPIENT_EMAIL}]:`, {
-      to: RECIPIENT_EMAIL,
-      from: `${name} <${email}>`,
-      company,
-      subject,
-      message,
-      timestamp: new Date().toISOString(),
-    });
 
     return NextResponse.json({
       success: true,
