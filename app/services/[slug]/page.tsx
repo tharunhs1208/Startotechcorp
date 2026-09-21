@@ -8,6 +8,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TechBadge from "@/components/TechBadge";
 import StartProjectButton from "@/components/StartProjectButton";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import HowWeWorkSection from "@/components/HowWeWorkSection";
 import { SERVICES_DATA, PROJECTS_DATA } from "@/data/siteData";
 
 import ScrollCardTransition from "@/components/ScrollCardTransition";
@@ -15,14 +17,6 @@ import ScrollCardTransition from "@/components/ScrollCardTransition";
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
-
-const WORK_PROCESS = [
-  { num: "01", title: "Discovery & Architecture", desc: "Stakeholder requirements, technical feasibility review, and system architecture planning." },
-  { num: "02", title: "Design Systems & Tokens", desc: "Figma tokens, responsive wireframes, and production-aligned interaction design." },
-  { num: "03", title: "Agile Development", desc: "Two-week sprint cycles shipping clean, test-driven TypeScript code with automated CI/CD." },
-  { num: "04", title: "QA & Security Hardening", desc: "End-to-end integration testing, performance load benchmarks, and compliance reviews." },
-  { num: "05", title: "Production Deployment", desc: "Zero-downtime cutover, edge CDN telemetry, and continuous SLA support." },
-];
 
 export default function ServiceDetailPage({ params }: PageProps) {
   const { slug } = use(params);
@@ -39,15 +33,24 @@ export default function ServiceDetailPage({ params }: PageProps) {
       <Navbar />
 
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
-        {/* ── HEADER ──────────────────────────────────────────────────── */}
+        {/* ── HEADER WITH BREADCRUMBS ─────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span>Back to Services</span>
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Services", href: "/services" },
+                { label: service.title },
+              ]}
+            />
+
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>All Services</span>
+            </Link>
+          </div>
 
           <div className="max-w-3xl">
             <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-3 font-semibold">
@@ -101,43 +104,8 @@ export default function ServiceDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* ── HOW WE WORK (PROCESS) ───────────────────────────────────── */}
-        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
-            <div>
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-1 font-semibold">
-                EXECUTION LIFECYCLE
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
-                How We Work
-              </h2>
-            </div>
-            <p className="text-[14px] text-[#6e6e73] max-w-sm">
-              Standardized agile engineering workflows applied to every project engagement.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {WORK_PROCESS.map((p) => (
-              <div
-                key={p.num}
-                className="border-t border-black/[0.08] pt-5 flex flex-col justify-between"
-              >
-                <div>
-                  <span className="font-mono text-[12px] text-[#6e6e73] block mb-2">
-                    {p.num}
-                  </span>
-                  <h3 className="font-display text-base font-medium text-[#1d1d1f] mb-2">
-                    {p.title}
-                  </h3>
-                  <p className="text-[13px] text-[#6e6e73] leading-relaxed font-normal">
-                    {p.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* ── HOW WE WORK (ANIMATED PROCESS SECTION) ────────────────── */}
+        <HowWeWorkSection />
 
         {/* ── TECHNOLOGY STACK ────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-14 sm:py-20 border-b border-black/[0.08]">

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import TextMaskReveal from "@/components/TextMaskReveal";
 import ProductCard, { ProductData } from "@/components/ProductCard";
 
@@ -163,6 +164,10 @@ export default function ProductsPage() {
       <main className="pt-28 sm:pt-36 pb-10 sm:pb-16">
         {/* ── PRODUCTS HERO ─────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-10 sm:pb-14 border-b border-black/[0.08]">
+          <div className="mb-8">
+            <Breadcrumbs items={[{ label: "Products" }]} />
+          </div>
+
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
@@ -217,17 +222,22 @@ export default function ProductsPage() {
                 <ScrollCardTransition key={prod.id} index={idx}>
                   <motion.div
                     layout
+                    initial={{ opacity: 0, y: 28, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{
                       opacity: 0,
                       y: -20,
-                      scale: 0.98,
+                      scale: 0.97,
                       transition: {
-                        duration: 0.32,
+                        duration: 0.25,
                         ease: [0.4, 0, 0.2, 1],
                       },
                     }}
                     transition={{
-                      layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                      layout: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+                      opacity: { duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
+                      y: { duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
+                      scale: { duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
                     }}
                   >
                     <ProductCard product={prod} />

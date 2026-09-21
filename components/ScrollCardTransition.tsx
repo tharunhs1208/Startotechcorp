@@ -28,7 +28,6 @@ interface ScrollCardTransitionProps {
 export default function ScrollCardTransition({
   children,
   className = "",
-  index = 0,
   as = "div",
   disabled = false,
 }: ScrollCardTransitionProps) {
@@ -41,34 +40,34 @@ export default function ScrollCardTransition({
     offset: ["start end", "end start"],
   });
 
-  // Smooth out scroll position with gentle spring for continuous feel
+  // Smooth out scroll position with gentle spring for continuous liquid feel
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 160,
-    damping: 28,
+    stiffness: 140,
+    damping: 24,
     mass: 0.2,
     restDelta: 0.001,
   });
 
   // Symmetrical bi-directional transformations
-  // Progress 0.0: Entering at bottom (Next)
-  // Progress 0.20 - 0.80: Active in viewport center
-  // Progress 1.0: Exiting at top (Previous)
+  // Progress 0.0: Entering at bottom (scrolling DOWN enters, scrolling UP exits)
+  // Progress 0.25 - 0.75: Active & focused in viewport center
+  // Progress 1.0: Exiting at top (scrolling DOWN exits, scrolling UP enters)
   const rawOpacity = useTransform(
     smoothProgress,
-    [0, 0.2, 0.8, 1],
-    [0.45, 1, 1, 0.7]
+    [0, 0.25, 0.75, 1],
+    [0.2, 1, 1, 0.35]
   );
 
   const rawScale = useTransform(
     smoothProgress,
-    [0, 0.2, 0.8, 1],
-    [0.985, 1, 1, 0.985]
+    [0, 0.25, 0.75, 1],
+    [0.94, 1, 1, 0.95]
   );
 
   const rawY = useTransform(
     smoothProgress,
-    [0, 0.2, 0.8, 1],
-    [16, 0, 0, -16]
+    [0, 0.25, 0.75, 1],
+    [48, 0, 0, -48]
   );
 
   if (shouldReduceMotion || disabled) {

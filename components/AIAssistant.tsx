@@ -301,6 +301,11 @@ function getBotReply(query: string): { reply: string; actions?: ActionButton[] }
 }
 
 export default function AIAssistant() {
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -393,6 +398,8 @@ export default function AIAssistant() {
       },
     ]);
   };
+
+  if (!mounted) return null;
 
   return (
     <>

@@ -7,6 +7,7 @@ import { ChevronDown, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TextMaskReveal from "@/components/TextMaskReveal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const FAQS = [
   {
@@ -44,7 +45,9 @@ export default function FAQPage() {
 
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
         {/* ── 1. HEADER ────────────────────────────────────────────────── */}
-        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16">
+          <Breadcrumbs items={[{ label: "FAQ" }]} className="mb-6" />
+
           <div className="max-w-3xl">
             <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
               QUESTIONS &amp; ANSWERS

@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TechBadge from "@/components/TechBadge";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { SoftwareAppJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 import ScrollCardTransition from "@/components/ScrollCardTransition";
@@ -79,13 +80,22 @@ export default function SalesXProductPage() {
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
         {/* ── 1. HERO SECTION ────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span>Back to Products</span>
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Products", href: "/products" },
+                { label: "SalesX" },
+              ]}
+            />
+
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>All Products</span>
+            </Link>
+          </div>
 
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 text-[11px] font-mono text-[#6e6e73] mb-4 uppercase tracking-wider">

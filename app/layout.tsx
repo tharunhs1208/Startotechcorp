@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import CommandPalette from "@/components/CommandPalette";
-import AIAssistant from "@/components/AIAssistant";
-
+import ClientOverlays from "@/components/ClientOverlays";
 import { OrganizationJsonLd } from "@/components/JsonLd";
 
 const geistSans = Geist({
@@ -81,6 +79,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
@@ -90,8 +89,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-screen bg-white text-[#1d1d1f] antialiased font-sans selection:bg-[#1d1d1f] selection:text-white"
       >
-        <CommandPalette />
-        <AIAssistant />
+        <ClientOverlays />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
