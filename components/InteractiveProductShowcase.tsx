@@ -43,7 +43,7 @@ const SHOWCASE_PRODUCTS: ShowcaseProduct[] = [
     metricValue: "< 5 mins",
     linkHref: "/products/salesx",
     ctaLabel: "See how lead routing works",
-    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    mediaSrc: "/images/products/salesx_spatial.jpg",
     icon: TrendingUp,
   },
   {
@@ -59,7 +59,7 @@ const SHOWCASE_PRODUCTS: ShowcaseProduct[] = [
     metricValue: "238ms",
     linkHref: "/projects/zobay-voice-ai",
     ctaLabel: "Listen to live turn-taking",
-    mediaSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    mediaSrc: "/images/products/zobay_neural.jpg",
     icon: Mic,
   },
   {
@@ -75,7 +75,7 @@ const SHOWCASE_PRODUCTS: ShowcaseProduct[] = [
     metricValue: "38ms",
     linkHref: "/products/meetingx",
     ctaLabel: "See how rooms connect",
-    mediaSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+    mediaSrc: "/images/products/meetingx_spatial.jpg",
     icon: Video,
   },
 ];
@@ -118,7 +118,7 @@ export default function InteractiveProductShowcase() {
 
               <div className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${
-                  isActive ? "bg-blue-600 animate-pulse" : "bg-black/20"
+                  isActive ? "bg-[#111111]" : "bg-black/20"
                 }`} />
                 <h4 className={`text-xs sm:text-[15px] font-display font-semibold truncate transition-colors duration-200 ${
                   isActive ? "text-[#111111]" : "text-[#6e6e73] group-hover:text-[#111111]"

@@ -28,7 +28,7 @@ const PRODUCTS: ProductCatalogItem[] = [
     beforeAfterSummary: "Teams cut first-response times from over 4 hours down to under 5 minutes without manual spreadsheet triage.",
     supportingLine: "Every conversation and stage change syncs directly with Salesforce and HubSpot records in real time.",
     linkHref: "/products/salesx",
-    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    mediaSrc: "/images/products/salesx_spatial.jpg",
     ctaLabel: "See how lead routing works",
     layout: "text-left-visual-right",
   },
@@ -43,7 +43,7 @@ const PRODUCTS: ProductCatalogItem[] = [
     beforeAfterSummary: "Callers experience natural back-and-forth conversation without the awkward 2-second delays of traditional phone trees.",
     supportingLine: "On hang-up, the system writes structured meeting notes and places appointments directly onto rep calendars.",
     linkHref: "/projects/zobay-voice-ai",
-    mediaSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    mediaSrc: "/images/products/zobay_neural.jpg",
     ctaLabel: "Listen to live turn-taking",
     layout: "visual-left-text-right",
   },
@@ -58,7 +58,7 @@ const PRODUCTS: ProductCatalogItem[] = [
     beforeAfterSummary: "Distributed product teams run multi-participant reviews with clear 1080p video, even on constrained bandwidth.",
     supportingLine: "Action items and summaries are organized during the call and pushed directly to project management boards.",
     linkHref: "/products/meetingx",
-    mediaSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+    mediaSrc: "/images/products/meetingx_spatial.jpg",
     ctaLabel: "See how rooms connect",
     layout: "text-left-visual-right",
   },
@@ -196,15 +196,15 @@ export default function ProductsPage() {
                   onClick={() => setActiveFilter(opt)}
                   className={`relative text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-md shrink-0 cursor-pointer transition-colors duration-200 ${
                     isActive
-                      ? "text-[#1d1d1f] font-semibold"
-                      : "text-[#86868b] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
+                      ? "text-white font-semibold"
+                      : "text-[#86868b] hover:text-[#111111] hover:bg-black/[0.04]"
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="productActiveDepartmentPill"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                      className="absolute inset-0 bg-black/[0.08] border border-black/[0.06] rounded-md -z-10"
+                      className="absolute inset-0 bg-[#111111] rounded-md -z-10 shadow-xs"
                     />
                   )}
                   <span className="relative z-10">{opt}</span>

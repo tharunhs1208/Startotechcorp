@@ -259,15 +259,15 @@ function WorkContent() {
                 onClick={() => setActiveCategory(cat)}
                 className={`relative text-[11px] sm:text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-md shrink-0 cursor-pointer transition-colors duration-200 ${
                   isActive
-                    ? "text-[#1d1d1f] font-semibold"
-                    : "text-[#86868b] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
+                    ? "text-white font-semibold"
+                    : "text-[#86868b] hover:text-[#111111] hover:bg-black/[0.04]"
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="workActiveCategoryPill"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                    className="absolute inset-0 bg-black/[0.08] border border-black/[0.06] rounded-md -z-10"
+                    className="absolute inset-0 bg-[#111111] rounded-md -z-10 shadow-xs"
                   />
                 )}
                 <span className="relative z-10">{cat}</span>

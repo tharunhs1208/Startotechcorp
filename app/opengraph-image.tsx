@@ -49,7 +49,7 @@ export default async function Image() {
             <span style={{ fontSize: "28px", fontWeight: 700, color: "#111111", letterSpacing: "-0.03em" }}>
               Strato
             </span>
-            <span style={{ fontSize: "28px", fontWeight: 700, color: "#0071e3", letterSpacing: "-0.03em" }}>
+            <span style={{ fontSize: "28px", fontWeight: 700, color: "#111111", letterSpacing: "-0.03em" }}>
               Tech
             </span>
           </div>

@@ -19,7 +19,7 @@ function FooterBrandLogo() {
         {/* Scaled-Up Constant Luxury Typography */}
         <div className="flex items-center text-[10vw] sm:text-[8vw] lg:text-[6.5vw] font-display font-black tracking-[-0.04em] text-[#111111] leading-none">
           <span>StratoTech</span>
-          <span className="w-2 h-2 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 rounded-full bg-[#0071e3] ml-2 sm:ml-4 inline-block self-center" />
+          <span className="w-2 h-2 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 rounded-full bg-[#111111] ml-2 sm:ml-4 inline-block self-center" />
         </div>
       </Link>
     </div>

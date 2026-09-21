@@ -77,7 +77,7 @@ export default function HowWeWorkSection({
           <TextMaskReveal
             text={title}
             as="h2"
-            once={false}
+            once={true}
             className="text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-[#1d1d1f] tracking-tight leading-[1.12]"
           />
         </div>

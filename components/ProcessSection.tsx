@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useSpring } from "motion/react";
+import React, { useRef, useEffect } from "react";
+import { motion, useScroll, useSpring, useMotionValue } from "motion/react";
 import TextMaskReveal from "@/components/TextMaskReveal";
 
 const PROCESS_STEPS = [
@@ -44,8 +44,20 @@ export default function ProcessSection() {
     offset: ["start 75%", "end 50%"],
   });
 
+  // Track the furthest progress reached so the scroll animation ONLY advances forward when scrolling down
+  // and never collapses/reverses when scrolling back up
+  const maxProgress = useMotionValue(0);
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (latest) => {
+      if (latest > maxProgress.get()) {
+        maxProgress.set(latest);
+      }
+    });
+  }, [scrollYProgress, maxProgress]);
+
   // Smooth out the scroll animation for a liquid fluid feel
-  const scaleY = useSpring(scrollYProgress, {
+  const scaleY = useSpring(maxProgress, {
     stiffness: 300,
     damping: 35,
     restDelta: 0.001,
@@ -62,7 +74,7 @@ export default function ProcessSection() {
           <TextMaskReveal
             text="From an idea to a working product."
             as="h2"
-            once={false}
+            once={true}
             className="text-3xl sm:text-4xl lg:text-[42px] font-display font-medium text-[#1d1d1f] tracking-tight leading-[1.12]"
           />
         </div>
@@ -71,14 +83,14 @@ export default function ProcessSection() {
         </p>
       </div>
 
-      {/* ── SCROLL-LINKED VERTICAL FLOW LINE ── */}
+      {/* ── SCROLL-LINKED VERTICAL FLOW LINE (ONE-WAY FORWARD PROGRESSION) ── */}
       <div ref={containerRef} className="relative max-w-3xl mx-auto py-4">
         {/* Base Track (Subtle Gray Spine) */}
         <div className="absolute top-8 bottom-10 left-5 sm:left-6 w-[2px] bg-black/[0.08] rounded-full z-0 overflow-hidden">
-          {/* Scroll-Driven Active Gradient Line */}
+          {/* Scroll-Driven Active Pure Black Line (Only fills forward on scroll down) */}
           <motion.div
             style={{ scaleY, transformOrigin: "top" }}
-            className="w-full h-full bg-gradient-to-b from-[#1e40af] via-[#701a75] to-[#be185d] rounded-full"
+            className="w-full h-full bg-[#111111] rounded-full"
           />
         </div>
 
@@ -94,7 +106,7 @@ export default function ProcessSection() {
             >
               {/* Step Node Badge */}
               <div className="shrink-0 relative">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white border-2 border-black/[0.12] group-hover:border-[#1e40af] transition-colors flex items-center justify-center font-mono text-[13px] sm:text-[14px] font-bold text-[#111] shadow-xs">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white border-2 border-black/[0.12] group-hover:border-[#111111] transition-colors flex items-center justify-center font-mono text-[13px] sm:text-[14px] font-bold text-[#111] shadow-xs">
                   {step.number}
                 </div>
               </div>
