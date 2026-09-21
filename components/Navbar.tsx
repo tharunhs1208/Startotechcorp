@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, ChevronRight, Menu, X, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ChevronRight, Menu, X } from "lucide-react";
 
 interface SubLink {
   label: string;
@@ -213,7 +213,77 @@ const NAV_DROPDOWNS: NavSection[] = [
       href: "/about",
     },
   },
+  {
+    id: "contact",
+    label: "Contact",
+    href: "/contact",
+    heading: "Get in Touch & Consultations",
+    primaryLinks: [
+      {
+        label: "Contact Studio",
+        href: "/contact",
+        description: "Start a project, request an engineering estimate, or say hello",
+      },
+      {
+        label: "Schedule Consultation",
+        href: "/contact",
+        badge: "30 min",
+        description: "Direct discovery call with our lead systems architects",
+      },
+      {
+        label: "Bengaluru Studio HQ",
+        href: "/contact",
+        badge: "India",
+        description: "Indiranagar 100ft Road, Bengaluru, Karnataka 560038",
+      },
+      {
+        label: "Careers & Open Roles",
+        href: "/careers",
+        badge: "Hiring",
+        description: "Explore engineering, design, and architecture roles",
+      },
+      {
+        label: "Client Support & Inquiries",
+        href: "/contact",
+        description: "Dedicated assistance and service level agreements",
+      },
+      {
+        label: "Frequently Asked Questions",
+        href: "/faq",
+        description: "Details on engagement models, timeline, and pricing",
+      },
+    ],
+    featured: {
+      tag: "Kickoff",
+      title: "Start a Conversation",
+      description: "Tell us about your project or technical challenge. We respond within 4 business hours.",
+      href: "/contact",
+    },
+  },
 ];
+
+function BrandLogo() {
+  return (
+    <Link
+      href="/"
+      className="flex items-center gap-2.5 font-display text-[16px] font-bold tracking-tight text-[#111111] shrink-0 select-none py-1 hover:opacity-85 transition-opacity"
+    >
+      {/* 4-Dot Clover Icon - Constant, crisp, solid black brand mark */}
+      <div className="w-5 h-5 grid grid-cols-2 gap-0.5 items-center justify-center shrink-0">
+        <span className="w-2 h-2 rounded-full bg-[#111111]" />
+        <span className="w-2 h-2 rounded-full bg-[#111111]/80" />
+        <span className="w-2 h-2 rounded-full bg-[#111111]/80" />
+        <span className="w-2 h-2 rounded-full bg-[#111111]" />
+      </div>
+
+      {/* Constant Crisp Luxury Wordmark */}
+      <div className="flex items-center text-[16px] font-display font-semibold tracking-tight text-[#111111] leading-none">
+        <span>StratoTech</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3] ml-1.5" />
+      </div>
+    </Link>
+  );
+}
 
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -225,9 +295,11 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      setIsScrolled(scrollY > 15);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -271,26 +343,17 @@ export default function Navbar() {
     <>
       <header
         onMouseLeave={handleMouseLeave}
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
-          activeMenu || isScrolled
-            ? "bg-white/95 backdrop-blur-xl border-b border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
-            : "bg-white/90 backdrop-blur-md border-b border-black/[0.06]"
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 text-[#111111] ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-2xl border-b border-black/[0.12] shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+            : activeMenu
+            ? "bg-white/98 backdrop-blur-2xl border-b border-black/[0.1] shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
+            : "bg-white/90 backdrop-blur-xl border-b border-black/[0.08]"
         }`}
       >
         <div className="max-w-[1240px] mx-auto h-[60px] px-5 sm:px-8 flex items-center justify-between">
-          {/* Brand Logo (Deflexai clover style) */}
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 font-display text-[16px] font-bold tracking-tight text-[#111111] hover:opacity-80 transition-opacity shrink-0"
-          >
-            <div className="w-5 h-5 grid grid-cols-2 gap-0.5 items-center justify-center">
-              <span className="w-2 h-2 rounded-full bg-black" />
-              <span className="w-2 h-2 rounded-full bg-black" />
-              <span className="w-2 h-2 rounded-full bg-black" />
-              <span className="w-2 h-2 rounded-full bg-black" />
-            </div>
-            <span>StratoTech</span>
-          </Link>
+          {/* Brand Logo - Constant, pristine brand mark */}
+          <BrandLogo />
 
           {/* Desktop Navigation Items */}
           <nav className="hidden md:flex items-center h-full gap-7 lg:gap-8 text-[13px]">
@@ -310,7 +373,7 @@ export default function Navbar() {
                     href={item.href}
                     className={`h-full flex items-center px-1 transition-colors duration-200 cursor-pointer ${
                       activeMenu === item.id || isActive
-                        ? "text-[#111111] font-semibold"
+                        ? "text-[#111111] font-semibold border-b-2 border-black"
                         : "text-[#666666] hover:text-[#111111] font-medium"
                     }`}
                   >
@@ -331,14 +394,16 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Hamburger Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
-            className="md:hidden p-1.5 text-[#1d1d1f] hover:opacity-70 transition-opacity cursor-pointer"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile Action: Hamburger Toggle */}
+          <div className="flex md:hidden items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+              className="p-1.5 text-[#1d1d1f] hover:opacity-70 transition-opacity cursor-pointer"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {/* ── DESKTOP FLYOUT SUBMENU PANE (ONLY LIVE PAGES) ─────────── */}
@@ -433,25 +498,35 @@ export default function Navbar() {
         onClick={() => setActiveMenu(null)}
       />
 
-      {/* Mobile Fullscreen Menu Overlay */}
+      {/* Mobile Dropdown Menu Drawer & Backdrop */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-white pt-20 pb-8 px-6 flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200">
-          <div className="space-y-4 pt-2">
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-2 font-semibold">
+        <>
+          {/* Dimmed backdrop underneath drawer */}
+          <div
+            className="md:hidden fixed inset-0 top-[60px] z-40 bg-black/30 backdrop-blur-xs animate-in fade-in duration-200"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          {/* Bounded Drawer below Header */}
+          <div
+            data-lenis-prevent
+            className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-white border-b border-black/[0.08] shadow-2xl max-h-[calc(100dvh-60px)] overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden animate-in slide-in-from-top-2 duration-200 px-6 py-6"
+          >
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-3 font-semibold">
               NAVIGATION
             </span>
 
-            <div className="space-y-2">
+            <div className="space-y-1 divide-y divide-black/[0.06]">
               {NAV_DROPDOWNS.map((item) => {
                 const isExpanded = mobileExpandedSection === item.id;
 
                 return (
-                  <div key={item.id} className="border-b border-black/[0.06] pb-2">
-                    <div className="flex items-center justify-between py-2">
+                  <div key={item.id} className="pt-2 first:pt-0 pb-2">
+                    <div className="flex items-center justify-between py-1">
                       <Link
                         href={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="text-[20px] font-display font-medium text-[#1d1d1f]"
+                        className="text-[18px] font-display font-medium text-[#1d1d1f]"
                       >
                         {item.label}
                       </Link>
@@ -469,7 +544,7 @@ export default function Navbar() {
                     </div>
 
                     {isExpanded && (
-                      <div className="mt-1 pl-2 space-y-2.5 pb-2">
+                      <div className="mt-1 pl-2 space-y-2 pb-2">
                         {item.primaryLinks.map((link, lIdx) => (
                           <Link
                             key={lIdx}
@@ -492,21 +567,7 @@ export default function Navbar() {
               })}
             </div>
           </div>
-
-          <div className="pt-6 border-t border-black/[0.08] space-y-3">
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-all shadow-xs"
-            >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-            <p className="text-center text-[12px] font-mono text-[#86868b]">
-              StratoTech · Bengaluru Studio
-            </p>
-          </div>
-        </div>
+        </>
       )}
     </>
   );

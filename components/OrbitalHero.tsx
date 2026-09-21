@@ -1,332 +1,251 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { MoreVertical } from "lucide-react";
-import { TechIcon } from "@/components/TechBadge";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import StartProjectButton from "@/components/StartProjectButton";
 
-interface FloatingTechNode {
+interface FloatingServiceCard {
+  id: string;
   name: string;
+  slug: string;
+  category: string;
+  imageSrc: string;
   positionClass: string;
   yAnim: number[];
+  rotateAnim: number[];
   duration: number;
   delay: number;
 }
 
-const FLOATING_TECH_NODES: FloatingTechNode[] = [
-  // Top Left: Next.js
+const FLOATING_SERVICES: FloatingServiceCard[] = [
+  // 1. Top Left: Web Development
   {
-    name: "Next.js",
-    positionClass: "top-[4%] left-[10%] sm:top-[6%] sm:left-[14%] lg:left-[16%]",
-    yAnim: [-4, 4, -4],
-    duration: 4.5,
+    id: "web-dev",
+    name: "Web Development",
+    slug: "web-development",
+    category: "Next.js · TypeScript · Fullstack",
+    imageSrc: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+    positionClass: "top-[96px] sm:top-[104px] lg:top-[6%] left-[2%] sm:left-[2%] lg:left-[4%] xl:left-[6%]",
+    yAnim: [-8, 8, -8],
+    rotateAnim: [-2, 2, -2],
+    duration: 5.2,
     delay: 0,
   },
-  // Top Right: TypeScript
+  // 2. Top Right: UI/UX Design
   {
-    name: "TypeScript",
-    positionClass: "top-[4%] right-[10%] sm:top-[6%] sm:right-[14%] lg:right-[16%]",
-    yAnim: [5, -5, 5],
-    duration: 5,
+    id: "ui-ux",
+    name: "UI/UX Design",
+    slug: "ui-ux-design",
+    category: "Figma Tokens · Design Systems",
+    imageSrc: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop",
+    positionClass: "top-[96px] sm:top-[104px] lg:top-[6%] right-[2%] sm:right-[2%] lg:right-[4%] xl:right-[6%]",
+    yAnim: [9, -9, 9],
+    rotateAnim: [2, -2, 2],
+    duration: 6.0,
     delay: 0.4,
   },
-  // Mid Left: React
+  // 3. Mid Left: AI & Machine Learning (Flanking left side of CTA buttons)
   {
-    name: "React",
-    positionClass: "top-1/2 -translate-y-1/2 left-[2%] sm:left-[4%] lg:left-[6%]",
-    yAnim: [-5, 5, -5],
-    duration: 5.2,
+    id: "ai-ml",
+    name: "AI & Machine Learning",
+    slug: "ai-machine-learning",
+    category: "Neural Audio · LLMs · RAG",
+    imageSrc: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop",
+    positionClass: "top-[64%] sm:top-[60%] lg:top-[50%] -translate-y-1/2 -left-6 min-[390px]:-left-4 sm:left-[1%] lg:left-[2.5%] xl:left-[4%]",
+    yAnim: [-10, 10, -10],
+    rotateAnim: [1.5, -1.5, 1.5],
+    duration: 4.8,
     delay: 0.8,
   },
-  // Mid Right: AWS
+  // 4. Mid Right: Mobile Development (Flanking right side of CTA buttons)
   {
-    name: "AWS",
-    positionClass: "top-1/2 -translate-y-1/2 right-[2%] sm:right-[4%] lg:right-[6%]",
-    yAnim: [-5, 5, -5],
-    duration: 5.5,
+    id: "mobile-dev",
+    name: "Mobile Development",
+    slug: "mobile-development",
+    category: "iOS · Android · React Native",
+    imageSrc: "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1000&auto=format&fit=crop",
+    positionClass: "top-[64%] sm:top-[60%] lg:top-[50%] -translate-y-1/2 -right-6 min-[390px]:-right-4 sm:right-[1%] lg:right-[2.5%] xl:right-[4%]",
+    yAnim: [8, -8, 8],
+    rotateAnim: [-2, 2, -2],
+    duration: 5.6,
     delay: 0.6,
   },
-  // Lower Left: Python
+  // 5. Bottom Left: Cloud Solutions
   {
-    name: "Python",
-    positionClass: "bottom-[6%] left-[12%] sm:bottom-[8%] sm:left-[16%] lg:left-[18%]",
-    yAnim: [4, -4, 4],
-    duration: 4.8,
+    id: "cloud",
+    name: "Cloud Solutions",
+    slug: "cloud-solutions",
+    category: "AWS · Kubernetes · Terraform",
+    imageSrc: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+    positionClass: "bottom-[2%] sm:bottom-[3%] lg:bottom-[5%] left-[2%] sm:left-[2.5%] lg:left-[4%] xl:left-[6%]",
+    yAnim: [-7, 7, -7],
+    rotateAnim: [-1.5, 1.5, -1.5],
+    duration: 5.0,
     delay: 0.2,
   },
-  // Lower Right: Docker
+  // 6. Bottom Right: Digital Transformation
   {
-    name: "Docker",
-    positionClass: "bottom-[6%] right-[12%] sm:bottom-[8%] sm:right-[16%] lg:right-[18%]",
-    yAnim: [4, -4, 4],
-    duration: 4.2,
-    delay: 0.9,
-  },
-  // Bottom Left: Node.js (Tablet & Desktop)
-  {
-    name: "Node.js",
-    positionClass: "hidden sm:flex -bottom-2 left-[28%] lg:left-[30%]",
-    yAnim: [5, -5, 5],
-    duration: 5.1,
-    delay: 0.7,
-  },
-  // Bottom Right: PostgreSQL (Tablet & Desktop)
-  {
-    name: "PostgreSQL",
-    positionClass: "hidden sm:flex -bottom-2 right-[28%] lg:right-[30%]",
-    yAnim: [-4, 4, -4],
+    id: "digital-trans",
+    name: "Digital Transformation",
+    slug: "digital-transformation",
+    category: "Enterprise Systems · Workflows",
+    imageSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1000&auto=format&fit=crop",
+    positionClass: "bottom-[2%] sm:bottom-[3%] lg:bottom-[5%] right-[2%] sm:right-[2.5%] lg:right-[4%] xl:right-[6%]",
+    yAnim: [7, -7, 7],
+    rotateAnim: [1.5, -1.5, 1.5],
     duration: 4.6,
-    delay: 0.3,
+    delay: 0.9,
   },
 ];
 
 export default function OrbitalHero() {
   const shouldReduceMotion = useReducedMotion();
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
-
-  // Cycle the floating card stack slightly every few seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveCardIndex((prev) => (prev + 1) % 3);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
+  const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
 
   return (
-    <section className="relative w-full pt-16 sm:pt-28 lg:pt-32 pb-16 sm:pb-24 lg:pb-28 bg-[#ffffff] text-[#111111] overflow-hidden selection:bg-black selection:text-white">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-8 relative z-10 w-full">
-        
-        {/* ── 1. CENTER HERO HEADLINE ─────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto pt-4 sm:pt-6 px-2 sm:px-0 relative z-20">
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="text-3xl sm:text-6xl md:text-[64px] font-display font-semibold tracking-[-0.03em] text-[#111111] leading-[1.12] sm:leading-[1.08]"
-          >
-            Software built for<br />
-            strategic growth
-          </motion.h1>
+    <section className="relative w-full min-h-[860px] sm:min-h-[890px] lg:min-h-[920px] flex items-center justify-center pt-24 sm:pt-32 lg:pt-32 pb-20 sm:pb-28 bg-[#ffffff] text-[#111111] overflow-hidden selection:bg-black selection:text-white">
+      {/* Background Soft Atmospheric Ambient Glows & Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[600px] lg:w-[900px] h-[340px] sm:h-[500px] bg-gradient-to-tr from-blue-100/40 via-purple-100/30 to-pink-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.16 }}
-            className="mt-4 sm:mt-5 text-[15px] sm:text-lg text-[#666666] font-normal leading-relaxed max-w-xl mx-auto"
-          >
-            We design, engineer, and deploy high-performance digital products and intelligent workflows that turn complex business operations into scalable software.
-          </motion.p>
-        </div>
+      {/* ── CONTINUOUSLY FLOATING SERVICE IMAGE CARDS (All Screens: Mobile, Tablet & Desktop) ── */}
+      <div className="absolute inset-0 max-w-[1500px] mx-auto pointer-events-none overflow-visible">
+        {FLOATING_SERVICES.map((card) => {
+          const isHovered = hoveredCardId === card.id;
 
-        {/* ── 2. ORBITAL HERO STAGE (Concentric Rings + Floating Tech Badges + Cards) ── */}
-        <div className="relative my-8 sm:my-12 max-w-2xl mx-auto flex items-center justify-center min-h-[340px] sm:min-h-[460px] lg:min-h-[500px]">
-          
-          {/* Concentric Rings Background (Framed around cards and badges) */}
-          <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
-            {/* Ring 1 (Inner) */}
-            <div className="absolute w-[240px] h-[240px] sm:w-[380px] sm:h-[380px] lg:w-[460px] lg:h-[460px] rounded-full border border-black/[0.06]" />
-            
-            {/* Ring 2 (Middle) */}
-            <div className="absolute w-[340px] h-[340px] sm:w-[540px] sm:h-[540px] lg:w-[640px] lg:h-[640px] rounded-full border border-black/[0.05]" />
-
-            {/* Ring 3 (Outer - The Last Circle) */}
-            <div className="absolute w-[440px] h-[440px] sm:w-[700px] sm:h-[700px] lg:w-[820px] lg:h-[820px] rounded-full border border-black/[0.04]" />
-
-            {/* Partial Arc Accents */}
-            <svg className="absolute w-[340px] h-[340px] sm:w-[540px] sm:h-[540px] lg:w-[640px] lg:h-[640px] pointer-events-none opacity-40">
-              <circle
-                cx="50%"
-                cy="50%"
-                r="46%"
-                fill="none"
-                stroke="url(#arcGradient1)"
-                strokeWidth="1.5"
-                strokeDasharray="100 600"
-                strokeDashoffset="140"
-              />
-              <circle
-                cx="50%"
-                cy="50%"
-                r="34%"
-                fill="none"
-                stroke="url(#arcGradient2)"
-                strokeWidth="1.5"
-                strokeDasharray="70 450"
-                strokeDashoffset="35"
-              />
-              <defs>
-                <linearGradient id="arcGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.1" />
-                </linearGradient>
-                <linearGradient id="arcGradient2" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#2563eb" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.1" />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            {/* Glowing Center Aura */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] sm:w-[420px] h-[160px] sm:h-[240px] bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(59,130,246,0.15),rgba(147,197,253,0.08),transparent_70%)] blur-2xl pointer-events-none" />
-          </div>
-
-          {/* Floating Tech Badges on the Orbit */}
-          {FLOATING_TECH_NODES.map((node) => (
+          return (
             <motion.div
-              key={node.name}
-              animate={shouldReduceMotion ? {} : { y: node.yAnim }}
-              transition={{
-                duration: node.duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: node.delay,
-              }}
-              className={`absolute ${node.positionClass} flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] sm:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-black/[0.08] hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] transition-all cursor-pointer group z-30`}
-              title={node.name}
+              key={card.id}
+              initial={shouldReduceMotion ? {} : { y: 0, rotate: 0 }}
+              animate={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      y: card.yAnim,
+                      rotate: card.rotateAnim,
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      duration: card.duration,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: card.delay,
+                    }
+              }
+              className={`absolute ${card.positionClass} pointer-events-auto transition-all duration-300 ${
+                isHovered ? "z-30" : "z-10"
+              }`}
             >
-              <TechIcon name={node.name} className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 transition-transform duration-300 group-hover:scale-110" />
-              <span className="hidden sm:block absolute -bottom-7 scale-0 group-hover:scale-100 transition-all text-[11px] font-mono bg-black text-white px-2 py-0.5 rounded-md pointer-events-none whitespace-nowrap shadow-sm z-50">
-                {node.name}
-              </span>
-            </motion.div>
-          ))}
+              <Link
+                href={`/services/${card.slug}`}
+                onMouseEnter={() => setHoveredCardId(card.id)}
+                onMouseLeave={() => setHoveredCardId(null)}
+                className="group block relative w-[125px] min-[390px]:w-[145px] min-[430px]:w-[160px] sm:w-[185px] md:w-[210px] lg:w-[265px] xl:w-[295px] aspect-[16/11] rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-black/[0.08] hover:border-black/50 shadow-[0_6px_20px_rgba(0,0,0,0.07)] sm:shadow-[0_12px_36px_rgba(0,0,0,0.07)] hover:shadow-[0_28px_60px_-10px_rgba(0,0,0,0.30)] active:scale-95 hover:-translate-y-2.5 sm:hover:-translate-y-3.5 hover:scale-[1.05] sm:hover:scale-[1.06] transition-all duration-300 ease-out"
+              >
+                {/* Fixed Image Visual (Optimized eager loading and async decoding) */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={card.imageSrc}
+                  alt={card.name}
+                  draggable={false}
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-full object-cover select-none transition-transform duration-700 ease-out group-hover:scale-105"
+                />
 
-          {/* Central Stacked Product Cards */}
-          <div className="relative w-full max-w-[90%] sm:max-w-md mx-auto h-[170px] sm:h-[190px] flex items-center justify-center z-20">
-            {/* Card 3 (MeetingX) */}
-            <motion.div
-              animate={{
-                y: activeCardIndex === 2 ? 0 : 24,
-                scale: activeCardIndex === 2 ? 1 : 0.92,
-                opacity: activeCardIndex === 2 ? 1 : 0.6,
-                zIndex: activeCardIndex === 2 ? 30 : 10,
-              }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl bg-white/95 border border-black/[0.08] shadow-[0_12px_36px_rgba(0,0,0,0.06)] backdrop-blur-xl flex items-center gap-3 sm:gap-3.5"
-            >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-xs font-bold text-blue-600 flex-shrink-0">
-                MX
-              </div>
-              <div className="flex-1 min-w-0 text-left">
-                <div className="flex items-center gap-2">
-                  <span className="text-[12px] sm:text-[13px] font-semibold text-[#111]">MeetingX Video Room</span>
-                  <span className="text-[9px] sm:text-[10px] font-mono font-bold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">38ms RTT</span>
-                </div>
-                <p className="text-[11px] sm:text-[12px] text-[#666] truncate mt-0.5">
-                  Encrypted canvas sync &amp; live AI transcript active
-                </p>
-              </div>
-            </motion.div>
+                {/* Ambient Gradient Vignette (Revealed on Hover) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-            {/* Card 2 (Zobay Voice) */}
-            <motion.div
-              animate={{
-                y: activeCardIndex === 1 ? 0 : activeCardIndex === 0 ? 12 : 24,
-                scale: activeCardIndex === 1 ? 1 : activeCardIndex === 0 ? 0.96 : 0.92,
-                opacity: activeCardIndex === 1 ? 1 : activeCardIndex === 0 ? 0.85 : 0.6,
-                zIndex: activeCardIndex === 1 ? 30 : 20,
-              }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl bg-white/95 border border-black/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl flex items-center justify-between gap-2.5 sm:gap-3"
-            >
-              <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 text-left">
-                <div className="relative flex-shrink-0">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
-                    ZB
+                {/* ── CARD CONTENT OVERLAY (Hidden by default, revealed on hover) ── */}
+                <div className="absolute inset-0 flex flex-col justify-end p-2.5 sm:p-4 lg:p-4.5 z-20 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out pointer-events-none">
+                  <div>
+                    <div className="flex items-center justify-between gap-1 text-white mb-0.5">
+                      <h4 className="text-[11.5px] min-[390px]:text-[12.5px] sm:text-[15px] xl:text-[16px] font-display font-semibold tracking-tight leading-tight drop-shadow-sm text-white">
+                        {card.name}
+                      </h4>
+                      <div className="w-5 h-5 sm:w-6.5 sm:h-6.5 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0">
+                        <ArrowUpRight className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" />
+                      </div>
+                    </div>
+
+                    <p className="text-[10px] sm:text-[11.5px] font-mono text-white/80 line-clamp-1">
+                      {card.category}
+                    </p>
                   </div>
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 border-2 border-white" />
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[12px] sm:text-[13px] font-semibold text-[#111]">Zobay Voice Agent</span>
-                    <span className="text-[9px] sm:text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.2 rounded">&lt;280ms</span>
-                  </div>
-                  <span className="text-[11px] sm:text-[12px] text-[#777] block mt-0.5 truncate">
-                    Qualified inbound inquiry &middot; <span className="text-[#3b82f6]">Calendar Synced</span>
-                  </span>
-                </div>
-              </div>
-              <button className="text-zinc-400 hover:text-zinc-700 p-1 shrink-0">
-                <MoreVertical className="w-4 h-4" />
-              </button>
-            </motion.div>
 
-            {/* Card 1 (SalesX) */}
-            <motion.div
-              animate={{
-                y: activeCardIndex === 0 ? 0 : activeCardIndex === 1 ? -12 : 0,
-                scale: activeCardIndex === 0 ? 1 : 0.96,
-                opacity: activeCardIndex === 0 ? 1 : 0.85,
-                zIndex: activeCardIndex === 0 ? 30 : 10,
-              }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl bg-white border border-black/[0.08] shadow-[0_20px_48px_rgba(0,0,0,0.10)] backdrop-blur-2xl flex items-center gap-3 sm:gap-3.5 cursor-pointer"
-            >
-              <div className="relative flex-shrink-0">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">
-                  SX
-                </div>
-                <span className="absolute -top-0.5 -right-0.5 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-blue-500 text-white flex items-center justify-center text-[7px] sm:text-[8px] font-bold border-2 border-white">
-                  ✓
-                </span>
-              </div>
-              <div className="min-w-0 text-left">
-                <div className="flex items-center gap-1.5 truncate">
-                  <span className="text-[12px] sm:text-[13px] font-semibold text-[#111]">SalesX</span>
-                  <span className="text-[12px] sm:text-[13px] text-[#555] truncate">routed Lead to</span>
-                  <span className="text-[12px] sm:text-[13px] font-semibold text-[#111]">Tier-1 AE</span>
-                </div>
-                <span className="text-[10px] sm:text-[11px] text-[#888] block mt-0.5 truncate">
-                  First response under 5 minutes &middot; CRM Synced
-                </span>
-              </div>
+                {/* Glow Border Overlay on Hover */}
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-2xl sm:rounded-3xl pointer-events-none transition-colors duration-300" />
+              </Link>
             </motion.div>
+          );
+        })}
+      </div>
+
+      {/* ── CENTER HERO CONTENT ────────────────────────────────────────── */}
+      <div className="max-w-[270px] min-[390px]:max-w-[310px] sm:max-w-[430px] md:max-w-[460px] lg:max-w-[760px] mx-auto px-2 sm:px-4 lg:px-8 text-center relative z-20 pointer-events-auto">
+
+        {/* Innovative Studio Status Pill */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.04 }}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/[0.04] border border-black/[0.08] backdrop-blur-md mb-4 sm:mb-6 select-none"
+        >
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-[11px] sm:text-[12px] font-mono font-medium text-[#111111] tracking-tight">
+            StratoTech Studio · Accepting Q2 Enterprise Sprints
+          </span>
+        </motion.div>
+
+        {/* Main Display Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.08 }}
+          className="text-[27px] min-[390px]:text-[31px] sm:text-5xl lg:text-[68px] font-display font-medium tracking-[-0.035em] text-[#111111] leading-[1.08] mb-4 sm:mb-6"
+        >
+          Software designed around the way you work.
+        </motion.h1>
+
+        {/* Subtitle Value Proposition */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.16 }}
+          className="text-[13.5px] min-[390px]:text-[14.5px] sm:text-lg lg:text-xl text-[#6e6e73] font-normal leading-relaxed mb-4 sm:mb-6 lg:mb-12 max-w-xl mx-auto"
+        >
+          We turn complex business requirements into simple, useful digital products, AI-native platforms, and scalable enterprise architectures.
+        </motion.p>
+
+        {/* Primary Action Row (Centered in the open gap between middle and bottom card pairs across mobile & tablet) */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.24 }}
+          className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-3.5 w-full max-w-full mx-auto transform translate-y-24 min-[390px]:translate-y-28 sm:translate-y-10 md:translate-y-12 lg:translate-y-0 pt-2 lg:pt-1"
+        >
+          <div className="shrink-0">
+            <StartProjectButton
+              size="lg"
+              text="Start a project"
+              className="px-4.5 sm:px-8 py-3 sm:py-4 text-[13px] sm:text-[16px] whitespace-nowrap"
+            />
           </div>
 
-        </div>
-
-        {/* ── 3. TRUSTED PROOF & LOGOS (Comes cleanly AFTER the last circle) ── */}
-        <div className="mt-4 sm:mt-10 text-center relative z-20">
-          <p className="text-xs font-medium text-[#888888] tracking-wide mb-6 sm:mb-8">
-            Trusted by 200,000+ users worldwide
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 lg:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all">
-            <span className="font-display font-semibold text-base sm:text-xl text-[#555] tracking-tight">
-              Google
-            </span>
-            <span className="font-sans font-bold text-base sm:text-xl text-[#555] tracking-tighter">
-              airbnb
-            </span>
-            <span className="font-sans font-bold text-sm sm:text-lg text-[#555] tracking-tight">
-              coinbase
-            </span>
-            <div className="flex items-center gap-1.5 font-bold text-sm sm:text-lg text-[#555]">
-              <span className="w-4 h-4 sm:w-5 sm:h-5 rounded border border-[#555] flex items-center justify-center text-[10px] sm:text-xs">N</span>
-              <span>Notion</span>
-            </div>
-            <span className="font-mono font-bold text-sm sm:text-lg text-[#555] tracking-wider">
-              GUMROAD
-            </span>
-            <span className="font-sans font-bold italic text-base sm:text-xl text-[#555]">
-              PayPal
-            </span>
-            <span className="font-sans font-bold text-base sm:text-xl text-[#555] lowercase tracking-tight">
-              upwork
-            </span>
-            <span className="font-sans font-bold text-sm sm:text-lg text-[#555]">
-              shopify
-            </span>
-            <span className="font-sans font-bold text-base sm:text-xl text-[#555]">
-              stripe
-            </span>
-            <span className="font-sans font-bold text-base sm:text-xl text-[#555]">
-              zoom
-            </span>
-          </div>
-        </div>
-
+          <Link
+            href="/services"
+            className="shrink-0 inline-flex items-center justify-center font-medium rounded-full px-4.5 sm:px-8 py-3 sm:py-4 text-[13px] sm:text-[16px] gap-1.5 sm:gap-2 border border-black/[0.15] bg-white text-[#1d1d1f] hover:border-black hover:bg-[#f5f5f7] transition-all duration-300 shadow-xs group whitespace-nowrap"
+          >
+            <span>Explore all services</span>
+            <ArrowRight className="w-3.5 sm:w-4 h-3.5 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

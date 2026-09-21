@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import TextMaskReveal from "@/components/TextMaskReveal";
 import { JOBS_DATA } from "@/data/siteData";
 
@@ -52,6 +53,10 @@ export default function CareersPage() {
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
         {/* ── 1. HEADER ────────────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+          <div className="mb-8">
+            <Breadcrumbs items={[{ label: "Careers" }]} />
+          </div>
+
           <div className="max-w-3xl">
             <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
               CAREERS &amp; ROLES
@@ -70,7 +75,7 @@ export default function CareersPage() {
 
         {/* ── 2. CULTURE & WORKING ENVIRONMENT ─────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
             <div>
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
                 PRINCIPLES
@@ -108,7 +113,7 @@ export default function CareersPage() {
 
         {/* ── 3. STUDIO GALLERY (Intentional Visual Cards) ────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
             <div>
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
                 WORKSPACE &amp; R&amp;D
@@ -155,7 +160,7 @@ export default function CareersPage() {
 
         {/* ── 4. OPEN POSITIONS ────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-8 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
             <div>
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
                 OPENINGS

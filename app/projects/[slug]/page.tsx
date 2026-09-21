@@ -4,11 +4,12 @@ import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { PROJECTS_DATA } from "@/data/siteData";
 import TechBadge from "@/components/TechBadge";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { SoftwareAppJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 interface PageProps {
@@ -52,13 +53,22 @@ export default function ProjectDetailPage({ params }: PageProps) {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-10 border-b border-black/[0.08]"
         >
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span>Back to Work</span>
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Work", href: "/projects" },
+                { label: project.title },
+              ]}
+            />
+
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>All Projects</span>
+            </Link>
+          </div>
 
           <div className="flex items-center gap-3 text-[12px] font-mono text-[#6e6e73] mb-3 uppercase tracking-wider">
             <span className="font-semibold text-[#1d1d1f]">PRODUCT</span>

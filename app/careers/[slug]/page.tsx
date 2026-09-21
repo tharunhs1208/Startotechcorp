@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { JOBS_DATA } from "@/data/siteData";
 
 interface PageProps {
@@ -41,13 +42,22 @@ export default function JobDetailPage({ params }: PageProps) {
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
         {/* ── 1. HEADER ────────────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-10 border-b border-black/[0.08]">
-          <Link
-            href="/careers"
-            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span>Back to Careers</span>
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Careers", href: "/careers" },
+                { label: job.title },
+              ]}
+            />
+
+            <Link
+              href="/careers"
+              className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>All Open Roles</span>
+            </Link>
+          </div>
 
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 font-mono text-[11px] text-[#6e6e73] mb-3 uppercase tracking-wider">

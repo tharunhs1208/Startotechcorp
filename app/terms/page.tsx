@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const TERMS_SECTIONS = [
   {
@@ -49,13 +50,17 @@ export default function TermsPage() {
 
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span>Back to Home</span>
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <Breadcrumbs items={[{ label: "Terms of Service" }]} />
+
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>Back to Home</span>
+            </Link>
+          </div>
 
           <div className="max-w-3xl">
             <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">

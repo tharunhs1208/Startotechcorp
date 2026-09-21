@@ -96,8 +96,8 @@ export default function InteractiveProductShowcase() {
 
   return (
     <div className="w-full max-w-[1100px] mx-auto">
-      {/* ── 1. SELECTOR TABS BAR (Clean Minimal Tabs) ───────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-6">
+      {/* ── 1. SELECTOR TABS BAR (With Fluid Morphing Active Pill) ───────────────── */}
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-3 mb-6">
         {SHOWCASE_PRODUCTS.map((prod, idx) => {
           const isActive = idx === activeIndex;
 
@@ -105,31 +105,41 @@ export default function InteractiveProductShowcase() {
             <button
               key={prod.id}
               onClick={() => setActiveIndex(idx)}
-              className={`text-center py-3 px-4 rounded-xl transition-all duration-200 cursor-pointer border ${
-                isActive
-                  ? "bg-white border-black/[0.14] shadow-[0_4px_18px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.05]"
-                  : "bg-black/[0.02] hover:bg-black/[0.04] border-black/[0.05]"
-              }`}
+              className="relative text-center py-2.5 sm:py-3.5 px-2 sm:px-4 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer border border-black/[0.06] bg-[#f8f8fa] hover:bg-[#f0f0f3] overflow-hidden group whitespace-nowrap"
             >
-              <h4 className={`text-sm sm:text-base font-display font-semibold transition-colors ${
-                isActive ? "text-black" : "text-zinc-500"
-              }`}>
-                {prod.name}
-              </h4>
+              {/* Fluid Sliding Active Indicator Pill */}
+              {isActive && (
+                <motion.div
+                  layoutId="activeProductPill"
+                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                  className="absolute inset-0 bg-white border border-black/[0.12] rounded-xl sm:rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] z-0"
+                />
+              )}
+
+              <div className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${
+                  isActive ? "bg-blue-600 animate-pulse" : "bg-black/20"
+                }`} />
+                <h4 className={`text-xs sm:text-[15px] font-display font-semibold truncate transition-colors duration-200 ${
+                  isActive ? "text-[#111111]" : "text-[#6e6e73] group-hover:text-[#111111]"
+                }`}>
+                  {prod.name}
+                </h4>
+              </div>
             </button>
           );
         })}
       </div>
 
-      {/* ── 2. FULL RICH CARD WITH PHOTO (Instant Click & 5s Transition) ── */}
+      {/* ── 2. FULL RICH CARD WITH BLUR-SCALE DIMENSIONAL TRANSITION ── */}
       <AnimatePresence mode="wait">
         <motion.article
           key={activeProduct.id}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="group bg-white border border-black/[0.08] rounded-2xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.04)] hover:border-black/20 transition-all"
+          initial={{ opacity: 0, scale: 0.97, filter: "blur(8px)", y: 10 }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0 }}
+          exit={{ opacity: 0, scale: 0.97, filter: "blur(8px)", y: -10 }}
+          transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+          className="group bg-white border border-black/[0.08] rounded-3xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.04)] hover:border-black/20 transition-all"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[340px] items-stretch">
             {/* Left Content Column */}
@@ -174,7 +184,7 @@ export default function InteractiveProductShowcase() {
               <div className="pt-6">
                 <Link
                   href={activeProduct.linkHref}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black text-white hover:bg-zinc-800 text-[13px] font-semibold transition-all group/btn shadow-xs"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black text-white hover:bg-zinc-800 text-[13px] font-semibold transition-all group/btn shadow-xs whitespace-nowrap"
                 >
                   <span>{activeProduct.ctaLabel}</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />

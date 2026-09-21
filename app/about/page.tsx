@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TechBadge from "@/components/TechBadge";
 import TextMaskReveal from "@/components/TextMaskReveal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import {
   ScrollMaskText,
   ScrollMaskImage,
@@ -111,6 +112,8 @@ export default function AboutPage() {
       <main className="pt-28 sm:pt-36 pb-10 sm:pb-16">
         {/* ── 1. EDITORIAL HERO (Scroll Mask Reveal) ────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 border-b border-black/[0.08]">
+          <Breadcrumbs items={[{ label: "About" }]} className="mb-6" />
+
           <div className="max-w-4xl">
             <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-4 font-semibold">
               ABOUT US
@@ -175,7 +178,7 @@ export default function AboutPage() {
 
         {/* ── 3. DISCIPLINES (Scroll Mask Cards) ────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
             <div>
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
                 PRACTICE AREAS
@@ -238,7 +241,7 @@ export default function AboutPage() {
 
         {/* ── 4. WORKING PRINCIPLES (Scroll Mask Cards) ─────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
             <div>
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
                 STANDARDS
@@ -272,7 +275,7 @@ export default function AboutPage() {
 
         {/* ── 5. TEAM DIRECTORY (Scroll Mask Reveals + Swipeable) ───────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-28">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 sm:pb-8 mb-8 sm:mb-12 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
             <div>
               <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
                 LEADERSHIP &amp; ENGINEERING

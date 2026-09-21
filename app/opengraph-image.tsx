@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "StratoTechCorp — Digital Products & Technology Solutions";
+export const runtime = "edge";
+export const alt = "StratoTech — Engineering & Software Studio";
 export const size = {
   width: 1200,
   height: 630,
@@ -12,157 +13,99 @@ export default async function Image() {
     (
       <div
         style={{
-          background: "#0a0b0e",
-          width: "100%",
           height: "100%",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
+          alignItems: "flex-start",
           justifyContent: "space-between",
+          backgroundColor: "#ffffff",
+          backgroundImage:
+            "radial-gradient(circle at 25px 25px, rgba(0, 0, 0, 0.04) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(0, 0, 0, 0.04) 2%, transparent 0%)",
+          backgroundSize: "100px 100px",
           padding: "70px 80px",
-          fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-          color: "#ffffff",
+          fontFamily: "sans-serif",
         }}
       >
-        {/* Top Header */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <div
-              style={{
-                width: "44px",
-                height: "44px",
-                borderRadius: "10px",
-                background: "#ffffff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#0a0b0e",
-                fontWeight: 900,
-                fontSize: "24px",
-              }}
-            >
-              S
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span
-                style={{
-                  fontSize: "22px",
-                  fontWeight: 700,
-                  letterSpacing: "-0.02em",
-                  color: "#ffffff",
-                }}
-              >
-                StratoTechCorp
-              </span>
-              <span
-                style={{
-                  fontSize: "13px",
-                  fontFamily: "monospace",
-                  color: "#71717a",
-                  letterSpacing: "0.1em",
-                }}
-              >
-                PRODUCT STUDIO &amp; LABS
-              </span>
-            </div>
-          </div>
-
+        {/* Brand Header */}
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div
             style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "14px",
+              backgroundColor: "#111111",
               display: "flex",
               alignItems: "center",
-              gap: "8px",
-              padding: "8px 18px",
-              borderRadius: "999px",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
-              background: "rgba(255, 255, 255, 0.05)",
-              fontSize: "13px",
-              fontFamily: "monospace",
-              color: "#a1a1aa",
+              justifyContent: "center",
+              color: "#ffffff",
+              fontSize: "24px",
+              fontWeight: 700,
             }}
           >
-            <div
-              style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "999px",
-                background: "#0070f3",
-              }}
-            />
-            <span>2026 RELEASES ACTIVE</span>
+            ST
+          </div>
+          <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
+            <span style={{ fontSize: "28px", fontWeight: 700, color: "#111111", letterSpacing: "-0.03em" }}>
+              Strato
+            </span>
+            <span style={{ fontSize: "28px", fontWeight: 700, color: "#0071e3", letterSpacing: "-0.03em" }}>
+              Tech
+            </span>
           </div>
         </div>
 
-        {/* Center Headline */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-          <h1
+        {/* Main Display Headline */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px", maxWidth: "900px" }}>
+          <div
             style={{
-              fontSize: "58px",
-              fontWeight: 800,
-              lineHeight: 1.1,
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#86868b",
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+            }}
+          >
+            STRATEGIC TECHNOLOGY &amp; DIGITAL ENGINEERING
+          </div>
+          <div
+            style={{
+              fontSize: "56px",
+              fontWeight: 700,
+              color: "#111111",
+              lineHeight: 1.12,
               letterSpacing: "-0.03em",
-              margin: 0,
-              color: "#ffffff",
             }}
           >
-            Digital products engineered with restraint.
-          </h1>
-          <p
+            Software designed around the way you work.
+          </div>
+          <div
             style={{
-              fontSize: "24px",
-              fontWeight: 300,
+              fontSize: "22px",
+              fontWeight: 400,
+              color: "#6e6e73",
               lineHeight: 1.4,
-              color: "#a1a1aa",
-              margin: 0,
-              maxWidth: "900px",
             }}
           >
-            Designing and building enterprise platforms, voice AI agents, and high-performance communication systems.
-          </p>
+            Full-stack engineering, voice AI agents, and bespoke product design systems.
+          </div>
         </div>
 
-        {/* Bottom Product Badges */}
+        {/* Footer Meta Row */}
         <div
           style={{
+            width: "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-            paddingTop: "32px",
+            borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+            paddingTop: "24px",
+            fontSize: "16px",
+            color: "#86868b",
           }}
         >
-          <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
-            {["SalesX", "Zobay", "MeetingX", "StartOne", "BaseOne", "LegalX"].map((name) => (
-              <span
-                key={name}
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  color: "#d4d4d8",
-                  padding: "6px 14px",
-                  borderRadius: "6px",
-                  background: "rgba(255, 255, 255, 0.06)",
-                }}
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-
-          <span
-            style={{
-              fontSize: "14px",
-              fontFamily: "monospace",
-              color: "#71717a",
-            }}
-          >
-            stratotechcorp.com
-          </span>
+          <span>stratotechcorp.in</span>
+          <span style={{ color: "#111111", fontWeight: 600 }}>Bengaluru, India</span>
         </div>
       </div>
     ),

@@ -10,12 +10,12 @@ import {
   Send,
   Loader2,
   AlertCircle,
-  Phone,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TextMaskReveal from "@/components/TextMaskReveal";
 import ScrollCardTransition from "@/components/ScrollCardTransition";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -64,9 +64,11 @@ export default function ContactPage() {
     <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      <main className="pt-28 sm:pt-36 pb-4 sm:pb-6">
+      <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
         {/* ── 1. HEADER ────────────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-8 sm:pb-10 border-b border-black/[0.08]">
+          <Breadcrumbs items={[{ label: "Contact" }]} className="mb-6" />
+
           <div className="max-w-3xl">
             <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
               GET IN TOUCH
@@ -84,7 +86,7 @@ export default function ContactPage() {
         </section>
 
         {/* ── 2. MAIN CONTACT SECTION (Matched Equal Heights) ──────────── */}
-        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-8 sm:pt-10 pb-4 sm:pb-8">
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-8 sm:pt-12">
           {submitted ? (
             <ScrollCardTransition>
               <div className="max-w-xl mx-auto p-8 sm:p-12 rounded-2xl border border-black/[0.08] bg-white text-center space-y-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)]">

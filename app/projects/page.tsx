@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 import ScrollCardTransition from "@/components/ScrollCardTransition";
 
@@ -218,6 +219,10 @@ function WorkContent() {
     <>
       {/* ── WORK HERO WITH STAGGERED REVEAL TRANSITIONS ─────────────── */}
       <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+        <div className="mb-8">
+          <Breadcrumbs items={[{ label: "Work" }]} />
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -283,16 +288,22 @@ function WorkContent() {
                 <ScrollCardTransition key={work.id} index={idx}>
                   <motion.article
                     layout
+                    initial={{ opacity: 0, y: 28, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{
                       opacity: 0,
                       y: -20,
+                      scale: 0.97,
                       transition: {
-                        duration: 0.3,
+                        duration: 0.25,
                         ease: [0.4, 0, 0.2, 1],
                       },
                     }}
                     transition={{
-                      layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                      layout: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+                      opacity: { duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
+                      y: { duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
+                      scale: { duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
                     }}
                     className="group bg-white border border-black/[0.08] rounded-xl overflow-hidden hover:border-black/30 transition-all duration-300"
                   >
