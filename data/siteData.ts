@@ -395,11 +395,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { metric: "< 280ms", label: "Streaming Latency" },
       { metric: "1.2M+", label: "Calls Handled / Month" },
     ],
-    image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/products/zobay_neural.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop",
+      "/images/products/zobay_neural.jpg",
+      "/images/products/salesx_spatial.jpg",
+      "/images/products/meetingx_spatial.jpg",
     ],
     testimonial: {
       quote: "Zobay transformed our contact center operations. We scaled our inbound call capacity 4x while saving over 80% on support staffing costs.",

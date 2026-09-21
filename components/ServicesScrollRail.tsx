@@ -186,7 +186,7 @@ export default function ServicesScrollRail({ services }: ServicesScrollRailProps
                 <div className="px-6 sm:px-7 pb-6 pt-4 border-t border-black/[0.06] flex items-center justify-between">
                   <Link
                     href={`/services/${service.slug}`}
-                    className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d1d1f] hover:text-black transition-colors"
                   >
                     <span>Learn more</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />

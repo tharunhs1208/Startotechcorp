@@ -506,7 +506,7 @@ export default function AIAssistant() {
                         key={idx}
                         href={action.href}
                         onClick={() => setIsOpen(false)}
-                        className="inline-flex items-center gap-1 text-[12px] font-medium text-[#0071e3] hover:underline underline-offset-2 transition-colors py-0.5"
+                        className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#111111] hover:underline underline-offset-2 transition-colors py-0.5"
                       >
                         <span>{action.label}</span>
                       </Link>

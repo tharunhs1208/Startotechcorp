@@ -279,7 +279,7 @@ function BrandLogo() {
       {/* Constant Crisp Luxury Wordmark */}
       <div className="flex items-center text-[16px] font-display font-semibold tracking-tight text-[#111111] leading-none">
         <span>StratoTech</span>
-        <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3] ml-1.5" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#111111] ml-1.5" />
       </div>
     </Link>
   );
