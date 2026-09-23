@@ -1,425 +1,388 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-import ScrollCardTransition from "@/components/ScrollCardTransition";
-
-type WorkCategory = "ALL" | "DESIGN" | "DEVELOPMENT" | "ENGINEERING" | "INTEGRATION" | "PRODUCT" | "RESEARCH";
-
-interface WorkEntry {
-  number: string;
+interface ProjectItem {
   id: string;
-  discipline: string;
-  productName: string;
-  category: WorkCategory;
-  year: string;
-  scopeSummary: string;
-  deliverables: string[];
-  mediaType: "video" | "image";
-  mediaSrc: string;
-  linkHref: string;
-  layout: "visual-right" | "visual-left";
+  title: string;
+  subtitle: string;
+  status: "Completed" | "Ongoing";
+  image: string;
+  tags: string[];
+  href: string;
 }
 
-const WORK_ITEMS: WorkEntry[] = [
+const ALL_PROJECTS: ProjectItem[] = [
   {
-    number: "01",
-    id: "salesx-design",
-    discipline: "PRODUCT DESIGN",
-    productName: "SalesX",
-    category: "DESIGN",
-    year: "2026",
-    scopeSummary: "Designing the complete end-to-end interface and workflow system for sales pipeline tracking, lead triage, and client follow-ups.",
-    deliverables: ["User Workflow Mapping", "Figma Design System", "Interactive Prototype", "Design Handoff"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/products/salesx",
-    layout: "visual-right",
+    id: "schedular",
+    title: "Schedular",
+    subtitle: "Enterprise intelligent calendar orchestration & multi-timezone scheduling AI",
+    status: "Completed",
+    image: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1000&auto=format&fit=crop",
+    tags: ["Completed", "Scheduling AI", "SaaS", "Enterprise"],
+    href: "/projects/schedular",
   },
   {
-    number: "02",
-    id: "aura-fintech-design",
-    discipline: "UX & DESIGN SYSTEM",
-    productName: "Aura Wealth",
-    category: "DESIGN",
-    year: "2026",
-    scopeSummary: "Crafting a luxury financial interface with fluid 120Hz micro-interactions, dark-mode design tokens, and accessible candlestick charting.",
-    deliverables: ["Design Token Architecture", "120Hz Micro-Interactions", "Mobile Onboarding Flow", "WCAG 2.1 AAA Accessibility"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/aura-fintech-design-system",
-    layout: "visual-left",
+    id: "meetingx",
+    title: "MeetingX",
+    subtitle: "AI meeting copilot with automated live transcripts, summaries & action items",
+    status: "Completed",
+    image: "/images/products/meetingx_pinterest.jpg",
+    tags: ["Completed", "Voice AI", "Summarization", "SaaS"],
+    href: "/products/meetingx",
   },
   {
-    number: "03",
-    id: "meetingx-dev",
-    discipline: "WEB DEVELOPMENT",
-    productName: "MeetingX",
-    category: "DEVELOPMENT",
-    year: "2026",
-    scopeSummary: "Building a responsive meeting experience with low-latency peer-to-peer screen sharing, audio synchronization, and collaborative chat.",
-    deliverables: ["WebRTC Media Pipeline", "Next.js App Router Client", "Multi-Participant Room Mesh", "Live AI Transcriptions"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/products/meetingx",
-    layout: "visual-right",
+    id: "hirex",
+    title: "HireX",
+    subtitle: "Autonomous AI talent acquisition, semantic resume parsing & technical screening",
+    status: "Completed",
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop",
+    tags: ["Completed", "AI Recruitment", "HRTech", "SaaS"],
+    href: "/projects/hirex",
   },
   {
-    number: "04",
-    id: "socan-royalty-mesh",
-    discipline: "STREAMING & FULL-STACK",
-    productName: "SOCAN Media",
-    category: "DEVELOPMENT",
-    year: "2025",
-    scopeSummary: "Full-stack development of a real-time broadcast media stream monitor indexing 1.2 billion tracks with automated micro-payment splits.",
-    deliverables: ["Live Audio Stream Sniffer", "Next.js Rightsholder Dashboard", "Smart-Contract Payout Gateway", "Multi-Tenant API"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/socan-royalty-mesh",
-    layout: "visual-left",
+    id: "salesx",
+    title: "SalesX",
+    subtitle: "AI outbound pipeline generation, intent scoring & sales intelligence engine",
+    status: "Completed",
+    image: "/images/products/salesx_custom.jpg",
+    tags: ["Completed", "Sales AI", "Outbound", "CRM"],
+    href: "/products/salesx",
   },
   {
-    number: "05",
-    id: "zobay-voice-ui",
-    discipline: "UI / UX & STREAMING",
-    productName: "Zobay Voice AI",
-    category: "ENGINEERING",
-    year: "2026",
-    scopeSummary: "Designing and engineering a voice-led conversational experience with sub-280ms audio turn-taking and real-time visual telemetry.",
-    deliverables: ["Direct Spectrogram Neural Pipeline", "WebRTC Audio Gateway", "Acoustic Sentiment Visualizer", "SIP Telephony Trunking"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/zobay-voice-ai",
-    layout: "visual-right",
+    id: "zobay-voice-ai",
+    title: "Zobay Voice AI",
+    subtitle: "Ultra-low latency conversational AI voice phone agents & enterprise telephony",
+    status: "Completed",
+    image: "/images/products/zobay_custom.jpg",
+    tags: ["Completed", "Voice AI", "Sub-280ms", "Telephony"],
+    href: "/projects/zobay-voice-ai",
   },
   {
-    number: "06",
-    id: "baseone-systems",
-    discipline: "DISTRIBUTED SYSTEMS",
-    productName: "BaseOne Treasury",
-    category: "ENGINEERING",
-    year: "2025",
-    scopeSummary: "Engineering a high-frequency multi-currency settlement ledger with sub-50ms transaction clearing and double-entry accounting reconciliation.",
-    deliverables: ["Lock-Free Memory Queues", "ISO 20022 Compliance Engine", "Multi-Currency Routing Matrix", "Zero-Knowledge Audit Logs"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/baseone-treasury-settlement",
-    layout: "visual-left",
+    id: "legalx",
+    title: "LegalX",
+    subtitle: "Autonomous contract intelligence, instant redlines & regulatory compliance sentinel",
+    status: "Completed",
+    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1000&auto=format&fit=crop",
+    tags: ["Completed", "Legal AI", "Contract RAG", "Compliance"],
+    href: "/projects/legalx",
   },
   {
-    number: "07",
-    id: "enterprise-erp-bridge",
-    discipline: "DATA & SYSTEM INTEGRATION",
-    productName: "Enterprise Cloud Mesh",
-    category: "INTEGRATION",
-    year: "2026",
-    scopeSummary: "Architecting real-time bi-directional integration meshes connecting SAP S/4HANA, Stripe Billing, Salesforce CRM, and AWS distributed data pipelines.",
-    deliverables: ["Bi-Directional Event Sinks", "Sub-100ms Webhook Orchestrator", "Automated Conflict Resolution Engine", "Zero-Downtime Data Replay"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/baseone-treasury-settlement",
-    layout: "visual-right",
+    id: "naksha-ai",
+    title: "Naksha AI",
+    subtitle: "Geospatial satellite computer vision, land-use segmentation & spatial mapping",
+    status: "Completed",
+    image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1000&auto=format&fit=crop",
+    tags: ["Completed", "Geospatial AI", "Satellite CV", "Mapping"],
+    href: "/projects/naksha-ai",
   },
   {
-    number: "08",
-    id: "validsoft-shield-integration",
-    discipline: "SECURITY API INTEGRATION",
-    productName: "ValidSoft Biometric Gateway",
-    category: "INTEGRATION",
-    year: "2025",
-    scopeSummary: "Integrating an acoustic voice biometric authentication shield and real-time deepfake defense API across banking telephony and identity verification endpoints.",
-    deliverables: ["Sub-150ms Biometric Auth Gateway", "FIDO2 / NIST Compliance Connectors", "Telephony Interceptor Hooks", "Live Threat Telemetry"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/validsoft-biometric-defense",
-    layout: "visual-left",
+    id: "cashero",
+    title: "Cashero",
+    subtitle: "Next-gen autonomous treasury, smart expense orchestration & corporate financial OS",
+    status: "Ongoing",
+    image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1000&auto=format&fit=crop",
+    tags: ["Ongoing", "Fintech OS", "Treasury", "Smart Expense"],
+    href: "/projects/cashero",
   },
   {
-    number: "09",
-    id: "startone-arch",
-    discipline: "ENTERPRISE ARCHITECTURE",
-    productName: "StartOne OS",
-    category: "PRODUCT",
-    year: "2025",
-    scopeSummary: "Architecting a unified multi-tenant cloud workspace consolidating fragmented spreadsheets, approval chains, and resource management.",
-    deliverables: ["Multi-Tenant RBAC Security", "Real-Time Executive Dashboards", "Workflow Automation Hooks", "Single Sign-On (SSO)"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/startone-enterprise-os",
-    layout: "visual-right",
-  },
-  {
-    number: "10",
-    id: "novus-spatial-product",
-    discipline: "SPATIAL PRODUCT ENGINE",
-    productName: "Novus Spatial 3D",
-    category: "PRODUCT",
-    year: "2026",
-    scopeSummary: "Building an immersive WebGL-powered 3D spatial product configurator with dynamic materials, lighting, and real-time checkout synchronization.",
-    deliverables: ["WebGL Render Pipeline", "Interactive Swatch System", "Apple Pay 1-Click Checkout", "Mobile Gesture Controls"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/novus-spatial-3d-ux",
-    layout: "visual-left",
-  },
-  {
-    number: "11",
-    id: "legalx-ai",
-    discipline: "CONTRACT INTELLIGENCE",
-    productName: "LegalX Sentinel",
-    category: "RESEARCH",
-    year: "2025",
-    scopeSummary: "Engineering a deterministic document review pipeline that audits Master Services Agreements and flags liability risks in under 10 seconds.",
-    deliverables: ["Private Document Embeddings", "Deterministic Risk Scoring Engine", "SOC-2 Air-Gapped Sandbox", "Automated Redline Playbooks"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/legalx-contract-sentinel",
-    layout: "visual-right",
-  },
-  {
-    number: "12",
-    id: "neuro-rag-research",
-    discipline: "NEURAL VECTOR RAG",
-    productName: "NeuroGraph Search",
-    category: "RESEARCH",
-    year: "2026",
-    scopeSummary: "Researching and developing deterministic multi-hop neural retrieval algorithms combining vector graphs and semantic clustering for enterprise data.",
-    deliverables: ["Vector Graph Traversal Algorithm", "Deterministic Latency Benchmarks", "Sub-50ms Semantic Caching", "Citation Precision Evaluation"],
-    mediaType: "image",
-    mediaSrc: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop",
-    linkHref: "/projects/legalx-contract-sentinel",
-    layout: "visual-left",
+    id: "maya-ai",
+    title: "Maya AI",
+    subtitle: "Voice Assistant: Multimodal real-time voice assistant like Google Assistant with ambient reasoning & tool execution",
+    status: "Ongoing",
+    image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1000&auto=format&fit=crop",
+    tags: ["Ongoing", "Voice Assistant", "Google-like AI", "Multimodal"],
+    href: "/projects/maya-ai",
   },
 ];
 
-function WorkContent() {
-  const [activeCategory, setActiveCategory] = useState<WorkCategory>("ALL");
+const FILTER_SERVICES = ["All", "Completed", "Ongoing", "Voice AI", "SaaS & Enterprise"];
 
-  const categories: WorkCategory[] = [
-    "ALL",
-    "DESIGN",
-    "DEVELOPMENT",
-    "ENGINEERING",
-    "INTEGRATION",
-    "PRODUCT",
-    "RESEARCH",
-  ];
-
-  const filtered = WORK_ITEMS.filter((item) => {
-    if (activeCategory === "ALL") return true;
-    return item.category === activeCategory;
-  });
-
-  return (
-    <>
-      {/* ── WORK HERO WITH STAGGERED REVEAL TRANSITIONS ─────────────── */}
-      <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
-        <div className="mb-8">
-          <Breadcrumbs items={[{ label: "Work" }]} />
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8"
-        >
-          <div>
-            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
-              FEATURED WORK & CASE STUDIES
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-display font-medium tracking-[-0.03em] text-[#1d1d1f] leading-[1.15] max-w-2xl">
-              The engineering behind the products.
-            </h1>
-          </div>
-
-          <p className="text-[14px] sm:text-[15px] text-[#6e6e73] max-w-md font-normal leading-relaxed">
-            Design, development, distributed engineering, and product architecture that turns complex requirements into high-performing digital systems.
-          </p>
-        </motion.div>
-
-        {/* Categories Navigation with Springy Animated Active Pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 pt-6 border-t border-black/[0.06] flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 no-scrollbar"
-        >
-          {categories.map((cat) => {
-            const isActive = activeCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActiveCategory(cat)}
-                className={`relative text-[11px] sm:text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-md shrink-0 cursor-pointer transition-colors duration-200 ${
-                  isActive
-                    ? "text-white font-semibold"
-                    : "text-[#86868b] hover:text-[#111111] hover:bg-black/[0.04]"
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="workActiveCategoryPill"
-                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                    className="absolute inset-0 bg-[#111111] rounded-md -z-10 shadow-xs"
-                  />
-                )}
-                <span className="relative z-10">{cat}</span>
-              </button>
-            );
-          })}
-        </motion.div>
-      </section>
-
-      {/* ── MINIMAL PREMIUM PROJECT SHOWCASE CARDS ─────────────── */}
-      <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-8 sm:pt-12">
-        <motion.div layout className="space-y-8 sm:space-y-12">
-          <AnimatePresence mode="popLayout" initial={false}>
-            {filtered.map((work, idx) => {
-              const isVisualLeft = work.layout === "visual-left";
-
-              return (
-                <ScrollCardTransition key={work.id} index={idx}>
-                  <motion.article
-                    layout
-                    initial={{ opacity: 0, y: 28, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{
-                      opacity: 0,
-                      y: -20,
-                      scale: 0.97,
-                      transition: {
-                        duration: 0.25,
-                        ease: [0.4, 0, 0.2, 1],
-                      },
-                    }}
-                    transition={{
-                      layout: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
-                      opacity: { duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
-                      y: { duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
-                      scale: { duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx * 0.05, 0.25) },
-                    }}
-                    className="group bg-white border border-black/[0.08] rounded-xl overflow-hidden hover:border-black/30 transition-all duration-300"
-                  >
-                    <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[360px] items-stretch">
-                      {/* Editorial Content (Clean hierarchy, generous spacing) */}
-                      <div
-                        className={`lg:col-span-6 p-7 sm:p-9 lg:p-11 flex flex-col justify-between ${
-                          isVisualLeft ? "lg:order-2 order-2" : "lg:order-1 order-2"
-                        }`}
-                      >
-                        <div>
-                          {/* Clean Minimal Metadata: Number · Category · Year */}
-                          <div className="flex items-center gap-2 text-[12px] font-mono text-[#86868b] mb-4 uppercase tracking-wider">
-                            <span className="font-semibold text-[#111]">{work.number}</span>
-                            <span>·</span>
-                            <span>{work.discipline}</span>
-                            <span>·</span>
-                            <span>{work.year}</span>
-                          </div>
-
-                          {/* Confident Project Title */}
-                          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-semibold text-[#111111] tracking-[-0.03em] leading-tight mb-3">
-                            <Link href={work.linkHref} className="hover:text-black transition-colors">
-                              {work.productName}
-                            </Link>
-                          </h2>
-
-                          {/* Single Concise Description */}
-                          <p className="text-[15px] sm:text-[16px] text-zinc-600 leading-relaxed font-normal mb-6">
-                            {work.scopeSummary}
-                          </p>
-
-                          {/* Concrete Deliverables Preview (Subtle hairlines, no icons) */}
-                          {work.deliverables && work.deliverables.length > 0 && (
-                            <div className="pt-4 border-t border-black/[0.06] text-[13px] font-mono text-[#6e6e73]">
-                              {work.deliverables.slice(0, 3).join(" · ")}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Simple "View project →" Text Link */}
-                        <div className="mt-8 pt-2">
-                          <Link
-                            href={work.linkHref}
-                            className="inline-flex items-center gap-2 text-[14px] font-medium text-[#111111] hover:text-black group transition-colors"
-                          >
-                            <span>View project</span>
-                            <span className="transition-transform duration-300 ease-out group-hover:translate-x-1">→</span>
-                          </Link>
-                        </div>
-                      </div>
-
-                      {/* Visual Showcase (Subtle rounded, prominent, calm hover scale) */}
-                      <div
-                        className={`lg:col-span-6 bg-zinc-100 ${
-                          isVisualLeft
-                            ? "border-b lg:border-b-0 lg:border-r border-black/[0.06] lg:order-1 order-1"
-                            : "border-t lg:border-t-0 lg:border-l border-black/[0.06] lg:order-2 order-1"
-                        } relative flex items-stretch overflow-hidden min-h-[260px] sm:min-h-[320px]`}
-                      >
-                        <Link href={work.linkHref} className="block w-full h-full relative group/img overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={work.mediaSrc}
-                            alt={work.productName}
-                            className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.03]"
-                          />
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.article>
-                </ScrollCardTransition>
-              );
-            })}
-
-            {filtered.length === 0 && (
-              <motion.div
-                key="empty-state"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="py-24 text-center"
-              >
-                <p className="text-[14px] font-mono text-[#86868b] uppercase mb-4">
-                  No projects found for {activeCategory.toLowerCase()}.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setActiveCategory("ALL")}
-                  className="text-[13px] font-medium text-[#111] underline underline-offset-4 cursor-pointer"
-                >
-                  View all projects
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-
-
-      </section>
-    </>
-  );
-}
+const ITEMS_PER_PAGE = 5;
 
 export default function WorkPage() {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Filter projects based on active filter
+  const filteredProjects = ALL_PROJECTS.filter((p) => {
+    if (activeFilter === "All") return true;
+    if (activeFilter === "Completed") return p.status === "Completed";
+    if (activeFilter === "Ongoing") return p.status === "Ongoing";
+    if (activeFilter === "Voice AI") {
+      return (
+        p.id === "zobay-voice-ai" ||
+        p.id === "maya-ai" ||
+        p.id === "meetingx" ||
+        p.tags.some((t) => t.toLowerCase().includes("voice"))
+      );
+    }
+    if (activeFilter === "SaaS & Enterprise") {
+      return (
+        p.id === "schedular" ||
+        p.id === "hirex" ||
+        p.id === "salesx" ||
+        p.id === "legalx" ||
+        p.id === "cashero" ||
+        p.id === "naksha-ai"
+      );
+    }
+    return p.tags.some((t) => t.toLowerCase() === activeFilter.toLowerCase());
+  });
+
+  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE) || 1;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentProjects = filteredProjects.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const row1Projects = currentProjects.slice(0, 3);
+  const row2Projects = currentProjects.slice(3, 5);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+    }
+  };
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter);
+    setCurrentPage(1);
+  };
+
   return (
-    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#F3F3F3] text-[#231F20] antialiased selection:bg-[#82FFCD] selection:text-black">
+      {/* ── 1. NAVBAR (Blurred on scroll) ── */}
       <Navbar />
 
-      <main className="pt-28 sm:pt-36 pb-16 sm:pb-24">
-        <Suspense fallback={<div className="py-24 text-center text-[#6e6e73]">Loading work...</div>}>
-          <WorkContent />
-        </Suspense>
+      <main className="pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-24">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1380px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
+        </div>
+
+        {/* ── 2. HERO SECTION ── */}
+        <section className="max-w-[1380px] mx-auto px-5 sm:px-8 pb-14 sm:pb-20 border-b border-black/[0.08]">
+          {/* Top Row: Left Pill Breadcrumb + Right Mint Pill Badge */}
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-black/10 text-xs sm:text-sm font-semibold text-black shadow-xs hover:bg-black/5 transition-all"
+            >
+              <span>→</span>
+              <span>Work</span>
+            </Link>
+
+            <span className="px-6 py-2.5 rounded-full bg-[#82FFCD] text-black text-xs sm:text-sm font-semibold shadow-xs">
+              Autonomous Systems &amp; AI
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end justify-between">
+            {/* Left Col: Giant Heading + Clean Description */}
+            <div className="lg:col-span-8">
+              <h1 className="text-6xl sm:text-8xl lg:text-[104px] font-display font-extrabold text-black tracking-tight leading-none mb-6">
+                Latest Work
+              </h1>
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mt-4">
+                <p className="text-[15px] sm:text-[17px] text-[#444444] font-normal leading-relaxed max-w-2xl">
+                  Explore our portfolio of flagship autonomous AI software products, speech-to-speech voice intelligence, and next-generation enterprise platforms engineered to deliver unprecedented scale.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Col: Team Snapshot & Contact Details */}
+            <div className="lg:col-span-4 flex flex-col items-end gap-3">
+              <div className="w-full max-w-[320px] sm:max-w-[380px] aspect-[16/11] rounded-[28px] overflow-hidden bg-zinc-200 border border-black/[0.08] shadow-md">
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop"
+                  alt="Stratotech Team"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="text-right text-xs font-medium text-black flex items-center justify-end gap-4 mt-1">
+                <a href="mailto:contact@stratotechcorp.in" className="hover:underline font-semibold block">
+                  contact@stratotechcorp.in
+                </a>
+                <span className="font-mono text-[#555] block">
+                  Bengaluru · Global AI Engineering
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 3. PROJECTS GRID (Exact Screenshot 111226.png: 3 in Row 1, 2 in Row 2) ── */}
+        <section className="max-w-[1380px] mx-auto px-5 sm:px-8 pt-12 sm:pt-16">
+          {/* Row 1: 3 Columns Grid */}
+          {row1Projects.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 mb-6 sm:gap-y-7">
+              {row1Projects.map((proj) => (
+                <Link
+                  key={proj.id}
+                  href={proj.href}
+                  className="group relative rounded-3xl overflow-hidden bg-black text-white aspect-[16/11] border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer"
+                >
+                  <img
+                    src={proj.image}
+                    alt={proj.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
+
+                  <div className="relative z-10 p-5 sm:p-7">
+                    <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">
+                      {proj.title}
+                    </h2>
+                    <p className="text-xs font-mono text-zinc-300 mb-4 flex items-center gap-2">
+                      <span>View work</span>
+                      <svg className="w-8 h-2.5 text-zinc-300 group-hover:text-[#82FFCD] transition-colors shrink-0" viewBox="0 0 32 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 5H30M30 5L25 1M30 5L25 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </p>
+
+                    <div className="flex flex-wrap gap-1.5">
+                      {proj.tags.map((t, idx) => (
+                        <span
+                          key={idx}
+                          className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/40 text-[11px] font-mono text-white"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Row 2: 2 Asymmetric Columns (7 cols + 5 cols matching Vislink + PortSwigger in screenshot 111226) */}
+          {row2Projects.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-7 items-stretch">
+              {row2Projects.map((proj, idx) => {
+                const colSpanClass = row2Projects.length === 1 ? "md:col-span-12" : idx === 0 ? "md:col-span-7" : "md:col-span-5";
+                return (
+                  <Link
+                    key={proj.id}
+                    href={proj.href}
+                    className={`group relative rounded-3xl overflow-hidden bg-black text-white h-[360px] sm:h-[440px] lg:h-[480px] w-full border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer ${colSpanClass}`}
+                  >
+                    <img
+                      src={proj.image}
+                      alt={proj.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 p-5 sm:p-7">
+                      <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">
+                        {proj.title}
+                      </h2>
+                      <p className="text-xs font-mono text-zinc-300 mb-4 flex items-center gap-2">
+                        <span>View work</span>
+                        <svg className="w-8 h-2.5 text-zinc-300 group-hover:text-[#82FFCD] transition-colors shrink-0" viewBox="0 0 32 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 5H30M30 5L25 1M30 5L25 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5">
+                        {proj.tags.map((t, tIdx) => (
+                          <span
+                            key={tIdx}
+                            className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/40 text-[11px] font-mono text-white"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {/* ── 4. PAGINATION CONTROLS (< 1 2 >) ── */}
+          {totalPages > 1 && (
+            <div className="mt-14 flex items-center justify-center gap-4">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="Previous Page"
+                className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                ←
+              </button>
+
+              {Array.from({ length: totalPages }).map((_, i) => {
+                const pageNum = i + 1;
+                const isCurrent = currentPage === pageNum;
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={`w-10 h-10 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                      isCurrent
+                        ? "bg-black text-white shadow-xs"
+                        : "border border-black/20 text-black hover:bg-black/5"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="Next Page"
+                className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                →
+              </button>
+            </div>
+          )}
+        </section>
+
+        {/* ── 5. FILTER BY STATUS & SERVICE SECTION ── */}
+        <section className="max-w-[1380px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28 text-center">
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-black mb-8">
+            Filter our work
+          </h2>
+
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">
+            {FILTER_SERVICES.map((serv) => {
+              const isSelected = activeFilter === serv;
+              return (
+                <button
+                  key={serv}
+                  onClick={() => handleFilterChange(serv)}
+                  className={`px-6 sm:px-8 py-3 rounded-full text-xs sm:text-sm font-semibold border transition-all cursor-pointer ${
+                    isSelected
+                      ? "bg-black text-white border-black shadow-sm"
+                      : "bg-white text-black border-black/15 hover:border-black hover:bg-black/5"
+                  }`}
+                >
+                  {serv}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
       </main>
 
+      {/* ── 6. FOOTER ── */}
       <Footer />
     </div>
   );

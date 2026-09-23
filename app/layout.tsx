@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Montserrat, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ClientOverlays from "@/components/ClientOverlays";
 import { OrganizationJsonLd } from "@/components/JsonLd";
 
-const geistSans = Geist({
+const montserrat = Montserrat({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -80,14 +81,20 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${montserrat.variable} ${geistMono.variable}`}
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        />
         <OrganizationJsonLd />
       </head>
       <body
         suppressHydrationWarning
-        className="min-h-screen bg-white text-[#1d1d1f] antialiased font-sans selection:bg-[#1d1d1f] selection:text-white"
+        className="min-h-screen bg-[#F3F3F3] text-[#000000] antialiased font-sans selection:bg-[#82FFCD] selection:text-black"
       >
         <ClientOverlays />
         <SmoothScroll>{children}</SmoothScroll>

@@ -1,134 +1,142 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { motion, useScroll, useSpring, useMotionValue } from "motion/react";
+import React from "react";
+import { motion } from "motion/react";
 import TextMaskReveal from "@/components/TextMaskReveal";
+import { ArrowUpRight } from "lucide-react";
 
-const PROCESS_STEPS = [
+interface ProcessStep {
+  number: string;
+  title: string;
+  phase: string;
+  tagline: string;
+  description: string;
+  points: string[];
+}
+
+const PROCESS_STEPS: ProcessStep[] = [
   {
     number: "01",
     title: "Understand",
-    timeline: "Discovery",
+    phase: "Discovery",
+    tagline: "Architecture Scoping & Problem Mapping",
     description:
-      "We analyze the operational problem, user behaviors, integration points, and core metrics that define success.",
+      "We dissect operational requirements, map data flows, identify integration points, and define key technical milestones before writing code.",
+    points: ["Architecture Blueprint", "Data Schema & ERD", "API Interface Scopes", "Sprint Roadmap"],
   },
   {
     number: "02",
     title: "Design",
-    timeline: "Prototypes",
+    phase: "Prototypes",
+    tagline: "Design Tokens & Interactive Wireframes",
     description:
-      "We turn business requirements into clean workflows, accessible UI token systems, and interactive Figma prototypes.",
+      "We transform business requirements into accessible UI token systems, reusable components, and interactive prototypes tested with real users.",
+    points: ["Figma Design Tokens", "Component Library", "Clickable Prototypes", "Usability Testing"],
   },
   {
     number: "03",
     title: "Build",
-    timeline: "Engineering",
+    phase: "Engineering",
+    tagline: "Full-Stack TypeScript & Scaled Systems",
     description:
-      "We engineer production-grade software using TypeScript, modular APIs, and automated test pipelines.",
+      "We engineer production-grade software using TypeScript, Next.js, and modular micro-services backed by automated test pipelines.",
+    points: ["Next.js & React Apps", "Distributed APIs", "Automated CI/CD", "100% Type-Safe Code"],
   },
   {
     number: "04",
     title: "Improve",
-    timeline: "Iteration",
+    phase: "Iteration",
+    tagline: "Live Telemetry & Latency Optimization",
     description:
-      "We monitor telemetry, optimize performance, and iterate on features alongside your internal teams.",
+      "We deploy to global edge networks, monitor server telemetry in real time, optimize queries, and roll out continuous improvements.",
+    points: ["Global Edge CDN", "Real-Time Telemetry", "Sub-80ms Tuning", "24/7 Health Monitoring"],
   },
 ];
 
 export default function ProcessSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Track scroll position inside the process section container
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 75%", "end 50%"],
-  });
-
-  // Track the furthest progress reached so the scroll animation ONLY advances forward when scrolling down
-  // and never collapses/reverses when scrolling back up
-  const maxProgress = useMotionValue(0);
-
-  useEffect(() => {
-    return scrollYProgress.on("change", (latest) => {
-      if (latest > maxProgress.get()) {
-        maxProgress.set(latest);
-      }
-    });
-  }, [scrollYProgress, maxProgress]);
-
-  // Smooth out the scroll animation for a liquid fluid feel
-  const scaleY = useSpring(maxProgress, {
-    stiffness: 300,
-    damping: 35,
-    restDelta: 0.001,
-  });
-
   return (
-    <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-16 sm:pt-28">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-6 sm:pb-8 mb-10 sm:mb-14 border-b border-black/[0.08]">
-        <div className="max-w-2xl">
-          <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
-            OUR PROCESS
-          </span>
-          <TextMaskReveal
-            text="From an idea to a working product."
-            as="h2"
-            once={true}
-            className="text-3xl sm:text-4xl lg:text-[42px] font-display font-medium text-[#1d1d1f] tracking-tight leading-[1.12]"
-          />
-        </div>
-        <p className="text-[14px] text-[#6e6e73] max-w-md leading-relaxed font-normal">
-          A disciplined, transparent engineering process focused on shipping reliable software on schedule.
-        </p>
-      </div>
-
-      {/* ── SCROLL-LINKED VERTICAL FLOW LINE (ONE-WAY FORWARD PROGRESSION) ── */}
-      <div ref={containerRef} className="relative max-w-3xl mx-auto py-4">
-        {/* Base Track (Subtle Gray Spine) */}
-        <div className="absolute top-8 bottom-10 left-5 sm:left-6 w-[2px] bg-black/[0.08] rounded-full z-0 overflow-hidden">
-          {/* Scroll-Driven Active Pure Black Line (Only fills forward on scroll down) */}
-          <motion.div
-            style={{ scaleY, transformOrigin: "top" }}
-            className="w-full h-full bg-[#111111] rounded-full"
-          />
+    <section className="w-full py-20 sm:py-28 bg-[#F3F3F3] border-t border-black/[0.08]">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-6 sm:pb-8 mb-12 sm:mb-16 border-b border-black/[0.1]">
+          <div className="max-w-2xl">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#555555] uppercase block mb-2 font-semibold">
+              03 / OUR PROCESS
+            </span>
+            <TextMaskReveal
+              text="From an idea to a working product."
+              as="h2"
+              once={true}
+              className="text-3xl sm:text-5xl lg:text-[44px] font-display font-extrabold text-[#000000] tracking-tight uppercase leading-none"
+            />
+          </div>
+          <p className="text-[14px] text-[#555555] max-w-md leading-relaxed font-normal">
+            A disciplined, transparent engineering methodology focused on shipping production software on schedule with zero guesswork.
+          </p>
         </div>
 
-        <div className="space-y-6 sm:space-y-8 relative z-10">
+        {/* ── MINIMALIST 4-COLUMN HORIZONTAL GRID ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6">
           {PROCESS_STEPS.map((step, idx) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: idx * 0.08 }}
-              className="flex items-start gap-5 sm:gap-7 group"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.5,
+                delay: idx * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-black/[0.08] hover:border-black transition-all duration-300 shadow-xs hover:shadow-md"
             >
-              {/* Step Node Badge */}
-              <div className="shrink-0 relative">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white border-2 border-black/[0.12] group-hover:border-[#111111] transition-colors flex items-center justify-center font-mono text-[13px] sm:text-[14px] font-bold text-[#111] shadow-xs">
-                  {step.number}
-                </div>
-              </div>
+              {/* Top Accent Line that sweeps across on hover */}
+              <div className="absolute top-0 left-6 right-6 h-[2px] bg-black/0 group-hover:bg-[#82FFCD] rounded-full transition-colors duration-300" />
 
-              {/* Step Content Card */}
-              <div className="flex-1 bg-white border border-black/[0.08] group-hover:border-black/25 rounded-2xl p-5 sm:p-7 transition-all">
-                <div className="flex items-center justify-between gap-3 mb-2">
-                  <h3 className="text-xl sm:text-2xl font-display font-medium text-[#111] tracking-tight">
-                    {step.title}
-                  </h3>
-                  <span className="text-[11px] font-mono text-[#6e6e73] uppercase tracking-wider bg-[#f5f5f7] px-2.5 py-1 rounded-md border border-black/[0.04]">
-                    {step.timeline}
+              <div>
+                {/* Step Number & Phase Badge */}
+                <div className="flex items-center justify-between gap-3 mb-6">
+                  <span className="font-mono text-2xl sm:text-3xl font-bold text-black tracking-tight group-hover:text-black transition-colors">
+                    {step.number}
+                  </span>
+                  <span className="text-[10.5px] font-mono uppercase tracking-wider text-[#666666] bg-[#F3F3F3] group-hover:bg-[#82FFCD] group-hover:text-black px-2.5 py-1 rounded-md font-semibold transition-colors duration-300">
+                    {step.phase}
                   </span>
                 </div>
 
-                <p className="text-[14px] sm:text-[15px] text-[#6e6e73] leading-relaxed font-normal">
+                {/* Step Title */}
+                <h3 className="text-xl sm:text-2xl font-display font-bold text-[#111111] tracking-tight mb-2 uppercase">
+                  {step.title}
+                </h3>
+
+                {/* Tagline */}
+                <p className="text-[12px] font-mono text-[#777777] uppercase tracking-wide mb-4 font-medium">
+                  {step.tagline}
+                </p>
+
+                {/* Description */}
+                <p className="text-[13.5px] text-[#444444] leading-relaxed mb-6 font-normal">
                   {step.description}
                 </p>
+              </div>
+
+              {/* Bottom Minimal Deliverable Checklist */}
+              <div className="pt-4 border-t border-black/[0.06] space-y-1.5">
+                {step.points.map((point, pIdx) => (
+                  <div
+                    key={pIdx}
+                    className="flex items-center gap-2 text-[12px] text-[#666666] font-medium"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-black/40 group-hover:bg-black transition-colors" />
+                    <span>{point}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

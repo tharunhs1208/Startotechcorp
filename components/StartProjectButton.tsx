@@ -33,18 +33,18 @@ export default function StartProjectButton({
 
   const content = (
     <span
-      className={`inline-flex items-center justify-center font-medium rounded-full select-none cursor-pointer transition-all duration-300 group shadow-xs active:scale-95 whitespace-nowrap ${
+      className={`inline-flex items-center justify-center font-semibold rounded-full select-none cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] group active:scale-95 whitespace-nowrap ${
         sizeClasses[size]
       } ${
         variant === "outline"
-          ? "border border-black/[0.15] bg-white text-[#1d1d1f] hover:border-black hover:bg-[#f5f5f7]"
+          ? "border border-black bg-transparent text-black hover:bg-black hover:text-white"
           : variant === "light"
-          ? "bg-white text-[#1d1d1f] hover:bg-[#f2f2f5] shadow-md"
-          : "bg-[#1d1d1f] text-white hover:bg-black hover:shadow-md"
+          ? "bg-[#82FFCD] text-black hover:bg-white hover:text-black shadow-sm"
+          : "bg-[#82FFCD] text-black hover:bg-black hover:text-white shadow-sm"
       } ${className}`}
     >
       <span>{text}</span>
-      <Icon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+      <Icon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
     </span>
   );
 

@@ -9,8 +9,8 @@ const SERVICE_IMAGES: Record<string, string> = {
   "web-development": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
   "ui-ux-design": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
   "mobile-development": "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=800&auto=format&fit=crop",
-  "ai-machine-learning": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=800&auto=format&fit=crop",
-  "cloud-solutions": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+  "ai-machine-learning": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+  "cloud-solutions": "/images/products/cloud_solutions.jpg",
   "digital-transformation": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
   "cybersecurity": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
 };
@@ -152,7 +152,7 @@ export default function ServicesScrollRail({ services }: ServicesScrollRailProps
             return (
               <article
                 key={service.slug}
-                className="snap-start w-[85vw] sm:w-[360px] md:w-[390px] shrink-0 bg-white border border-black/[0.08] hover:border-black/25 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)] flex flex-col justify-between group"
+                className="snap-start w-[85vw] sm:w-[360px] md:w-[390px] shrink-0 bg-white border border-black/[0.08] hover:border-black rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-350 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] flex flex-col justify-between group"
               >
                 <div>
                   {/* Clean Image */}
@@ -173,10 +173,10 @@ export default function ServicesScrollRail({ services }: ServicesScrollRailProps
 
                   {/* Simple Clean Content */}
                   <div className="p-6 sm:p-7">
-                    <h3 className="text-xl font-display font-medium text-[#111111] tracking-tight mb-2.5 group-hover:text-black transition-colors">
+                    <h3 className="text-xl font-display font-semibold text-[#000000] tracking-tight mb-2.5 group-hover:text-black transition-colors">
                       <Link href={`/services/${service.slug}`}>{service.title}</Link>
                     </h3>
-                    <p className="text-[14px] text-[#6e6e73] leading-relaxed font-normal">
+                    <p className="text-[14px] text-[#555555] leading-relaxed font-normal">
                       {service.shortDescription}
                     </p>
                   </div>
@@ -186,10 +186,10 @@ export default function ServicesScrollRail({ services }: ServicesScrollRailProps
                 <div className="px-6 sm:px-7 pb-6 pt-4 border-t border-black/[0.06] flex items-center justify-between">
                   <Link
                     href={`/services/${service.slug}`}
-                    className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d1d1f] hover:text-black transition-colors"
+                    className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#000000] hover:text-[#555555] transition-colors group/arrow"
                   >
                     <span>Learn more</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/arrow:translate-x-1" />
                   </Link>
                 </div>
               </article>
