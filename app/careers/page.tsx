@@ -1,248 +1,251 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, MapPin, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/cinematic/Reveal";
-import VideoLayer from "@/components/cinematic/VideoLayer";
-import CTASection from "@/components/cinematic/CTASection";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import TextMaskReveal from "@/components/TextMaskReveal";
 import { JOBS_DATA } from "@/data/siteData";
 
-/* ─── Culture gallery ─────────────────────────────────────────────────── */
-const GALLERY = [
-  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop",
+import ScrollCardTransition from "@/components/ScrollCardTransition";
+
+const WHY_JOIN = [
+  { num: "01", title: "Build Real Products", desc: "Ship software used by businesses worldwide daily, not temporary throwaway decks." },
+  { num: "02", title: "Modern Tech Stack", desc: "Next.js, TypeScript, LLMs, Vector DBs, WebRTC, Edge CDNs, and clean modular systems." },
+  { num: "03", title: "High-Autonomy Culture", desc: "Work closely with senior engineers and architects who design, write code, and ship features." },
+  { num: "04", title: "Durable Engineering", desc: "Tackle sub-millisecond voice streams, high-frequency ledgers, and reliable distributed systems." },
 ];
 
-/* ─── Culture pillars: hover plays the matching video ─────────────────── */
-const CULTURE = [
-  { word: "WORK", video: "/videos/startone.mp4" },
-  { word: "LEARN", video: "/videos/validsoft.mp4" },
-  { word: "CREATE", video: "/videos/legalx.mp4" },
-  { word: "GROW", video: "/videos/zobay.mp4" },
+const LIFE_PHOTOS = [
+  {
+    title: "Design Sprints",
+    category: "Design",
+    desc: "Rapid iterative prototyping, token architecture, and high-fidelity interaction design in Figma.",
+    url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "Engineering Sync",
+    category: "Engineering",
+    desc: "Collaborative pair programming, sub-280ms neural audio benchmarks, and distributed microservices.",
+    url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "Studio Workspace",
+    category: "Workplace",
+    desc: "Ergonomic, natural-light studio located in Shivajinagar, Bengaluru built for deep creative focus.",
+    url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "Hackathons & R&D",
+    category: "Innovation",
+    desc: "Explorations into generative AI speech pipelines, WebRTC protocols, and edge compute algorithms.",
+    url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
+  },
 ];
 
 export default function CareersPage() {
-  const [activeCulture, setActiveCulture] = useState<number | null>(null);
-
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
+    <div className="min-h-screen bg-[#F3F3F3] text-[#111111] antialiased selection:bg-[#82FFCD] selection:text-black">
       <Navbar />
 
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-        <VideoLayer src="/videos/socan.mp4" overlay="scrim-center" />
-        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
-          <Reveal delay={0.1}>
-            <div className="eyebrow mb-8">Bengaluru · Hybrid · Remote-friendly</div>
-          </Reveal>
-          <Reveal delay={0.25}>
-            <h1 className="display-xl text-[12vw] sm:text-[8vw] lg:text-[6.5vw] leading-none">
-              BUILD YOUR
-              <br />
-              <span className="text-outline">FUTURE</span>{" "}
-              <span className="text-[#b7ff4a]">WITH US.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.5}>
-            <p className="mt-8 text-sm sm:text-base text-white/50 tracking-wide max-w-lg">
-              Engineers, designers, and problem solvers — building what&apos;s next.
-            </p>
-          </Reveal>
-          <Reveal delay={0.65}>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Link href="#open-positions" className="btn-pill btn-accent-c">
-                View Open Roles
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/about" className="btn-pill btn-ghost">
-                Meet The Team
-              </Link>
-            </div>
-          </Reveal>
+      <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
-          <svg width="18" height="30" viewBox="0 0 18 30" fill="none">
-            <rect x="1" y="1" width="16" height="28" rx="8" stroke="currentColor" strokeWidth="1.5" />
-            <circle cx="9" cy="9" r="2.5" fill="currentColor" />
-          </svg>
-        </div>
-      </section>
 
-      {/* ── LIFE AT COMPANY (photo gallery) ──────────────────────────── */}
-      <section className="py-32 lg:py-44">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
-              <div>
-                <div className="eyebrow mb-4 text-[#b7ff4a]/80">Life At FortuneTech</div>
-                <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-none">
-                  MORE THAN<br />
-                  <span className="text-outline">A WORKPLACE.</span>
-                </h2>
-              </div>
-              <p className="text-white/40 text-sm max-w-xs leading-relaxed">
-                Small teams. Big ownership. Zero bureaucracy.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {GALLERY.map((photo, i) => (
-              <Reveal key={photo} delay={i * 0.08} y={24}>
-                <div
-                  className={`group relative overflow-hidden rounded-2xl ${
-                    i % 2 === 0 ? "aspect-[3/4]" : "aspect-[3/4] lg:mt-10"
-                  }`}
-                >
-                  <img
-                    src={photo}
-                    alt={`FortuneTech culture ${i + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 via-transparent to-transparent" />
-                </div>
-              </Reveal>
-            ))}
+        {/* ── 1. HEADER ────────────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+          <div className="mb-8">
+            <Breadcrumbs items={[{ label: "Careers" }]} />
           </div>
-        </div>
-      </section>
 
-      {/* ── CULTURE (WORK / LEARN / CREATE / GROW) ───────────────────── */}
-      <section className="relative py-32 lg:py-44 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          {CULTURE.map((c, i) => (
-            <video
-              key={c.word}
-              src={c.video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className={`video-layer transition-opacity duration-700 ${
-                activeCulture === i ? "opacity-30" : "opacity-0"
-              }`}
+          <div className="max-w-3xl">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
+              CAREERS &amp; ROLES
+            </span>
+            <TextMaskReveal
+              text="Join the Studio"
+              as="h1"
+              once={false}
+              className="text-3xl sm:text-5xl md:text-6xl font-display font-medium tracking-tight text-[#1d1d1f] mb-4"
             />
-          ))}
-          <div className="absolute inset-0 bg-[#050505]/50" />
-        </div>
+            <p className="mt-3 text-base sm:text-lg text-[#6e6e73] font-normal leading-relaxed">
+              We are looking for exceptional engineers, systems architects, and product designers to build durable software in Bengaluru.
+            </p>
+          </div>
+        </section>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="eyebrow mb-16 text-[#b7ff4a]/80">The Culture</div>
-          </Reveal>
-          <div className="divide-y divide-white/10 border-y border-white/10">
-            {CULTURE.map((c, i) => (
-              <Reveal key={c.word} delay={i * 0.05} y={24}>
-                <div
-                  className="reveal-row group cursor-default py-10 lg:py-14"
-                  onMouseEnter={() => setActiveCulture(i)}
-                  onMouseLeave={() => setActiveCulture(null)}
-                >
-                  <span className="display-xl text-[16vw] sm:text-[10vw] lg:text-[7vw] leading-none text-white/30 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)]">
-                    {c.word}
+        {/* ── 2. CULTURE & WORKING ENVIRONMENT ─────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                PRINCIPLES
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
+                Why StratoTech?
+              </h2>
+            </div>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm font-normal">
+              A studio environment optimized for craftsmanship, autonomy, and shipping.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+            {WHY_JOIN.map((item) => (
+              <div
+                key={item.num}
+                className="border-t border-black/[0.08] pt-6 flex flex-col justify-between"
+              >
+                <div>
+                  <span className="font-mono text-[13px] text-[#86868b] block mb-2">
+                    {item.num}
                   </span>
+                  <h3 className="font-display text-lg font-medium text-[#1d1d1f] mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-[14px] text-[#6e6e73] leading-relaxed font-normal">
+                    {item.desc}
+                  </p>
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── OPEN POSITIONS ───────────────────────────────────────────── */}
-      <section id="open-positions" className="relative py-32 lg:py-44">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
-              <div>
-                <div className="eyebrow mb-4 text-[#b7ff4a]/80">Open Positions</div>
-                <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-none">
-                  JOIN THE<br />
-                  <span className="text-[#b7ff4a]">TEAM.</span>
-                </h2>
-              </div>
-              <span className="hidden lg:block text-white/20 font-mono text-xs uppercase tracking-widest">
-                {JOBS_DATA.length} Open Roles
+        {/* ── 3. STUDIO GALLERY (Intentional Visual Cards) ────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                WORKSPACE &amp; R&amp;D
               </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
+                Life at the Studio
+              </h2>
             </div>
-          </Reveal>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm font-normal">
+              Located in Shivajinagar, Bengaluru.
+            </p>
+          </div>
 
-          <div className="border-t border-white/10">
-            {JOBS_DATA.map((job, i) => (
-              <Reveal key={job.slug} delay={i * 0.05} y={24}>
-                <Link
-                  href={`/careers/${job.slug}`}
-                  className="reveal-row group flex flex-col md:flex-row md:items-center justify-between gap-4 py-8 lg:py-10"
-                >
-                  <div className="flex items-center gap-6 sm:gap-10">
-                    <span className="text-[#b7ff4a] text-xl sm:text-2xl font-mono font-normal tabular-nums shrink-0">
-                      0{i + 1}
-                    </span>
-                    <div>
-                      <h3 className="display-lg text-3xl sm:text-5xl lg:text-6xl text-white/35 transition-colors duration-500 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_rgba(242,242,236,0.9)]">
-                        {job.title}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {LIFE_PHOTOS.map((photo, i) => (
+              <ScrollCardTransition key={i} index={i}>
+                <article className="group bg-white border border-black/[0.08] rounded-xl overflow-hidden hover:border-black/30 transition-all duration-300 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="aspect-[16/10] bg-zinc-100 overflow-hidden border-b border-black/[0.06]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={photo.url}
+                        alt={photo.title}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-5 sm:p-6">
+                      <span className="text-[11px] font-mono uppercase text-[#86868b] block mb-2 font-medium">
+                        0{i + 1} · {photo.category}
+                      </span>
+                      <h3 className="font-sans text-base font-semibold text-[#111111] mb-2 tracking-tight">
+                        {photo.title}
                       </h3>
-                      <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-white/40">
-                        <span className="flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5" />
-                          {job.location.split("(")[0].trim()}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5" />
-                          {job.type} · {job.experience}
-                        </span>
-                      </div>
+                      <p className="text-[13px] text-zinc-600 leading-relaxed font-normal">
+                        {photo.desc}
+                      </p>
                     </div>
                   </div>
-                  <span className="flex items-center gap-4 shrink-0">
-                    <span className="hidden lg:block text-sm font-mono text-white/0 group-hover:text-[#b7ff4a]/80 transition-colors duration-500 uppercase tracking-wider">
-                      {job.department}
-                    </span>
-                    <ArrowUpRight className="w-8 h-8 text-white/20 group-hover:text-[#b7ff4a] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </span>
-                </Link>
-              </Reveal>
+                </article>
+              </ScrollCardTransition>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── PERKS STRIP ──────────────────────────────────────────────── */}
-      <section className="border-t border-white/10 py-20">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="flex flex-wrap gap-3">
-            {[
-              "Equity Options",
-              "Remote / Hybrid",
-              "$2,000 Learning Stipend",
-              "Full Health Cover",
-              "Top-tier Hardware",
-              "Annual Offsites",
-            ].map((perk, i) => (
-              <Reveal key={perk} delay={i * 0.04} y={16}>
-                <span className="px-5 py-2.5 rounded-full border border-white/15 text-white/60 text-xs uppercase tracking-widest hover:border-[#b7ff4a]/50 hover:text-[#b7ff4a] transition-colors duration-300">
-                  {perk}
-                </span>
-              </Reveal>
+        {/* ── 4. OPEN POSITIONS ────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                OPENINGS
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
+                Available Positions
+              </h2>
+            </div>
+            <span className="text-[12px] font-mono text-[#86868b]">
+              {JOBS_DATA.length} Open Roles
+            </span>
+          </div>
+
+          <div className="space-y-4">
+            {JOBS_DATA.map((job, jIdx) => (
+              <ScrollCardTransition key={job.slug} index={jIdx}>
+                <article className="group bg-white border border-black/[0.08] rounded-xl p-6 sm:p-7 hover:border-black/30 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 text-[11px] font-mono text-[#86868b] mb-2 uppercase tracking-wider">
+                      <span className="font-semibold text-[#111]">0{jIdx + 1}</span>
+                      <span>·</span>
+                      <span>{job.department}</span>
+                      <span>·</span>
+                      <span>{job.location}</span>
+                      <span>·</span>
+                      <span>{job.type}</span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-sans font-semibold text-[#111111] group-hover:text-black transition-colors tracking-tight">
+                      <Link href={`/careers/${job.slug}`}>{job.title}</Link>
+                    </h3>
+                    <p className="text-[14px] text-zinc-600 mt-1 max-w-2xl">
+                      {job.about}
+                    </p>
+                  </div>
+
+                  <div className="shrink-0 flex items-center pt-2 sm:pt-0">
+                    <Link
+                      href={`/careers/${job.slug}`}
+                      className="inline-flex items-center gap-2 text-[14px] font-medium text-[#111111] hover:text-black group/cta transition-colors"
+                    >
+                      <span>View role</span>
+                      <span className="transition-transform duration-300 ease-out group-hover/cta:translate-x-1">→</span>
+                    </Link>
+                  </div>
+                </article>
+              </ScrollCardTransition>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <CTASection
-        title="Come Build With Us."
-        actionLabel="See Open Roles"
-        href="#open-positions"
-        video="/videos/baseone.mp4"
-      />
+        {/* ── 5. GENERAL APPLICATION CTA ───────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-8 sm:pt-16">
+          <div className="border-t border-black/[0.08] pt-12 sm:pt-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <h2 className="font-display text-2xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
+                Don&apos;t see your specific role?
+              </h2>
+              <p className="mt-2 text-[15px] text-[#6e6e73] font-normal leading-relaxed">
+                We are always interested in meeting exceptional people. Send us your GitHub or portfolio.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-colors"
+              >
+                <span>Get in touch</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

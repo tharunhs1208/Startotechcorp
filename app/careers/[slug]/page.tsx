@@ -3,464 +3,262 @@
 import React, { use, useState } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/cinematic/Reveal";
-import VideoLayer from "@/components/cinematic/VideoLayer";
-import CTASection from "@/components/cinematic/CTASection";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { JOBS_DATA } from "@/data/siteData";
 
-/* ─── Page props ─────────────────────────────────────────────────────────── */
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-/* ─── Component ──────────────────────────────────────────────────────────── */
-export default function CareerDetailPage({ params }: PageProps) {
+export default function JobDetailPage({ params }: PageProps) {
   const { slug } = use(params);
-
   const job = JOBS_DATA.find((j) => j.slug === slug);
-
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    portfolio: "",
-    message: "",
-  });
 
   if (!job) {
     notFound();
   }
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    resume: "",
+    portfolio: "",
+    message: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setFormSubmitted(true);
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      {/* ── 1. HERO ───────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[70vh] items-end overflow-hidden">
-        <VideoLayer
-          src={
-            (
-              {
-                "senior-frontend-engineer": "/videos/startone.mp4",
-                "senior-backend-engineer": "/videos/baseone.mp4",
-                "lead-ui-ux-designer": "/videos/validsoft.mp4",
-                "ai-machine-learning-engineer": "/videos/zobay.mp4",
-              } as Record<string, string>
-            )[job.slug] ?? "/videos/socan.mp4"
-          }
-          overlay="scrim-bottom"
-        />
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-20 pb-20">
-          {/* Breadcrumb */}
-          <Reveal delay={0.05}>
-            <div className="flex items-center gap-2 text-white/40 text-xs mb-6 font-mono">
-              <Link
-                href="/"
-                className="hover:text-[#b7ff4a] transition-colors duration-200"
-              >
-                Home
-              </Link>
-              <span>/</span>
-              <Link
-                href="/careers"
-                className="hover:text-[#b7ff4a] transition-colors duration-200"
-              >
-                Careers
-              </Link>
-              <span>/</span>
-              <span className="text-white/70">{job.title}</span>
-            </div>
-          </Reveal>
+      <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
+        </div>
 
-          <Reveal delay={0.1}>
-            <div className="eyebrow mb-4">
-              {job.department}&nbsp;·&nbsp;{job.location}&nbsp;·&nbsp;{job.type}
-            </div>
-          </Reveal>
+        {/* ── 1. HEADER ────────────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-10 border-b border-black/[0.08]">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Careers", href: "/careers" },
+                { label: job.title },
+              ]}
+            />
 
-          <Reveal delay={0.2}>
-            <h1 className="display-xl text-[12vw] sm:text-[8vw] lg:text-[6vw] leading-none">
-              {job.title.toUpperCase()}
+            <Link
+              href="/careers"
+              className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>All Open Roles</span>
+            </Link>
+          </div>
+
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-3 font-mono text-[11px] text-[#6e6e73] mb-3 uppercase tracking-wider">
+              <span className="font-semibold text-[#1d1d1f]">{job.department}</span>
+              <span>·</span>
+              <span>{job.location}</span>
+              <span>·</span>
+              <span>{job.type}</span>
+            </div>
+
+            <h1 className="font-display text-3xl sm:text-5xl font-medium tracking-tight text-[#1d1d1f] mb-4">
+              {job.title}
             </h1>
-          </Reveal>
-        </div>
-      </section>
 
-      {/* ── 2. JOB INFO BAR ──────────────────────────────────────────────── */}
-      <section className="border-t border-white/10 py-8">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {(
-              [
-                ["Location", job.location],
-                ["Type", job.type],
-                ["Experience", job.experience],
-                ["Department", job.department],
-              ] as [string, string][]
-            ).map(([label, value]) => (
-              <div key={label}>
-                <div className="eyebrow mb-1">{label}</div>
-                <div className="text-white text-sm font-medium">{value}</div>
-              </div>
-            ))}
+            <p className="text-base sm:text-lg text-[#6e6e73] font-normal leading-relaxed">
+              {job.about}
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── 3. ABOUT & RESPONSIBILITIES ──────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* About */}
-            <div>
-              <Reveal delay={0.05}>
-                <div className="eyebrow mb-6">About The Role</div>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <h2 className="display-lg text-3xl sm:text-4xl leading-tight mb-6">
-                  What you'll
-                  <br />
-                  be doing.
-                </h2>
-              </Reveal>
-              <Reveal delay={0.15}>
-                <p className="text-white/50 text-base leading-relaxed">
-                  {job.about}
-                </p>
-              </Reveal>
-            </div>
-
-            {/* Responsibilities */}
-            <div>
-              <Reveal delay={0.1}>
-                <div className="eyebrow mb-6">Responsibilities</div>
-              </Reveal>
-              <div className="space-y-0 divide-y divide-white/10">
-                {job.responsibilities.map((r, i) => (
-                  <Reveal key={i} delay={0.1 + i * 0.05}>
-                    <div className="flex items-start gap-4 py-5 group">
-                      <span className="text-[#b7ff4a] font-mono text-lg shrink-0 mt-0.5">
-                        —
-                      </span>
-                      <p className="text-white/70 text-sm leading-relaxed group-hover:text-white transition-colors duration-200">
-                        {r}
-                      </p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. REQUIREMENTS & NICE TO HAVE ───────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Requirements */}
-            <div>
-              <Reveal delay={0.05}>
-                <div className="eyebrow mb-6">Requirements</div>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <h2 className="display-lg text-3xl sm:text-4xl leading-tight mb-8">
-                  What you
-                  <br />
-                  need.
-                </h2>
-              </Reveal>
-              <ol className="space-y-4">
-                {job.requirements.map((req, i) => (
-                  <Reveal key={i} delay={0.1 + i * 0.05}>
-                    <li className="flex items-start gap-4">
-                      <span className="text-[#b7ff4a] font-mono text-xs mt-1 shrink-0 w-5">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <p className="text-white/70 text-sm leading-relaxed">
-                        {req}
-                      </p>
-                    </li>
-                  </Reveal>
-                ))}
-              </ol>
-            </div>
-
-            {/* Nice to Have */}
-            <div>
-              <Reveal delay={0.1}>
-                <div className="eyebrow mb-6">Nice To Have</div>
-              </Reveal>
-              <Reveal delay={0.15}>
-                <h2 className="display-lg text-3xl sm:text-4xl leading-tight mb-8">
-                  Bonus
-                  <br />
-                  points.
-                </h2>
-              </Reveal>
-              <ul className="space-y-4">
-                {job.niceToHave.map((nth, i) => (
-                  <Reveal key={i} delay={0.1 + i * 0.05}>
-                    <li className="flex items-start gap-4">
-                      <span className="text-[#b7ff4a] font-mono text-lg shrink-0 mt-0.5">
-                        +
-                      </span>
-                      <p className="text-white/50 text-sm leading-relaxed">
-                        {nth}
-                      </p>
-                    </li>
-                  </Reveal>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. BENEFITS ──────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <Reveal delay={0.05}>
-            <div className="eyebrow mb-6">Benefits & Perks</div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="display-lg text-4xl sm:text-5xl leading-tight mb-12">
-              What we offer.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <div className="flex flex-wrap gap-3">
-              {job.benefits.map((b) => (
-                <span
-                  key={b}
-                  className="px-5 py-2.5 rounded-full border border-[#b7ff4a]/30 text-[#b7ff4a] text-sm hover:bg-[#b7ff4a]/10 transition-colors duration-200"
-                >
-                  {b}
+        {/* ── 2. JOB DETAILS & APPLICATION ─────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+            {/* Left: Job Details */}
+            <div className="lg:col-span-7 space-y-12">
+              <div className="border-t border-black/[0.08] pt-6">
+                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-2 font-semibold">
+                  RESPONSIBILITIES
                 </span>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+                <h2 className="font-display text-xl sm:text-2xl font-medium text-[#1d1d1f] mb-4">
+                  What You&apos;ll Do
+                </h2>
+                <ul className="space-y-3">
+                  {job.responsibilities.map((resp, i) => (
+                    <li key={i} className="flex items-start gap-3 text-[14px] text-[#6e6e73] leading-relaxed font-normal">
+                      <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 shrink-0" />
+                      <span>{resp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-      {/* ── 6. HIRING PROCESS ────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <Reveal delay={0.05}>
-            <div className="eyebrow mb-6">Hiring Process</div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="display-lg text-4xl sm:text-5xl leading-tight mb-16">
-              How it works.
-            </h2>
-          </Reveal>
+              <div className="border-t border-black/[0.08] pt-6">
+                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-2 font-semibold">
+                  QUALIFICATIONS
+                </span>
+                <h2 className="font-display text-xl sm:text-2xl font-medium text-[#1d1d1f] mb-4">
+                  What We&apos;re Looking For
+                </h2>
+                <ul className="space-y-3">
+                  {job.requirements.map((req, i) => (
+                    <li key={i} className="flex items-start gap-3 text-[14px] text-[#6e6e73] leading-relaxed font-normal">
+                      <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 shrink-0" />
+                      <span>{req}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-          <div className="divide-y divide-white/10">
-            {job.process.map((step, i) => (
-              <Reveal key={i} delay={0.05 + i * 0.07}>
-                <div className="reveal-row py-8 group flex items-start gap-8 cursor-default">
-                  <span className="text-[#b7ff4a] font-mono text-xl shrink-0 pt-0.5">
-                    {step.step}
+              {job.niceToHave && job.niceToHave.length > 0 && (
+                <div className="border-t border-black/[0.08] pt-6">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-2 font-semibold">
+                    BONUS
                   </span>
-                  <div className="flex-1">
-                    <h4 className="display-lg text-2xl text-white/70 group-hover:text-white transition-colors duration-300">
-                      {step.title}
-                    </h4>
-                    {step.desc && (
-                      <p className="text-white/40 text-sm mt-2 leading-relaxed">
-                        {step.desc}
-                      </p>
-                    )}
+                  <h2 className="font-display text-xl sm:text-2xl font-medium text-[#1d1d1f] mb-4">
+                    Nice to Have
+                  </h2>
+                  <div className="flex flex-wrap gap-2">
+                    {job.niceToHave.map((item, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1.5 rounded-lg border border-black/[0.08] bg-white text-[12px] font-mono text-[#6e6e73]"
+                      >
+                        {item}
+                      </span>
+                    ))}
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-white/20 group-hover:text-[#b7ff4a] transition-colors duration-300 shrink-0 mt-1" />
                 </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+              )}
+            </div>
 
-      {/* ── 7. APPLY FORM ────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/10">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <Reveal>
-            <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-none mb-16">
-              APPLY NOW.
-            </h2>
-          </Reveal>
-
-          <div className="max-w-2xl">
-            {submitted ? (
-              /* Success state */
-              <Reveal delay={0.1}>
-                <div className="py-20 flex flex-col items-start gap-6">
-                  <div className="w-14 h-14 rounded-full border border-[#b7ff4a] flex items-center justify-center">
-                    <span className="text-[#b7ff4a] text-xl font-bold">✓</span>
+            {/* Right: Application Form */}
+            <div className="lg:col-span-5 lg:pl-6 lg:border-l lg:border-black/[0.08]">
+              {formSubmitted ? (
+                <div className="p-8 rounded-xl border border-black/[0.08] bg-white text-center space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-black/[0.04] border border-black/[0.08] flex items-center justify-center text-[#1d1d1f] mx-auto">
+                    <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h3 className="display-lg text-3xl text-white">
-                    Application Received
+                  <h3 className="font-display text-xl font-medium text-[#1d1d1f]">
+                    Application Submitted
                   </h3>
-                  <p className="text-white/50 text-sm leading-relaxed max-w-sm">
-                    Our hiring team will review your profile and reach out
-                    within 48 hours. We appreciate your interest in joining
-                    FortuneTech Corp.
+                  <p className="text-[14px] text-[#6e6e73] leading-relaxed">
+                    Thank you for applying, <span className="text-[#1d1d1f] font-medium">{formData.name}</span>. Our engineering team reviews candidates on a weekly rolling basis.
                   </p>
-                  <Link href="/careers" className="btn-pill btn-ghost mt-2">
-                    Back to Careers{" "}
-                    <ArrowRight className="w-4 h-4 ml-1 inline-block" />
-                  </Link>
                 </div>
-              </Reveal>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name */}
-                <Reveal delay={0.05}>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="eyebrow">
-                      Full Name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Alex Mercer"
-                      className="bg-white/5 border border-white/15 rounded-xl px-5 py-4 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#b7ff4a] transition-colors duration-200"
-                    />
+              ) : (
+                <div className="space-y-6">
+                  <div>
+                    <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-1 font-semibold">
+                      APPLICATION
+                    </span>
+                    <h3 className="font-display text-2xl font-medium text-[#1d1d1f]">
+                      Apply for this role
+                    </h3>
                   </div>
-                </Reveal>
 
-                {/* Email */}
-                <Reveal delay={0.08}>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="eyebrow">
-                      Email Address
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="alex@example.com"
-                      className="bg-white/5 border border-white/15 rounded-xl px-5 py-4 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#b7ff4a] transition-colors duration-200"
-                    />
-                  </div>
-                </Reveal>
-
-                {/* Phone */}
-                <Reveal delay={0.1}>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="phone" className="eyebrow">
-                      Phone Number
-                    </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+91 98765 43210"
-                      className="bg-white/5 border border-white/15 rounded-xl px-5 py-4 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#b7ff4a] transition-colors duration-200"
-                    />
-                  </div>
-                </Reveal>
-
-                {/* Resume */}
-                <Reveal delay={0.12}>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="resume" className="eyebrow">
-                      Resume / CV
-                    </label>
-                    <div className="relative">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] mb-1.5">
+                        Full Name *
+                      </label>
                       <input
-                        id="resume"
-                        name="resume"
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        className="w-full bg-white/5 border border-white/15 rounded-xl px-5 py-4 text-sm text-white/50 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border file:border-[#b7ff4a]/40 file:bg-transparent file:text-[#b7ff4a] file:text-xs file:cursor-pointer focus:outline-none focus:border-[#b7ff4a] transition-colors duration-200"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Alex Rivera"
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
                       />
                     </div>
-                  </div>
-                </Reveal>
 
-                {/* Portfolio */}
-                <Reveal delay={0.14}>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="portfolio" className="eyebrow">
-                      Portfolio / LinkedIn URL
-                    </label>
-                    <input
-                      id="portfolio"
-                      name="portfolio"
-                      type="url"
-                      value={formData.portfolio}
-                      onChange={handleChange}
-                      placeholder="https://yourportfolio.com"
-                      className="bg-white/5 border border-white/15 rounded-xl px-5 py-4 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#b7ff4a] transition-colors duration-200"
-                    />
-                  </div>
-                </Reveal>
+                    <div>
+                      <label className="block text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] mb-1.5">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="alex@example.com"
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
+                      />
+                    </div>
 
-                {/* Message */}
-                <Reveal delay={0.16}>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="message" className="eyebrow">
-                      Why are you excited about this role?
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Tell us about your background, achievements, and why FortuneTech Corp excites you…"
-                      className="bg-white/5 border border-white/15 rounded-xl px-5 py-4 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#b7ff4a] transition-colors duration-200 resize-none"
-                    />
-                  </div>
-                </Reveal>
+                    <div>
+                      <label className="block text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] mb-1.5">
+                        Resume / CV Link *
+                      </label>
+                      <input
+                        type="url"
+                        required
+                        value={formData.resume}
+                        onChange={(e) => setFormData({ ...formData, resume: e.target.value })}
+                        placeholder="https://drive.google.com/..."
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
+                      />
+                    </div>
 
-                <Reveal delay={0.18}>
-                  <button
-                    type="submit"
-                    className="btn-pill btn-accent-c w-full py-5 flex items-center justify-center gap-2 mt-2"
-                  >
-                    Apply Now <ArrowRight className="w-4 h-4" />
-                  </button>
-                </Reveal>
-              </form>
-            )}
+                    <div>
+                      <label className="block text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] mb-1.5">
+                        GitHub / Portfolio
+                      </label>
+                      <input
+                        type="url"
+                        value={formData.portfolio}
+                        onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
+                        placeholder="https://github.com/..."
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] mb-1.5">
+                        Note / Introduction
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="A brief note on what you're interested in building..."
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors resize-none"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full bg-[#1d1d1f] text-white hover:bg-black py-3.5 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all cursor-pointer group"
+                    >
+                      <span>Submit Application</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </button>
+                  </form>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── 8. CTA ───────────────────────────────────────────────────────── */}
-      <CTASection
-        title="Not the right fit? See all openings."
-        actionLabel="View All Roles"
-        href="/careers"
-        video="/videos/baseone.mp4"
-      />
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

@@ -3,11 +3,15 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/cinematic/CTASection";
-import { Sparkles, ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+import TechBadge from "@/components/TechBadge";
+import StartProjectButton from "@/components/StartProjectButton";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { INDUSTRIES_DATA, PROJECTS_DATA } from "@/data/siteData";
+
+import ScrollCardTransition from "@/components/ScrollCardTransition";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -15,113 +19,206 @@ interface PageProps {
 
 export default function IndustryDetailPage({ params }: PageProps) {
   const { slug } = use(params);
-  const industry = INDUSTRIES_DATA.find((ind) => ind.slug === slug);
+  const industry = INDUSTRIES_DATA.find((i) => i.slug === slug);
 
   if (!industry) {
     notFound();
   }
 
-  const relatedProject = PROJECTS_DATA.find((p) => p.slug === industry.caseStudySlug) || PROJECTS_DATA[0];
+  const selectedProject =
+    PROJECTS_DATA.find((p) => p.slug === industry.caseStudySlug) ||
+    PROJECTS_DATA[0];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
       <Navbar />
 
-      <main className="pt-32 pb-20">
-        
-        {/* BREADCRUMBS & HERO */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-left">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 mb-6">
-            <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <Link href="/industries" className="hover:text-blue-600 transition-colors">Industries</Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-slate-900">{industry.name}</span>
-          </div>
+      <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
+        </div>
 
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold uppercase tracking-wider text-blue-700 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>Industry Sector</span>
-          </div>
+        {/* ── 1. HEADER ────────────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Industries", href: "/industries" },
+                { label: industry.name },
+              ]}
+            />
 
-          <h1 className="text-4xl sm:text-6xl font-black text-slate-950 uppercase tracking-tight leading-tight mb-4">
-            {industry.name}
-          </h1>
-
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl leading-relaxed mb-8">
-            {industry.description}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/contact" className="btn-primary text-sm sm:text-base px-7 py-4 inline-flex items-center gap-2">
-              <span>Request Industry Architecture Brief</span>
-              <ArrowRight className="w-4 h-4" />
+            <Link
+              href="/industries"
+              className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-wider text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              <span>All Industries</span>
             </Link>
           </div>
-        </div>
 
-        {/* CHALLENGES & SOLUTIONS */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-            <div className="card-blueprint p-8 sm:p-10 bg-rose-50/50 border-rose-200">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-600 block mb-2">
-                Industry Headwinds
-              </span>
-              <h3 className="text-2xl font-black text-slate-950 mb-4">Sector Challenges</h3>
-              <ul className="space-y-3">
-                {industry.challenges.map((c, i) => (
-                  <li key={i} className="text-sm text-slate-700 leading-relaxed flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" />
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="max-w-3xl">
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] font-semibold block mb-3">
+              INDUSTRY DOMAIN
+            </span>
 
-            <div className="card-blueprint p-8 sm:p-10 bg-emerald-50/50 border-emerald-200">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-700 block mb-2">
-                Engineering Approach
-              </span>
-              <h3 className="text-2xl font-black text-slate-950 mb-4">Our Tailored Solutions</h3>
-              <ul className="space-y-3">
-                {industry.solutions.map((s, i) => (
-                  <li key={i} className="text-sm text-slate-700 leading-relaxed flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                    <span>{s}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-[#1d1d1f] mb-4">
+              {industry.name}
+            </h1>
+
+            <p className="text-lg sm:text-xl text-[#6e6e73] font-normal leading-relaxed">
+              {industry.tagline}
+            </p>
           </div>
-        </div>
+        </section>
 
-        {/* CASE STUDY HIGHLIGHT */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 text-left">
-          <div className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <span className="text-xs font-mono font-bold uppercase text-blue-600 block mb-2">
-                Featured Case Study
+        {/* ── 2. SOLUTIONS & CAPABILITIES ─────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <div className="lg:col-span-4">
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] font-semibold block mb-2">
+                EXPERTISE &amp; ARCHITECTURE
               </span>
-              <h3 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 mb-3">
-                {relatedProject.title}
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                {relatedProject.overview}
+              <h2 className="font-display text-2xl sm:text-3xl font-medium text-[#1d1d1f]">
+                What We Build for {industry.name}
+              </h2>
+              <p className="mt-4 text-[15px] text-[#6e6e73] leading-relaxed font-normal">
+                {industry.description}
               </p>
             </div>
 
-            <Link
-              href={`/projects/${relatedProject.slug}`}
-              className="btn-primary text-white shrink-0 text-sm px-6 py-3.5"
-            >
-              <span>Explore Case Study</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {industry.solutions.map((sol, i) => (
+                <ScrollCardTransition key={i} index={i}>
+                  <article className="group bg-white border border-black/[0.08] rounded-xl p-6 sm:p-7 hover:border-black/30 transition-all duration-300 flex flex-col justify-between h-full">
+                    <div>
+                      <span className="font-mono text-[12px] text-[#86868b] block mb-3 uppercase tracking-wider font-medium">
+                        0{i + 1} · Solution Module
+                      </span>
+                      <h3 className="font-sans text-lg font-semibold text-[#111111] mb-2 tracking-tight">
+                        {sol}
+                      </h3>
+                      <p className="text-[14px] text-zinc-600 leading-relaxed font-normal">
+                        Engineered for high security, data privacy, and rapid user workflows in {industry.name.toLowerCase()}.
+                      </p>
+                    </div>
+                  </article>
+                </ScrollCardTransition>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* CTA */}
-        <CTASection />
+        {/* ── 3. FEATURED CASE STUDY (Large Feature Card) ─────────────── */}
+        {selectedProject && (
+          <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
+            <div className="flex items-center justify-between pb-8 mb-12 border-b border-black/[0.08]">
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] font-semibold block mb-1">
+                  CASE STUDY
+                </span>
+                <h2 className="font-display text-2xl sm:text-4xl font-medium text-[#1d1d1f]">
+                  Featured {industry.name} Project
+                </h2>
+              </div>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] transition-colors group/link"
+              >
+                <span>All Projects</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
+              </Link>
+            </div>
+
+            <ScrollCardTransition>
+              <article className="group bg-white border border-black/[0.08] rounded-xl overflow-hidden hover:border-black/30 transition-all duration-300">
+                <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[360px] items-stretch">
+                  <div className="lg:col-span-7 p-7 sm:p-9 lg:p-11 flex flex-col justify-between order-2 lg:order-1">
+                    <div>
+                      <div className="text-[12px] font-mono text-[#86868b] mb-4 uppercase tracking-wider">
+                        <span className="font-semibold text-[#111]">01</span>
+                        <span> · </span>
+                        <span>{selectedProject.category}</span>
+                        <span> · </span>
+                        <span>{selectedProject.industry}</span>
+                      </div>
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-semibold text-[#111111] tracking-[-0.03em] leading-tight mb-3">
+                        <Link href={`/projects/${selectedProject.slug}`} className="hover:text-black transition-colors">
+                          {selectedProject.title}
+                        </Link>
+                      </h3>
+                      <p className="text-[15px] sm:text-[16px] text-zinc-600 leading-relaxed font-normal mb-6">
+                        {selectedProject.overview}
+                      </p>
+                    </div>
+                    <div className="mt-8 pt-4 border-t border-black/[0.06]">
+                      <Link
+                        href={`/projects/${selectedProject.slug}`}
+                        className="inline-flex items-center gap-2 text-[14px] font-medium text-[#111111] hover:text-black group/cta transition-colors"
+                      >
+                        <span>View project</span>
+                        <span className="transition-transform duration-300 ease-out group-hover/cta:translate-x-1">→</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="lg:col-span-5 bg-zinc-100 border-b lg:border-b-0 lg:border-l border-black/[0.06] relative min-h-[260px] sm:min-h-[320px] overflow-hidden order-1 lg:order-2">
+                    <Link href={`/projects/${selectedProject.slug}`} className="block w-full h-full relative group/img overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={selectedProject.image || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"}
+                        alt={selectedProject.title}
+                        className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.03]"
+                      />
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            </ScrollCardTransition>
+          </section>
+        )}
+
+        {/* ── 4. TECH STACK ────────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-14 sm:py-20 border-b border-black/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-1 font-semibold">
+                DOMAINS &amp; ARCHITECTURES
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-medium text-[#1d1d1f]">
+                Domain Stack &amp; Standards
+              </h2>
+            </div>
+
+            <div className="flex flex-wrap gap-2.5 max-w-xl">
+              {industry.technologies.map((t) => (
+                <TechBadge key={t} name={t} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5. CTA ──────────────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <h2 className="font-display text-2xl sm:text-4xl font-medium text-[#1d1d1f] tracking-tight">
+                Ready to build for {industry.name}?
+              </h2>
+              <p className="mt-2 text-[15px] text-[#6e6e73] font-normal leading-relaxed">
+                Connect with our systems architects to design your domain software.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <StartProjectButton size="lg" />
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

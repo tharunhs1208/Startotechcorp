@@ -1,235 +1,409 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
-import { gsap } from "@/lib/gsap";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/cinematic/Reveal";
-import VideoLayer from "@/components/cinematic/VideoLayer";
-import CTASection from "@/components/cinematic/CTASection";
+import TechBadge from "@/components/TechBadge";
+import TextMaskReveal from "@/components/TextMaskReveal";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import {
+  ScrollMaskText,
+  ScrollMaskImage,
+  ScrollMaskCard,
+} from "@/components/ScrollMaskReveal";
+import { TEAM_MEMBERS } from "@/data/siteData";
 
-const TIMELINE = [
-  { year: "2021", title: "Founded", desc: "A small team with big ambitions in Bengaluru" },
-  { year: "2022", title: "First Products", desc: "Launched our first digital platforms" },
-  { year: "2023", title: "Growing Team", desc: "Expanded to 15+ talented builders" },
-  { year: "2024", title: "AI & Automation", desc: "Integrated intelligent systems" },
-  { year: "2025", title: "Global Expansion", desc: "Serving clients worldwide" },
+const DISCIPLINES = [
+  {
+    number: "01",
+    title: "Product Engineering",
+    description: "We write clean, modular, scalable TypeScript and Rust backends with automated test suites and high-throughput databases.",
+  },
+  {
+    number: "02",
+    title: "Design Systems & Craft",
+    description: "We design complete Figma variable token systems and intuitive user interfaces that bridge the gap between design and production code.",
+  },
+  {
+    number: "03",
+    title: "Intelligent Systems",
+    description: "We build sub-300ms neural voice pipelines, deterministic agentic tools, and private enterprise retrieval-augmented generation systems.",
+  },
+  {
+    number: "04",
+    title: "Cloud & Reliability",
+    description: "We deploy secure, multi-region edge infrastructure with automated CI/CD pipelines, ISO 27001 readiness, and 99.99% uptime SLAs.",
+  },
 ];
 
-const TEAM = [
-  { name: "Vikram Sethi", role: "CEO & Founder", photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" },
-  { name: "Aanya Sharma", role: "Head of Design", photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600&auto=format&fit=crop" },
-  { name: "Rahul Verma", role: "Systems Architect", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" },
-  { name: "Tharun Kumar", role: "Lead Engineer", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" },
+const WORKING_PRINCIPLES = [
+  {
+    title: "Less design. Better design.",
+    desc: "We avoid unnecessary decorative noise. Every layout decision, typographic scale, and interaction exists to solve a real user and business need.",
+  },
+  {
+    title: "Direct engineering collaboration.",
+    desc: "You work directly with senior architects and product designers who write code and ship features daily. No bureaucratic layers.",
+  },
+  {
+    title: "Speed with structural rigor.",
+    desc: "We ship functional production increments every two weeks, pairing rapid sprint velocity with clean architectural boundaries.",
+  },
+  {
+    title: "Durable software.",
+    desc: "We engineer software meant to last years in production without accumulating tech debt or fragile dependencies.",
+  },
 ];
-
-/* ── PHILOSOPHY SECTION ───────────────────────────────────────────── */
-const PHILOSOPHY_LINES = [
-  { phrase: "Think bigger.", image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1600&auto=format&fit=crop" },
-  { phrase: "Build smarter.", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop" },
-  { phrase: "Move faster.", image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=1600&auto=format&fit=crop" },
-];
-
-function Philosophy() {
-  const ref = useRef<HTMLElement>(null);
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const lines = el.querySelectorAll<HTMLElement>(".phil-line");
-    const bgs = el.querySelectorAll<HTMLElement>(".phil-bg");
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "top top",
-          end: "+=400%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-        },
-      });
-      lines.forEach((line, i) => {
-        const bg = bgs[i];
-        tl.fromTo(line, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 1 });
-        if (bg) {
-          tl.fromTo(bg, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.2 }, "<");
-        }
-        if (i < lines.length - 1) {
-          tl.to(line, { opacity: 0, scale: 0.9, duration: 0.8 }, "+=0.5");
-          if (bg) {
-            tl.to(bg, { opacity: 0, duration: 0.8 }, "<");
-          }
-        }
-      });
-    }, el);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section ref={ref} className="relative h-screen overflow-hidden bg-[#050505]">
-      {/* Base ambient image — visible behind the heading & between line transitions */}
-      <img
-        src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-
-      {/* Line background photos */}
-      <div className="absolute inset-0">
-        {PHILOSOPHY_LINES.map((line) => (
-          <img
-            key={line.phrase}
-            src={line.image}
-            alt=""
-            className="phil-bg absolute inset-0 h-full w-full object-cover opacity-0"
-          />
-        ))}
-        <div className="absolute inset-0 bg-[#050505]/65" />
-      </div>
-
-      <div className="absolute inset-0 flex items-center justify-center">
-        {PHILOSOPHY_LINES.map((line) => (
-          <div key={line.phrase} className="phil-line absolute inset-0 flex items-center justify-center opacity-0">
-            <h2 className="display-xl text-[10vw] sm:text-[7vw] lg:text-[5.5vw] text-center px-6">
-              {line.phrase}
-            </h2>
-          </div>
-        ))}
-      </div>
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20">
-        <span className="eyebrow text-white/40">Our Philosophy</span>
-      </div>
-    </section>
-  );
-}
 
 export default function AboutPage() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollState = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    setCanScrollLeft(scrollLeft > 15);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 15);
+
+    const firstChild = scrollRef.current.children[0] as HTMLElement | undefined;
+    const itemWidth = firstChild ? firstChild.offsetWidth + 20 : clientWidth;
+    const currentIdx = Math.round(scrollLeft / itemWidth);
+    setActiveIdx(Math.min(Math.max(currentIdx, 0), TEAM_MEMBERS.length - 1));
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    checkScrollState();
+    el.addEventListener("scroll", checkScrollState, { passive: true });
+    window.addEventListener("resize", checkScrollState);
+    return () => {
+      el.removeEventListener("scroll", checkScrollState);
+      window.removeEventListener("resize", checkScrollState);
+    };
+  }, []);
+
+  const handleScroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const { clientWidth } = scrollRef.current;
+    const scrollAmount = clientWidth * 0.75;
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollToMember = (idx: number) => {
+    if (!scrollRef.current) return;
+    const target = scrollRef.current.children[idx] as HTMLElement | undefined;
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f2f2ec]">
+    <div className="min-h-screen bg-[#F3F3F3] text-[#000000] antialiased selection:bg-[#82FFCD] selection:text-black">
       <Navbar />
 
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-        <VideoLayer src="/videos/validsoft.mp4" overlay="scrim-center" />
-        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-20">
-          <Reveal delay={0.1}>
-            <div className="eyebrow mb-8">Builders. Designers. Problem Solvers.</div>
-          </Reveal>
-          <Reveal delay={0.25}>
-            <h1 className="display-xl text-[12vw] sm:text-[8vw] lg:text-[6.5vw] leading-none">
-              WE ARE<br />
-              <span className="text-outline">BUILDERS,</span><br />
-              DESIGNERS &amp;<br />
-              <span className="text-[#b7ff4a]">PROBLEM SOLVERS.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.5}>
-            <p className="mt-8 text-sm sm:text-base text-white/50 tracking-wide max-w-lg">
-              A team turning ambitious ideas into products people love.
-            </p>
-          </Reveal>
+      <main className="pt-28 sm:pt-36 pb-10 sm:pb-16">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/40">
-          <svg width="18" height="30" viewBox="0 0 18 30" fill="none">
-            <rect x="1" y="1" width="16" height="28" rx="8" stroke="currentColor" strokeWidth="1.5" />
-            <circle cx="9" cy="9" r="2.5" fill="currentColor" />
-          </svg>
-        </div>
-      </section>
 
-      {/* ── OUR STORY (Video + Timeline) ─────────────────────────────── */}
-      <section className="relative overflow-hidden py-32 lg:py-44">
-        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-2 items-center gap-16 px-6 sm:px-10 lg:px-20">
-          {/* Video */}
-          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl">
-            <VideoLayer src="/videos/socan.mp4" overlay="scrim-bottom" />
+        {/* ── 1. EDITORIAL HERO (Scroll Mask Reveal) ────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 border-b border-black/[0.1]">
+          <Breadcrumbs items={[{ label: "About" }]} className="mb-6" />
+
+          <div className="max-w-4xl">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-4 font-semibold">
+              ABOUT US
+            </span>
+            <TextMaskReveal
+              text="We build digital products around the way businesses actually work."
+              as="h1"
+              once={false}
+              className="text-3xl sm:text-5xl md:text-6xl font-display font-medium tracking-[-0.03em] text-[#1d1d1f] leading-[1.08] mb-8"
+            />
+            <ScrollMaskText
+              text="StratoTech is a product engineering studio based in Bengaluru. We partner with founders, growing teams, and enterprises to design, architect, and ship high-performance software."
+              as="p"
+              dimOpacity={0.25}
+              className="text-lg sm:text-2xl text-[#1d1d1f] font-normal leading-relaxed max-w-3xl"
+            />
           </div>
 
-          {/* Timeline */}
-          <div>
-            <Reveal>
-              <div className="eyebrow mb-4">Our Story</div>
-              <h2 className="display-xl text-[9vw] sm:text-[5.5vw] lg:text-[4vw] mb-12">
-                FROM IDEA<br />TO <span className="text-[#b7ff4a]">REALITY.</span>
-              </h2>
-            </Reveal>
-            <div className="space-y-8">
-              {TIMELINE.map((item, i) => (
-                <Reveal key={item.year} delay={i * 0.08}>
-                  <div className="flex items-start gap-6 border-t border-white/10 pt-8">
-                    <span className="text-[#b7ff4a] font-mono text-2xl font-black shrink-0 w-16">{item.year}</span>
-                    <div>
-                      <h4 className="display-lg text-xl text-[#f2f2ec] mb-1">{item.title}</h4>
-                      <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                </Reveal>
+          {/* Featured Studio Image with Scroll Mask Expansion */}
+          <div className="mt-12 sm:mt-16">
+            <ScrollMaskImage className="aspect-[21/9] sm:aspect-[2.4/1] bg-[#e5e5ea] border border-black/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2000&auto=format&fit=crop"
+                alt="StratoTech Engineering Studio"
+                className="w-full h-full object-cover"
+              />
+            </ScrollMaskImage>
+          </div>
+        </section>
+
+        {/* ── 2. WHAT WE DO & PHILOSOPHY (PixFort Scroll Mask Text Dim-to-Reveal) ── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pb-20 sm:pb-28 border-b border-black/[0.08]">
+            <div className="lg:col-span-5">
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6e6e73] block mb-3 font-semibold">
+                OUR PHILOSOPHY
+              </span>
+              <TextMaskReveal
+                text="Engineering with clarity and restraint."
+                as="h2"
+                once={false}
+                className="text-2xl sm:text-4xl font-display font-medium text-[#1d1d1f] leading-snug tracking-tight"
+              />
+            </div>
+            <div className="lg:col-span-7 space-y-8">
+              <ScrollMaskText
+                text="Modern software often suffers from excessive complexity, bloated dependencies, and over-designed interfaces. We take the opposite approach: building clean, focused tools that solve specific operational problems."
+                as="p"
+                dimOpacity={0.18}
+                className="text-lg sm:text-2xl text-[#1d1d1f] font-normal leading-relaxed"
+              />
+              <ScrollMaskText
+                text="Whether developing an internal sales platform like SalesX, an AI voice tool like Zobay, or an operational execution layer like StartOne, our goal is always the same: make complex workflows simple, reliable, and fast."
+                as="p"
+                dimOpacity={0.18}
+                className="text-lg sm:text-2xl text-[#1d1d1f] font-normal leading-relaxed"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ── 3. DISCIPLINES (Scroll Mask Cards) ────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                PRACTICE AREAS
+              </span>
+              <TextMaskReveal
+                text="What We Build"
+                as="h2"
+                once={false}
+                className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight"
+              />
+            </div>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm font-normal">
+              Core technical disciplines applied across our client and internal products.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 pb-14 border-b border-black/[0.08]">
+            {DISCIPLINES.map((d, idx) => (
+              <ScrollMaskCard key={d.number} index={idx} className="border-t border-black/[0.08] pt-6 flex flex-col justify-between">
+                <div>
+                  <span className="text-[12px] font-mono text-[#6e6e73] block mb-2">{d.number}</span>
+                  <h3 className="text-xl font-display font-medium text-[#1d1d1f] mb-3">{d.title}</h3>
+                  <p className="text-[14px] text-[#6e6e73] leading-relaxed font-normal">{d.description}</p>
+                </div>
+              </ScrollMaskCard>
+            ))}
+          </div>
+
+          {/* Technology Stack Grid */}
+          <div className="pt-10 pb-20 border-b border-black/[0.08]">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-4 font-semibold">
+              ENGINEERING STACK &amp; TOOLING
+            </span>
+            <div className="flex flex-wrap gap-2.5">
+              {[
+                "TypeScript",
+                "Next.js",
+                "React",
+                "Node.js",
+                "Python",
+                "PostgreSQL",
+                "Prisma",
+                "Supabase",
+                "Docker",
+                "Kubernetes",
+                "AWS",
+                "WebRTC",
+                "Redis",
+                "Tailwind CSS",
+                "Figma",
+                "PyTorch",
+                "OpenAI",
+                "GraphQL"
+              ].map((tech, i) => (
+                <TechBadge key={i} name={tech} />
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── PHILOSOPHY (Scroll-pinned) ────────────────────────────────── */}
-      <Philosophy />
+        {/* ── 4. WORKING PRINCIPLES (Scroll Mask Cards) ─────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                STANDARDS
+              </span>
+              <TextMaskReveal
+                text="How We Work"
+                as="h2"
+                once={false}
+                className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight"
+              />
+            </div>
+            <p className="text-[14px] text-[#6e6e73] max-w-sm font-normal">
+              The foundational principles guiding every sprint and architectural choice.
+            </p>
+          </div>
 
-      {/* ── TEAM ─────────────────────────────────────────────────────── */}
-      <section className="py-32 lg:py-44">
-        <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-20">
-          <Reveal>
-            <div className="eyebrow mb-4">The Team</div>
-            <h2 className="display-xl text-[10vw] sm:text-[6vw] lg:text-[4vw] mb-16">
-              PEOPLE WHO<br /><span className="text-outline">BUILD.</span>
-            </h2>
-          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 pb-20 border-b border-black/[0.08]">
+            {WORKING_PRINCIPLES.map((p, idx) => (
+              <ScrollMaskCard key={idx} index={idx} className="border-t border-black/[0.08] pt-6">
+                <h3 className="text-xl sm:text-2xl font-display font-medium text-[#1d1d1f] mb-3">{p.title}</h3>
+                <ScrollMaskText
+                  text={p.desc}
+                  as="p"
+                  dimOpacity={0.25}
+                  className="text-[15px] sm:text-[16px] text-[#1d1d1f] leading-relaxed font-normal"
+                />
+              </ScrollMaskCard>
+            ))}
+          </div>
+        </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {TEAM.map((member, i) => (
-              <Reveal key={member.name} delay={i * 0.08}>
-                <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer">
+        {/* ── 5. TEAM DIRECTORY (Scroll Mask Reveals + Swipeable) ───────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-8">
+            <div>
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-1 font-semibold">
+                LEADERSHIP &amp; ENGINEERING
+              </span>
+              <TextMaskReveal
+                text="Team"
+                as="h2"
+                once={false}
+                className="text-3xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight"
+              />
+            </div>
+            <div className="flex items-center justify-between sm:justify-end gap-4">
+              <p className="text-[13px] sm:text-[14px] text-[#6e6e73] max-w-sm font-normal">
+                Engineers, designers, and systems architects based out of Bengaluru.
+              </p>
+              {/* Swipe Arrow Controls visible on mobile and tablet */}
+              <div className="flex lg:hidden items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => handleScroll("left")}
+                  disabled={!canScrollLeft}
+                  aria-label="Previous team member"
+                  className={`p-2 rounded-full border transition-colors cursor-pointer ${
+                    canScrollLeft
+                      ? "border-black/20 text-[#1d1d1f] hover:bg-black/[0.05] active:scale-95"
+                      : "border-black/[0.08] text-[#86868b] opacity-40 cursor-not-allowed"
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScroll("right")}
+                  disabled={!canScrollRight}
+                  aria-label="Next team member"
+                  className={`p-2 rounded-full border transition-colors cursor-pointer ${
+                    canScrollRight
+                      ? "border-black/20 text-[#1d1d1f] hover:bg-black/[0.05] active:scale-95"
+                      : "border-black/[0.08] text-[#86868b] opacity-40 cursor-not-allowed"
+                  }`}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Swipe Container on Mobile & Tablet / Grid on Desktop */}
+          <div
+            ref={scrollRef}
+            className="flex lg:grid lg:grid-cols-3 overflow-x-auto lg:overflow-visible snap-x snap-mandatory scroll-smooth no-scrollbar gap-5 sm:gap-6 lg:gap-8 pb-4 lg:pb-0"
+          >
+            {TEAM_MEMBERS.map((member, idx) => (
+              <ScrollMaskCard
+                key={idx}
+                index={idx}
+                className="w-[82vw] max-w-[310px] sm:w-[320px] md:w-[340px] shrink-0 snap-start flex-none lg:w-auto lg:shrink lg:snap-align-none border-t border-black/[0.08] pt-6"
+              >
+                <ScrollMaskImage className="aspect-[4/3] rounded-xl overflow-hidden bg-[#e5e5ea] mb-4 border border-black/[0.06]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={member.photo}
                     alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
                   />
-                  {/* Dark overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-                  {/* Name slide up on hover */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                    <div className="eyebrow text-[#b7ff4a] mb-2">{member.role}</div>
-                    <h3 className="display-lg text-xl text-[#f2f2ec]">{member.name}</h3>
-                  </div>
-                </div>
-              </Reveal>
+                </ScrollMaskImage>
+                <h3 className="text-lg font-display font-medium text-[#1d1d1f]">{member.name}</h3>
+                <p className="text-[12px] font-mono text-[#6e6e73] uppercase mb-2 font-medium">{member.role}</p>
+                <p className="text-[13px] text-[#6e6e73] leading-relaxed line-clamp-3 font-normal">{member.bio}</p>
+              </ScrollMaskCard>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ── CULTURE VIDEO ─────────────────────────────────────────────── */}
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-        <VideoLayer src="/videos/baseone.mp4" overlay="scrim" />
-        <div className="relative z-10 text-center px-6">
-          <Reveal>
-            <h2 className="display-xl text-[14vw] sm:text-[9vw] lg:text-[6vw] leading-none">
-              WE BUILD<br /><span className="text-[#b7ff4a]">DIFFERENT.</span>
-            </h2>
-          </Reveal>
-        </div>
-      </section>
+          {/* Swipe Pagination Dots on Mobile & Tablet */}
+          <div className="flex lg:hidden justify-center items-center gap-2 mt-3">
+            {TEAM_MEMBERS.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => scrollToMember(idx)}
+                aria-label={`Go to team member ${idx + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  activeIdx === idx
+                    ? "w-6 bg-[#1d1d1f]"
+                    : "w-1.5 bg-black/20 hover:bg-black/40"
+                }`}
+              />
+            ))}
+          </div>
+        </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <CTASection
-        title="Let's Build Something Different."
-        actionLabel="Start a Project"
-        href="/contact"
-        video="/videos/hero-pinterest.mp4"
-      />
+        {/* ── 6. CLOSING STORYTELLING CTA ──────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-20 sm:pt-32">
+          <div className="border-t border-black/[0.08] pt-14 sm:pt-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="max-w-2xl">
+              <TextMaskReveal
+                text="Ready to build software that solves real operational problems?"
+                as="h2"
+                once={false}
+                className="text-2xl sm:text-4xl lg:text-[44px] font-display font-medium tracking-tight text-[#1d1d1f] leading-tight mb-4"
+              />
+              <p className="text-[15px] sm:text-[17px] text-[#6e6e73] font-normal leading-relaxed">
+                Reach out directly to our engineering and design leads.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <Link
+                href="/contact"
+                className="btn-marino"
+              >
+                <span>Start a conversation</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

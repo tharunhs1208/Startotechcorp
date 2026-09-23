@@ -1,62 +1,220 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #050505;
-  --fg: #f2f2ec;
-  --muted: #8f8f88;
-  --accent: #b7ff4a;
-  --accent-dim: #7ab83c;
-  --line: rgba(255, 255, 255, 0.08);
-  --display: "Space Grotesk", "Geist", system-ui, sans-serif;
+  --bg: #F3F3F3;
+  --apple-gray: #EAEAEA;
+  --fg: #231F20;
+  --muted: #555555;
+  --subtext: #777777;
+  --accent: #82FFCD;
+  --accent-secondary: #E2CBFF;
+  --accent-light: #9affdc;
+  --accent-dim: #60e0ad;
+  --line: rgba(0, 0, 0, 0.08);
+  --font-heading: "Montserrat", sans-serif;
+  --font-sans: "Montserrat", sans-serif;
+  --font-mono: var(--font-mono), 'Geist Mono', "SF Mono", Monaco, Menlo, Consolas, monospace;
+  --display: "Montserrat", sans-serif;
 }
 
-* {
+.wrap {
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 25px;
+  max-width: 1380px;
+}
+
+.wrap-small {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+@media only screen and (min-width: 768px) {
+  .wrap {
+    padding: 60px 40px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .wrap {
+    padding: 80px 50px;
+  }
+  .wrap-small, .wrap-small-tablet {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+* ,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  max-width: 100vw;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
 }
 
 body {
   background-color: var(--bg);
   color: var(--fg);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  max-width: 100vw;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+img, video {
+  content-visibility: auto;
+}
+
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 ::selection {
-  background: var(--accent);
-  color: #050505;
+  background: #82FFCD;
+  color: #000000;
+}
+
+span.amp {
+  font-family: Baskerville, 'Goudy Old Style', Palatino, 'Book Antiqua', serif !important;
+  font-style: italic;
 }
 
 .font-display {
-  font-family: var(--font-space-grotesk), var(--font-geist-sans), sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+}
+
+.font-sans {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.card-soft-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.card-soft-shadow:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 16px 36px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ---------------------------------------------------------------------------
+   SCROLL REEL TESTIMONIALS ANIMATIONS
+--------------------------------------------------------------------------- */
+@keyframes scroll-reel-char-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-reel-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LAYOUT: 120PX PAGE MARGINS
+--------------------------------------------------------------------------- */
+.page-container {
+  width: 100%;
+  max-width: 1680px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .page-container {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.section-spacing {
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 
 /* ---------------------------------------------------------------------------
    CINEMATIC TYPOGRAPHY
 --------------------------------------------------------------------------- */
 .display-xl {
-  font-family: var(--font-space-grotesk), sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  font-family: var(--font-funnel-display), var(--font-geist-sans), sans-serif;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
 }
 
 .display-lg {
-  font-family: var(--font-space-grotesk), sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 0.95;
-  letter-spacing: -0.015em;
+  font-family: var(--font-funnel-display), var(--font-geist-sans), sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(242, 242, 236, 0.35);
+  -webkit-text-stroke: 1px rgba(10, 10, 10, 0.3);
 }
 
 .text-outline-accent {
@@ -87,68 +245,140 @@ body {
   object-fit: cover;
 }
 
-.scrim {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 90% at 50% 0%, rgba(5, 5, 5, 0.25) 0%, rgba(5, 5, 5, 0.55) 45%, rgba(5, 5, 5, 0.92) 100%);
-}
-
-.scrim-center {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(75% 75% at 50% 55%, rgba(5, 5, 5, 0.3) 0%, rgba(5, 5, 5, 0.75) 100%);
-}
-
-.scrim-bottom {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, #050505 2%, rgba(5, 5, 5, 0.6) 30%, rgba(5, 5, 5, 0) 60%);
-}
-
 /* ---------------------------------------------------------------------------
-   BUTTONS
+   MARINO DESIGN SYSTEM BUTTONS & LINKS
 --------------------------------------------------------------------------- */
-.btn-pill {
+.apple-link, .text-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.75rem;
-  border-radius: 999px;
+  gap: 0.5rem;
+  color: #000000;
+  font-size: 0.875rem;
   font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.apple-link:hover, .text-link:hover {
+  color: #000000;
+  text-decoration: none;
+}
+.text-link-green {
+  color: #82FFCD !important;
+}
+.text-link-green:hover {
+  color: #E2CBFF !important;
+}
+
+.btn-pill, .btn-marino, .blue-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: -0.01em;
+  color: #000000;
+  background-color: #82FFCD;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   border: 1px solid transparent;
+  text-decoration: none !important;
+}
+
+@media (min-width: 1024px) {
+  .btn-pill, .btn-marino, .blue-btn {
+    padding: 13px 30px;
+    font-size: 0.9rem;
+  }
+}
+
+.btn-pill:hover, .btn-marino:hover, .blue-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
 }
 
 .btn-light {
-  background: #f2f2ec;
-  color: #050505;
+  background: #000000;
+  color: #ffffff;
 }
 .btn-light:hover {
-  background: var(--accent);
-  transform: translateY(-2px);
+  background: #82FFCD;
+  color: #000000;
 }
 
 .btn-ghost {
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #f2f2ec;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #000000;
+  background: transparent;
 }
 .btn-ghost:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
+  border-color: #000000;
+  background: #000000;
+  color: #ffffff;
 }
 
 .btn-accent-c {
-  background: var(--accent);
-  color: #10151a;
+  background: #82FFCD;
+  color: #000000;
 }
 .btn-accent-c:hover {
-  background: #d0ff7a;
-  transform: translateY(-2px);
+  background: #000000;
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
+   MARINO MINIMALIST FORM INPUTS
+--------------------------------------------------------------------------- */
+input:not(.dark-input):not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+select:not(.dark-input),
+textarea:not(.dark-input) {
+  background-color: #EAEAEA;
+  border: 1px solid transparent;
+  color: #000000;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:not(.dark-input):focus,
+select:not(.dark-input):focus,
+textarea:not(.dark-input):focus {
+  background-color: #F3F3F3 !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Dark Theme Inputs for Contact Page */
+.dark-input {
+  background-color: #2F2F2F !important;
+  border: 1px solid transparent !important;
+  color: #FFFFFF !important;
+  border-radius: 12px !important;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-input::placeholder {
+  color: #8E8E93 !important;
+}
+
+.dark-input:hover {
+  background-color: #383838 !important;
+}
+
+.dark-input:focus {
+  background-color: #3A3A3A !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* ---------------------------------------------------------------------------
@@ -166,7 +396,7 @@ body {
 
 .reveal-row:hover .row-title {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(242, 242, 236, 0.9);
+  -webkit-text-stroke: 1px rgba(10, 10, 10, 0.9);
   transform: translateX(2.5%);
 }
 
@@ -189,35 +419,20 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   OPEN/EXPAND
+   AUDIO WAVEFORM ANIMATION
 --------------------------------------------------------------------------- */
-@keyframes expandIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes waveBar {
+  0%, 100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 
-.expand-in {
-  animation: expandIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* ---------------------------------------------------------------------------
-   FULL SCREEN MOBILE MENU
---------------------------------------------------------------------------- */
-@keyframes menuFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes menuSlide {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.menu-enter {
-  animation: menuFade 0.4s ease forwards;
-}
-.menu-item-enter {
-  opacity: 0;
-  animation: menuSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.wave-bar {
+  transform-origin: center;
+  animation: waveBar 1.2s ease-in-out infinite;
 }
 
 /* ---------------------------------------------------------------------------
@@ -227,20 +442,89 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #cbd5e1;
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
+  background: #94a3b8;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+@keyframes shimmerWave {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 /* ---------------------------------------------------------------------------
-   REVEAL (GSAP initial state, overridden by GSAP)
+   DIAGONAL KINETIC RIVER ANIMATIONS
 --------------------------------------------------------------------------- */
-.reveal-init {
-  opacity: 0;
-  transform: translateY(48px);
+@keyframes parallelDiagonalStream {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(-2080px, 1440px, 0px);
+  }
+}
+
+.parallel-track {
+  animation: parallelDiagonalStream 32s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.parallel-track.is-paused {
+  animation-play-state: paused !important;
+}
+
+@keyframes foregroundRiverMotion {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(-1400px, 1000px, 0px);
+  }
+}
+
+@keyframes backgroundRiverMotion {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(-1320px, 930px, 0px);
+  }
+}
+
+.river-foreground-track {
+  animation: foregroundRiverMotion 28s linear infinite;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.river-background-track {
+  animation: backgroundRiverMotion 20s linear infinite;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.is-track-paused {
+  animation-play-state: paused !important;
 }

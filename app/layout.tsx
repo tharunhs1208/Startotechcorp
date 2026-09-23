@@ -1,40 +1,73 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Montserrat, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import ClientOverlays from "@/components/ClientOverlays";
+import { OrganizationJsonLd } from "@/components/JsonLd";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
-  description: "Digital products. Intelligent systems. Real results.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://stratotechcorp.in"),
+  title: {
+    default: "StratoTechCorp — Strategic Clarity. Sustainable Growth.",
+    template: "%s | StratoTechCorp",
+  },
+  description: "Strategic Clarity. Sustainable Growth. We help businesses refine strategy, strengthen operations, and scale with confidence through data-driven consulting and practical digital execution.",
   keywords: [
-    "Fortune Tech",
-    "Digital Products",
-    "Web Development",
+    "StratoTechCorp",
+    "Digital Product Studio",
+    "Product Engineering",
+    "Voice AI Agents",
+    "Enterprise Software",
+    "Next.js Development",
+    "Cloud Solutions",
     "UI/UX Design",
-    "AI & Automation",
-    "Cloud & Technology",
+    "Bengaluru Tech Agency",
   ],
-  authors: [{ name: "Fortune Tech" }],
+  authors: [{ name: "StratoTechCorp", url: "https://stratotechcorp.in" }],
+  creator: "StratoTechCorp",
+  publisher: "StratoTechCorp",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: "Fortune Tech — WE BUILD WHAT'S NEXT.",
-    description: "Digital products. Intelligent systems. Real results.",
-    type: "website",
+    title: "StratoTechCorp — Strategic Clarity. Sustainable Growth.",
+    description: "We help businesses refine strategy, strengthen operations, and scale with confidence through data-driven consulting and practical digital execution.",
+    url: "https://stratotechcorp.in",
+    siteName: "StratoTechCorp",
     locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "StratoTechCorp — Strategic Clarity. Sustainable Growth.",
+    description: "Strategic technology consulting & digital engineering studio.",
+    creator: "@stratotechcorp",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -46,9 +79,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+      className={`${montserrat.variable} ${geistMono.variable}`}
     >
-      <body className="min-h-screen bg-[#050505] text-[#f2f2ec] antialiased font-sans selection:bg-[#b7ff4a] selection:text-[#050505]">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        />
+        <OrganizationJsonLd />
+      </head>
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-[#F3F3F3] text-[#000000] antialiased font-sans selection:bg-[#82FFCD] selection:text-black"
+      >
+        <ClientOverlays />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

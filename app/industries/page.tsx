@@ -2,82 +2,160 @@
 
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/cinematic/CTASection";
-import { Sparkles, ArrowRight, HeartPulse, Banknote, Building, GraduationCap, ShoppingBag, Factory, Truck, Terminal } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import TextMaskReveal from "@/components/TextMaskReveal";
 import { INDUSTRIES_DATA } from "@/data/siteData";
 
-export default function IndustriesPage() {
-  const getIndustryIcon = (iconName: string) => {
-    switch (iconName) {
-      case "heart-pulse": return <HeartPulse className="w-6 h-6 text-red-500" />;
-      case "banknote": return <Banknote className="w-6 h-6 text-emerald-600" />;
-      case "building": return <Building className="w-6 h-6 text-blue-600" />;
-      case "graduation-cap": return <GraduationCap className="w-6 h-6 text-purple-600" />;
-      case "shopping-bag": return <ShoppingBag className="w-6 h-6 text-amber-600" />;
-      case "factory": return <Factory className="w-6 h-6 text-slate-700" />;
-      case "truck": return <Truck className="w-6 h-6 text-indigo-600" />;
-      default: return <Terminal className="w-6 h-6 text-blue-600" />;
-    }
-  };
+import ScrollCardTransition from "@/components/ScrollCardTransition";
 
+export default function IndustriesPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#F3F3F3] text-[#111111] antialiased selection:bg-[#82FFCD] selection:text-black">
       <Navbar />
 
-      <main className="pt-32 pb-20">
-        
-        {/* HERO */}
-        <div className="w-full max-w-[1540px] mx-auto px-4 sm:px-8 lg:px-[120px] mb-16 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold uppercase tracking-wider text-blue-700 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>Vertical Domain Expertise</span>
-          </div>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-950 uppercase tracking-tight leading-tight mb-6">
-            Industries We Modernize
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl leading-relaxed mb-8">
-            Tailored technology solutions designed around the specific compliance rules, operational bottlenecks, and market dynamics of key industries.
-          </p>
+      <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
         </div>
 
-        {/* INDUSTRY CARDS GRID */}
-        <div className="w-full max-w-[1540px] mx-auto px-4 sm:px-8 lg:px-[120px] mb-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            {INDUSTRIES_DATA.map((ind) => (
-              <div
-                key={ind.slug}
-                className="card-blueprint p-7 flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center mb-6 group-hover:bg-blue-50 group-hover:scale-110 transition-all">
-                    {getIndustryIcon(ind.icon)}
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-950 mb-2 group-hover:text-blue-600 transition-colors">
-                    {ind.name}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-6">
-                    {ind.tagline}
-                  </p>
-                </div>
+        {/* ── 1. EDITORIAL HEADER ────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+          <div className="mb-8">
+            <Breadcrumbs items={[{ label: "Industries" }]} />
+          </div>
 
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <Link
-                    href={`/industries/${ind.slug}`}
-                    className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 uppercase tracking-wider"
-                  >
-                    <span>Explore Solutions</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
+          <div className="max-w-3xl">
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-3 font-semibold">
+              SECTORS &amp; DOMAIN EXPERTISE
+            </span>
+            <TextMaskReveal
+              text="Industry Solutions"
+              as="h1"
+              once={false}
+              className="text-3xl sm:text-5xl md:text-6xl font-display font-medium tracking-tight text-[#1d1d1f] mb-4"
+            />
+            <p className="mt-3 text-base sm:text-lg text-[#6e6e73] font-normal leading-relaxed">
+              Tailored software architecture, deterministic data pipelines, and compliance-ready systems built for mission-critical business sectors.
+            </p>
+          </div>
+        </section>
+
+        {/* ── 2. OPEN EDITORIAL INDUSTRIES LIST ───────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8">
+          <div className="divide-y divide-black/[0.08]">
+            {INDUSTRIES_DATA.map((industry, idx) => (
+              <ScrollCardTransition key={industry.slug} index={idx}>
+                <div className="py-14 sm:py-20 group">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+                    {/* Left Column: Metadata, Title, Description, Capabilities, Link */}
+                    <div className="lg:col-span-7 space-y-6">
+                      <div>
+                        <div className="flex items-center gap-3 text-[11px] font-mono text-[#6e6e73] mb-2 uppercase tracking-wider">
+                          <span>0{idx + 1}</span>
+                          <span>—</span>
+                          <span className="font-semibold text-[#1d1d1f]">Sector</span>
+                        </div>
+                        <h2 className="text-2xl sm:text-4xl font-display font-medium text-[#1d1d1f] tracking-tight leading-tight">
+                          <Link
+                            href={`/industries/${industry.slug}`}
+                            className="hover:text-black transition-colors"
+                          >
+                            {industry.name}
+                          </Link>
+                        </h2>
+                      </div>
+
+                      <p className="text-[15px] sm:text-[16px] text-[#6e6e73] font-normal leading-relaxed max-w-xl">
+                        {industry.description}
+                      </p>
+
+                      {/* Solutions & Capabilities List (No Checkmarks, Clean Typographic Bullets) */}
+                      <div className="pt-2 space-y-2.5">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#1d1d1f] font-semibold block">
+                          Domain Capabilities
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-xl">
+                          {industry.features.slice(0, 4).map((feat, fIdx) => (
+                            <div
+                              key={fIdx}
+                              className="border-l-2 border-black/[0.12] pl-3 py-0.5 text-[13px] text-[#6e6e73] leading-snug"
+                            >
+                              <span className="font-medium text-[#1d1d1f]">{feat}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Bottom Link */}
+                      <div className="pt-4 border-t border-black/[0.06] max-w-xl flex items-center justify-between">
+                        <span className="text-[12px] font-mono text-[#86868b]">
+                          {industry.technologies.slice(0, 3).join(" · ")}
+                        </span>
+                        <Link
+                          href={`/industries/${industry.slug}`}
+                          className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d1d1f] hover:text-black transition-colors group/link"
+                        >
+                          <span>Explore {industry.name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Right Column: High-Quality Industry Image */}
+                    <div className="lg:col-span-5">
+                      <Link
+                        href={`/industries/${industry.slug}`}
+                        className="block overflow-hidden rounded-xl bg-[#e5e5ea] border border-black/[0.08] shadow-[0_2px_12px_rgba(0,0,0,0.03)] group/img"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={industry.image || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop"}
+                          alt={industry.name}
+                          className="w-full aspect-[16/10] object-cover transition-transform duration-500 ease-out group-hover/img:scale-[1.02]"
+                        />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </ScrollCardTransition>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* CTA */}
-        <CTASection />
+        {/* ── 3. BOTTOM CTA ──────────────────────────────────────────── */}
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-20">
+          <div className="border-t border-black/[0.08] pt-12 sm:pt-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="text-[11px] font-mono tracking-[0.2em] text-[#6e6e73] uppercase block mb-2 font-semibold">
+                CUSTOM ARCHITECTURE
+              </span>
+              <h3 className="text-2xl sm:text-4xl font-display font-medium tracking-tight text-[#1d1d1f]">
+                Your Industry. Our Engineering.
+              </h3>
+              <p className="mt-2 text-[15px] text-[#6e6e73] font-normal leading-relaxed">
+                Let&apos;s build specialized software tailored to your compliance, scale, and performance needs.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-colors"
+              >
+                <span>Schedule an Intro</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
