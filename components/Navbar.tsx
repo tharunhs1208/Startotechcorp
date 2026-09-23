@@ -23,6 +23,8 @@ const SUB_MENUS: Record<string, SubItem[]> = {
   ],
   work: [
     { label: "+ All Projects", href: "/projects" },
+    { label: "+ SalesX", href: "/products/salesx" },
+    { label: "+ MeetingX", href: "/products/meetingx" },
     { label: "+ Zobay Voice AI", href: "/projects/zobay-voice-ai" },
     { label: "+ StartOne Enterprise OS", href: "/projects/startone-enterprise-os" },
     { label: "+ Nexus B2B Commerce", href: "/projects/nexus-b2b-marketplace" },
@@ -48,6 +50,7 @@ export default function Navbar() {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
   const isServicesActive = pathname.startsWith("/services");
@@ -56,6 +59,17 @@ export default function Navbar() {
   const isBlogActive = pathname.startsWith("/blog");
   const isContactActive = pathname.startsWith("/contact");
 
+  const handleMouseEnter = (tabId: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setHoveredTab(tabId);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setHoveredTab(null);
+    }, 150);
+  };
+
   // Track scroll position to trigger backdrop blur
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +77,10 @@ export default function Navbar() {
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
   // Close mobile menu on route change
@@ -82,62 +99,95 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 pointer-events-none">
       <div className="max-w-[1380px] mx-auto px-4 sm:px-8 flex items-center justify-end md:justify-center relative">
         {/* ── DESKTOP CONSTANT PILL NAVBAR (BLURS ON SCROLL) ── */}
-        <nav
-          aria-label="Main Navigation"
-          className={`hidden md:flex items-center pointer-events-auto rounded-full p-2 gap-1.5 transition-all duration-300 border ${
-            isScrolled
-              ? "bg-white/70 backdrop-blur-2xl border-black/[0.08] shadow-[0_16px_50px_rgba(0,0,0,0.12)]"
-              : "bg-white/95 backdrop-blur-none border-black/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
-          }`}
+        <div
+          className="hidden md:flex flex-col items-center pointer-events-auto relative"
+          onMouseLeave={handleMouseLeave}
         >
-          {navLinks.map((item) => {
-            const isHovered = hoveredTab === item.id;
-            const showArrow = item.active || isHovered;
-            const arrowChar = item.active ? "←" : "→";
-
-            return (
-              <Link
-                key={item.id}
-                href={item.href}
-                onMouseEnter={() => setHoveredTab(item.id)}
-                onMouseLeave={() => setHoveredTab(null)}
-                className={`relative inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-[14px] font-medium transition-all duration-200 select-none ${
-                  item.active
-                    ? "bg-white text-black font-semibold shadow-2xs"
-                    : isHovered
-                    ? "bg-black/[0.06] text-black font-semibold"
-                    : "text-[#222222] hover:bg-black/[0.04]"
-                }`}
-              >
-                <span>{item.label}</span>
-                {showArrow && (
-                  <span className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shrink-0 shadow-2xs">
-                    {arrowChar}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-
-          {/* Contact Pill Button */}
-          <Link
-            href="/contact"
-            onMouseEnter={() => setHoveredTab("contact")}
-            onMouseLeave={() => setHoveredTab(null)}
-            className={`ml-1 px-5 py-2.5 rounded-full transition-all duration-200 shadow-2xs shrink-0 inline-flex items-center justify-center gap-2 font-semibold text-[14px] select-none ${
-              isContactActive
-                ? "bg-black text-white shadow-xs"
-                : "bg-black/[0.06] hover:bg-black text-black hover:text-white"
+          <nav
+            aria-label="Main Navigation"
+            className={`flex items-center rounded-full p-2 gap-1.5 transition-all duration-300 border ${
+              isScrolled
+                ? "bg-white/70 backdrop-blur-2xl border-black/[0.08] shadow-[0_16px_50px_rgba(0,0,0,0.12)]"
+                : "bg-white/95 backdrop-blur-none border-black/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
             }`}
           >
-            <span>Contact</span>
-            {(isContactActive || hoveredTab === "contact") && (
-              <span className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shrink-0 shadow-2xs">
-                {isContactActive ? "←" : "→"}
-              </span>
+            {navLinks.map((item) => {
+              const isHovered = hoveredTab === item.id;
+              const showArrow = item.active || isHovered;
+              const arrowChar = item.active ? "←" : "→";
+
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  onMouseEnter={() => handleMouseEnter(item.id)}
+                  className={`relative inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-[14px] font-medium transition-all duration-200 select-none ${
+                    item.active
+                      ? "bg-white text-black font-semibold shadow-2xs"
+                      : isHovered
+                      ? "bg-black/[0.06] text-black font-semibold"
+                      : "text-[#222222] hover:bg-black/[0.04]"
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {showArrow && (
+                    <span className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shrink-0 shadow-2xs">
+                      {arrowChar}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+
+            {/* Contact Pill Button */}
+            <Link
+              href="/contact"
+              onMouseEnter={() => handleMouseEnter("contact")}
+              className={`ml-1 px-5 py-2.5 rounded-full transition-all duration-200 shadow-2xs shrink-0 inline-flex items-center justify-center gap-2 font-semibold text-[14px] select-none ${
+                isContactActive
+                  ? "bg-black text-white shadow-xs"
+                  : "bg-black/[0.06] hover:bg-black text-black hover:text-white"
+              }`}
+            >
+              <span>Contact</span>
+              {(isContactActive || hoveredTab === "contact") && (
+                <span className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shrink-0 shadow-2xs">
+                  {isContactActive ? "←" : "→"}
+                </span>
+              )}
+            </Link>
+          </nav>
+
+          {/* Desktop Hover Dropdown Menu */}
+          <AnimatePresence>
+            {hoveredTab && SUB_MENUS[hoveredTab] && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+                onMouseEnter={() => {
+                  if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                }}
+                className="absolute top-full mt-2 w-72 bg-white/95 backdrop-blur-2xl rounded-2xl p-2.5 border border-black/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.12)] z-50 flex flex-col gap-1"
+              >
+                {SUB_MENUS[hoveredTab].map((subItem) => (
+                  <Link
+                    key={subItem.href}
+                    href={subItem.href}
+                    onClick={() => setHoveredTab(null)}
+                    className="flex items-center justify-between px-3.5 py-2 rounded-xl text-[13px] font-medium text-[#222] hover:bg-black/[0.05] hover:text-black transition-colors group"
+                  >
+                    <span>{subItem.label}</span>
+                    <span className="opacity-0 group-hover:opacity-100 text-[#00A86B] font-mono text-xs transition-opacity">
+                      →
+                    </span>
+                  </Link>
+                ))}
+              </motion.div>
             )}
-          </Link>
-        </nav>
+          </AnimatePresence>
+        </div>
 
         {/* ── MOBILE RIGHT BUTTONS (Contact + Mint Hamburger Toggle) ── */}
         <div className="md:hidden flex items-center gap-2 pointer-events-auto pt-1">
@@ -168,7 +218,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="pointer-events-auto md:hidden fixed top-[72px] left-0 right-0 bg-[#F3F3F3] border-b border-black/[0.08] shadow-2xl p-6 space-y-4">
+        <div className="pointer-events-auto md:hidden fixed top-[72px] left-0 right-0 max-h-[calc(100vh-80px)] overflow-y-auto bg-[#F3F3F3] border-b border-black/[0.08] shadow-2xl p-6 space-y-4">
           <nav className="flex flex-col space-y-3 font-display font-medium text-lg text-black">
             <Link href="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
             <div className="pl-4 flex flex-col space-y-2 text-sm text-[#555]">
@@ -181,6 +231,15 @@ export default function Navbar() {
               <Link href="/services/digital-transformation" onClick={() => setMobileMenuOpen(false)}>→ Digital Transformation</Link>
             </div>
             <Link href="/projects" onClick={() => setMobileMenuOpen(false)}>Work</Link>
+            <div className="pl-4 flex flex-col space-y-2 text-sm text-[#555]">
+              <Link href="/projects" onClick={() => setMobileMenuOpen(false)}>→ All Projects</Link>
+              <Link href="/products/salesx" onClick={() => setMobileMenuOpen(false)}>→ SalesX</Link>
+              <Link href="/products/meetingx" onClick={() => setMobileMenuOpen(false)}>→ MeetingX</Link>
+              <Link href="/projects/zobay-voice-ai" onClick={() => setMobileMenuOpen(false)}>→ Zobay Voice AI</Link>
+              <Link href="/projects/startone-enterprise-os" onClick={() => setMobileMenuOpen(false)}>→ StartOne Enterprise OS</Link>
+              <Link href="/projects/nexus-b2b-marketplace" onClick={() => setMobileMenuOpen(false)}>→ Nexus B2B Commerce</Link>
+              <Link href="/projects/omni-headless-ecommerce" onClick={() => setMobileMenuOpen(false)}>→ Omni Headless Store</Link>
+            </div>
             <Link href="/products" onClick={() => setMobileMenuOpen(false)}>Products</Link>
             <Link href="/industries" onClick={() => setMobileMenuOpen(false)}>Industries</Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>

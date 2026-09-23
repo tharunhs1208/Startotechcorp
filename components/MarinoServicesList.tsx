@@ -73,7 +73,7 @@ export default function MarinoServicesList() {
     SERVICES.find((s) => s.id === activeServiceId) || SERVICES[0];
 
   return (
-    <section className="w-full py-20 sm:py-28 lg:py-36 bg-[#F3F3F3] text-[#111111] overflow-hidden">
+    <section className="w-full py-20 sm:py-28 lg:py-36 bg-[#F3F3F3] text-[#111111] overflow-x-clip overflow-y-visible">
       <div className="max-w-[1380px] mx-auto px-5 sm:px-8">
         
         {/* Top Identifier Badge Pill */}
@@ -85,10 +85,10 @@ export default function MarinoServicesList() {
         </div>
 
         {/* ── TWO-COLUMN INTERACTIVE SERVICES STAGE ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start relative min-h-[600px]">
           
           {/* Left Column: Numbered Service List */}
-          <div className="lg:col-span-7 space-y-4 sm:space-y-6">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6 pb-8 lg:pb-36">
             {SERVICES.map((srv, idx) => {
               const isActive = activeServiceId === srv.id;
 
@@ -156,6 +156,25 @@ export default function MarinoServicesList() {
                           ))}
                         </div>
 
+                        {/* Mobile Inline Image Preview */}
+                        <div className="lg:hidden relative aspect-[16/10] w-full rounded-2xl overflow-hidden mt-3 border border-black/[0.08]">
+                          <Image
+                            src={srv.image}
+                            alt={srv.title}
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                          <div className="absolute bottom-3 left-3 right-3 p-3 rounded-lg bg-black/60 backdrop-blur-sm text-white border border-white/10">
+                            <div className="text-[10px] font-mono text-[#82FFCD] uppercase tracking-wider">
+                              Specialized Practice
+                            </div>
+                            <div className="text-sm font-display font-bold text-white">
+                              {srv.title}
+                            </div>
+                          </div>
+                        </div>
+
                         <div className="pt-2">
                           <Link
                             href={srv.href}
@@ -175,8 +194,8 @@ export default function MarinoServicesList() {
           </div>
 
           {/* Right Column: Dynamic Media Display Card */}
-          <div className="lg:col-span-5 sticky top-28 hidden lg:block">
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-white border border-black/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.06)] p-3">
+          <div className="lg:col-span-5 sticky top-28 sm:top-32 hidden lg:block self-start">
+            <div className="relative aspect-[4/3] min-h-[380px] w-full rounded-3xl overflow-hidden bg-white border border-black/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.06)] p-3">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeService.id}
@@ -184,13 +203,15 @@ export default function MarinoServicesList() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3 }}
-                  className="relative w-full h-full rounded-2xl overflow-hidden"
+                  className="relative w-full h-full min-h-[356px] rounded-2xl overflow-hidden"
                 >
                   <Image
                     src={activeService.image}
                     alt={activeService.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 550px"
                     className="object-cover"
+                    priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
