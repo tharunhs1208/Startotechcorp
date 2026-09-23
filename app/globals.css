@@ -1,19 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #ffffff;
-  --apple-gray: #f5f5f7;
-  --fg: #1d1d1f;
-  --muted: #6e6e73;
-  --subtext: #86868b;
-  --accent: #0071e3;
-  --accent-light: #0077ed;
-  --accent-dim: #0062c4;
+  --bg: #F3F3F3;
+  --apple-gray: #EAEAEA;
+  --fg: #231F20;
+  --muted: #555555;
+  --subtext: #777777;
+  --accent: #82FFCD;
+  --accent-secondary: #E2CBFF;
+  --accent-light: #9affdc;
+  --accent-dim: #60e0ad;
   --line: rgba(0, 0, 0, 0.08);
-  --font-heading: var(--font-sans), 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sans: var(--font-sans), 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Montserrat", sans-serif;
+  --font-sans: "Montserrat", sans-serif;
   --font-mono: var(--font-mono), 'Geist Mono', "SF Mono", Monaco, Menlo, Consolas, monospace;
-  --display: var(--font-sans);
+  --display: "Montserrat", sans-serif;
+}
+
+.wrap {
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 25px;
+  max-width: 1380px;
+}
+
+.wrap-small {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+@media only screen and (min-width: 768px) {
+  .wrap {
+    padding: 60px 40px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .wrap {
+    padding: 80px 50px;
+  }
+  .wrap-small, .wrap-small-tablet {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
 }
 
 * ,
@@ -28,16 +57,30 @@ html {
   width: 100%;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
 }
 
 body {
   background-color: var(--bg);
   color: var(--fg);
-  font-family: var(--font-sans);
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   max-width: 100vw;
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 img, video {
@@ -51,13 +94,24 @@ img, video {
 }
 
 ::selection {
-  background: var(--accent);
-  color: #ffffff;
+  background: #82FFCD;
+  color: #000000;
+}
+
+span.amp {
+  font-family: Baskerville, 'Goudy Old Style', Palatino, 'Book Antiqua', serif !important;
+  font-style: italic;
 }
 
 .font-display {
-  font-family: var(--font-heading);
-  letter-spacing: -0.025em;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+}
+
+.font-sans {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
 }
 
 .font-mono {
@@ -80,6 +134,27 @@ img, video {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ---------------------------------------------------------------------------
+   SCROLL REEL TESTIMONIALS ANIMATIONS
+--------------------------------------------------------------------------- */
+@keyframes scroll-reel-char-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-reel-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -171,61 +246,139 @@ img, video {
 }
 
 /* ---------------------------------------------------------------------------
-   APPLE DESIGN TOKENS & BUTTONS
+   MARINO DESIGN SYSTEM BUTTONS & LINKS
 --------------------------------------------------------------------------- */
-.apple-link {
+.apple-link, .text-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  color: var(--accent);
+  gap: 0.5rem;
+  color: #000000;
   font-size: 0.875rem;
-  font-weight: 400;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.apple-link:hover {
-  color: var(--accent-light);
-  text-decoration: underline;
+.apple-link:hover, .text-link:hover {
+  color: #000000;
+  text-decoration: none;
+}
+.text-link-green {
+  color: #82FFCD !important;
+}
+.text-link-green:hover {
+  color: #E2CBFF !important;
 }
 
-.btn-pill {
+.btn-pill, .btn-marino, .blue-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 999px;
-  font-weight: 500;
-  font-size: 0.8rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: -0.01em;
+  color: #000000;
+  background-color: #82FFCD;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   border: 1px solid transparent;
+  text-decoration: none !important;
+}
+
+@media (min-width: 1024px) {
+  .btn-pill, .btn-marino, .blue-btn {
+    padding: 13px 30px;
+    font-size: 0.9rem;
+  }
+}
+
+.btn-pill:hover, .btn-marino:hover, .blue-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
 }
 
 .btn-light {
-  background: #1d1d1f;
+  background: #000000;
   color: #ffffff;
 }
 .btn-light:hover {
-  background: var(--accent);
-  color: #ffffff;
+  background: #82FFCD;
+  color: #000000;
 }
 
 .btn-ghost {
   border-color: rgba(0, 0, 0, 0.15);
-  color: #1d1d1f;
+  color: #000000;
   background: transparent;
 }
 .btn-ghost:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: #000000;
+  background: #000000;
+  color: #ffffff;
 }
 
 .btn-accent-c {
-  background: var(--accent);
-  color: #ffffff;
+  background: #82FFCD;
+  color: #000000;
 }
 .btn-accent-c:hover {
   background: #000000;
   color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
+   MARINO MINIMALIST FORM INPUTS
+--------------------------------------------------------------------------- */
+input:not(.dark-input):not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+select:not(.dark-input),
+textarea:not(.dark-input) {
+  background-color: #EAEAEA;
+  border: 1px solid transparent;
+  color: #000000;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:not(.dark-input):focus,
+select:not(.dark-input):focus,
+textarea:not(.dark-input):focus {
+  background-color: #F3F3F3 !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Dark Theme Inputs for Contact Page */
+.dark-input {
+  background-color: #2F2F2F !important;
+  border: 1px solid transparent !important;
+  color: #FFFFFF !important;
+  border-radius: 12px !important;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-input::placeholder {
+  color: #8E8E93 !important;
+}
+
+.dark-input:hover {
+  background-color: #383838 !important;
+}
+
+.dark-input:focus {
+  background-color: #3A3A3A !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* ---------------------------------------------------------------------------
@@ -317,4 +470,61 @@ img, video {
   100% {
     background-position: -100% 0;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   DIAGONAL KINETIC RIVER ANIMATIONS
+--------------------------------------------------------------------------- */
+@keyframes parallelDiagonalStream {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(-2080px, 1440px, 0px);
+  }
+}
+
+.parallel-track {
+  animation: parallelDiagonalStream 32s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.parallel-track.is-paused {
+  animation-play-state: paused !important;
+}
+
+@keyframes foregroundRiverMotion {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(-1400px, 1000px, 0px);
+  }
+}
+
+@keyframes backgroundRiverMotion {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(-1320px, 930px, 0px);
+  }
+}
+
+.river-foreground-track {
+  animation: foregroundRiverMotion 28s linear infinite;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.river-background-track {
+  animation: backgroundRiverMotion 20s linear infinite;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.is-track-paused {
+  animation-play-state: paused !important;
 }

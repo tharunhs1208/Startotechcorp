@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { renderProductMockup } from "@/components/ui-mockups/ProductUIMockups";
+import { Layout, Image as ImageIcon } from "lucide-react";
 
 export interface ProductCapability {
   title: string;
@@ -40,6 +42,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [viewMode, setViewMode] = useState<"ui" | "photo">("photo");
   const categoryLabel = product.departmentLabel || product.category || "Platform";
   const year = product.year || "2026";
   const number = product.number || "01";
@@ -99,7 +102,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {/* Simple Clean Text Link */}
-          <div className="mt-8 pt-2">
+          <div className="mt-8 pt-2 flex items-center justify-between">
             <Link
               href={product.linkHref}
               className="inline-flex items-center gap-2 text-[14px] font-medium text-[#111111] hover:text-black group transition-colors"
@@ -112,20 +115,68 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Visual Showcase (5 cols on desktop, subtle radius, prominent) */}
         <div
-          className={`lg:col-span-5 bg-zinc-100 ${
+          className={`lg:col-span-5 bg-zinc-950 ${
             isVisualLeft
               ? "border-b lg:border-b-0 lg:border-r border-black/[0.06] lg:order-1 order-1"
               : "border-t lg:border-t-0 lg:border-l border-black/[0.06] lg:order-2 order-1"
-          } relative flex items-stretch overflow-hidden min-h-[240px] sm:min-h-[280px]`}
+          } relative flex flex-col justify-between overflow-hidden min-h-[260px] sm:min-h-[300px] p-3`}
         >
-          <Link href={product.linkHref} className="block w-full h-full relative group/img overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={imageSrc}
-              alt={product.name}
-              className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.03]"
-            />
-          </Link>
+          {/* Top Switcher Tabs */}
+          <div className="flex items-center justify-between z-10 mb-2">
+            <span className="px-2 py-0.5 rounded bg-white/10 text-white/70 font-mono text-[10px] font-semibold">
+              {product.name} System
+            </span>
+            <div className="flex items-center gap-1 bg-white/10 p-0.5 rounded-lg backdrop-blur-md">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setViewMode("ui");
+                }}
+                className={`px-2 py-0.5 rounded text-[10px] font-mono flex items-center gap-1 transition-all ${
+                  viewMode === "ui"
+                    ? "bg-white text-black font-bold shadow-xs"
+                    : "text-white/60 hover:text-white"
+                }`}
+                title="Interactive Vector UI Console"
+              >
+                <Layout className="w-2.5 h-2.5" />
+                <span>Console</span>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setViewMode("photo");
+                }}
+                className={`px-2 py-0.5 rounded text-[10px] font-mono flex items-center gap-1 transition-all ${
+                  viewMode === "photo"
+                    ? "bg-white text-black font-bold shadow-xs"
+                    : "text-white/60 hover:text-white"
+                }`}
+                title="Authentic Photography"
+              >
+                <ImageIcon className="w-2.5 h-2.5" />
+                <span>Photo</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Main Visual Display */}
+          <div className="flex-1 relative rounded-lg overflow-hidden border border-white/10 bg-black/40">
+            {viewMode === "ui" ? (
+              <div className="w-full h-full min-h-[200px] p-1">
+                {renderProductMockup(product.id, true)}
+              </div>
+            ) : (
+              <Link href={product.linkHref} className="block w-full h-full relative group/img overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imageSrc}
+                  alt={product.name}
+                  className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.03]"
+                />
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </article>

@@ -40,10 +40,20 @@ export default function FAQPage() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#F3F3F3] text-[#111111] antialiased selection:bg-[#82FFCD] selection:text-black">
       <Navbar />
 
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
+        </div>
+
         {/* ── 1. HEADER ────────────────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16">
           <Breadcrumbs items={[{ label: "FAQ" }]} className="mb-6" />

@@ -127,25 +127,26 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
     ],
   },
 
-  // 6. StartOne Enterprise OS
+  // 6. Schedular Enterprise
   {
-    matcher: (q) => q.includes("startone") || q.includes("operations os") || q.includes("internal tool") || q.includes("enterprise os"),
+    matcher: (q) => q.includes("schedul") || q.includes("calendar") || q.includes("booking") || q.includes("meeting routing"),
     reply:
-      "StartOne Enterprise OS — Operations (2026)\n🏢 Metric: 60% Fewer Tool Silos\n\nAn all-in-one operational operating system connecting financial approvals, team resource tracking, cross-departmental roadmaps, and day-to-day business coordination.\n\nKey Capabilities:\n• Multi-Tier Approvals — Automated routing for capital expenses & contracts\n• Resource Orchestration — Live workload balancing across engineering & design\n• Audit Trail Sentinel — SOC2-compliant immutable logging for every record\n• Unified Data Mesh — Aggregates disparate team tools into one single pane",
+      "Schedular — Enterprise Intelligent Scheduling (2026)\n📅 Metric: 100% Zero Booking Conflicts\n\nAn enterprise intelligent scheduling engine that eliminates calendar ping-pong across global time zones, autonomously reserving conference rooms and routing priority leads.\n\nKey Capabilities:\n• Bi-directional Calendar Sync — Google Workspace, Microsoft 365 & iCloud\n• AI Slot Discovery — Intelligent attendee fatigue & optimal buffer management\n• Round-Robin Routing — Dynamic lead distribution for sales & support\n• Resource Allocation — Instant room and hardware reservation workflows",
     actions: [
-      { label: "Explore StartOne System →", href: "/projects/startone-enterprise-os" },
-      { label: "Inquire about StartOne →", href: "/contact" },
+      { label: "Explore Schedular →", href: "/projects/schedular" },
+      { label: "Inquire about Schedular →", href: "/contact?subject=Schedular" },
     ],
   },
 
-  // 7. BaseOne Treasury
+  // 7. Cashero & Maya AI
   {
-    matcher: (q) => q.includes("baseone") || q.includes("treasury") || q.includes("settlement") || q.includes("ledger") || q.includes("currency"),
+    matcher: (q) => q.includes("cashero") || q.includes("maya") || q.includes("treasury") || q.includes("assistant") || q.includes("naksha") || q.includes("hirex"),
     reply:
-      "BaseOne Treasury — Accounts & Settlement (2025)\n⚡ Metric: Instant Multi-Currency Settlement\n\nA financial settlement and treasury platform built to manage multi-currency balances, cross-border transactions, and instant account reconciliation.\n\nKey Capabilities:\n• Multi-Currency Ledger — Double-entry bookkeeping for 40+ fiat & stable currencies\n• Automated Reconciliation — 99.8% auto-match rate on incoming settlements\n• Liquidity Sentinel — Predictive cash flow shortfall alerts & runway analysis\n• Multi-Sig Authorizations — Hardware-key verified release protocols for wires",
+      "Stratotech Flagship & Ongoing Autonomous Platforms (2026):\n\n• Cashero (Ongoing): Autonomous treasury, smart corporate expense cards & multi-currency liquidity.\n• Maya AI (Ongoing): Next-gen multimodal real-time voice assistant like Google Assistant with ambient reasoning.\n• HireX: Autonomous candidate sourcing, semantic resume parsing & AI technical screening.\n• Naksha AI: Geospatial satellite computer vision and spatial vector mapping.",
     actions: [
-      { label: "Explore BaseOne Platform →", href: "/projects/baseone-treasury-settlement" },
-      { label: "Inquire about BaseOne →", href: "/contact" },
+      { label: "Explore Cashero →", href: "/projects/cashero" },
+      { label: "Explore Maya AI →", href: "/projects/maya-ai" },
+      { label: "Explore HireX →", href: "/projects/hirex" },
     ],
   },
 
@@ -153,9 +154,9 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
   {
     matcher: (q) => q.includes("legalx") || q.includes("legal") || q.includes("contract") || q.includes("compliance") || q.includes("msa"),
     reply:
-      "LegalX Contract Sentinel — Operations & Legal (2025)\n🛡️ Metric: 100% Automated Policy Verification\n\nAn intelligent contract review and document verification platform designed to streamline compliance checks, clause comparison, and agreement execution.\n\nKey Capabilities:\n• Clause Risk Analyzer — Flags high-liability indemnities & jurisdiction risks\n• Automated Redlining — Generates standard fallback clauses in seconds\n• Regulatory Checkpoints — Validates GDPR, HIPAA, and custom vendor guidelines\n• Contract Lifecycle Hub — Renewal alerts, obligation tracking & secure vault",
+      "LegalX Contract Sentinel — Operations & Legal (2025)\n🛡️ Metric: 100% Automated Policy Verification\n\nAn intelligent contract review and document verification platform designed to streamline compliance checks, clause comparison, and agreement execution in under 10 seconds.\n\nKey Capabilities:\n• Clause Risk Analyzer — Flags high-liability indemnities & jurisdiction risks\n• Automated Redlining — Generates standard fallback clauses in seconds\n• Regulatory Checkpoints — Validates GDPR, HIPAA, and custom vendor guidelines\n• Contract Lifecycle Hub — Renewal alerts, obligation tracking & secure vault",
     actions: [
-      { label: "Explore LegalX Sentinel →", href: "/projects/legalx-contract-sentinel" },
+      { label: "Explore LegalX Sentinel →", href: "/projects/legalx" },
       { label: "Inquire about LegalX →", href: "/contact" },
     ],
   },

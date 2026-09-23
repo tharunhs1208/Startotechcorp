@@ -106,12 +106,22 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-[#1d1d1f] antialiased selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#F3F3F3] text-[#000000] antialiased selection:bg-[#82FFCD] selection:text-black">
       <Navbar />
 
       <main className="pt-28 sm:pt-36 pb-10 sm:pb-16">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
+        </div>
+
         {/* ── 1. EDITORIAL HERO (Scroll Mask Reveal) ────────────────────── */}
-        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 border-b border-black/[0.08]">
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 border-b border-black/[0.1]">
           <Breadcrumbs items={[{ label: "About" }]} className="mb-6" />
 
           <div className="max-w-4xl">
@@ -383,10 +393,10 @@ export default function AboutPage() {
             <div className="shrink-0">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-all shadow-xs group"
+                className="btn-marino"
               >
                 <span>Start a conversation</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

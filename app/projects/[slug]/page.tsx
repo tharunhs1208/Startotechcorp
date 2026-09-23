@@ -46,6 +46,16 @@ export default function ProjectDetailPage({ params }: PageProps) {
       <Navbar />
 
       <main className="pt-28 sm:pt-36 pb-12 sm:pb-20">
+        {/* Brand Logo at the starting */}
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 mb-4 sm:mb-6">
+          <Link
+            href="/"
+            className="inline-block font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111] hover:opacity-85 transition-opacity"
+          >
+            STRATOTECH
+          </Link>
+        </div>
+
         {/* ── BREADCRUMB & HEADER WITH SMOOTH FADE-IN ───────────────── */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
