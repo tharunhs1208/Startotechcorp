@@ -227,6 +227,7 @@ export default function StratoTechBlogSection() {
                     src={art.image}
                     alt={art.title}
                     fill
+                    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 400px, 420px"
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out -z-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/35 -z-0" />
