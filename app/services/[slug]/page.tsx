@@ -10,6 +10,7 @@ import TechBadge from "@/components/TechBadge";
 import StartProjectButton from "@/components/StartProjectButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
+import ServiceConsultationCard from "@/components/ServiceConsultationCard";
 import { SERVICES_DATA, PROJECTS_DATA } from "@/data/siteData";
 
 import ScrollCardTransition from "@/components/ScrollCardTransition";
@@ -136,6 +137,9 @@ export default function ServiceDetailPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        {/* ── CONSULTATION & TESTIMONIAL CARD (Screenshot 2026-09-28 122416.png) ── */}
+        <ServiceConsultationCard />
 
         {/* ── RELATED WORK (Intentional Project Cards) ─────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">

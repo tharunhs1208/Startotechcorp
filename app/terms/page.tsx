@@ -39,7 +39,7 @@ const TERMS_SECTIONS = [
   {
     num: "07",
     title: "Contact",
-    desc: "For questions regarding these terms, please contact legal@stratotechcorp.in.",
+    desc: "For questions regarding these terms, please contact tharun.hs@stratotechcorp.in.",
   },
 ];
 

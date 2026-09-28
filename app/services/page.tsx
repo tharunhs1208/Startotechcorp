@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MarqueeTrustTicker from "@/components/MarqueeTrustTicker";
+import ServiceConsultationCard from "@/components/ServiceConsultationCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 function LongArrow({ className = "" }: { className?: string }) {
@@ -15,7 +18,7 @@ function LongArrow({ className = "" }: { className?: string }) {
       viewBox="0 0 72 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`shrink-0 inline-block ${className}`}
+      className={`shrink-0 inline-block w-10 sm:w-14 md:w-[72px] h-auto ${className}`}
     >
       <path
         d="M0 7H68M68 7L60 1.5M68 7L60 12.5"
@@ -25,6 +28,101 @@ function LongArrow({ className = "" }: { className?: string }) {
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+function ServicesScrollHighlightPill({
+  children,
+  range,
+  scrollYProgress,
+  color = "#D7BFFF",
+}: {
+  children: React.ReactNode;
+  range: [number, number];
+  scrollYProgress: MotionValue<number>;
+  color?: string;
+}) {
+  const bgOpacity = useTransform(
+    scrollYProgress,
+    [Math.max(0, range[0] - 0.08), range[0], range[1], Math.min(1, range[1] + 0.12)],
+    [0.1, 1, 1, 0.6]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [Math.max(0, range[0] - 0.08), range[0], range[1]],
+    [0.94, 1.05, 1]
+  );
+  const textY = useTransform(
+    scrollYProgress,
+    [Math.max(0, range[0] - 0.08), range[0]],
+    [2, 0]
+  );
+
+  return (
+    <span className="relative inline-block mx-1 my-0.5 align-middle">
+      <motion.span
+        style={{
+          backgroundColor: color,
+          opacity: bgOpacity,
+          scale: scale,
+        }}
+        className="absolute inset-0 rounded-full -z-0 transition-shadow duration-300"
+      />
+      <motion.span
+        style={{ y: textY }}
+        className="relative z-10 px-3.5 py-0.5 text-black font-semibold inline-block whitespace-nowrap"
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
+function ServicesManifesto() {
+  const manifestoRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: manifestoRef,
+    offset: ["start 80%", "end 30%"],
+  });
+
+  return (
+    <section ref={manifestoRef} className="max-w-[1200px] mx-auto px-5 sm:px-8 py-20 sm:py-32 text-center">
+      <p className="text-2xl sm:text-4xl lg:text-[44px] font-display font-medium text-black leading-[1.35] tracking-tight">
+        Our team is made up of{" "}
+        <ServicesScrollHighlightPill
+          range={[0.08, 0.28]}
+          scrollYProgress={scrollYProgress}
+          color="#D7BFFF"
+        >
+          bold creatives,
+        </ServicesScrollHighlightPill>{" "}
+        sharp strategists, and{" "}
+        <ServicesScrollHighlightPill
+          range={[0.26, 0.48]}
+          scrollYProgress={scrollYProgress}
+          color="#D7BFFF"
+        >
+          technical pros
+        </ServicesScrollHighlightPill>{" "}
+        who care deeply about what they do. No egos, no fluff – just hard work, smart thinking, and a{" "}
+        <ServicesScrollHighlightPill
+          range={[0.46, 0.68]}
+          scrollYProgress={scrollYProgress}
+          color="#D7BFFF"
+        >
+          genuine commitment
+        </ServicesScrollHighlightPill>{" "}
+        to our{" "}
+        <ServicesScrollHighlightPill
+          range={[0.66, 0.88]}
+          scrollYProgress={scrollYProgress}
+          color="#D7BFFF"
+        >
+          clients&apos; success
+        </ServicesScrollHighlightPill>
+        .
+      </p>
+    </section>
   );
 }
 
@@ -43,7 +141,7 @@ const CAPABILITIES: ServiceCapability[] = [
     name: "Web Development",
     dotColor: "bg-[#D7BFFF]",
     tagline: "High-performance web applications engineered with Next.js, React, and modular TypeScript architectures.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop",
     pills: ["Next.js App Router", "React Architecture", "Full-Stack APIs", "Tailwind CSS", "Edge Caching"],
   },
   {
@@ -51,7 +149,7 @@ const CAPABILITIES: ServiceCapability[] = [
     name: "UI/UX Design",
     dotColor: "bg-[#D7BFFF]",
     tagline: "User-centric digital interfaces, comprehensive Figma token systems, and intuitive customer journey blueprints.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1581291518655-9523c932edcf?q=80&w=600&auto=format&fit=crop",
     pills: ["UX & UI Design", "Figma Design Systems", "Interactive Prototyping", "User Research", "Conversion-Focused Design"],
   },
   {
@@ -59,7 +157,7 @@ const CAPABILITIES: ServiceCapability[] = [
     name: "AI & Machine Learning",
     dotColor: "bg-[#D7BFFF]",
     tagline: "Intelligent neural voice agents, sub-280ms conversational pipelines, and enterprise LLM automation workflows.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
     pills: ["Voice AI Agents", "LLM Fine-Tuning", "Enterprise RAG", "Neural Audio Pipelines", "Autonomous SDRs"],
   },
   {
@@ -67,7 +165,7 @@ const CAPABILITIES: ServiceCapability[] = [
     name: "Cloud Solutions",
     dotColor: "bg-[#D7BFFF]",
     tagline: "Multi-region edge infrastructure, automated CI/CD deployment pipelines, and high-availability architectures.",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop",
     pills: ["AWS & Edge CDN", "Docker & Kubernetes", "Terraform IaC", "99.99% SLAs", "Zero-Downtime Deploys"],
   },
   {
@@ -75,7 +173,7 @@ const CAPABILITIES: ServiceCapability[] = [
     name: "Mobile Development",
     dotColor: "bg-[#D7BFFF]",
     tagline: "Native and cross-platform mobile apps powered by React Native and Flutter with native performance and offline sync.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=600&auto=format&fit=crop",
     pills: ["React Native", "iOS & Android", "Offline Persistence", "Push Notifications", "Biometric Auth"],
   },
   {
@@ -83,7 +181,7 @@ const CAPABILITIES: ServiceCapability[] = [
     name: "Cybersecurity & Identity",
     dotColor: "bg-[#D7BFFF]",
     tagline: "Zero-trust architecture, biometric protection, and automated enterprise compliance auditing.",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop",
     pills: ["Zero-Trust Auth", "Penetration Testing", "Data Encryption", "SOC 2 Readiness", "Vulnerability Audits"],
   },
   {
@@ -91,7 +189,7 @@ const CAPABILITIES: ServiceCapability[] = [
     name: "Digital Transformation",
     dotColor: "bg-[#D7BFFF]",
     tagline: "Strategic tech consulting to modernize legacy operations.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop",
     pills: ["Legacy Modernization", "Process Automation", "Enterprise Architecture", "API Webhooks", "Data Migration"],
   },
 ];
@@ -173,7 +271,7 @@ const FAQS = [
 ];
 
 export default function ServicesPage() {
-  const [expandedId, setExpandedId] = useState<string>("web-design"); // default opened as in video
+  const [expandedId, setExpandedId] = useState<string>("web-development"); // default opened
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -224,8 +322,8 @@ export default function ServicesPage() {
             {/* Top Right Contact info */}
             <div className="lg:col-span-4 flex justify-end">
               <div className="text-right text-xs font-medium text-black">
-                <a href="mailto:contact@stratotechcorp.in" className="hover:underline font-semibold block">
-                  contact@stratotechcorp.in
+                <a href="mailto:tharun.hs@stratotechcorp.in" className="hover:underline font-semibold block">
+                  tharun.hs@stratotechcorp.in
                 </a>
                 <span className="font-mono text-[#555] block">
                   Bengaluru · Global AI Engineering
@@ -244,18 +342,20 @@ export default function ServicesPage() {
                 key={cap.id}
                 onClick={() => setExpandedId(isExpanded ? "" : cap.id)}
                 onMouseEnter={() => setExpandedId(cap.id)}
-                className="py-8 sm:py-12 transition-all cursor-pointer group"
+                className="py-8 sm:py-12 transition-all cursor-pointer group relative"
               >
                 {isExpanded ? (
                   /* ── EXPANDED ROW (Exact Screenshot 2026-09-23 104328.png) ── */
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 animate-fadeIn">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 flex-1">
-                      {/* Left Portrait Image */}
-                      <div className="w-[130px] sm:w-[160px] aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-200 shrink-0 border border-black/10 shadow-sm">
-                        <img
+                      {/* Left Topic Preview Image (Hidden on Mobile & Tablet RWD, Prominent on Desktop) */}
+                      <div className="hidden lg:block relative w-[240px] xl:w-[300px] aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-200 shrink-0 border border-black/10 shadow-md transition-transform duration-300 group-hover:scale-[1.02]">
+                        <Image
                           src={cap.image}
                           alt={cap.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          sizes="(min-width: 1280px) 300px, 240px"
+                          className="object-cover"
                         />
                       </div>
 
@@ -323,190 +423,20 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* ── 5. MANIFESTO QUOTE WITH HIGHLIGHTED PURPLE & MINT CAPSULES ── */}
-        <section className="max-w-[1200px] mx-auto px-5 sm:px-8 py-20 sm:py-32 text-center">
-          <p className="text-2xl sm:text-4xl lg:text-[44px] font-display font-medium text-black leading-[1.3] tracking-tight">
-            Our team is made up of{" "}
-            <span className="bg-[#D7BFFF] text-black px-3.5 py-0.5 rounded-full font-semibold">
-              bold creatives
-            </span>
-            , sharp strategists, and{" "}
-            <span className="bg-[#D7BFFF] text-black px-3.5 py-0.5 rounded-full font-semibold">
-              technical pros
-            </span>{" "}
-            who care deeply about what they do. No egos, no fluff – just hard work, smart thinking, and a{" "}
-            <span className="bg-[#D7BFFF] text-black px-3.5 py-0.5 rounded-full font-semibold">
-              genuine commitment
-            </span>{" "}
-            to our{" "}
-            <span className="bg-[#D7BFFF] text-black px-3.5 py-0.5 rounded-full font-semibold">
-              clients' success
-            </span>
-            .
-          </p>
-        </section>
+        {/* ── 5. MANIFESTO QUOTE WITH HIGHLIGHTED PURPLE CAPSULES ── */}
+        <ServicesManifesto />
 
-        {/* ── 6. "OUR LATEST WORK" BLACK MASONRY SECTION WITH EMBEDDED TESTIMONIAL ── */}
-        <section className="w-full bg-black text-white py-20 sm:py-28">
-          <div className="max-w-[1380px] mx-auto px-5 sm:px-8">
-            
-            {/* Asymmetrical 2-Column Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              
-              {/* Left Column: Latakoo + Vislink + Embedded Testimonial Slider */}
-              <div className="lg:col-span-6 space-y-8">
-                {/* Latakoo Card */}
-                <div className="group relative rounded-3xl overflow-hidden bg-zinc-950 aspect-[4/3] border border-white/10 shadow-lg flex flex-col justify-end p-6 sm:p-9">
-                  <img
-                    src="/images/products/zobay_custom.jpg"
-                    alt="Latakoo"
-                    className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  <div className="relative z-10">
-                    <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">Latakoo</h3>
-                    <p className="text-xs font-mono text-zinc-300 mb-4">View work ────→</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["Branding", "Web Design", "SEO", "PPC"].map((t, i) => (
-                        <span key={i} className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-mono text-white">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Vislink Card with Editorial Narrative */}
-                <div className="group relative rounded-3xl overflow-hidden bg-zinc-950 aspect-[4/3] border border-white/10 shadow-lg flex flex-col justify-end p-6 sm:p-9">
-                  <img
-                    src="/images/products/meetingx_pinterest.jpg"
-                    alt="Vislink"
-                    className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-                  <div className="relative z-10">
-                    <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">Schedular</h3>
-                    <p className="text-xs font-mono text-zinc-300 mb-3">View work ────→</p>
-                    <p className="text-xs text-zinc-300 line-clamp-2 mb-4 leading-relaxed">
-                      Schedular is our enterprise intelligent calendar orchestration platform eliminating calendar conflicts across global enterprise teams.
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["AI Scheduling", "Web App", "Calendar Sync", "Enterprise"].map((t, i) => (
-                        <span key={i} className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-mono text-white">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Embedded Testimonial Slider Card */}
-                <div className="p-8 sm:p-10 rounded-3xl bg-zinc-950 border border-white/10 space-y-4">
-                  <blockquote className="text-xl sm:text-2xl font-display font-medium text-white leading-snug">
-                    "{TESTIMONIALS[testimonialIndex].quote}"
-                  </blockquote>
-                  <div className="text-sm font-semibold text-white">
-                    {TESTIMONIALS[testimonialIndex].author}{" "}
-                    <span className="font-normal text-zinc-400">· {TESTIMONIALS[testimonialIndex].company}</span>
-                  </div>
-
-                  <div className="flex items-center gap-4 pt-4 border-t border-white/10">
-                    <button
-                      onClick={handlePrevTestimonial}
-                      className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs"
-                    >
-                      ←
-                    </button>
-                    <span className="text-xs font-mono text-zinc-400">
-                      {testimonialIndex + 1} / {TESTIMONIALS.length}
-                    </span>
-                    <button
-                      onClick={handleNextTestimonial}
-                      className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs"
-                    >
-                      →
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Narrative Block + WR Partners + Office Insight */}
-              <div className="lg:col-span-6 space-y-8">
-                {/* Top Section Intro */}
-                <div className="p-8 sm:p-10 rounded-3xl bg-zinc-950 border border-white/10 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <span className="w-3 h-3 rounded-full bg-[#82FFCD]" />
-                    <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">Our latest work</h2>
-                  </div>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
-                    Whether you're part of a multi-national company, an independent business venture or something in between, we would love to hear from you and together we can earn the trust of your future business prospects.
-                  </p>
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-2 text-xs font-mono text-[#82FFCD] hover:underline pt-2 font-bold"
-                  >
-                    <span>View all work</span>
-                    <span>────→</span>
-                  </Link>
-                </div>
-
-                {/* WR Partners Card */}
-                <div className="group relative rounded-3xl overflow-hidden bg-zinc-950 aspect-[4/3] border border-white/10 shadow-lg flex flex-col justify-end p-6 sm:p-9">
-                  <img
-                    src="/images/products/salesx_custom.jpg"
-                    alt="WR Partners"
-                    className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  <div className="relative z-10">
-                    <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">WR Partners</h3>
-                    <p className="text-xs font-mono text-zinc-300 mb-4">View work ────→</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["Branding", "Web Design", "SEO", "PPC", "Video"].map((t, i) => (
-                        <span key={i} className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-mono text-white">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Office Insight Card */}
-                <div className="group relative rounded-3xl overflow-hidden bg-zinc-950 aspect-[4/3] border border-white/10 shadow-lg flex flex-col justify-end p-6 sm:p-9">
-                  <img
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop"
-                    alt="Office Insight"
-                    className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  <div className="relative z-10">
-                    <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">Office Insight</h3>
-                    <p className="text-xs font-mono text-zinc-300 mb-4">View work ────→</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["Web Design", "SEO", "PPC"].map((t, i) => (
-                        <span key={i} className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-mono text-white">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ── 7. KINETIC TICKER RIBBON (100M+ in revenue • Clients in 30 countries • Decades of experience) ── */}
+        {/* ── 6. KINETIC TICKER RIBBON ── */}
         <MarqueeTrustTicker />
+
+        {/* ── 7. CONSULTATION & TESTIMONIAL CARD (Screenshot 2026-09-28 122416.png) ── */}
+        <ServiceConsultationCard />
 
         {/* ── 8. FREQUENTLY ASKED QUESTIONS ACCORDION ── */}
         <section className="w-full max-w-[1380px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 mb-12">
             <div className="flex items-center gap-3">
-              <span className="text-sm font-semibold text-[#555]">Send us a brief and we'll talk</span>
+              <span className="text-sm font-semibold text-[#555]">Send us a brief and we&apos;ll talk</span>
               <Link
                 href="/contact"
                 className="px-4 py-1.5 rounded-full bg-[#82FFCD] text-black text-xs font-semibold shadow-xs"

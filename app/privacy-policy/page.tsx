@@ -39,7 +39,7 @@ const PRIVACY_SECTIONS = [
   {
     num: "07",
     title: "Contact",
-    desc: "For any privacy-related inquiries, please contact our data governance team directly at privacy@stratotechcorp.in.",
+    desc: "For any privacy-related inquiries, please contact our team directly at tharun.hs@stratotechcorp.in.",
   },
 ];
 

@@ -2,12 +2,12 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 
 interface ScrollHighlightProps {
   children: React.ReactNode;
   range: [number, number];
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
   color?: string;
 }
 
@@ -15,11 +15,24 @@ function ScrollHighlightPill({
   children,
   range,
   scrollYProgress,
-  color = "#E9D5FF",
+  color = "#D7BFFF",
 }: ScrollHighlightProps) {
-  const bgOpacity = useTransform(scrollYProgress, range, [0.15, 1]);
-  const scale = useTransform(scrollYProgress, range, [0.96, 1.04]);
-  const textY = useTransform(scrollYProgress, range, [2, 0]);
+  // Smooth scroll up/down bidirectional interpolation
+  const bgOpacity = useTransform(
+    scrollYProgress,
+    [Math.max(0, range[0] - 0.08), range[0], range[1], Math.min(1, range[1] + 0.12)],
+    [0.1, 1, 1, 0.6]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [Math.max(0, range[0] - 0.08), range[0], range[1]],
+    [0.94, 1.05, 1]
+  );
+  const textY = useTransform(
+    scrollYProgress,
+    [Math.max(0, range[0] - 0.08), range[0]],
+    [2, 0]
+  );
 
   return (
     <span className="relative inline-block mx-1 my-0.5 align-middle">
@@ -29,11 +42,11 @@ function ScrollHighlightPill({
           opacity: bgOpacity,
           scale: scale,
         }}
-        className="absolute inset-0 rounded-full -z-0 transition-shadow duration-300 shadow-xs"
+        className="absolute inset-0 rounded-full -z-0 transition-shadow duration-300"
       />
       <motion.span
         style={{ y: textY }}
-        className="relative z-10 px-3 py-0.5 text-black font-semibold inline-block whitespace-nowrap"
+        className="relative z-10 px-3.5 py-0.5 text-black font-semibold inline-block whitespace-nowrap"
       >
         {children}
       </motion.span>
@@ -46,7 +59,7 @@ export default function MarinoIntroStatement() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 85%", "end 35%"],
+    offset: ["start 80%", "end 30%"],
   });
 
   return (
@@ -63,7 +76,7 @@ export default function MarinoIntroStatement() {
             <ScrollHighlightPill
               range={[0.05, 0.22]}
               scrollYProgress={scrollYProgress}
-              color="#E9D5FF"
+              color="#D7BFFF"
             >
               bold creatives,
             </ScrollHighlightPill>{" "}
@@ -78,7 +91,7 @@ export default function MarinoIntroStatement() {
             <ScrollHighlightPill
               range={[0.3, 0.48]}
               scrollYProgress={scrollYProgress}
-              color="#E9D5FF"
+              color="#D7BFFF"
             >
               technical pros
             </ScrollHighlightPill>{" "}
@@ -94,7 +107,7 @@ export default function MarinoIntroStatement() {
             <ScrollHighlightPill
               range={[0.58, 0.75]}
               scrollYProgress={scrollYProgress}
-              color="#E9D5FF"
+              color="#D7BFFF"
             >
               clients’ success.
             </ScrollHighlightPill>{" "}

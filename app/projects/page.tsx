@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -171,7 +172,7 @@ export default function WorkPage() {
 
         {/* ── 2. HERO SECTION ── */}
         <section className="max-w-[1380px] mx-auto px-5 sm:px-8 pb-14 sm:pb-20 border-b border-black/[0.08]">
-          {/* Top Row: Left Pill Breadcrumb + Right Mint Pill Badge */}
+          {/* Top Row: Left Pill Breadcrumb */}
           <div className="flex items-center justify-between gap-4 mb-4">
             <Link
               href="/projects"
@@ -180,43 +181,30 @@ export default function WorkPage() {
               <span>→</span>
               <span>Work</span>
             </Link>
-
-            <span className="px-6 py-2.5 rounded-full bg-[#82FFCD] text-black text-xs sm:text-sm font-semibold shadow-xs">
-              Autonomous Systems &amp; AI
-            </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             {/* Left Col: Giant Heading + Clean Description */}
-            <div className="lg:col-span-8">
-              <h1 className="text-6xl sm:text-8xl lg:text-[104px] font-display font-extrabold text-black tracking-tight leading-none mb-6">
+            <div className="max-w-3xl">
+              <h1 className="text-5xl sm:text-7xl lg:text-[104px] font-display font-extrabold text-black tracking-tight leading-none mb-6">
                 Latest Work
               </h1>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mt-4">
+              <div className="mt-4">
                 <p className="text-[15px] sm:text-[17px] text-[#444444] font-normal leading-relaxed max-w-2xl">
                   Explore our portfolio of flagship autonomous AI software products, speech-to-speech voice intelligence, and next-generation enterprise platforms engineered to deliver unprecedented scale.
                 </p>
               </div>
             </div>
 
-            {/* Right Col: Team Snapshot & Contact Details */}
-            <div className="lg:col-span-4 flex flex-col items-end gap-3">
-              <div className="w-full max-w-[320px] sm:max-w-[380px] aspect-[16/11] rounded-[28px] overflow-hidden bg-zinc-200 border border-black/[0.08] shadow-md">
-                <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop"
-                  alt="Stratotech Team"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="text-right text-xs font-medium text-black flex items-center justify-end gap-4 mt-1">
-                <a href="mailto:contact@stratotechcorp.in" className="hover:underline font-semibold block">
-                  contact@stratotechcorp.in
-                </a>
-                <span className="font-mono text-[#555] block">
-                  Bengaluru · Global AI Engineering
-                </span>
-              </div>
+            {/* Right Col: Contact Details */}
+            <div className="flex flex-wrap lg:flex-col lg:items-end gap-3 text-xs sm:text-sm font-medium text-black">
+              <a href="mailto:tharun.hs@stratotechcorp.in" className="hover:underline font-semibold block">
+                tharun.hs@stratotechcorp.in
+              </a>
+              <span className="font-mono text-[#555] block">
+                Bengaluru · Global AI Engineering
+              </span>
             </div>
           </div>
         </section>
@@ -232,10 +220,12 @@ export default function WorkPage() {
                   href={proj.href}
                   className="group relative rounded-3xl overflow-hidden bg-black text-white aspect-[16/11] border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer"
                 >
-                  <img
+                  <Image
                     src={proj.image}
                     alt={proj.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
 
@@ -243,23 +233,12 @@ export default function WorkPage() {
                     <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">
                       {proj.title}
                     </h2>
-                    <p className="text-xs font-mono text-zinc-300 mb-4 flex items-center gap-2">
+                    <p className="text-xs font-mono text-zinc-300 flex items-center gap-2">
                       <span>View work</span>
                       <svg className="w-8 h-2.5 text-zinc-300 group-hover:text-[#82FFCD] transition-colors shrink-0" viewBox="0 0 32 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 5H30M30 5L25 1M30 5L25 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </p>
-
-                    <div className="flex flex-wrap gap-1.5">
-                      {proj.tags.map((t, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/40 text-[11px] font-mono text-white"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 </Link>
               ))}
@@ -277,10 +256,12 @@ export default function WorkPage() {
                     href={proj.href}
                     className={`group relative rounded-3xl overflow-hidden bg-black text-white h-[360px] sm:h-[440px] lg:h-[480px] w-full border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer ${colSpanClass}`}
                   >
-                    <img
+                    <Image
                       src={proj.image}
                       alt={proj.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
+                      fill
+                      sizes="(min-width: 768px) 58vw, 100vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
 
@@ -288,23 +269,12 @@ export default function WorkPage() {
                       <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">
                         {proj.title}
                       </h2>
-                      <p className="text-xs font-mono text-zinc-300 mb-4 flex items-center gap-2">
+                      <p className="text-xs font-mono text-zinc-300 flex items-center gap-2">
                         <span>View work</span>
                         <svg className="w-8 h-2.5 text-zinc-300 group-hover:text-[#82FFCD] transition-colors shrink-0" viewBox="0 0 32 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M0 5H30M30 5L25 1M30 5L25 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </p>
-
-                      <div className="flex flex-wrap gap-1.5">
-                        {proj.tags.map((t, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/40 text-[11px] font-mono text-white"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
                     </div>
                   </Link>
                 );
