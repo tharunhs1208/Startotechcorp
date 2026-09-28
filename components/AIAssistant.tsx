@@ -214,7 +214,7 @@ const KNOWLEDGE_BASE: KnowledgeEntry[] = [
       q.includes("bengaluru") ||
       q.includes("office"),
     reply:
-      "We partner with teams via dedicated 2-week continuous delivery sprints. All engagements include an upfront mutual NDA and 100% intellectual property ownership transfer.\n\n• Email: tharun.hs@startotechcorp.in\n• Studio HQ: Queens Road, Shivajinagar, Bengaluru\n• Response SLA: Under 24 business hours",
+      "We partner with teams via dedicated 2-week continuous delivery sprints. All engagements include an upfront mutual NDA and 100% intellectual property ownership transfer.\n\n• Email: tharun.hs@stratotechcorp.in\n• Studio HQ: Queens Road, Shivajinagar, Bengaluru\n• Response SLA: Under 24 business hours",
     actions: [
       { label: "Start a conversation →", href: "/contact" },
     ],

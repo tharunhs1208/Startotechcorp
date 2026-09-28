@@ -46,6 +46,17 @@ const SUB_MENUS: Record<string, SubItem[]> = {
   ],
 };
 
+const MOBILE_NAV_ITEMS = [
+  { label: "Services", href: "/services", key: "services" },
+  { label: "Work", href: "/projects", key: "work" },
+  { label: "Products", href: "/products", key: "products" },
+  { label: "Industries", href: "/industries", key: "industries" },
+  { label: "About", href: "/about", key: "about" },
+  { label: "Careers", href: "/careers", key: "careers" },
+  { label: "Blog", href: "/blog", key: "blog" },
+  { label: "FAQ", href: "/faq", key: "faq" },
+];
+
 export default function Navbar() {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -70,12 +81,13 @@ export default function Navbar() {
     }, 150);
   };
 
-  // Track scroll position to trigger backdrop blur
+  // Track scroll state
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 15);
     };
-    handleScroll();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -83,10 +95,24 @@ export default function Navbar() {
     };
   }, []);
 
-  // Close mobile menu on route change
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  // Close mobile menu on route change
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setMobileMenuOpen(false);
-  }, [pathname]);
+  }
 
   const navLinks = [
     { id: "services", label: "Services", href: "/services", active: isServicesActive },
@@ -96,167 +122,405 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full pt-4 sm:pt-6 pointer-events-none">
-      <div className="max-w-[1380px] mx-auto px-4 sm:px-8 flex items-center justify-end md:justify-center relative">
-        {/* ── DESKTOP CONSTANT PILL NAVBAR (BLURS ON SCROLL) ── */}
-        <div
-          className="hidden md:flex flex-col items-center pointer-events-auto relative"
-          onMouseLeave={handleMouseLeave}
-        >
-          <nav
-            aria-label="Main Navigation"
-            className={`flex items-center rounded-full p-2 gap-1.5 transition-all duration-300 border ${
-              isScrolled
-                ? "bg-white/70 backdrop-blur-2xl border-black/[0.08] shadow-[0_16px_50px_rgba(0,0,0,0.12)]"
-                : "bg-white/95 backdrop-blur-none border-black/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
-            }`}
+    <>
+      {/* ── FULL-SCREEN WHITE MOBILE MENU (SILKY SMOOTH CIRCULAR IRIS REVEAL) ── */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{
+              clipPath: "circle(0px at calc(100% - 38px) 36px)",
+              opacity: 0.6,
+            }}
+            animate={{
+              clipPath: "circle(150% at calc(100% - 38px) 36px)",
+              opacity: 1,
+            }}
+            exit={{
+              clipPath: "circle(0px at calc(100% - 38px) 36px)",
+              opacity: 0.6,
+            }}
+            transition={{
+              duration: 0.75, // Smooth, graceful timing
+              ease: [0.22, 1, 0.36, 1], // Silky smooth Apple/Refokus deceleration curve
+            }}
+            className="fixed inset-0 z-[9999] bg-white flex flex-col justify-between overflow-y-auto md:hidden"
           >
-            {navLinks.map((item) => {
-              const isHovered = hoveredTab === item.id;
-              const showArrow = item.active || isHovered;
-              const arrowChar = item.active ? "←" : "→";
-
-              return (
+            {/* Top Fixed-Style Navbar Header Inside Mobile Menu */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.45, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full pt-3 sm:pt-6 px-4 sm:px-8"
+            >
+              <div className="w-full flex items-center justify-between px-4 py-2 rounded-full border border-black/[0.08] bg-[rgba(233,233,233,0.6)] backdrop-blur-2xl">
                 <Link
-                  key={item.id}
-                  href={item.href}
-                  onMouseEnter={() => handleMouseEnter(item.id)}
-                  className={`relative inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-[14px] font-medium transition-all duration-200 select-none ${
-                    item.active
-                      ? "bg-white text-black font-semibold shadow-2xs"
-                      : isHovered
-                      ? "bg-black/[0.06] text-black font-semibold"
-                      : "text-[#222222] hover:bg-black/[0.04]"
-                  }`}
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="font-display text-sm font-extrabold tracking-[-0.03em] text-[#111111]"
                 >
-                  <span>{item.label}</span>
-                  {showArrow && (
-                    <span className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shrink-0 shadow-2xs">
-                      {arrowChar}
-                    </span>
-                  )}
+                  STRATOTECH
                 </Link>
-              );
-            })}
 
-            {/* Contact Pill Button */}
-            <Link
-              href="/contact"
-              onMouseEnter={() => handleMouseEnter("contact")}
-              className={`ml-1 px-5 py-2.5 rounded-full transition-all duration-200 shadow-2xs shrink-0 inline-flex items-center justify-center gap-2 font-semibold text-[14px] select-none ${
-                isContactActive
-                  ? "bg-black text-white shadow-xs"
-                  : "bg-black/[0.06] hover:bg-black text-black hover:text-white"
-              }`}
-            >
-              <span>Contact</span>
-              {(isContactActive || hoveredTab === "contact") && (
-                <span className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shrink-0 shadow-2xs">
-                  {isContactActive ? "←" : "→"}
-                </span>
-              )}
-            </Link>
-          </nav>
-
-          {/* Desktop Hover Dropdown Menu */}
-          <AnimatePresence>
-            {hoveredTab && SUB_MENUS[hoveredTab] && (
-              <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: "easeOut" }}
-                onMouseEnter={() => {
-                  if (timeoutRef.current) clearTimeout(timeoutRef.current);
-                }}
-                className="absolute top-full mt-2 w-72 bg-white/95 backdrop-blur-2xl rounded-2xl p-2.5 border border-black/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.12)] z-50 flex flex-col gap-1"
-              >
-                {SUB_MENUS[hoveredTab].map((subItem) => (
+                <div className="flex items-center gap-2">
                   <Link
-                    key={subItem.href}
-                    href={subItem.href}
-                    onClick={() => setHoveredTab(null)}
-                    className="flex items-center justify-between px-3.5 py-2 rounded-xl text-[13px] font-medium text-[#222] hover:bg-black/[0.05] hover:text-black transition-colors group"
+                    href="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-1.5 rounded-full bg-[#82FFCD] text-black font-semibold text-xs hover:bg-black hover:text-white transition-colors"
                   >
-                    <span>{subItem.label}</span>
-                    <span className="opacity-0 group-hover:opacity-100 text-[#00A86B] font-mono text-xs transition-opacity">
-                      →
-                    </span>
+                    Contact
                   </Link>
-                ))}
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label="Close navigation menu"
+                    className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center hover:opacity-85 transition-opacity cursor-pointer active:scale-95"
+                  >
+                    <X className="w-4 h-4 text-[#82FFCD]" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Menu Items (Smooth Staggered Iris Pop & Slide) */}
+            <div className="flex-1 px-6 pt-6 pb-8 flex flex-col justify-between">
+              <nav className="flex flex-col space-y-5 font-display">
+                {/* 1. Services */}
+                <div className="space-y-2.5 overflow-hidden">
+                  <motion.div
+                    initial={{ y: 35, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 15, opacity: 0 }}
+                    transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-center justify-between"
+                  >
+                    <Link
+                      href="/services"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-4xl font-medium tracking-tight text-black hover:text-zinc-700"
+                    >
+                      Services
+                    </Link>
+                    <Link
+                      href="/services"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-8 h-8 rounded-full bg-[#82FFCD] flex items-center justify-center text-black text-sm font-bold active:scale-95 transition-transform"
+                    >
+                      →
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -6 }}
+                    transition={{ duration: 0.45, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                    className="pl-1 flex flex-col space-y-2 text-sm text-[#444444] font-sans"
+                  >
+                    <Link href="/services/web-development" onClick={() => setMobileMenuOpen(false)}>→ Web Development</Link>
+                    <Link href="/services/ui-ux-design" onClick={() => setMobileMenuOpen(false)}>→ UI/UX Design</Link>
+                    <Link href="/services/ai-machine-learning" onClick={() => setMobileMenuOpen(false)}>→ AI &amp; Machine Learning</Link>
+                    <Link href="/services/cloud-solutions" onClick={() => setMobileMenuOpen(false)}>→ Cloud Solutions</Link>
+                    <Link href="/services/mobile-development" onClick={() => setMobileMenuOpen(false)}>→ Mobile Apps</Link>
+                  </motion.div>
+                </div>
+
+                {/* 2. Work */}
+                <div className="overflow-hidden pt-1">
+                  <motion.div
+                    initial={{ y: 35, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 15, opacity: 0 }}
+                    transition={{ duration: 0.55, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-center justify-between"
+                  >
+                    <Link
+                      href="/projects"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-4xl font-medium tracking-tight text-black hover:text-zinc-700"
+                    >
+                      Work
+                    </Link>
+                    <Link
+                      href="/projects"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-8 h-8 rounded-full bg-[#82FFCD] flex items-center justify-center text-black text-sm font-bold active:scale-95 transition-transform"
+                    >
+                      →
+                    </Link>
+                  </motion.div>
+                </div>
+
+                {/* 3. About */}
+                <div className="space-y-2.5 pt-1 overflow-hidden">
+                  <motion.div
+                    initial={{ y: 35, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 15, opacity: 0 }}
+                    transition={{ duration: 0.55, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-center justify-between"
+                  >
+                    <Link
+                      href="/about"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-4xl font-medium tracking-tight text-black hover:text-zinc-700"
+                    >
+                      About
+                    </Link>
+                    <Link
+                      href="/about"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-8 h-8 rounded-full bg-[#82FFCD] flex items-center justify-center text-black text-sm font-bold active:scale-95 transition-transform"
+                    >
+                      →
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -6 }}
+                    transition={{ duration: 0.45, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                    className="pl-1 flex flex-col space-y-2 text-sm text-[#444444] font-sans"
+                  >
+                    <Link href="/about" onClick={() => setMobileMenuOpen(false)}>→ About Us</Link>
+                    <Link href="/careers" onClick={() => setMobileMenuOpen(false)}>→ Careers</Link>
+                    <Link href="/faq" onClick={() => setMobileMenuOpen(false)}>→ FAQ</Link>
+                  </motion.div>
+                </div>
+
+                {/* 4. Blog */}
+                <div className="overflow-hidden pt-1">
+                  <motion.div
+                    initial={{ y: 35, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 15, opacity: 0 }}
+                    transition={{ duration: 0.55, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-center justify-between"
+                  >
+                    <Link
+                      href="/blog"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-4xl font-medium tracking-tight text-black hover:text-zinc-700"
+                    >
+                      Blog
+                    </Link>
+                    <Link
+                      href="/blog"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-8 h-8 rounded-full bg-[#82FFCD] flex items-center justify-center text-black text-sm font-bold active:scale-95 transition-transform"
+                    >
+                      →
+                    </Link>
+                  </motion.div>
+                </div>
+
+                {/* 5. Contact */}
+                <div className="overflow-hidden pt-1">
+                  <motion.div
+                    initial={{ y: 35, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 15, opacity: 0 }}
+                    transition={{ duration: 0.55, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-center justify-between"
+                  >
+                    <Link
+                      href="/contact"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-4xl font-medium tracking-tight text-black hover:text-zinc-700"
+                    >
+                      Contact
+                    </Link>
+                    <Link
+                      href="/contact"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-8 h-8 rounded-full bg-[#82FFCD] flex items-center justify-center text-black text-sm font-bold active:scale-95 transition-transform"
+                    >
+                      →
+                    </Link>
+                  </motion.div>
+                </div>
+              </nav>
+
+              {/* Bottom Contact Details */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.5, delay: 0.58, ease: [0.22, 1, 0.36, 1] }}
+                className="pt-6 border-t border-black/[0.08] space-y-1 font-sans text-sm text-[#111111]"
+              >
+                <a href="mailto:tharun.hs@stratotechcorp.in" className="font-semibold block hover:text-[#82FFCD] transition-colors">
+                  tharun.hs@stratotechcorp.in
+                </a>
+                <p className="text-zinc-500">+91 98765 43210</p>
               </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* ── MOBILE RIGHT BUTTONS (Contact + Mint Hamburger Toggle) ── */}
-        <div className="md:hidden flex items-center gap-2 pointer-events-auto pt-1">
-          <Link
-            href="/contact"
-            className="px-4 py-2 rounded-full bg-[#82FFCD] text-black font-semibold text-xs shadow-xs"
-          >
-            Contact
-          </Link>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
-            className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:opacity-85 transition-opacity cursor-pointer shadow-xs"
-          >
-            {mobileMenuOpen ? (
-              <X className="w-4 h-4 text-[#82FFCD]" />
-            ) : (
-              <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="16" height="1.77778" fill="#82FFCD" />
-                <rect y="7.11108" width="16" height="1.77778" fill="#82FFCD" />
-                <rect y="3.55542" width="8" height="1.77778" fill="#82FFCD" />
-              </svg>
-            )}
-          </button>
-        </div>
-
-      </div>
-
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="pointer-events-auto md:hidden fixed top-[72px] left-0 right-0 max-h-[calc(100vh-80px)] overflow-y-auto bg-[#F3F3F3] border-b border-black/[0.08] shadow-2xl p-6 space-y-4">
-          <nav className="flex flex-col space-y-3 font-display font-medium text-lg text-black">
-            <Link href="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
-            <div className="pl-4 flex flex-col space-y-2 text-sm text-[#555]">
-              <Link href="/services/web-development" onClick={() => setMobileMenuOpen(false)}>→ Web Development</Link>
-              <Link href="/services/ui-ux-design" onClick={() => setMobileMenuOpen(false)}>→ UI/UX Design</Link>
-              <Link href="/services/ai-machine-learning" onClick={() => setMobileMenuOpen(false)}>→ AI &amp; Machine Learning</Link>
-              <Link href="/services/cloud-solutions" onClick={() => setMobileMenuOpen(false)}>→ Cloud Solutions</Link>
-              <Link href="/services/mobile-development" onClick={() => setMobileMenuOpen(false)}>→ Mobile Apps</Link>
-              <Link href="/services/cybersecurity" onClick={() => setMobileMenuOpen(false)}>→ Cybersecurity</Link>
-              <Link href="/services/digital-transformation" onClick={() => setMobileMenuOpen(false)}>→ Digital Transformation</Link>
             </div>
-            <Link href="/projects" onClick={() => setMobileMenuOpen(false)}>Work</Link>
-            <div className="pl-4 flex flex-col space-y-2 text-sm text-[#555]">
-              <Link href="/projects" onClick={() => setMobileMenuOpen(false)}>→ All Projects</Link>
-              <Link href="/products/salesx" onClick={() => setMobileMenuOpen(false)}>→ SalesX</Link>
-              <Link href="/products/meetingx" onClick={() => setMobileMenuOpen(false)}>→ MeetingX</Link>
-              <Link href="/projects/zobay-voice-ai" onClick={() => setMobileMenuOpen(false)}>→ Zobay Voice AI</Link>
-              <Link href="/projects/startone-enterprise-os" onClick={() => setMobileMenuOpen(false)}>→ StartOne Enterprise OS</Link>
-              <Link href="/projects/nexus-b2b-marketplace" onClick={() => setMobileMenuOpen(false)}>→ Nexus B2B Commerce</Link>
-              <Link href="/projects/omni-headless-ecommerce" onClick={() => setMobileMenuOpen(false)}>→ Omni Headless Store</Link>
-            </div>
-            <Link href="/products" onClick={() => setMobileMenuOpen(false)}>Products</Link>
-            <Link href="/industries" onClick={() => setMobileMenuOpen(false)}>Industries</Link>
-            <Link href="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
-            <Link href="/careers" onClick={() => setMobileMenuOpen(false)}>Careers</Link>
-            <Link href="/blog" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
-            <Link href="/faq" onClick={() => setMobileMenuOpen(false)}>FAQ</Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── DESKTOP & MOBILE FIXED HEADER (CONSTANT) ── */}
+      <header className="fixed top-0 left-0 right-0 z-50 w-full pt-3 sm:pt-6 pointer-events-none">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 flex items-center justify-center relative">
+          
+          {/* ── MOBILE FIXED PILL NAVBAR ── */}
+          <div className="md:hidden w-full pointer-events-auto flex items-center justify-between px-4 py-2 rounded-full transition-all duration-300 border border-black/[0.08] bg-[rgba(233,233,233,0.6)] backdrop-blur-2xl">
             <Link
-              href="/contact"
+              href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 w-full py-3 rounded-full bg-black text-white text-center text-sm font-semibold flex items-center justify-center gap-2"
+              className="font-display text-sm font-extrabold tracking-[-0.03em] text-[#111111]"
             >
-              <span>Contact Us</span>
-              <ArrowRight className="w-4 h-4 text-[#82FFCD]" />
+              STRATOTECH
             </Link>
-          </nav>
+
+            <div className="flex items-center gap-2">
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-4 py-1.5 rounded-full bg-[#82FFCD] text-black font-semibold text-xs hover:bg-black hover:text-white transition-colors"
+              >
+                Contact
+              </Link>
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                aria-label="Toggle navigation menu"
+                className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center hover:opacity-85 transition-opacity cursor-pointer active:scale-95 relative overflow-hidden"
+              >
+                <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="16" height="1.77778" fill="#82FFCD" />
+                  <rect y="7.11108" width="16" height="1.77778" fill="#82FFCD" />
+                  <rect y="3.55542" width="8" height="1.77778" fill="#82FFCD" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* ── DESKTOP CONSTANT PILL NAVBAR (FIXED STABLE WIDTH & SMOOTH HOVER) ── */}
+          <div
+            className="hidden md:flex flex-col items-center pointer-events-auto relative"
+            onMouseLeave={handleMouseLeave}
+          >
+            <nav
+              aria-label="Main Navigation"
+              className="flex items-center rounded-full p-1.5 gap-1 transition-all duration-300 border border-black/[0.08] bg-[rgba(233,233,233,0.6)] backdrop-blur-2xl shadow-xs"
+            >
+              {navLinks.map((item) => {
+                const isHovered = hoveredTab === item.id;
+                const showArrow = item.active || isHovered;
+                const arrowChar = item.active ? "←" : "→";
+                const hasSubMenu = !!SUB_MENUS[item.id];
+
+                return (
+                  <div
+                    key={item.id}
+                    className="relative"
+                    onMouseEnter={() => handleMouseEnter(item.id)}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`relative inline-flex items-center justify-between w-[114px] h-[38px] px-3.5 rounded-full text-[14px] font-medium transition-colors duration-200 select-none ${
+                        item.active ? "text-black font-semibold" : "text-[#222222] hover:text-black"
+                      }`}
+                    >
+                      {/* Animated Sliding Pill Highlight */}
+                      {(item.active || isHovered) && (
+                        <motion.div
+                          layoutId="desktopNavHoverPill"
+                          className={`absolute inset-0 rounded-full ${
+                            item.active
+                              ? "bg-white border border-black/[0.06] shadow-xs"
+                              : "bg-white/80 shadow-xs"
+                          }`}
+                          transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                        />
+                      )}
+
+                      <span className="relative z-10">{item.label}</span>
+
+                      <span className="relative z-10 w-5 h-5 flex items-center justify-center shrink-0">
+                        <AnimatePresence>
+                          {showArrow && (
+                            <motion.span
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0, opacity: 0 }}
+                              transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                              className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shadow-xs"
+                            >
+                              {arrowChar}
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </span>
+                    </Link>
+
+                    {/* Desktop Dropdown Menu Directly Below THIS Tab */}
+                    <AnimatePresence>
+                      {isHovered && hasSubMenu && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                          onMouseEnter={() => {
+                            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                          }}
+                          className="absolute top-full left-0 mt-2 w-72 bg-[rgba(233,233,233,0.95)] backdrop-blur-3xl rounded-2xl p-2.5 border border-black/[0.08] shadow-xl z-50 flex flex-col gap-1"
+                        >
+                          {SUB_MENUS[item.id].map((subItem) => (
+                            <Link
+                              key={subItem.href}
+                              href={subItem.href}
+                              onClick={() => setHoveredTab(null)}
+                              className="group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13px] font-medium text-[#222] hover:bg-white hover:text-black hover:shadow-xs transition-all duration-200"
+                            >
+                              <span className="group-hover:translate-x-1 transition-transform duration-200">{subItem.label}</span>
+                              <span className="w-5 h-5 rounded-full bg-[#82FFCD]/0 group-hover:bg-[#82FFCD] text-black flex items-center justify-center text-xs font-bold transition-all duration-200 group-hover:translate-x-0.5">
+                                →
+                              </span>
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+
+              {/* Contact Pill Button (Fixed Width) */}
+              <Link
+                href="/contact"
+                onMouseEnter={() => handleMouseEnter("contact")}
+                className={`relative ml-0.5 w-[114px] h-[38px] px-3.5 rounded-full transition-colors duration-200 shrink-0 inline-flex items-center justify-between font-semibold text-[14px] select-none ${
+                  isContactActive
+                    ? "bg-black text-white shadow-sm"
+                    : hoveredTab === "contact"
+                    ? "bg-black text-white shadow-sm"
+                    : "bg-black/[0.07] text-black hover:bg-black hover:text-white"
+                }`}
+              >
+                <span className="relative z-10">Contact</span>
+                <span className="relative z-10 w-5 h-5 flex items-center justify-center shrink-0">
+                  <AnimatePresence>
+                    {(isContactActive || hoveredTab === "contact") && (
+                      <motion.span
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0, opacity: 0 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                        className="w-5 h-5 rounded-full bg-[#82FFCD] text-black flex items-center justify-center text-[11px] font-bold shadow-xs"
+                      >
+                        {isContactActive ? "←" : "→"}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </span>
+              </Link>
+            </nav>
+          </div>
+
         </div>
-      )}
-    </header>
+      </header>
+    </>
   );
 }

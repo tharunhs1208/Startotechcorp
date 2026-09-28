@@ -156,25 +156,6 @@ export default function MarinoServicesList() {
                           ))}
                         </div>
 
-                        {/* Mobile Inline Image Preview */}
-                        <div className="lg:hidden relative aspect-[16/10] w-full rounded-2xl overflow-hidden mt-3 border border-black/[0.08]">
-                          <Image
-                            src={srv.image}
-                            alt={srv.title}
-                            fill
-                            className="object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                          <div className="absolute bottom-3 left-3 right-3 p-3 rounded-lg bg-black/60 backdrop-blur-sm text-white border border-white/10">
-                            <div className="text-[10px] font-mono text-[#82FFCD] uppercase tracking-wider">
-                              Specialized Practice
-                            </div>
-                            <div className="text-sm font-display font-bold text-white">
-                              {srv.title}
-                            </div>
-                          </div>
-                        </div>
-
                         <div className="pt-2">
                           <Link
                             href={srv.href}

@@ -52,21 +52,21 @@ export default function ContactPage() {
 
         {/* ── 2. HERO: "Let's Talk" + Metadata Row ── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 text-center pt-2 sm:pt-4">
-          <h1 className="text-6xl sm:text-8xl lg:text-[116px] font-display font-bold text-white tracking-[-0.04em] leading-none mb-6 sm:mb-8">
-            Let's Talk
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[116px] font-display font-bold text-white tracking-[-0.04em] leading-none mb-6 sm:mb-8">
+            Let&apos;s Talk
           </h1>
 
           {/* Contact Details Line */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm font-medium text-white mb-10 sm:mb-14">
             <a
-              href="mailto:contact@stratotechcorp.in"
+              href="mailto:tharun.hs@stratotechcorp.in"
               className="underline underline-offset-4 hover:text-[#82FFCD] transition-colors"
             >
-              contact@stratotechcorp.in
+              tharun.hs@stratotechcorp.in
             </a>
             <span className="text-zinc-400">·</span>
             <span className="text-white font-mono">
-              +91 (80) 4120-8900
+              +91 9845067992
             </span>
             <span className="text-zinc-400">·</span>
             <span className="text-white">

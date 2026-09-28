@@ -21,7 +21,7 @@ export function OrganizationJsonLd({
   url = "https://stratotechcorp.in",
   logo = "https://stratotechcorp.in/favicon.ico",
   description = "Strategic Clarity. Sustainable Growth. Digital product engineering and AI systems consultancy.",
-  email = "tharun.hs@startotechcorp.in",
+  email = "tharun.hs@stratotechcorp.in",
   address = {
     streetAddress: "Queens Road, Shivajinagar",
     addressLocality: "Bengaluru",
