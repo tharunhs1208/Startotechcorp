@@ -235,7 +235,7 @@ export default function CareersPage() {
             <div className="shrink-0">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[4px] bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-colors"
               >
                 <span>Get in touch</span>
                 <ArrowRight className="w-4 h-4" />

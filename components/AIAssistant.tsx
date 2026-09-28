@@ -410,7 +410,7 @@ export default function AIAssistant() {
           <button
             onClick={() => setIsOpen(true)}
             aria-label="Ask us"
-            className="group flex items-center gap-2 pl-3 pr-3.5 py-2 rounded-full bg-[#1d1d1f] hover:bg-black text-white text-[12px] font-medium shadow-[0_4px_20px_rgba(0,0,0,0.14)] border border-black/10 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            className="group flex items-center gap-2 pl-3 pr-3.5 py-2 rounded-[4px] bg-[#1d1d1f] hover:bg-black text-white text-[12px] font-medium shadow-[0_4px_20px_rgba(0,0,0,0.14)] border border-black/10 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5 text-zinc-300 transition-transform duration-200 group-hover:scale-105" />
             <span>Ask us</span>
@@ -424,7 +424,7 @@ export default function AIAssistant() {
           role="dialog"
           aria-label="StratoTech Assistant"
           data-lenis-prevent
-          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 rounded-2xl bg-white text-[#1d1d1f] border border-black/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.14)] flex flex-col overflow-hidden overscroll-contain transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] animate-in fade-in zoom-in-95 ${
+          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 rounded-xl bg-white text-[#1d1d1f] border border-black/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.14)] flex flex-col overflow-hidden overscroll-contain transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] animate-in fade-in zoom-in-95 ${
             isExpanded
               ? "w-[calc(100vw-32px)] sm:w-[580px] lg:w-[680px] h-[640px] sm:h-[720px] max-h-[calc(100vh-32px)] sm:max-h-[calc(100vh-48px)]"
               : "w-[calc(100vw-32px)] sm:w-[390px] h-[520px] max-h-[calc(100vh-32px)] sm:max-h-[580px]"
@@ -447,7 +447,7 @@ export default function AIAssistant() {
                 onClick={() => setIsExpanded((prev) => !prev)}
                 title={isExpanded ? "Collapse window" : "Enlarge window"}
                 aria-label={isExpanded ? "Collapse window" : "Enlarge window"}
-                className="p-1.5 hover:text-[#1d1d1f] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
+                className="p-1.5 hover:text-[#1d1d1f] hover:bg-black/[0.04] rounded-[4px] transition-colors cursor-pointer"
               >
                 {isExpanded ? (
                   <Minimize2 className="w-3.5 h-3.5" />
@@ -459,7 +459,7 @@ export default function AIAssistant() {
                 onClick={handleReset}
                 title="Reset conversation"
                 aria-label="Reset conversation"
-                className="p-1.5 hover:text-[#1d1d1f] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
+                className="p-1.5 hover:text-[#1d1d1f] hover:bg-black/[0.04] rounded-[4px] transition-colors cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
               </button>
@@ -467,7 +467,7 @@ export default function AIAssistant() {
                 onClick={() => setIsOpen(false)}
                 title="Close"
                 aria-label="Close chat"
-                className="p-1.5 hover:text-[#1d1d1f] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
+                className="p-1.5 hover:text-[#1d1d1f] hover:bg-black/[0.04] rounded-[4px] transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -490,7 +490,7 @@ export default function AIAssistant() {
                 }`}
               >
                 <div
-                  className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 leading-relaxed whitespace-pre-line ${
+                  className={`max-w-[88%] rounded-lg px-3.5 py-2.5 leading-relaxed whitespace-pre-line ${
                     m.sender === "user"
                       ? "bg-[#1d1d1f] text-white rounded-br-xs"
                       : "bg-[#f5f5f7] text-[#1d1d1f] rounded-bl-xs font-normal"
@@ -528,7 +528,7 @@ export default function AIAssistant() {
                     <button
                       key={idx}
                       onClick={() => handleSend(item.query)}
-                      className="text-[12px] text-[#1d1d1f] bg-[#f5f5f7] hover:bg-[#ebebee] border border-black/[0.04] hover:border-black/[0.1] rounded-full px-3 py-1.5 transition-colors cursor-pointer text-left"
+                      className="text-[12px] text-[#1d1d1f] bg-[#f5f5f7] hover:bg-[#ebebee] border border-black/[0.04] hover:border-black/[0.1] rounded-[4px] px-3 py-1.5 transition-colors cursor-pointer text-left"
                     >
                       {item.label}
                     </button>
@@ -539,7 +539,7 @@ export default function AIAssistant() {
 
             {/* Typing Indicator */}
             {isTyping && (
-              <div className="flex items-center gap-1.5 text-[#86868b] bg-[#f5f5f7] rounded-2xl rounded-bl-xs px-3.5 py-2.5 w-fit">
+              <div className="flex items-center gap-1.5 text-[#86868b] bg-[#f5f5f7] rounded-lg rounded-bl-xs px-3.5 py-2.5 w-fit">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#86868b] animate-pulse"></span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#86868b] animate-pulse [animation-delay:150ms]"></span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#86868b] animate-pulse [animation-delay:300ms]"></span>
@@ -563,13 +563,13 @@ export default function AIAssistant() {
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
               placeholder="Ask a question..."
-              className="flex-1 bg-white border border-black/[0.08] rounded-xl px-3.5 py-2 text-[13px] text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none focus:border-[#1d1d1f] transition-colors"
+              className="flex-1 bg-white border border-black/[0.08] rounded-[4px] px-3.5 py-2 text-[13px] text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none focus:border-[#1d1d1f] transition-colors"
             />
             <button
               type="submit"
               disabled={!inputVal.trim()}
               aria-label="Send"
-              className="p-2 rounded-xl bg-[#1d1d1f] hover:bg-black disabled:opacity-30 disabled:hover:bg-[#1d1d1f] text-white transition-colors cursor-pointer shrink-0"
+              className="p-2 rounded-[4px] bg-[#1d1d1f] hover:bg-black disabled:opacity-30 disabled:hover:bg-[#1d1d1f] text-white transition-colors cursor-pointer shrink-0"
             >
               <ArrowRight className="w-4 h-4" />
             </button>

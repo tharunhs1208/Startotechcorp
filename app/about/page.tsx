@@ -308,7 +308,7 @@ export default function AboutPage() {
                   onClick={() => handleScroll("left")}
                   disabled={!canScrollLeft}
                   aria-label="Previous team member"
-                  className={`p-2 rounded-full border transition-colors cursor-pointer ${
+                  className={`p-2 rounded-[4px] border transition-colors cursor-pointer ${
                     canScrollLeft
                       ? "border-black/20 text-[#1d1d1f] hover:bg-black/[0.05] active:scale-95"
                       : "border-black/[0.08] text-[#86868b] opacity-40 cursor-not-allowed"
@@ -321,7 +321,7 @@ export default function AboutPage() {
                   onClick={() => handleScroll("right")}
                   disabled={!canScrollRight}
                   aria-label="Next team member"
-                  className={`p-2 rounded-full border transition-colors cursor-pointer ${
+                  className={`p-2 rounded-[4px] border transition-colors cursor-pointer ${
                     canScrollRight
                       ? "border-black/20 text-[#1d1d1f] hover:bg-black/[0.05] active:scale-95"
                       : "border-black/[0.08] text-[#86868b] opacity-40 cursor-not-allowed"

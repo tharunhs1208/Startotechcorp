@@ -72,7 +72,7 @@ export default function StratoTechFaqSection() {
                   <h3 className="text-lg sm:text-xl lg:text-[22px] font-display font-medium text-[#111111] group-hover:text-black transition-colors tracking-tight">
                     {item.question}
                   </h3>
-                  <span className={`w-8 h-8 rounded-full border border-black/10 flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                  <span className={`w-8 h-8 rounded-[4px] border border-black/10 flex items-center justify-center shrink-0 transition-transform duration-300 ${
                     isOpen ? "rotate-180 bg-black text-white" : "bg-white text-black"
                   }`}>
                     <ChevronDown className="w-4 h-4" />

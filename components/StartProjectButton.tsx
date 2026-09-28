@@ -33,7 +33,7 @@ export default function StartProjectButton({
 
   const content = (
     <span
-      className={`inline-flex items-center justify-center font-semibold rounded-full select-none cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] group active:scale-95 whitespace-nowrap ${
+      className={`inline-flex items-center justify-center font-semibold rounded-[4px] select-none cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] group active:scale-95 whitespace-nowrap ${
         sizeClasses[size]
       } ${
         variant === "outline"

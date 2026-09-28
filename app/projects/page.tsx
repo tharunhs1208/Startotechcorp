@@ -6,6 +6,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ScrollCardTransition from "@/components/ScrollCardTransition";
 
 interface ProjectItem {
   id: string;
@@ -176,7 +177,7 @@ export default function WorkPage() {
           <div className="flex items-center justify-between gap-4 mb-4">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-black/10 text-xs sm:text-sm font-semibold text-black shadow-xs hover:bg-black/5 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-[4px] bg-white border border-black/10 text-xs sm:text-sm font-semibold text-black shadow-xs hover:bg-black/5 transition-all"
             >
               <span>→</span>
               <span>Work</span>
@@ -214,53 +215,17 @@ export default function WorkPage() {
           {/* Row 1: 3 Columns Grid */}
           {row1Projects.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 mb-6 sm:gap-y-7">
-              {row1Projects.map((proj) => (
-                <Link
-                  key={proj.id}
-                  href={proj.href}
-                  className="group relative rounded-3xl overflow-hidden bg-black text-white aspect-[16/11] border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer"
-                >
-                  <Image
-                    src={proj.image}
-                    alt={proj.title}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
-
-                  <div className="relative z-10 p-5 sm:p-7">
-                    <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">
-                      {proj.title}
-                    </h2>
-                    <p className="text-xs font-mono text-zinc-300 flex items-center gap-2">
-                      <span>View work</span>
-                      <svg className="w-8 h-2.5 text-zinc-300 group-hover:text-[#82FFCD] transition-colors shrink-0" viewBox="0 0 32 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 5H30M30 5L25 1M30 5L25 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {/* Row 2: 2 Asymmetric Columns (7 cols + 5 cols matching Vislink + PortSwigger in screenshot 111226) */}
-          {row2Projects.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-7 items-stretch">
-              {row2Projects.map((proj, idx) => {
-                const colSpanClass = row2Projects.length === 1 ? "md:col-span-12" : idx === 0 ? "md:col-span-7" : "md:col-span-5";
-                return (
+              {row1Projects.map((proj, idx) => (
+                <ScrollCardTransition key={proj.id} index={idx} className="h-full">
                   <Link
-                    key={proj.id}
                     href={proj.href}
-                    className={`group relative rounded-3xl overflow-hidden bg-black text-white h-[360px] sm:h-[440px] lg:h-[480px] w-full border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer ${colSpanClass}`}
+                    className="group relative rounded-xl overflow-hidden bg-black text-white aspect-[16/11] border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer block h-full w-full"
                   >
                     <Image
                       src={proj.image}
                       alt={proj.title}
                       fill
-                      sizes="(min-width: 768px) 58vw, 100vw"
+                      sizes="(min-width: 768px) 33vw, 100vw"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
@@ -277,6 +242,44 @@ export default function WorkPage() {
                       </p>
                     </div>
                   </Link>
+                </ScrollCardTransition>
+              ))}
+            </div>
+          )}
+
+          {/* Row 2: 2 Asymmetric Columns (7 cols + 5 cols matching Vislink + PortSwigger in screenshot 111226) */}
+          {row2Projects.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-7 items-stretch">
+              {row2Projects.map((proj, idx) => {
+                const colSpanClass = row2Projects.length === 1 ? "md:col-span-12" : idx === 0 ? "md:col-span-7" : "md:col-span-5";
+                return (
+                  <ScrollCardTransition key={proj.id} index={idx + 3} className={`h-full ${colSpanClass}`}>
+                    <Link
+                      href={proj.href}
+                      className="group relative rounded-xl overflow-hidden bg-black text-white h-[360px] sm:h-[440px] lg:h-[480px] w-full border border-black/[0.08] shadow-md flex flex-col justify-end transition-all duration-300 hover:shadow-xl cursor-pointer block"
+                    >
+                      <Image
+                        src={proj.image}
+                        alt={proj.title}
+                        fill
+                        sizes="(min-width: 768px) 58vw, 100vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-90"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
+
+                      <div className="relative z-10 p-5 sm:p-7">
+                        <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1">
+                          {proj.title}
+                        </h2>
+                        <p className="text-xs font-mono text-zinc-300 flex items-center gap-2">
+                          <span>View work</span>
+                          <svg className="w-8 h-2.5 text-zinc-300 group-hover:text-[#82FFCD] transition-colors shrink-0" viewBox="0 0 32 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 5H30M30 5L25 1M30 5L25 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </p>
+                      </div>
+                    </Link>
+                  </ScrollCardTransition>
                 );
               })}
             </div>
@@ -289,7 +292,7 @@ export default function WorkPage() {
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 aria-label="Previous Page"
-                className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-10 h-10 rounded-[4px] border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 ←
               </button>
@@ -301,7 +304,7 @@ export default function WorkPage() {
                   <button
                     key={pageNum}
                     onClick={() => handlePageChange(pageNum)}
-                    className={`w-10 h-10 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                    className={`w-10 h-10 rounded-[4px] text-sm font-bold transition-all cursor-pointer ${
                       isCurrent
                         ? "bg-black text-white shadow-xs"
                         : "border border-black/20 text-black hover:bg-black/5"
@@ -316,7 +319,7 @@ export default function WorkPage() {
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 aria-label="Next Page"
-                className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-10 h-10 rounded-[4px] border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 →
               </button>
@@ -337,7 +340,7 @@ export default function WorkPage() {
                 <button
                   key={serv}
                   onClick={() => handleFilterChange(serv)}
-                  className={`px-6 sm:px-8 py-3 rounded-full text-xs sm:text-sm font-semibold border transition-all cursor-pointer ${
+                  className={`px-6 sm:px-8 py-3 rounded-[4px] text-xs sm:text-sm font-semibold border transition-all cursor-pointer ${
                     isSelected
                       ? "bg-black text-white border-black shadow-sm"
                       : "bg-white text-black border-black/15 hover:border-black hover:bg-black/5"

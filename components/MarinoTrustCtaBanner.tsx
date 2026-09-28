@@ -39,7 +39,7 @@ export default function MarinoTrustCtaBanner() {
           </span>
           <Link
             href="/contact"
-            className="px-7 py-3 rounded-full bg-[#82FFCD] text-black font-semibold text-sm hover:bg-black hover:text-white transition-all shadow-xs"
+            className="px-7 py-3 rounded-[4px] bg-[#82FFCD] text-black font-semibold text-sm hover:bg-black hover:text-white transition-all shadow-xs"
           >
             Contact Us
           </Link>

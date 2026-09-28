@@ -274,7 +274,7 @@ export default function TechBadge({
   if (variant === "subtle") {
     return (
       <span
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#f5f5f7] border border-black/[0.06] text-xs font-mono text-zinc-800 hover:border-black/20 transition-all ${className}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-[#f5f5f7] border border-black/[0.06] text-xs font-mono text-zinc-800 hover:border-black/20 transition-all ${className}`}
       >
         <TechIcon name={name} className="w-3.5 h-3.5 shrink-0" />
         <span>{name}</span>
@@ -285,7 +285,7 @@ export default function TechBadge({
   if (variant === "dark") {
     return (
       <span
-        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-200 shadow-xs hover:border-zinc-700 transition-all ${className}`}
+        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-200 shadow-xs hover:border-zinc-700 transition-all ${className}`}
       >
         <TechIcon name={name} className="w-3.5 h-3.5 shrink-0" />
         <span>{name}</span>
@@ -296,7 +296,7 @@ export default function TechBadge({
   // Default pill style
   return (
     <span
-      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/[0.08] bg-white text-xs font-medium text-zinc-800 shadow-xs hover:border-black/[0.2] hover:shadow-sm transition-all ${className}`}
+      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-black/[0.08] bg-white text-xs font-medium text-zinc-800 shadow-xs hover:border-black/[0.2] hover:shadow-sm transition-all ${className}`}
     >
       <TechIcon name={name} className="w-3.5 h-3.5 shrink-0" />
       <span>{name}</span>

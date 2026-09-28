@@ -101,7 +101,7 @@ export default function FAQPage() {
                     </div>
 
                     <span
-                      className={`shrink-0 grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-full transition-all duration-300 ${
+                      className={`shrink-0 grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-[4px] transition-all duration-300 ${
                         isOpen
                           ? "rotate-180 text-[#1d1d1f] bg-black/[0.06]"
                           : "text-[#86868b] group-hover:text-[#1d1d1f] group-hover:bg-black/[0.04]"
@@ -146,7 +146,7 @@ export default function FAQPage() {
             <div className="shrink-0">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[4px] bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-colors"
               >
                 <span>Contact us</span>
                 <ArrowRight className="w-4 h-4" />

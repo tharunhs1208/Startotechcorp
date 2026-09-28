@@ -93,12 +93,12 @@ export default function MarinoInterwovenHero() {
           {/* Line 2: [Video 1] on LEFT + Brands on RIGHT */}
           <div className="flex items-center gap-3">
             <div className="relative shrink-0">
-              <div className="absolute -inset-1.5 rounded-2xl bg-[#82FFCD]/40 blur-md pointer-events-none" />
+              <div className="absolute -inset-1.5 rounded-xl bg-[#82FFCD]/40 blur-md pointer-events-none" />
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-[110px] xs:w-[125px] aspect-[16/10] rounded-2xl overflow-hidden bg-black border border-black/[0.08] shadow-xs shrink-0"
+                className="relative w-[110px] xs:w-[125px] aspect-[16/10] rounded-xl overflow-hidden bg-black border border-black/[0.08] shadow-xs shrink-0"
               >
                 <video
                   ref={videoRef1}
@@ -132,12 +132,12 @@ export default function MarinoInterwovenHero() {
             </span>
 
             <div className="relative shrink-0">
-              <div className="absolute -inset-1.5 rounded-2xl bg-[#82FFCD]/40 blur-md pointer-events-none" />
+              <div className="absolute -inset-1.5 rounded-xl bg-[#82FFCD]/40 blur-md pointer-events-none" />
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-[110px] xs:w-[125px] aspect-[16/10] rounded-2xl overflow-hidden bg-black border border-black/[0.08] shadow-xs shrink-0"
+                className="relative w-[110px] xs:w-[125px] aspect-[16/10] rounded-xl overflow-hidden bg-black border border-black/[0.08] shadow-xs shrink-0"
               >
                 <video
                   ref={videoRef2}
@@ -170,12 +170,12 @@ export default function MarinoInterwovenHero() {
           {/* Line 6: [Video 3] Staggered / Indented under narrative */}
           <div className="pt-3 flex justify-center xs:justify-end pr-2">
             <div className="relative shrink-0">
-              <div className="absolute -inset-1.5 rounded-2xl bg-[#82FFCD]/30 blur-md pointer-events-none" />
+              <div className="absolute -inset-1.5 rounded-xl bg-[#82FFCD]/30 blur-md pointer-events-none" />
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-[130px] xs:w-[145px] aspect-[16/10] rounded-2xl overflow-hidden bg-black border border-black/[0.08] shadow-xs shrink-0"
+                className="relative w-[130px] xs:w-[145px] aspect-[16/10] rounded-xl overflow-hidden bg-black border border-black/[0.08] shadow-xs shrink-0"
               >
                 <video
                   ref={videoRef3}
@@ -217,13 +217,13 @@ export default function MarinoInterwovenHero() {
 
             {/* Video 1 with Mint Glow */}
             <div className="relative shrink-0">
-              <div className="absolute -inset-3 rounded-[32px] bg-[#82FFCD]/35 blur-xl pointer-events-none" />
+              <div className="absolute -inset-3 rounded-xl bg-[#82FFCD]/35 blur-xl pointer-events-none" />
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ scale: 1.03 }}
-                className="relative w-[150px] md:w-[190px] lg:w-[230px] xl:w-[250px] aspect-[16/10] rounded-[24px] overflow-hidden bg-black border border-black/[0.08] shadow-sm shrink-0 cursor-pointer"
+                className="relative w-[150px] md:w-[190px] lg:w-[230px] xl:w-[250px] aspect-[16/10] rounded-xl overflow-hidden bg-black border border-black/[0.08] shadow-sm shrink-0 cursor-pointer"
               >
                 <video
                   ref={videoRef1}
@@ -246,13 +246,13 @@ export default function MarinoInterwovenHero() {
           >
             {/* Video 2 with Mint Glow */}
             <div className="relative shrink-0">
-              <div className="absolute -inset-3 rounded-[32px] bg-[#82FFCD]/35 blur-xl pointer-events-none" />
+              <div className="absolute -inset-3 rounded-xl bg-[#82FFCD]/35 blur-xl pointer-events-none" />
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ scale: 1.03 }}
-                className="relative w-[150px] md:w-[190px] lg:w-[230px] xl:w-[250px] aspect-[16/10] rounded-[24px] overflow-hidden bg-black border border-black/[0.08] shadow-sm shrink-0 cursor-pointer"
+                className="relative w-[150px] md:w-[190px] lg:w-[230px] xl:w-[250px] aspect-[16/10] rounded-xl overflow-hidden bg-black border border-black/[0.08] shadow-sm shrink-0 cursor-pointer"
               >
                 <video
                   ref={videoRef2}
@@ -302,13 +302,13 @@ export default function MarinoInterwovenHero() {
             className="flex justify-start pl-[20vw] lg:pl-[420px] xl:pl-[480px] pt-2"
           >
             <div className="relative shrink-0">
-              <div className="absolute -inset-3 rounded-[32px] bg-[#82FFCD]/25 blur-xl pointer-events-none" />
+              <div className="absolute -inset-3 rounded-xl bg-[#82FFCD]/25 blur-xl pointer-events-none" />
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ scale: 1.03 }}
-                className="relative w-[150px] md:w-[190px] lg:w-[230px] xl:w-[250px] aspect-[16/10] rounded-[24px] overflow-hidden bg-black border border-black/[0.08] shadow-sm shrink-0 cursor-pointer"
+                className="relative w-[150px] md:w-[190px] lg:w-[230px] xl:w-[250px] aspect-[16/10] rounded-xl overflow-hidden bg-black border border-black/[0.08] shadow-sm shrink-0 cursor-pointer"
               >
                 <video
                   ref={videoRef3}

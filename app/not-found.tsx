@@ -34,7 +34,7 @@ export default function NotFound() {
           <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-14">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-all shadow-xs group"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[4px] bg-[#1d1d1f] text-white hover:bg-black text-[14px] font-medium transition-all shadow-xs group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
               <span>Back to Home</span>
@@ -42,7 +42,7 @@ export default function NotFound() {
 
             <button
               onClick={handleOpenSearch}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white border border-black/[0.1] hover:border-black/30 text-[#1d1d1f] text-[14px] font-medium transition-all shadow-xs cursor-pointer group"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-[4px] bg-white border border-black/[0.1] hover:border-black/30 text-[#1d1d1f] text-[14px] font-medium transition-all shadow-xs cursor-pointer group"
             >
               <Search className="w-4 h-4 text-[#86868b] group-hover:text-black" />
               <span>Search site (⌘K)</span>

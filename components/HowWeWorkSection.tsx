@@ -115,7 +115,7 @@ export default function HowWeWorkSection({
 
                 <div className="shrink-0">
                   <div
-                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-black/[0.08] flex items-center justify-center transition-all duration-300 ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-[4px] border border-black/[0.08] flex items-center justify-center transition-all duration-300 ${
                       isOpen
                         ? "rotate-180 bg-[#1d1d1f] border-[#1d1d1f] text-white"
                         : "bg-white text-[#1d1d1f] group-hover:border-black/30"

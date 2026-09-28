@@ -126,7 +126,7 @@ export default function MarinoIntroStatement() {
           <div className="flex justify-end pt-2">
             <Link
               href="/about"
-              className="inline-flex items-center px-7 py-3 rounded-full bg-black text-white hover:bg-[#82FFCD] hover:text-black font-semibold text-[13.5px] transition-all duration-300 shadow-xs"
+              className="inline-flex items-center px-7 py-3 rounded-[4px] bg-black text-white hover:bg-[#82FFCD] hover:text-black font-semibold text-[13.5px] transition-all duration-300 shadow-xs"
             >
               <span>About Us</span>
             </Link>

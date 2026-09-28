@@ -465,14 +465,14 @@ export default function Navbar() {
                           onMouseEnter={() => {
                             if (timeoutRef.current) clearTimeout(timeoutRef.current);
                           }}
-                          className="absolute top-full left-0 mt-2 w-72 bg-[rgba(233,233,233,0.95)] backdrop-blur-3xl rounded-2xl p-2.5 border border-black/[0.08] shadow-xl z-50 flex flex-col gap-1"
+                          className="absolute top-full left-0 mt-2 w-72 bg-[rgba(233,233,233,0.95)] backdrop-blur-3xl rounded-xl p-2.5 border border-black/[0.08] shadow-xl z-50 flex flex-col gap-1"
                         >
                           {SUB_MENUS[item.id].map((subItem) => (
                             <Link
                               key={subItem.href}
                               href={subItem.href}
                               onClick={() => setHoveredTab(null)}
-                              className="group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13px] font-medium text-[#222] hover:bg-white hover:text-black hover:shadow-xs transition-all duration-200"
+                              className="group flex items-center justify-between px-3.5 py-2.5 rounded-lg text-[13px] font-medium text-[#222] hover:bg-white hover:text-black hover:shadow-xs transition-all duration-200"
                             >
                               <span className="group-hover:translate-x-1 transition-transform duration-200">{subItem.label}</span>
                               <span className="w-5 h-5 rounded-full bg-[#82FFCD]/0 group-hover:bg-[#82FFCD] text-black flex items-center justify-center text-xs font-bold transition-all duration-200 group-hover:translate-x-0.5">

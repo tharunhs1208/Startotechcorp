@@ -139,7 +139,7 @@ export default function JobDetailPage({ params }: PageProps) {
                     {job.niceToHave.map((item, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1.5 rounded-lg border border-black/[0.08] bg-white text-[12px] font-mono text-[#6e6e73]"
+                        className="px-3 py-1.5 rounded-[4px] border border-black/[0.08] bg-white text-[12px] font-mono text-[#6e6e73]"
                       >
                         {item}
                       </span>
@@ -185,7 +185,7 @@ export default function JobDetailPage({ params }: PageProps) {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Alex Rivera"
-                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-[4px] px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
                       />
                     </div>
 
@@ -199,7 +199,7 @@ export default function JobDetailPage({ params }: PageProps) {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="alex@example.com"
-                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-[4px] px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
                       />
                     </div>
 
@@ -213,7 +213,7 @@ export default function JobDetailPage({ params }: PageProps) {
                         value={formData.resume}
                         onChange={(e) => setFormData({ ...formData, resume: e.target.value })}
                         placeholder="https://drive.google.com/..."
-                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-[4px] px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
                       />
                     </div>
 
@@ -226,7 +226,7 @@ export default function JobDetailPage({ params }: PageProps) {
                         value={formData.portfolio}
                         onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
                         placeholder="https://github.com/..."
-                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-[4px] px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors"
                       />
                     </div>
 
@@ -239,13 +239,13 @@ export default function JobDetailPage({ params }: PageProps) {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="A brief note on what you're interested in building..."
-                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-xl px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors resize-none"
+                        className="w-full bg-white border border-black/[0.08] focus:border-black rounded-[4px] px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition-colors resize-none"
                       />
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full bg-[#1d1d1f] text-white hover:bg-black py-3.5 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all cursor-pointer group"
+                      className="w-full bg-[#1d1d1f] text-white hover:bg-black py-3.5 rounded-[4px] text-sm font-medium flex items-center justify-center gap-2 transition-all cursor-pointer group"
                     >
                       <span>Submit Application</span>
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

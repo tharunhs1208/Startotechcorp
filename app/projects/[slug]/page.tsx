@@ -104,7 +104,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
           transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16"
         >
-          <div className="overflow-hidden rounded-2xl bg-zinc-100 border border-black/[0.08] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)]">
+          <div className="overflow-hidden rounded-xl bg-zinc-100 border border-black/[0.08] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={project.image}

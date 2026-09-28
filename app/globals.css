@@ -275,7 +275,7 @@ span.amp {
   justify-content: center;
   gap: 0.6rem;
   padding: 10px 24px;
-  border-radius: 9999px;
+  border-radius: 4px;
   font-weight: 600;
   font-size: 0.85rem;
   letter-spacing: -0.01em;
@@ -338,7 +338,7 @@ textarea:not(.dark-input) {
   background-color: #EAEAEA;
   border: 1px solid transparent;
   color: #000000;
-  border-radius: 12px;
+  border-radius: 4px;
   font-family: var(--font-sans);
   font-size: 15px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -359,7 +359,7 @@ textarea:not(.dark-input):focus {
   background-color: #2F2F2F !important;
   border: 1px solid transparent !important;
   color: #FFFFFF !important;
-  border-radius: 12px !important;
+  border-radius: 4px !important;
   font-family: var(--font-sans);
   font-size: 14px;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);

@@ -127,14 +127,14 @@ export default function SalesXProductPage() {
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/contact?subject=Inquiry+regarding+SalesX"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[4px] bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
               >
                 <span>Inquire about SalesX</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
                 href="#capabilities"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-black/[0.08] text-[#1d1d1f] text-[14px] font-medium hover:bg-[#f5f5f7] transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[4px] bg-white border border-black/[0.08] text-[#1d1d1f] text-[14px] font-medium hover:bg-[#f5f5f7] transition-colors"
               >
                 <span>Explore capabilities</span>
               </Link>
@@ -266,7 +266,7 @@ export default function SalesXProductPage() {
             <div className="shrink-0">
               <Link
                 href="/contact?subject=SalesX+Custom+Deployment"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[4px] bg-[#1d1d1f] text-white text-[14px] font-medium hover:bg-black transition-colors group cursor-pointer"
               >
                 <span>Discuss SalesX</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

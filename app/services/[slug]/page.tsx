@@ -2,6 +2,7 @@
 
 import React, { use } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -45,7 +46,7 @@ export default function ServiceDetailPage({ params }: PageProps) {
         </div>
 
         {/* ── HEADER WITH BREADCRUMBS ─────────────────────────────────── */}
-        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-12 sm:pb-16 border-b border-black/[0.08]">
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-10 sm:pb-12 border-b border-black/[0.08]">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
             <Breadcrumbs
               items={[
@@ -77,6 +78,42 @@ export default function ServiceDetailPage({ params }: PageProps) {
             </p>
           </div>
         </section>
+
+        {/* ── LARGE SERVICE VISUAL WITH SMOOTH SCROLL ELEVATION ─────── */}
+        {(service.image || service.video) && (
+          <ScrollCardTransition className="max-w-[1240px] mx-auto px-5 sm:px-8 py-8 sm:py-14">
+            <div className="overflow-hidden rounded-xl bg-zinc-100 border border-black/[0.08] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06)] relative aspect-[16/10] sm:aspect-[21/10]">
+              {service.image ? (
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  sizes="(min-width: 1280px) 1240px, 100vw"
+                  className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+                  priority
+                />
+              ) : service.video ? (
+                <video
+                  src={service.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : null}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-5 sm:bottom-6 sm:left-8 z-10 flex items-center gap-3">
+                <span className="px-3 py-1.5 rounded-[4px] bg-[#82FFCD] text-black text-xs font-semibold shadow-xs inline-block">
+                  {service.title} Excellence
+                </span>
+                <span className="px-3 py-1.5 rounded-[4px] bg-black/60 backdrop-blur-md text-white text-xs font-mono inline-block">
+                  StratoTech Engineering
+                </span>
+              </div>
+            </div>
+          </ScrollCardTransition>
+        )}
 
         {/* ── SCOPE & DELIVERABLES ────────────────────────────────────── */}
         <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-16 sm:py-24 border-b border-black/[0.08]">

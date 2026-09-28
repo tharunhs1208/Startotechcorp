@@ -123,16 +123,16 @@ export default function ProductCard({ product }: ProductCardProps) {
         >
           {/* Top Switcher Tabs */}
           <div className="flex items-center justify-between z-10 mb-2">
-            <span className="px-2 py-0.5 rounded bg-white/10 text-white/70 font-mono text-[10px] font-semibold">
+            <span className="px-2 py-0.5 rounded-[4px] bg-white/10 text-white/70 font-mono text-[10px] font-semibold">
               {product.name} System
             </span>
-            <div className="flex items-center gap-1 bg-white/10 p-0.5 rounded-lg backdrop-blur-md">
+            <div className="flex items-center gap-1 bg-white/10 p-0.5 rounded-[4px] backdrop-blur-md">
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   setViewMode("ui");
                 }}
-                className={`px-2 py-0.5 rounded text-[10px] font-mono flex items-center gap-1 transition-all ${
+                className={`px-2 py-0.5 rounded-[4px] text-[10px] font-mono flex items-center gap-1 transition-all ${
                   viewMode === "ui"
                     ? "bg-white text-black font-bold shadow-xs"
                     : "text-white/60 hover:text-white"
@@ -147,7 +147,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   e.preventDefault();
                   setViewMode("photo");
                 }}
-                className={`px-2 py-0.5 rounded text-[10px] font-mono flex items-center gap-1 transition-all ${
+                className={`px-2 py-0.5 rounded-[4px] text-[10px] font-mono flex items-center gap-1 transition-all ${
                   viewMode === "photo"
                     ? "bg-white text-black font-bold shadow-xs"
                     : "text-white/60 hover:text-white"

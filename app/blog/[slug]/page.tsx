@@ -136,7 +136,7 @@ export default function BlogPostDetailPage({ params }: PageProps) {
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-1 rounded-md border border-black/[0.08] bg-white text-[11px] font-mono text-[#6e6e73]"
+                    className="px-2.5 py-1 rounded-[4px] border border-black/[0.08] bg-white text-[11px] font-mono text-[#6e6e73]"
                   >
                     #{tag}
                   </span>

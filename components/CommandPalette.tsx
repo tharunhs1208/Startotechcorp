@@ -274,7 +274,7 @@ export default function CommandPalette() {
       onClick={() => setIsOpen(false)}
     >
       <div
-        className="w-full max-w-2xl bg-white border border-black/[0.1] rounded-2xl shadow-[0_24px_64px_rgba(0,0,0,0.18)] overflow-hidden flex flex-col max-h-[75vh] animate-in zoom-in-95 duration-200"
+        className="w-full max-w-2xl bg-white border border-black/[0.1] rounded-xl shadow-[0_24px_64px_rgba(0,0,0,0.18)] overflow-hidden flex flex-col max-h-[75vh] animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Header */}
@@ -295,7 +295,7 @@ export default function CommandPalette() {
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Close search palette"
-            className="p-1 rounded-lg text-[#86868b] hover:text-[#1d1d1f] hover:bg-black/5 transition-colors"
+            className="p-1 rounded-[4px] text-[#86868b] hover:text-[#1d1d1f] hover:bg-black/5 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -317,13 +317,13 @@ export default function CommandPalette() {
                   key={item.id}
                   onClick={() => handleSelect(item)}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all duration-150 cursor-pointer ${
+                  className={`w-full p-3 rounded-lg flex items-center justify-between text-left transition-all duration-150 cursor-pointer ${
                     isSelected ? "bg-black/[0.05] text-[#1d1d1f]" : "text-[#6e6e73] hover:bg-black/[0.02]"
                   }`}
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                      className={`w-8 h-8 rounded-[4px] flex items-center justify-center shrink-0 transition-colors ${
                         isSelected ? "bg-[#1d1d1f] text-white" : "bg-black/[0.04] text-[#1d1d1f]"
                       }`}
                     >
@@ -335,7 +335,7 @@ export default function CommandPalette() {
                           {item.title}
                         </span>
                         {item.badge && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/[0.06] text-[#6e6e73]">
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-[4px] bg-black/[0.06] text-[#6e6e73]">
                             {item.badge}
                           </span>
                         )}
@@ -363,15 +363,15 @@ export default function CommandPalette() {
         <div className="px-4 py-2.5 bg-[#fafafa] border-t border-black/[0.06] flex items-center justify-between text-[11px] font-mono text-[#86868b]">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 rounded bg-black/[0.06] text-[10px]">↑</kbd>
-              <kbd className="px-1.5 py-0.5 rounded bg-black/[0.06] text-[10px]">↓</kbd> to navigate
+              <kbd className="px-1.5 py-0.5 rounded-[4px] bg-black/[0.06] text-[10px]">↑</kbd>
+              <kbd className="px-1.5 py-0.5 rounded-[4px] bg-black/[0.06] text-[10px]">↓</kbd> to navigate
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 rounded bg-black/[0.06] text-[10px]">↵</kbd> to select
+              <kbd className="px-1.5 py-0.5 rounded-[4px] bg-black/[0.06] text-[10px]">↵</kbd> to select
             </span>
           </div>
           <span className="flex items-center gap-1">
-            <kbd className="px-1.5 py-0.5 rounded bg-black/[0.06] text-[10px]">esc</kbd> to close
+            <kbd className="px-1.5 py-0.5 rounded-[4px] bg-black/[0.06] text-[10px]">esc</kbd> to close
           </span>
         </div>
       </div>

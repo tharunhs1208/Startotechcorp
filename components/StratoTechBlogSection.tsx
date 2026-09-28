@@ -154,7 +154,7 @@ export default function StratoTechBlogSection() {
                 onClick={() => handleScroll("left")}
                 disabled={!canScrollLeft}
                 aria-label="Previous article"
-                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-[4px] flex items-center justify-center transition-all cursor-pointer ${
                   canScrollLeft
                     ? "bg-[#82FFCD] text-black hover:bg-white active:scale-95 shadow-xs"
                     : "bg-white/10 text-white/40 cursor-not-allowed opacity-50"
@@ -168,7 +168,7 @@ export default function StratoTechBlogSection() {
                 onClick={() => handleScroll("right")}
                 disabled={!canScrollRight}
                 aria-label="Next article"
-                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-[4px] flex items-center justify-center transition-all cursor-pointer ${
                   canScrollRight
                     ? "bg-[#82FFCD] text-black hover:bg-white active:scale-95 shadow-xs"
                     : "bg-white/10 text-white/40 cursor-not-allowed opacity-50"
@@ -189,7 +189,7 @@ export default function StratoTechBlogSection() {
             <button
               onClick={() => handleScroll("left")}
               aria-label="Previous article"
-              className="sm:hidden absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#82FFCD] text-black flex items-center justify-center shadow-lg active:scale-95"
+              className="sm:hidden absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-[4px] bg-[#82FFCD] text-black flex items-center justify-center shadow-lg active:scale-95"
             >
               <svg width="18" height="18" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.6072 12.5096C6.37874 12.7381 6.37874 13.1085 6.6072 13.3369L10.3302 17.0599C10.5587 17.2884 10.9291 17.2884 11.1575 17.0599C11.386 16.8315 11.386 16.4611 11.1575 16.2326L7.8482 12.9233L11.1575 9.61396C11.386 9.38549 11.386 9.01509 11.1575 8.78662C10.9291 8.55816 10.5587 8.55816 10.3302 8.78662L6.6072 12.5096ZM19.8911 12.9233L19.8911 12.3383L7.02087 12.3383L7.02087 12.9233L7.02087 13.5083L19.8911 13.5083L19.8911 12.9233Z" fill="black"/>
@@ -201,7 +201,7 @@ export default function StratoTechBlogSection() {
             <button
               onClick={() => handleScroll("right")}
               aria-label="Next article"
-              className="sm:hidden absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#82FFCD] text-black flex items-center justify-center shadow-lg active:scale-95"
+              className="sm:hidden absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-[4px] bg-[#82FFCD] text-black flex items-center justify-center shadow-lg active:scale-95"
             >
               <svg width="18" height="18" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19.134 13.2838C19.3625 13.0554 19.3625 12.6849 19.134 12.4565L15.411 8.73349C15.1826 8.50503 14.8122 8.50503 14.5837 8.73349C14.3552 8.96196 14.3552 9.33236 14.5837 9.56083L17.893 12.8701L14.5837 16.1795C14.3552 16.4079 14.3552 16.7783 14.5837 17.0068C14.8122 17.2353 15.1826 17.2353 15.411 17.0068L19.134 13.2838ZM5.8501 12.8701V13.4552H18.7203V12.8701V12.2851H5.8501V12.8701Z" fill="black"/>
@@ -221,7 +221,7 @@ export default function StratoTechBlogSection() {
               >
                 <Link
                   href={art.href}
-                  className="group block relative rounded-[28px] sm:rounded-[34px] overflow-hidden bg-zinc-900 border border-white/10 aspect-[4/3] sm:aspect-[16/12] p-6 sm:p-7 flex flex-col justify-between h-full transition-transform duration-500 hover:scale-[1.01]"
+                  className="group block relative rounded-xl overflow-hidden bg-zinc-900 border border-white/10 aspect-[4/3] sm:aspect-[16/12] p-6 sm:p-7 flex flex-col justify-between h-full transition-transform duration-500 hover:scale-[1.01]"
                 >
                   <Image
                     src={art.image}

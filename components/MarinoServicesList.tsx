@@ -78,7 +78,7 @@ export default function MarinoServicesList() {
         
         {/* Top Identifier Badge Pill */}
         <div className="mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/[0.08] text-xs font-semibold text-black shadow-2xs">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[4px] bg-white border border-black/[0.08] text-xs font-semibold text-black shadow-2xs">
             <span>→</span>
             <span>Our Available Services</span>
           </div>
@@ -98,7 +98,7 @@ export default function MarinoServicesList() {
                   onClick={() =>
                     setActiveServiceId(isActive ? null : srv.id)
                   }
-                  className={`group cursor-pointer rounded-2xl sm:rounded-3xl p-6 sm:p-8 transition-all duration-300 border ${
+                  className={`group cursor-pointer rounded-xl p-6 sm:p-8 transition-all duration-300 border ${
                     isActive
                       ? "bg-white border-black/[0.1] shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
                       : "bg-transparent border-transparent hover:bg-white/60"
@@ -121,7 +121,7 @@ export default function MarinoServicesList() {
                     </div>
 
                     <div
-                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
+                      className={`w-9 h-9 rounded-[4px] flex items-center justify-center transition-all ${
                         isActive
                           ? "bg-[#82FFCD] text-black rotate-90"
                           : "bg-black/[0.04] text-black group-hover:bg-[#82FFCD]"
@@ -149,7 +149,7 @@ export default function MarinoServicesList() {
                           {srv.bullets.map((bullet, bIdx) => (
                             <span
                               key={bIdx}
-                              className="px-3 py-1 rounded-full bg-[#EAEAEA] text-[11.5px] font-medium text-black"
+                              className="px-3 py-1 rounded-[4px] bg-[#EAEAEA] text-[11.5px] font-medium text-black"
                             >
                               {bullet}
                             </span>
@@ -176,7 +176,7 @@ export default function MarinoServicesList() {
 
           {/* Right Column: Dynamic Media Display Card */}
           <div className="lg:col-span-5 sticky top-28 sm:top-32 hidden lg:block self-start">
-            <div className="relative aspect-[4/3] min-h-[380px] w-full rounded-3xl overflow-hidden bg-white border border-black/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.06)] p-3">
+            <div className="relative aspect-[4/3] min-h-[380px] w-full rounded-xl overflow-hidden bg-white border border-black/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.06)] p-3">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeService.id}
@@ -184,7 +184,7 @@ export default function MarinoServicesList() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3 }}
-                  className="relative w-full h-full min-h-[356px] rounded-2xl overflow-hidden"
+                  className="relative w-full h-full min-h-[356px] rounded-lg overflow-hidden"
                 >
                   <Image
                     src={activeService.image}
@@ -197,7 +197,7 @@ export default function MarinoServicesList() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                   {/* Overlay Info Card */}
-                  <div className="absolute bottom-5 left-5 right-5 p-5 rounded-xl bg-black/60 backdrop-blur-md text-white border border-white/10 space-y-2">
+                  <div className="absolute bottom-5 left-5 right-5 p-5 rounded-lg bg-black/60 backdrop-blur-md text-white border border-white/10 space-y-2">
                     <div className="text-xs font-mono text-[#82FFCD] uppercase tracking-wider">
                       Specialized Practice
                     </div>

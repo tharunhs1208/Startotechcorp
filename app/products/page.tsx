@@ -220,7 +220,7 @@ export default function ProductsPage() {
                 <button
                   key={opt}
                   onClick={() => setActiveFilter(opt)}
-                  className={`relative text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-full shrink-0 cursor-pointer transition-colors duration-200 ${
+                  className={`relative text-[12px] font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-[4px] shrink-0 cursor-pointer transition-colors duration-200 ${
                     isActive
                       ? "text-black font-bold"
                       : "text-[#666666] hover:text-[#000000] hover:bg-black/[0.04]"
@@ -230,7 +230,7 @@ export default function ProductsPage() {
                     <motion.div
                       layoutId="productActiveFilterPill"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                      className="absolute inset-0 bg-[#82FFCD] rounded-full -z-10 shadow-xs"
+                      className="absolute inset-0 bg-[#82FFCD] rounded-[4px] -z-10 shadow-xs"
                     />
                   )}
                   <span className="relative z-10">{opt}</span>

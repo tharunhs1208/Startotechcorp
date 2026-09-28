@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import MarqueeTrustTicker from "@/components/MarqueeTrustTicker";
 import ServiceConsultationCard from "@/components/ServiceConsultationCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ScrollCardTransition from "@/components/ScrollCardTransition";
 
 function LongArrow({ className = "" }: { className?: string }) {
   return (
@@ -303,7 +304,7 @@ export default function ServicesPage() {
         <section className="max-w-[1380px] mx-auto px-5 sm:px-8 pb-14 sm:pb-20 border-b border-black/[0.08]">
           <div className="flex items-center justify-between gap-4 mb-6">
             <Breadcrumbs items={[{ label: "Services" }]} />
-            <span className="px-4 py-1.5 rounded-full bg-[#82FFCD] text-black text-xs font-semibold shadow-xs">
+            <span className="px-4 py-1.5 rounded-[4px] bg-[#82FFCD] text-black text-xs font-semibold shadow-xs">
               Senior specialists
             </span>
           </div>
@@ -335,79 +336,80 @@ export default function ServicesPage() {
 
         {/* ── 3. EXPANDABLE CAPABILITIES LIST (Exact Screenshot 2026-09-23 104328.png) ── */}
         <section className="max-w-[1380px] mx-auto px-5 sm:px-8 py-10 sm:py-16 divide-y divide-black/[0.08]">
-          {CAPABILITIES.map((cap) => {
+          {CAPABILITIES.map((cap, cIdx) => {
             const isExpanded = expandedId === cap.id;
             return (
-              <div
-                key={cap.id}
-                onClick={() => setExpandedId(isExpanded ? "" : cap.id)}
-                onMouseEnter={() => setExpandedId(cap.id)}
-                className="py-8 sm:py-12 transition-all cursor-pointer group relative"
-              >
-                {isExpanded ? (
-                  /* ── EXPANDED ROW (Exact Screenshot 2026-09-23 104328.png) ── */
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 animate-fadeIn">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 flex-1">
-                      {/* Left Topic Preview Image (Hidden on Mobile & Tablet RWD, Prominent on Desktop) */}
-                      <div className="hidden lg:block relative w-[240px] xl:w-[300px] aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-200 shrink-0 border border-black/10 shadow-md transition-transform duration-300 group-hover:scale-[1.02]">
-                        <Image
-                          src={cap.image}
-                          alt={cap.name}
-                          fill
-                          sizes="(min-width: 1280px) 300px, 240px"
-                          className="object-cover"
-                        />
+              <ScrollCardTransition key={cap.id} index={cIdx}>
+                <div
+                  onClick={() => setExpandedId(isExpanded ? "" : cap.id)}
+                  onMouseEnter={() => setExpandedId(cap.id)}
+                  className="py-8 sm:py-12 transition-all cursor-pointer group relative"
+                >
+                  {isExpanded ? (
+                    /* ── EXPANDED ROW (Exact Screenshot 2026-09-23 104328.png) ── */
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 animate-fadeIn">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 flex-1">
+                        {/* Left Topic Preview Image (Hidden on Mobile & Tablet RWD, Prominent on Desktop) */}
+                        <div className="hidden lg:block relative w-[240px] xl:w-[300px] aspect-[16/10] rounded-xl overflow-hidden bg-zinc-200 shrink-0 border border-black/10 shadow-md transition-transform duration-300 group-hover:scale-[1.02]">
+                          <Image
+                            src={cap.image}
+                            alt={cap.name}
+                            fill
+                            sizes="(min-width: 1280px) 300px, 240px"
+                            className="object-cover"
+                          />
+                        </div>
+
+                        {/* Middle: Title + Bullets joined by • */}
+                        <div className="space-y-2 flex-1">
+                          <div className="flex items-center gap-2.5">
+                            <h2 className="text-3xl sm:text-5xl font-display font-bold text-black tracking-tight">
+                              {cap.name}
+                            </h2>
+                            <span className="w-3.5 h-3.5 rounded-full bg-[#D7BFFF] shrink-0 inline-block" />
+                          </div>
+
+                          <p className="text-base sm:text-lg text-[#231F20] font-normal leading-relaxed">
+                            {cap.pills.join(" • ")}
+                          </p>
+                        </div>
                       </div>
 
-                      {/* Middle: Title + Bullets joined by • */}
-                      <div className="space-y-2 flex-1">
-                        <div className="flex items-center gap-2.5">
-                          <h2 className="text-3xl sm:text-5xl font-display font-bold text-black tracking-tight">
+                      {/* Right: More Info Link to Service Details Page */}
+                      <div className="shrink-0 flex items-center justify-end">
+                        <Link
+                          href={`/services/${cap.id}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-3 text-xs sm:text-sm font-semibold text-black hover:opacity-75 transition-all group/btn py-2"
+                        >
+                          <span className="whitespace-nowrap">More Info</span>
+                          <LongArrow className="transition-transform duration-300 group-hover/btn:translate-x-2" />
+                        </Link>
+                      </div>
+                    </div>
+                  ) : (
+                    /* ── COLLAPSED ROW (Exact Screenshot 2026-09-23 104328.png) ── */
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-black tracking-tight group-hover:text-black transition-colors">
                             {cap.name}
                           </h2>
                           <span className="w-3.5 h-3.5 rounded-full bg-[#D7BFFF] shrink-0 inline-block" />
                         </div>
 
-                        <p className="text-base sm:text-lg text-[#231F20] font-normal leading-relaxed">
-                          {cap.pills.join(" • ")}
+                        <p className="text-[15px] sm:text-[17px] text-[#555555] font-normal max-w-2xl leading-relaxed">
+                          {cap.tagline}
                         </p>
                       </div>
-                    </div>
 
-                    {/* Right: More Info Link to Service Details Page */}
-                    <div className="shrink-0 flex items-center justify-end">
-                      <Link
-                        href={`/services/${cap.id}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-3 text-xs sm:text-sm font-semibold text-black hover:opacity-75 transition-all group/btn py-2"
-                      >
-                        <span className="whitespace-nowrap">More Info</span>
-                        <LongArrow className="transition-transform duration-300 group-hover/btn:translate-x-2" />
-                      </Link>
-                    </div>
-                  </div>
-                ) : (
-                  /* ── COLLAPSED ROW (Exact Screenshot 2026-09-23 104328.png) ── */
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                      <div className="flex items-center gap-2.5 mb-2">
-                        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-black tracking-tight group-hover:text-black transition-colors">
-                          {cap.name}
-                        </h2>
-                        <span className="w-3.5 h-3.5 rounded-full bg-[#D7BFFF] shrink-0 inline-block" />
+                      <div className="shrink-0 flex items-center justify-end">
+                        <LongArrow className="text-black transition-transform duration-300 group-hover:translate-x-2" />
                       </div>
-
-                      <p className="text-[15px] sm:text-[17px] text-[#555555] font-normal max-w-2xl leading-relaxed">
-                        {cap.tagline}
-                      </p>
                     </div>
-
-                    <div className="shrink-0 flex items-center justify-end">
-                      <LongArrow className="text-black transition-transform duration-300 group-hover:translate-x-2" />
-                    </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              </ScrollCardTransition>
             );
           })}
         </section>
@@ -439,7 +441,7 @@ export default function ServicesPage() {
               <span className="text-sm font-semibold text-[#555]">Send us a brief and we&apos;ll talk</span>
               <Link
                 href="/contact"
-                className="px-4 py-1.5 rounded-full bg-[#82FFCD] text-black text-xs font-semibold shadow-xs"
+                className="px-4 py-1.5 rounded-[4px] bg-[#82FFCD] text-black text-xs font-semibold shadow-xs"
               >
                 Contact Us
               </Link>
@@ -468,7 +470,7 @@ export default function ServicesPage() {
                     }`}>
                       {faq.question}
                     </span>
-                    <span className="w-9 h-9 rounded-full bg-[#82FFCD] flex items-center justify-center text-black font-bold text-sm shrink-0 shadow-2xs transition-transform duration-300">
+                    <span className="w-9 h-9 rounded-[4px] bg-[#82FFCD] flex items-center justify-center text-black font-bold text-sm shrink-0 shadow-2xs transition-transform duration-300">
                       {isOpen ? "↑" : "↓"}
                     </span>
                   </button>

@@ -99,6 +99,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDescription: "Engineered with modern frameworks like Next.js, React, and Node.js for lightning-fast speeds and flawless reliability.",
     fullDescription: "We build enterprise-grade web applications designed for scale, speed, and rock-solid security. From mission-critical SaaS dashboards to high-converting public portals, our engineering team adheres to clean architecture, automated testing, and performance optimization.",
     video: "/videos/startone.mp4",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
     technologies: ["React.js", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "PostgreSQL", "GraphQL", "Docker"],
     features: [
       { title: "Custom SaaS Architectures", desc: "Multi-tenant platforms with role-based access control, automated billing, and real-time sockets." },
@@ -135,6 +136,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDescription: "Intuitive digital interfaces, comprehensive Figma design systems, and data-driven user experience blueprints.",
     fullDescription: "Great design is not just how it looks, but how it works. We conduct user research, establish scalable Figma token systems, map customer journey blueprints, and craft visually striking interfaces that elevate your brand and drive measurable conversions.",
     video: "/videos/validsoft.mp4",
+    image: "https://images.unsplash.com/photo-1581291518655-9523c932edcf?q=80&w=1200&auto=format&fit=crop",
     technologies: ["Figma", "Design Systems", "Prototyping", "User Research", "Wireframing", "Tailwind Tokens", "A/B Testing"],
     features: [
       { title: "Design System Architecture", desc: "Modular component libraries with atomic design tokens for seamless Figma-to-code parity." },
@@ -169,6 +171,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDescription: "Intuitive iOS and Android apps powered by React Native and Flutter with native performance and offline sync.",
     fullDescription: "We design and build engaging mobile applications that users love. Leveraging React Native, Flutter, Swift, and Kotlin, our team crafts pixel-perfect native experiences with biometric authentication, push notifications, and background processing.",
     video: "/videos/socan.mp4",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop",
     technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "GraphQL", "Redux Toolkit", "Fastlane"],
     features: [
       { title: "Cross-Platform Efficiency", desc: "Single codebase delivering authentic native iOS and Android performance with 40% lower cost." },
@@ -204,6 +207,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDescription: "Custom LLM solutions, retrieval-augmented generation (RAG), conversational agents, and predictive analytics pipelines.",
     fullDescription: "Harness the transformative power of modern Artificial Intelligence. We build custom conversational AI agents, private enterprise RAG pipelines, computer vision systems, and automated predictive intelligence models tailored to your proprietary data.",
     video: "/videos/zobay.mp4",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     technologies: ["OpenAI APIs", "LangChain", "Llama 3", "Pinecone", "pgvector", "Python", "PyTorch", "FastAPI"],
     features: [
       { title: "Enterprise RAG Pipelines", desc: "Semantic vector search across proprietary documentation with zero data leakage guarantees." },
@@ -238,7 +242,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDescription: "AWS, Azure, and GCP architecture, automated Kubernetes clusters, serverless pipelines, and SOC-2 compliance.",
     fullDescription: "Modernize your infrastructure for infinite scalability and minimal cloud expenditure. We architect multi-region Kubernetes clusters, automated CI/CD deployment pipelines, serverless microservices, and airtight cybersecurity controls.",
     video: "/videos/baseone.mp4",
-    image: "/images/products/cloud_solutions.jpg",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
     technologies: ["AWS", "Microsoft Azure", "Google Cloud", "Kubernetes", "Terraform", "Docker", "Cloudflare", "Datadog"],
     features: [
       { title: "Infrastructure as Code (IaC)", desc: "100% reproducible environments configured with Terraform, Ansible, and Helm charts." },
@@ -273,6 +277,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDescription: "End-to-end technical roadmap consulting, legacy code refactoring, enterprise ERP/CRM integration, and process automation.",
     fullDescription: "Accelerate your company's digital maturity. We partner with executive leadership to audit technical debt, replace obsolete manual spreadsheets with unified business operating systems, and implement automated enterprise workflows.",
     video: "/videos/legalx.mp4",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop",
     technologies: ["Enterprise Architecture", "Microservices", "ERP/CRM", "BPMN Workflows", "GraphQL", "Legacy Migration", "Security"],
     features: [
       { title: "Legacy System Modernization", desc: "Safe incremental migration from outdated monolithic codebases to modular microservices." },

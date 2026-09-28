@@ -78,7 +78,7 @@ export default function ContactPage() {
         {/* ── 3. WIDE CHARCOAL CONTACT FORM (Exact Screenshot 111602.png) ── */}
         <section className="max-w-[1140px] mx-auto px-5 sm:px-8">
           {submitted ? (
-            <div className="p-8 sm:p-12 rounded-2xl bg-[#222222] border border-white/10 text-center space-y-4">
+            <div className="p-8 sm:p-12 rounded-xl bg-[#222222] border border-white/10 text-center space-y-4">
               <div className="w-14 h-14 rounded-full bg-[#82FFCD] text-black font-bold text-xl flex items-center justify-center mx-auto">
                 ✓
               </div>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                   setSubmitted(false);
                   setForm({ name: "", email: "", phone: "", source: "", message: "" });
                 }}
-                className="px-6 py-2.5 rounded-full bg-white text-black font-semibold text-xs transition-all hover:bg-[#82FFCD] cursor-pointer"
+                className="px-6 py-2.5 rounded-[4px] bg-white text-black font-semibold text-xs transition-all hover:bg-[#82FFCD] cursor-pointer"
               >
                 Send another message
               </button>
@@ -108,7 +108,7 @@ export default function ContactPage() {
                     placeholder="Name*"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="dark-input w-full px-5 py-4 text-sm rounded-xl h-14"
+                    className="dark-input w-full px-5 py-4 text-sm rounded-[4px] h-14"
                   />
                 </div>
                 <div>
@@ -118,7 +118,7 @@ export default function ContactPage() {
                     placeholder="Email*"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="dark-input w-full px-5 py-4 text-sm rounded-xl h-14"
+                    className="dark-input w-full px-5 py-4 text-sm rounded-[4px] h-14"
                   />
                 </div>
               </div>
@@ -131,7 +131,7 @@ export default function ContactPage() {
                     placeholder="Phone"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    className="dark-input w-full px-5 py-4 text-sm rounded-xl h-14"
+                    className="dark-input w-full px-5 py-4 text-sm rounded-[4px] h-14"
                   />
                 </div>
                 <div>
@@ -140,7 +140,7 @@ export default function ContactPage() {
                     placeholder="How did you hear about us?"
                     value={form.source}
                     onChange={(e) => setForm({ ...form, source: e.target.value })}
-                    className="dark-input w-full px-5 py-4 text-sm rounded-xl h-14"
+                    className="dark-input w-full px-5 py-4 text-sm rounded-[4px] h-14"
                   />
                 </div>
               </div>
@@ -153,7 +153,7 @@ export default function ContactPage() {
                   placeholder="Message*"
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="dark-input w-full px-5 py-4 text-sm rounded-xl resize-none h-40"
+                  className="dark-input w-full px-5 py-4 text-sm rounded-[4px] resize-none h-40"
                 />
               </div>
 
@@ -162,7 +162,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-12 py-3.5 rounded-full bg-[#82FFCD] hover:bg-[#68f5b8] text-black font-semibold text-sm transition-all shadow-md cursor-pointer disabled:opacity-50"
+                  className="px-12 py-3.5 rounded-[4px] bg-[#82FFCD] hover:bg-[#68f5b8] text-black font-semibold text-sm transition-all shadow-md cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
